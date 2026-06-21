@@ -2,9 +2,11 @@ import gzip
 from pathlib import Path
 
 import mgba.core
+import mgba.log
 from mgba.gba import GBA
 from mgba.image import Image
 
+mgba.log.silence()
 
 GBA_WIDTH  = 240
 GBA_HEIGHT = 160
