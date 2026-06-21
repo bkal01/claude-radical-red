@@ -218,3 +218,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 notes/
+radicalred.gba
+radicalred.sav
+save_state
+save_state.ss0
