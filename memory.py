@@ -1,12 +1,7 @@
+import json
 from dataclasses import dataclass
+from pathlib import Path
 
-
-"""
-Magic Numbers
-
-We have a few magic numbers that we need to track that will let us read/write to memory directly
-rather than navigating the in-game menus.
-"""
 
 # FireRed party memory layout (EWRAM)
 PARTY_COUNT_ADDR = 0x02024029
@@ -36,25 +31,47 @@ STATUS_FREEZE   = 0x20
 STATUS_PARALYZE = 0x40
 STATUS_TOXIC    = 0x80
 
+_STATUS_TABLE = [
+    (STATUS_SLEEP,    "sleep"),
+    (STATUS_TOXIC,    "badly_poisoned"),  # check before POISON — toxic sets both bits
+    (STATUS_POISON,   "poison"),
+    (STATUS_BURN,     "burn"),
+    (STATUS_FREEZE,   "frozen"),
+    (STATUS_PARALYZE, "paralyzed"),
+]
+
+def decode_status(raw: int) -> str | None:
+    return next((name for mask, name in _STATUS_TABLE if raw & mask), None)
+
+
 # Radical Red move data ROM table (empirically found; differs from vanilla FireRed 0x08250C04
 # which only covers moves 1-354; Radical Red's full table including Gen 4-9 moves is here).
 _MOVE_TABLE = 0x091521D0
 _MOVE_SIZE  = 12
 _MOVE_PP    = 4  # base PP byte offset within a move entry
 
+# Move ID → name, generated from the ROM by scripts/extract_moves.py.
+_moves    = json.loads((Path(__file__).parent / "data" / "moves.json").read_text())
+MOVE_NAME = {i: name for i, name in enumerate(_moves) if name}
+
+# Species ID → name for the benchmark team.
+SPECIES_NAME = {
+    130: "Gyarados",  355: "Mawile",
+    935: "Armarouge", 936: "Kingambit",
+    944: "Incineroar", 980: "Tsareena",
+}
+
 
 @dataclass
 class PartyPokemon:
-    """
-    Represents a single pokemon in the party.
-    """
-    species: int
+    name: str
+    species_id: int                     # raw national dex number; needed for ROM table lookups
     held_item: int
-    moves: tuple[int, int, int, int]
+    moves: tuple[str, str, str, str]   # empty string for empty slots
     pp: tuple[int, int, int, int]
     current_hp: int
     max_hp: int
-    status: int
+    status: str | None                  # None = healthy
     level: int
 
 
@@ -72,33 +89,27 @@ def _max_pp(mem, move_id: int, pp_ups: int) -> int:
 
 
 def read_slot(mem, slot: int) -> PartyPokemon:
-    """
-    Read a single pokemon in the party from memory.
-    The party is stored in memory as a contiguous block of memory, with each pokemon being 100 bytes.
-    We read 4 specific words from this memory block to get the data for the pokemon at `slot`.
-    """
     base = PARTY_BASE_ADDR + slot * SLOT_SIZE
     g0 = mem.u32[base + _G0]
     a0 = mem.u32[base + _A0]
     a1 = mem.u32[base + _A1]
     a2 = mem.u32[base + _A2]
+    species_id = g0 & 0xFFFF
+    move_ids   = (a0 & 0xFFFF, (a0 >> 16) & 0xFFFF, a1 & 0xFFFF, (a1 >> 16) & 0xFFFF)
     return PartyPokemon(
-        species=g0 & 0xFFFF,
+        name=SPECIES_NAME.get(species_id, f"species_{species_id}"),
+        species_id=species_id,
         held_item=(g0 >> 16) & 0xFFFF,
-        moves=(a0 & 0xFFFF, (a0 >> 16) & 0xFFFF, a1 & 0xFFFF, (a1 >> 16) & 0xFFFF),
+        moves=tuple(MOVE_NAME.get(mid, "") for mid in move_ids),
         pp=(a2 & 0xFF, (a2 >> 8) & 0xFF, (a2 >> 16) & 0xFF, (a2 >> 24) & 0xFF),
         current_hp=mem.u16[base + _CURHP],
         max_hp=mem.u16[base + _MAXHP],
-        status=mem.u32[base + _STATUS],
+        status=decode_status(mem.u32[base + _STATUS]),
         level=mem.u8[base + _LEVEL],
     )
 
 
 def write_slot(mem, slot: int, *, moves: tuple[int, int, int, int], held_item: int) -> None:
-    """
-    Write a single pokemon to memory in the party.
-    Functionally follows the same pattern as read_slot.
-    """
     base = PARTY_BASE_ADDR + slot * SLOT_SIZE
 
     species = mem.u32[base + _G0] & 0xFFFF
