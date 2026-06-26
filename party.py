@@ -136,3 +136,12 @@ def party_count(mem) -> int:
 
 def read_party(mem) -> list[PartyPokemon]:
     return [read_slot(mem, i) for i in range(party_count(mem))]
+
+
+def swap_slots(mem, slot_a: int, slot_b: int) -> None:
+    base_a = PARTY_BASE_ADDR + slot_a * SLOT_SIZE
+    base_b = PARTY_BASE_ADDR + slot_b * SLOT_SIZE
+    for i in range(0, SLOT_SIZE, 4):
+        a_val = mem.u32[base_a + i]
+        mem.u32[base_a + i] = mem.u32[base_b + i]
+        mem.u32[base_b + i] = a_val

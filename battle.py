@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from emulator import Emulator, KEY_A, KEY_B, KEY_DOWN, KEY_RIGHT, KEY_UP
-import memory
+import party
 
 
 # EWRAM addresses — verified empirically against the Radical Red ROM.
@@ -39,12 +39,12 @@ POLL_FRAMES         = 5    # poll BATTLE_TYPE_FLAGS every N frames inside the B-
 
 
 def build_slot_map(mem) -> dict[str, int]:
-    return {p.name: i for i, p in enumerate(memory.read_party(mem))}
+    return {p.name: i for i, p in enumerate(party.read_party(mem))}
 
 
 @dataclass
 class BattleState:
-    party: list[memory.PartyPokemon]   # all party members in party-slot order
+    party: list[party.PartyPokemon]   # all party members in party-slot order
     active_slot: int                   # which party slot is currently on the field
     weather: int                       # BATTLE_WEATHER bitmask (0x08 = sandstorm)
     weather_turns_left: int            # WEATHER_TIMER countdown
@@ -61,7 +61,7 @@ def _read_stat_stages(mem, battler_idx: int) -> tuple[int, ...]:
 
 def read_battle_state(mem, active_slot: int) -> BattleState:
     return BattleState(
-        party=memory.read_party(mem),
+        party=party.read_party(mem),
         active_slot=active_slot,
         weather=mem.u32[BATTLE_WEATHER] & 0xFF,
         weather_turns_left=mem.u8[WEATHER_TIMER],
@@ -93,7 +93,7 @@ class BattleResult:
 # ---------------------------------------------------------------------------
 
 def _hp_snapshot(mem) -> tuple:
-    return tuple((p.current_hp, p.max_hp) for p in memory.read_party(mem))
+    return tuple((p.current_hp, p.max_hp) for p in party.read_party(mem))
 
 
 def _battle_active(mem) -> bool:
@@ -101,7 +101,7 @@ def _battle_active(mem) -> bool:
 
 
 def _find_move_slot(mem, move_name: str, active_slot: int) -> int:
-    poke = memory.read_slot(mem, active_slot)
+    poke = party.read_slot(mem, active_slot)
     for i, name in enumerate(poke.moves):
         if name == move_name:
             return i

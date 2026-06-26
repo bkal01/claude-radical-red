@@ -44,7 +44,7 @@ class Emulator:
 
     @property
     def mem(self):
-        """Memory object for use with memory.py functions."""
+        """Memory object for use with party.py functions."""
         return self._core.memory
 
     def step(self, frames: int = 1) -> None:
