@@ -46,6 +46,7 @@ def build_slot_map(mem) -> dict[str, int]:
 class BattleState:
     party: list[party.PartyPokemon]   # all party members in party-slot order
     active_slot: int                   # which party slot is currently on the field
+    needs_replacement: bool            # True when active Pokemon fainted; agent must SEND next
     weather: int                       # BATTLE_WEATHER bitmask (0x08 = sandstorm)
     weather_turns_left: int            # WEATHER_TIMER countdown
     stat_stages: tuple[int, ...]       # player active: (ATK,DEF,SPE,SPA,SPD,ACC,EVA) neutral=6
@@ -60,9 +61,11 @@ def _read_stat_stages(mem, battler_idx: int) -> tuple[int, ...]:
 
 
 def read_battle_state(mem, active_slot: int) -> BattleState:
+    poke_party = party.read_party(mem)
     return BattleState(
-        party=party.read_party(mem),
+        party=poke_party,
         active_slot=active_slot,
+        needs_replacement=poke_party[active_slot].current_hp == 0,
         weather=mem.u32[BATTLE_WEATHER] & 0xFF,
         weather_turns_left=mem.u8[WEATHER_TIMER],
         stat_stages=_read_stat_stages(mem, 0),
