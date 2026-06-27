@@ -77,7 +77,7 @@ def read_battle_state(mem, active_slot: int, poke_party: list[party.PartyPokemon
     return BattleState(
         party=poke_party,
         active_slot=active_slot,
-        needs_replacement=poke_party[active_slot].current_hp == 0,
+        needs_replacement=mem.u16[BATTLE_MONS_BASE + _MON_CUR_HP] == 0,
         weather=weather_val,
         weather_turns_left=weather_turns_left,
         stat_stages=stat_stages,
@@ -206,6 +206,20 @@ def _b_press_loop(emu: Emulator) -> tuple[bool, bool]:
     return False, False
 
 
+def _find_active_slot(mem, active_party: party.Party) -> int:
+    """Re-derive active_slot from gBattleMons[0] species after any turn.
+
+    Reading gBattleMons[0] directly is immune to EWRAM party reordering that
+    Radical Red performs when the active Pokemon faints (forced replacement).
+    """
+    species_id = mem.u16[BATTLE_MONS_BASE + _MON_SPECIES]
+    name = party.SPECIES_NAME.get(species_id, f"species_{species_id}")
+    try:
+        return active_party.get_slot_number(name)
+    except KeyError:
+        return 0
+
+
 def run(emu: Emulator, agent, active_party: party.Party) -> BattleResult:
     """
     Execute one full Giovanni battle attempt.
@@ -258,19 +272,20 @@ def run(emu: Emulator, agent, active_party: party.Party) -> BattleResult:
     while True:
         active_party.refresh()
         state  = read_battle_state(emu.mem, active_slot, active_party.members)
+        emu.pause_recording()
         action_string = agent.step(state, steps)
+        emu.resume_recording()
 
         action_type, action_arg = action_string.split(maxsplit=1)
         execute(emu, action_type, action_arg, active_party, active_slot)
         player_first = None if action_type == "SEND" else (emu.mem.u8[BATTLER_TURN_ORDER] == 0)
         ended, won = _b_press_loop(emu)
 
-        if action_type in ("SWITCH", "SEND"):
-            active_slot = active_party.get_slot_number(action_arg)
-
         opp_move = emu.mem.u16[LAST_MOVES + 2]
         active_party.refresh()
         hp_snap = tuple((p.current_hp, p.max_hp) for p in active_party.members)
+        if not ended:
+            active_slot = _find_active_slot(emu.mem, active_party)
 
         step += 1
         steps.append(StepLog(

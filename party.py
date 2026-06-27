@@ -58,17 +58,9 @@ MOVE_NAME = {i: name for i, name in enumerate(_moves) if name}
 _abilities    = json.loads((Path(__file__).parent / "data" / "abilities.json").read_text())
 ABILITY_NAME  = {i: name for i, name in enumerate(_abilities) if name}
 
-# Species ID → name for the benchmark team.
-SPECIES_NAME = {
-    # Player team
-    130: "Gyarados",  355: "Mawile",
-    935: "Armarouge", 936: "Kingambit",
-    944: "Incineroar", 980: "Tsareena",
-    # Giovanni's team — IDs verified as encountered; add others as they appear in gBattleMons[1]
-    503: "Hippowdon",
-    442: "Torterra",   # HP 189 @ Lv57, Earthquake user; appears 2nd in battle
-    498: "Garchomp",   # HP 207 @ Lv57 (exact match 31 IVs), Swords Dance user; appears 3rd
-}
+# Species ID → name, generated from the ROM by scripts/extract_species.py.
+_species     = json.loads((Path(__file__).parent / "data" / "species.json").read_text())
+SPECIES_NAME = {i: name for i, name in enumerate(_species) if name}
 
 
 @dataclass
