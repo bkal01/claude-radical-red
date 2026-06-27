@@ -36,6 +36,9 @@ class Emulator:
         self._core.set_video_buffer(self._image)
         self._core.reset()
 
+        self._recorder = None
+        self._frame_count = 0
+
     def load_state(self) -> None:
         """Reset to the save state loaded at construction time."""
         raw = gzip.decompress(self._save_state_path.read_bytes())
@@ -47,9 +50,15 @@ class Emulator:
         """Memory object for use with party.py functions."""
         return self._core.memory
 
+    def set_recorder(self, recorder) -> None:
+        self._recorder = recorder
+
     def step(self, frames: int = 1) -> None:
         for _ in range(frames):
             self._core.run_frame()
+            self._frame_count += 1
+            if self._recorder is not None and self._frame_count % 2 == 0:
+                self._recorder.capture(self._image)
 
     def press(self, key: int, hold_frames: int = 1) -> None:
         self._core.set_keys(key)

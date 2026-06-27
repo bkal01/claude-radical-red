@@ -1,7 +1,5 @@
 import argparse
 import os
-from dataclasses import dataclass
-from datetime import datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -10,6 +8,7 @@ from openai import OpenAI
 from agent import Agent
 from battle import BattleState, StepLog
 from context import build_action_context, build_lead_context, build_replacement_context
+from party import PartyPokemon
 
 load_dotenv()
 
@@ -18,15 +17,6 @@ _SYSTEM_PROMPT = (
     "On the first line of your response, write 'REASONING: ' followed by one sentence explaining your decision. "
     "On the second line, write your answer exactly as instructed by the user."
 )
-
-
-@dataclass
-class _LLMLog:
-    attempt: int
-    turn: int | None  # None for pick_lead
-    kind: str         # "lead", "action", "replacement"
-    reasoning: str | None
-    action: str
 
 
 class SimpleAgent(Agent):
@@ -45,8 +35,9 @@ class SimpleAgent(Agent):
     ):
         super().__init__(team, max_attempts)
         self.model_name = model_name
-        self._entries: list[_LLMLog] = []
-        self._run_ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self._log_path = f"logs/battle_{self.run_id}.md"
+        Path("logs").mkdir(exist_ok=True)
+        Path(self._log_path).write_text("# Battle Log\n\n")
 
         self.client = OpenAI(
             api_key=os.environ.get("LLM_API_KEY"),
@@ -75,43 +66,54 @@ class SimpleAgent(Agent):
         action = lines[-1] if lines else raw
         return action, reasoning
 
-    def _log(self, entry: _LLMLog) -> None:
-        self._entries.append(entry)
-        turn_str = f", Turn {entry.turn}" if entry.turn is not None else ""
-        label = f"Attempt {entry.attempt}{turn_str} | {entry.kind}"
-        reasoning_str = f'"{entry.reasoning}"' if entry.reasoning else "(no reasoning)"
-        print(f"[{label}] → {entry.action}  |  {reasoning_str}")
+    def log(self, state: BattleState | None, action: str, reasoning: str | None) -> None:
+        attempt = len(self.prior_attempts) + 1
+        if state is None:
+            label = f"Attempt {attempt} | lead"
+        elif state.needs_replacement:
+            label = f"Attempt {attempt} | replacement"
+        else:
+            label = f"Attempt {attempt} | action"
+
+        reasoning_str = f'"{reasoning}"' if reasoning else "(no reasoning)"
+        print(f"[{label}] → {action}  |  {reasoning_str}")
+
+        lines = [f"### {label}"]
+        if state is not None:
+            party_strs = []
+            for i, p in enumerate(state.party):
+                marker = " *(active)*" if i == state.active_slot else ""
+                if p.current_hp == 0:
+                    party_strs.append(f"~~{p.name}~~ (fainted){marker}")
+                else:
+                    party_strs.append(f"{p.name} {p.current_hp}/{p.max_hp}{marker}")
+            lines.append("**My party:** " + ", ".join(party_strs))
+
+            opp_hp = (
+                f"{state.opp_current_hp}/{state.opp_max_hp}"
+                if state.opp_current_hp is not None
+                else "?/?"
+            )
+            lines.append(f"**Opp active:** {state.opp_species} {opp_hp} HP")
+
+        if reasoning:
+            lines.append(f"**Reasoning:** {reasoning}")
+        lines.append(f"**Action:** `{action}`")
+        lines.append("")
+        with open(self._log_path, "a") as f:
+            f.write("\n".join(lines) + "\n")
 
     def pick_lead(self) -> str:
-        attempt = len(self.prior_attempts) + 1
         context = build_lead_context(self.team, self.prior_attempts)
         action, reasoning = self.call_llm(context)
-        self._log(_LLMLog(attempt=attempt, turn=None, kind="lead", reasoning=reasoning, action=action))
+        self.log(None, action, reasoning)
         return action
 
     def step(self, state: BattleState, history: list[StepLog]) -> str:
-        attempt = len(self.prior_attempts) + 1
-        turn = len(history) + 1
         if state.needs_replacement:
-            kind = "replacement"
             context = build_replacement_context(state, history, self.team, self.prior_attempts)
         else:
-            kind = "action"
             context = build_action_context(state, history, self.team, self.prior_attempts)
         action, reasoning = self.call_llm(context)
-        self._log(_LLMLog(attempt=attempt, turn=turn, kind=kind, reasoning=reasoning, action=action))
+        self.log(state, action, reasoning)
         return f"SEND {action}" if state.needs_replacement else action
-
-    def write_log(self, _path: str = "") -> None:
-        Path("logs").mkdir(exist_ok=True)
-        log_path = f"logs/battle_{self._run_ts}.md"
-        sections = ["# Battle Log\n"]
-        for e in self._entries:
-            turn_str = f", Turn {e.turn}" if e.turn is not None else ""
-            sections.append(f"### Attempt {e.attempt}{turn_str} — {e.kind}")
-            if e.reasoning:
-                sections.append(f"**Reasoning:** {e.reasoning}")
-            sections.append(f"**Action:** `{e.action}`")
-            sections.append("")
-        Path(log_path).write_text("\n".join(sections))
-        print(f"Log written to {log_path}")

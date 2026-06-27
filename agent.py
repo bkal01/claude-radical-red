@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from datetime import datetime
 
 from battle import AttemptRecord, BattleState, StepLog
 
@@ -9,6 +10,7 @@ class Agent(ABC):
         self.team = team
         self.max_attempts = max_attempts
         self.prior_attempts: list[AttemptRecord] = []
+        self.run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     @abstractmethod
     def pick_lead(self) -> str:
