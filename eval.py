@@ -3,23 +3,24 @@ from pathlib import Path
 
 from party import Party
 from battle import AttemptRecord, run as run_battle
-from agent import HardcodedAgent
+from agents import REGISTRY
 from emulator import Emulator
 
 ROM_PATH        = "radicalred.gba"
 SAVE_STATE_PATH = "save_state.ss0"
-LOG_PATH        = "battle_log.md"
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--team", default="default")
-    parser.add_argument("--max-attempts", type=int, default=2)
+    parser.add_argument("--max-attempts", type=int, default=1)
+    parser.add_argument("--agent", default="simple", choices=REGISTRY.keys())
+    parser.add_argument("--model", default="gpt-5-mini")
     args = parser.parse_args()
 
     team = Path(f"data/teams/{args.team}.md").read_text()
     emu = Emulator(ROM_PATH, SAVE_STATE_PATH)
-    agent = HardcodedAgent(team, max_attempts=args.max_attempts)
+    agent = REGISTRY[args.agent].from_args(team, args)
 
     for _ in range(agent.max_attempts):
         emu.load_state()
@@ -46,8 +47,7 @@ def main() -> None:
         if result.won:
             break
 
-    agent.write_log(LOG_PATH)
-    print(f"Log written to {LOG_PATH}")
+    agent.write_log()
 
 
 if __name__ == "__main__":
