@@ -54,11 +54,20 @@ _MOVE_PP    = 4  # base PP byte offset within a move entry
 _moves    = json.loads((Path(__file__).parent / "data" / "moves.json").read_text())
 MOVE_NAME = {i: name for i, name in enumerate(_moves) if name}
 
+# Ability ID → name, generated from the ROM by scripts/extract_abilities.py.
+_abilities    = json.loads((Path(__file__).parent / "data" / "abilities.json").read_text())
+ABILITY_NAME  = {i: name for i, name in enumerate(_abilities) if name}
+
 # Species ID → name for the benchmark team.
 SPECIES_NAME = {
+    # Player team
     130: "Gyarados",  355: "Mawile",
     935: "Armarouge", 936: "Kingambit",
     944: "Incineroar", 980: "Tsareena",
+    # Giovanni's team — IDs verified as encountered; add others as they appear in gBattleMons[1]
+    503: "Hippowdon",
+    442: "Torterra",   # HP 189 @ Lv57, Earthquake user; appears 2nd in battle
+    498: "Garchomp",   # HP 207 @ Lv57 (exact match 31 IVs), Swords Dance user; appears 3rd
 }
 
 
@@ -138,10 +147,32 @@ def read_party(mem) -> list[PartyPokemon]:
     return [read_slot(mem, i) for i in range(party_count(mem))]
 
 
-def swap_slots(mem, slot_a: int, slot_b: int) -> None:
-    base_a = PARTY_BASE_ADDR + slot_a * SLOT_SIZE
-    base_b = PARTY_BASE_ADDR + slot_b * SLOT_SIZE
-    for i in range(0, SLOT_SIZE, 4):
-        a_val = mem.u32[base_a + i]
-        mem.u32[base_a + i] = mem.u32[base_b + i]
-        mem.u32[base_b + i] = a_val
+class Party:
+    def __init__(self, mem) -> None:
+        self._mem = mem
+        self.refresh()
+
+    def refresh(self) -> None:
+        self.members = read_party(self._mem)
+        self._slot_map = {p.name: i for i, p in enumerate(self.members)}
+
+    @property
+    def names(self) -> list[str]:
+        return [p.name for p in self.members]
+
+    def get_slot_number(self, name: str) -> int:
+        return self._slot_map[name]
+
+    def set_lead(self, name: str) -> None:
+        if self.members[0].name == name:
+            return
+
+        # swap the two pokemon in game memory
+        slot = next(i for i, p in enumerate(self.members) if p.name == name)
+        base_a = PARTY_BASE_ADDR
+        base_b = PARTY_BASE_ADDR + slot * SLOT_SIZE
+        for i in range(0, SLOT_SIZE, 4):
+            a_val = self._mem.u32[base_a + i]
+            self._mem.u32[base_a + i] = self._mem.u32[base_b + i]
+            self._mem.u32[base_b + i] = a_val
+        self.members[0], self.members[slot] = self.members[slot], self.members[0]

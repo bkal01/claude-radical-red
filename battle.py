@@ -1,8 +1,7 @@
-from collections.abc import Callable
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+
 from emulator import Emulator, KEY_A, KEY_B, KEY_DOWN, KEY_RIGHT, KEY_UP
 import party
-
 
 # EWRAM addresses — verified empirically against the Radical Red ROM.
 BATTLE_TYPE_FLAGS = 0x02022B4C  # u32: non-zero while in a trainer battle; clears when battle ends
@@ -24,6 +23,12 @@ BATTLE_MON_SIZE   = 0x58        # bytes per battler struct
 _MON_SPECIES     = 0x00  # u16
 _MON_ABILITY     = 0x20  # u8 (Intimidate=22, Sand Stream=45)
 _MON_STAT_STAGES = 0x19  # u8[7]: ATK DEF SPE SPA SPD ACC EVA; neutral=6, range 0–12
+_MON_CUR_HP      = 0x28  # u16 — verified: decreases with damage
+_MON_MAX_HP      = 0x2C  # u16 — verified: constant across turns (was 0x2A, which read garbage)
+
+# gBattlerByTurnOrder — u8: which battler (0=player, 1=opponent) acts first this turn.
+# Verified empirically: reads 0 after Fake Out (player priority), 1 when Hippowdon is faster.
+BATTLER_TURN_ORDER    = 0x02023D6D
 
 # Side status — bit 0x10 = SIDE_STATUS_STEALTH_ROCK; set when SR is placed on that side.
 # 0x02023DDE confirmed to flip 0→16 when Hippowdon uses Stealth Rock (persistent across turns).
@@ -35,93 +40,97 @@ SIDE_STATUS_OPP    = 0x02023DEE  # u8/u32 bitmask, opponent's field side
 INTRO_A_PRESSES     = 30   # A presses after battle flag to advance trainer/send-out dialogue
 INTRO_SETTLE_FRAMES = 500  # additional wait for auto-advancing messages (Intimidate, weather)
 TURN_WAIT_B_PRESSES = 30   # B presses per turn: advances text boxes; safe on battle menu (cursor stays at FIGHT)
-POLL_FRAMES         = 5    # poll BATTLE_TYPE_FLAGS every N frames inside the B-press loop
 
-
-def build_slot_map(mem) -> dict[str, int]:
-    return {p.name: i for i, p in enumerate(party.read_party(mem))}
-
+@dataclass
+class SideHazards:
+    stealth_rock: bool
+    spikes: int       # 0–3 layers (address TBD)
+    toxic_spikes: int # 0–2 layers (address TBD)
 
 @dataclass
 class BattleState:
     party: list[party.PartyPokemon]   # all party members in party-slot order
     active_slot: int                   # which party slot is currently on the field
-    needs_replacement: bool            # True when active Pokemon fainted; agent must SEND next
-    weather: int                       # BATTLE_WEATHER bitmask (0x08 = sandstorm)
-    weather_turns_left: int            # WEATHER_TIMER countdown
+    needs_replacement: bool            # True when active Pokemon fainted; agent must name a replacement
+    weather: int                       # BATTLE_WEATHER bitmask (0x08 = permanent sandstorm)
+    weather_turns_left: int | None     # None when weather is permanent (ability-induced); WEATHER_TIMER countdown otherwise
     stat_stages: tuple[int, ...]       # player active: (ATK,DEF,SPE,SPA,SPD,ACC,EVA) neutral=6
     opp_stat_stages: tuple[int, ...]   # opponent active: same layout
-    stealth_rock_player: bool          # SR on player's side
-    stealth_rock_opp: bool             # SR on opponent's side
+    hazards_player: SideHazards        # entry hazards on the player's side
+    hazards_opp: SideHazards           # entry hazards on the opponent's side
+    opp_species: str                   # Giovanni's current active Pokemon name (or "species_XXX" if unknown)
+    opp_ability: str                   # Giovanni's active Pokemon ability name
+    opp_current_hp: int | None         # Giovanni's active Pokemon current HP (None if offset unverified)
+    opp_max_hp: int | None             # Giovanni's active Pokemon max HP (None if offset unverified)
 
 
-def _read_stat_stages(mem, battler_idx: int) -> tuple[int, ...]:
-    base = BATTLE_MONS_BASE + battler_idx * BATTLE_MON_SIZE + _MON_STAT_STAGES
-    return tuple(mem.u8[base + i] for i in range(7))
-
-
-def read_battle_state(mem, active_slot: int) -> BattleState:
-    poke_party = party.read_party(mem)
+def read_battle_state(mem, active_slot: int, poke_party: list[party.PartyPokemon]) -> BattleState:
+    opp_base    = BATTLE_MONS_BASE + BATTLE_MON_SIZE
+    weather_val = mem.u32[BATTLE_WEATHER] & 0xFF
+    # bit 0x08 = WEATHER_SANDSTORM_PERMANENT (Sand Stream); timer is irrelevant for permanent weather
+    weather_turns_left = None if (weather_val & 0x08) else mem.u8[WEATHER_TIMER]
+    stat_stages     = tuple(mem.u8[BATTLE_MONS_BASE + _MON_STAT_STAGES + i] for i in range(7))
+    opp_stat_stages = tuple(mem.u8[opp_base + _MON_STAT_STAGES + i] for i in range(7))
+    opp_cur = mem.u16[opp_base + _MON_CUR_HP]
+    opp_max = mem.u16[opp_base + _MON_MAX_HP]
+    opp_species_id = mem.u16[opp_base + _MON_SPECIES]
     return BattleState(
         party=poke_party,
         active_slot=active_slot,
         needs_replacement=poke_party[active_slot].current_hp == 0,
-        weather=mem.u32[BATTLE_WEATHER] & 0xFF,
-        weather_turns_left=mem.u8[WEATHER_TIMER],
-        stat_stages=_read_stat_stages(mem, 0),
-        opp_stat_stages=_read_stat_stages(mem, 1),
-        stealth_rock_player=bool(mem.u8[SIDE_STATUS_PLAYER] & 0x10),
-        stealth_rock_opp=bool(mem.u8[SIDE_STATUS_OPP] & 0x10),
+        weather=weather_val,
+        weather_turns_left=weather_turns_left,
+        stat_stages=stat_stages,
+        opp_stat_stages=opp_stat_stages,
+        hazards_player=SideHazards(
+            stealth_rock=bool(mem.u8[SIDE_STATUS_PLAYER] & 0x10),
+            spikes=0,
+            toxic_spikes=0,
+        ),
+        hazards_opp=SideHazards(
+            stealth_rock=bool(mem.u8[SIDE_STATUS_OPP] & 0x10),
+            spikes=0,
+            toxic_spikes=0,
+        ),
+        opp_species=party.SPECIES_NAME.get(opp_species_id, f"species_{opp_species_id}"),
+        opp_ability=party.ABILITY_NAME.get(mem.u8[opp_base + _MON_ABILITY], ""),
+        opp_current_hp=opp_cur if opp_cur < 2000 else None,
+        opp_max_hp=opp_max if opp_max < 2000 else None,
     )
 
 
 @dataclass
 class StepLog:
     step: int
-    action: str          # e.g. "FIGHT Ice Fang", "SWITCH Gyarados", "SEND Mawile"
-    opponent_move: int   # last move ID used by battler 1; 0 if undetected
-    hp_snapshot: tuple   # ((current_hp, max_hp), ...) per party slot after this step
-
+    action: str                        # e.g. "FIGHT Ice Fang", "SWITCH Gyarados", "SEND Mawile"
+    opponent_move: int                 # last move ID used by battler 1; 0 if undetected
+    hp_snapshot: tuple                 # ((current_hp, max_hp), ...) per party slot after this step
+    opp_species: str = ""              # Giovanni's active Pokemon at the start of this step
+    opp_ability: str = ""              # Giovanni's active Pokemon ability at the start of this step
+    player_moved_first: bool | None = None  # None for SEND (forced replacement, not a normal turn)
 
 @dataclass
 class BattleResult:
     won: bool
     turns: int
     pokemon_remaining: int
-    steps: list[StepLog] = field(default_factory=list)
+    steps: list[StepLog]
 
-
-# ---------------------------------------------------------------------------
-# Internal helpers
-# ---------------------------------------------------------------------------
-
-def _hp_snapshot(mem) -> tuple:
-    return tuple((p.current_hp, p.max_hp) for p in party.read_party(mem))
-
-
-def _battle_active(mem) -> bool:
-    return mem.u32[BATTLE_TYPE_FLAGS] != 0
-
-
-def _find_move_slot(mem, move_name: str, active_slot: int) -> int:
-    poke = party.read_slot(mem, active_slot)
-    for i, name in enumerate(poke.moves):
-        if name == move_name:
-            return i
-    raise ValueError(f"{move_name!r} not in party slot {active_slot}'s moveset")
-
-
-def _parse_action(action: str) -> tuple[str, list[str]]:
-    parts = action.split()
-    return parts[0], parts[1:]
-
+@dataclass
+class AttemptRecord:
+    attempt_num: int
+    won: bool
+    turns: int
+    pokemon_remaining: int
+    party_names: list[str]
+    steps: list[StepLog]
 
 # ---------------------------------------------------------------------------
 # Action executors
 # ---------------------------------------------------------------------------
 
-def _fight(emu: Emulator, move_name: str, active_slot: int) -> None:
-    move_slot = _find_move_slot(emu.mem, move_name, active_slot)
+def fight(emu: Emulator, move_name: str, active_party: party.Party, active_slot: int) -> None:
+    move_slot = active_party.members[active_slot].moves.index(move_name)
     row, col  = divmod(move_slot, 2)   # 2-column move grid: slot 0→(0,0), 1→(0,1), 2→(1,0), 3→(1,1)
 
     emu.press(KEY_A)      # open Fight submenu
@@ -146,8 +155,11 @@ def _nav_party_slot(emu: Emulator, target: int) -> None:
         emu.step(8)
 
 
-def _switch(emu: Emulator, pokemon_name: str, slot_of: dict[str, int]) -> None:
-    target = slot_of[pokemon_name]
+def switch(emu: Emulator, pokemon_name: str, active_party: party.Party) -> None:
+    """
+    Switch pokemon_name in for the active pokemon.
+    """
+    target = active_party.get_slot_number(pokemon_name)
     emu.press(KEY_DOWN)   # FIGHT → POKÉMON in the 2×2 battle menu
     emu.step(15)
     emu.press(KEY_A)      # open party screen
@@ -159,10 +171,12 @@ def _switch(emu: Emulator, pokemon_name: str, slot_of: dict[str, int]) -> None:
     emu.step(60)          # allow party screen to close before caller's B-press loop starts
 
 
-def _send(emu: Emulator, pokemon_name: str, slot_of: dict[str, int]) -> None:
-    """Forced replacement — party screen is already open after a faint.
-    The faint animation may still be playing; wait for the party screen to appear first."""
-    target = slot_of[pokemon_name]
+def send(emu: Emulator, pokemon_name: str, active_party: party.Party) -> None:
+    """
+    Forced replacement — party screen is already open after a faint.
+    The faint animation may still be playing; wait for the party screen to appear first.
+    """
+    target = active_party.get_slot_number(pokemon_name)
     emu.step(80)          # wait for party screen transition to complete
     _nav_party_slot(emu, target)
     emu.press(KEY_A)      # select → SEND OUT submenu
@@ -171,49 +185,33 @@ def _send(emu: Emulator, pokemon_name: str, slot_of: dict[str, int]) -> None:
     emu.step(60)
 
 
-def _execute(emu: Emulator, action: str, slot_of: dict[str, int], active_slot: int) -> None:
-    kind, args = _parse_action(action)
+def execute(emu: Emulator, kind: str, arg: str, active_party: party.Party, active_slot: int) -> None:
     if kind == "FIGHT":
-        _fight(emu, " ".join(args), active_slot)
+        fight(emu, arg, active_party, active_slot)
     elif kind == "SWITCH":
-        _switch(emu, args[0], slot_of)
+        switch(emu, arg, active_party)
     elif kind == "SEND":
-        _send(emu, args[0], slot_of)
-    elif kind == "ITEM":
-        raise NotImplementedError("ITEM actions are not yet implemented")
+        send(emu, arg, active_party)
     else:
         raise ValueError(f"Unknown action kind: {kind!r}")
 
 
-def _b_press_loop(emu: Emulator) -> tuple[bool, tuple | None, int]:
-    """
-    Press B up to TURN_WAIT_B_PRESSES times to advance text boxes.
-    Polls BATTLE_TYPE_FLAGS every POLL_FRAMES frames.
-    When the battle ends (flags → 0), immediately captures party HP and opponent move
-    before EWRAM is overwritten by the post-battle sequence.
-
-    Returns: (battle_ended, hp_snapshot_at_end, opponent_move_at_end)
-    If battle is still ongoing: (False, None, last_opponent_move)
-    """
-    frames_per_press = 60 // POLL_FRAMES
+def _b_press_loop(emu: Emulator) -> tuple[bool, bool]:
+    """Press B to advance text; poll for battle end each press. Returns (ended, won)."""
     for _ in range(TURN_WAIT_B_PRESSES):
         emu.press(KEY_B, hold_frames=1)
-        for _ in range(frames_per_press):
-            emu.step(POLL_FRAMES)
-            if not _battle_active(emu.mem):
-                hp_snap    = _hp_snapshot(emu.mem)
-                opp_move   = emu.mem.u16[LAST_MOVES + 2]
-                return True, hp_snap, opp_move
-    opp_move = emu.mem.u16[LAST_MOVES + 2]
-    return False, None, opp_move
+        emu.step(60)
+        if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
+            return True, emu.mem.u16[BATTLE_MONS_BASE + _MON_CUR_HP] > 0
+    return False, False
 
 
-def run(emu: Emulator, get_action: Callable[[BattleState, list[StepLog]], str]) -> BattleResult:
+def run(emu: Emulator, agent, active_party: party.Party) -> BattleResult:
     """
     Execute one full Giovanni battle attempt.
 
-    get_action is called each turn with the current BattleState and the full step
-    history so far; it returns one action string:
+    agent.step is called each turn with the current BattleState and the
+    full step history so far. It returns one action string:
       FIGHT <move_name>  — voluntary move from the battle menu
       SWITCH <pokemon>   — voluntary switch from the battle menu
       SEND <pokemon>     — forced replacement after a faint
@@ -232,7 +230,7 @@ def run(emu: Emulator, get_action: Callable[[BattleState, list[StepLog]], str]) 
     # Hold A for 3 frames (registers the press + speeds up text scroll),
     # then release for 20 frames so the game can process the edge.
     for _ in range(120):
-        if _battle_active(emu.mem):
+        if emu.mem.u32[BATTLE_TYPE_FLAGS] != 0:
             break
         emu.press(KEY_A, hold_frames=3)
         emu.step(20)
@@ -246,41 +244,49 @@ def run(emu: Emulator, get_action: Callable[[BattleState, list[StepLog]], str]) 
         emu.step(40)
     emu.step(INTRO_SETTLE_FRAMES)
 
-    slot_of     = build_slot_map(emu.mem)
     active_slot = 0  # lead is always party slot 0; updated after each switch
-
     steps = []
-    won   = False
     step  = 0
 
+    """
+    In a loop, we will:
+    1. Get the current state of the battle
+    2. Get the next action from the agent via step()
+    3. Execute that action and skip through any text prompts
+    4. Capture a log of what just happened (HP diffs, who moved first, did the battle end, etc.)
+    """
     while True:
-        state  = read_battle_state(emu.mem, active_slot)
-        action = get_action(state, steps)
+        active_party.refresh()
+        state  = read_battle_state(emu.mem, active_slot, active_party.members)
+        action_string = agent.step(state, steps)
 
-        _execute(emu, action, slot_of, active_slot)
-        ended, end_hp, opp_move = _b_press_loop(emu)
+        action_type, action_arg = action_string.split(maxsplit=1)
+        execute(emu, action_type, action_arg, active_party, active_slot)
+        player_first = None if action_type == "SEND" else (emu.mem.u8[BATTLER_TURN_ORDER] == 0)
+        ended, won = _b_press_loop(emu)
 
-        kind, args = _parse_action(action)
-        if kind in ("SWITCH", "SEND"):
-            active_slot = slot_of[args[0]]
+        if action_type in ("SWITCH", "SEND"):
+            active_slot = active_party.get_slot_number(action_arg)
+
+        opp_move = emu.mem.u16[LAST_MOVES + 2]
+        active_party.refresh()
+        hp_snap = tuple((p.current_hp, p.max_hp) for p in active_party.members)
 
         step += 1
-        # Use HP captured at flags-clear when the battle ended; otherwise read current EWRAM.
-        hp_snap = end_hp if ended else _hp_snapshot(emu.mem)
         steps.append(StepLog(
             step=step,
-            action=action,
+            action=action_string,
             opponent_move=opp_move,
             hp_snapshot=hp_snap,
+            opp_species=state.opp_species,
+            opp_ability=state.opp_ability,
+            player_moved_first=player_first,
         ))
 
         if ended:
-            # won = any party pokemon still standing at the exact frame the battle ended
-            won = any(hp > 0 for hp, _ in hp_snap)
             break
 
-    final_hp = steps[-1].hp_snapshot if steps else _hp_snapshot(emu.mem)
-    pokemon_remaining = sum(1 for hp, _ in final_hp if hp > 0)
+    pokemon_remaining = sum(1 for hp, _ in steps[-1].hp_snapshot if hp > 0)
     return BattleResult(
         won=won,
         turns=len(steps),
