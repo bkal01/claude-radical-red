@@ -135,6 +135,11 @@ def fight(emu: Emulator, move_name: str, active_party: party.Party, active_slot:
 
     emu.press(KEY_A)      # open Fight submenu
     emu.step(20)          # wait for submenu to fully open
+    # cursor persists from prior turn; reset to top-left before navigating
+    emu.press(KEY_UP)
+    emu.step(8)
+    emu.press(KEY_LEFT)
+    emu.step(8)
     for _ in range(row):
         emu.press(KEY_DOWN)
         emu.step(8)
