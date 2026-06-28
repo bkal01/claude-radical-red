@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from emulator import Emulator, KEY_A, KEY_B, KEY_DOWN, KEY_RIGHT, KEY_UP
+from emulator import Emulator, KEY_A, KEY_B, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP
 import party
 
 # EWRAM addresses — verified empirically against the Radical Red ROM.
@@ -145,7 +145,16 @@ def fight(emu: Emulator, move_name: str, active_party: party.Party, active_slot:
 
 
 def _nav_party_slot(emu: Emulator, target: int) -> None:
+    # Party screen is a 2x3 grid, slot n is at row=n//2, col=n%2
     # Party screen is a 2×3 grid: slot n is at row=n//2, col=n%2.
+    # The cursor persists between party screen openings, so reset to slot 0 first.
+    # Assumes no wrap at edges (UP at row 0 stays, LEFT at col 0 stays).
+    # for _ in range(3):
+    #     emu.press(KEY_UP)
+    #     emu.step(8)
+    # for _ in range(2):
+    #     emu.press(KEY_LEFT)
+    #     emu.step(8)
     row, col = divmod(target, 2)
     for _ in range(row):
         emu.press(KEY_DOWN)
@@ -159,7 +168,9 @@ def switch(emu: Emulator, pokemon_name: str, active_party: party.Party) -> None:
     """
     Switch pokemon_name in for the active pokemon.
     """
-    target = active_party.get_slot_number(pokemon_name)
+    # Use the visual display slot, not the EWRAM slot. After a forced replacement
+    # Radical Red caches a display order that diverges from EWRAM (see send() below).
+    target = active_party.get_display_slot(pokemon_name)
     emu.press(KEY_DOWN)   # FIGHT → POKÉMON in the 2×2 battle menu
     emu.step(15)
     emu.press(KEY_A)      # open party screen
@@ -175,14 +186,27 @@ def send(emu: Emulator, pokemon_name: str, active_party: party.Party) -> None:
     """
     Forced replacement — party screen is already open after a faint.
     The faint animation may still be playing; wait for the party screen to appear first.
+
+    Radical Red reorders EWRAM when the active Pokemon faints (fainted mons go to the
+    front), and the party screen shows that reordered layout. After the player selects a
+    replacement at display slot S, the game caches a new display order with the sent-in
+    Pokemon at slot 0 (swap of slots 0 and S) — but EWRAM is then restored to its
+    pre-faint order. Future voluntary-switch party screens use the cached display order,
+    not the current EWRAM order, so we must track it explicitly.
     """
-    target = active_party.get_slot_number(pokemon_name)
+    # At this point active_party.members already reflects the faint-reordered EWRAM
+    # (captured by the top-of-loop refresh()). Sync display_pos to that same order so
+    # the visual slot == EWRAM slot, which is true at forced-replacement time.
+    active_party._sync_display_to_ewram()
+    target = active_party.get_display_slot(pokemon_name)
     emu.step(80)          # wait for party screen transition to complete
     _nav_party_slot(emu, target)
     emu.press(KEY_A)      # select → SEND OUT submenu
     emu.step(20)
     emu.press(KEY_A)      # confirm SEND OUT
     emu.step(60)
+    # Game swaps display order: sent-in Pokemon → slot 0, old slot-0 → sent-in's old slot.
+    active_party._update_display_after_send(pokemon_name)
 
 
 def execute(emu: Emulator, kind: str, arg: str, active_party: party.Party, active_slot: int) -> None:

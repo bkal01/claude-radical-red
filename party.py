@@ -143,10 +143,28 @@ class Party:
     def __init__(self, mem) -> None:
         self._mem = mem
         self.refresh()
+        self._sync_display_to_ewram()
 
     def refresh(self) -> None:
         self.members = read_party(self._mem)
         self._slot_map = {p.name: i for i, p in enumerate(self.members)}
+        # Does NOT reset display_pos — it tracks the visual UI order independently.
+
+    def _sync_display_to_ewram(self) -> None:
+        # Reset visual display order to match current EWRAM slot order.
+        # Call this when a faint causes Radical Red to reorder EWRAM to match
+        # the party screen display, before navigating the forced-replacement screen.
+        self.display_pos: dict[str, int] = {p.name: i for i, p in enumerate(self.members)}
+
+    def _update_display_after_send(self, sent_name: str) -> None:
+        # After the player selects a replacement at display slot S, Radical Red
+        # swaps the display order: the sent-in Pokemon takes display slot 0 and
+        # whoever was at slot 0 moves to slot S. This persists for future
+        # voluntary-switch party screens (EWRAM itself is restored separately).
+        slot0_name = next(k for k, v in self.display_pos.items() if v == 0)
+        old_slot = self.display_pos[sent_name]
+        self.display_pos[sent_name] = 0
+        self.display_pos[slot0_name] = old_slot
 
     @property
     def names(self) -> list[str]:
@@ -154,6 +172,10 @@ class Party:
 
     def get_slot_number(self, name: str) -> int:
         return self._slot_map[name]
+
+    def get_display_slot(self, name: str) -> int:
+        """Visual party screen position for this Pokemon (may differ from EWRAM slot)."""
+        return self.display_pos[name]
 
     def set_lead(self, name: str) -> None:
         if self.members[0].name == name:
@@ -168,3 +190,4 @@ class Party:
             self._mem.u32[base_a + i] = self._mem.u32[base_b + i]
             self._mem.u32[base_b + i] = a_val
         self.members[0], self.members[slot] = self.members[slot], self.members[0]
+        self._sync_display_to_ewram()
