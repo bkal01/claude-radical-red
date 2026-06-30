@@ -157,7 +157,7 @@ class Party:
         # the party screen display, before navigating the forced-replacement screen.
         self.display_pos: dict[str, int] = {p.name: i for i, p in enumerate(self.members)}
 
-    def _update_display_after_send(self, sent_name: str) -> None:
+    def update_display_after_send(self, sent_name: str) -> None:
         # After the player selects a replacement at display slot S, Radical Red
         # swaps the display order: the sent-in Pokemon takes display slot 0 and
         # whoever was at slot 0 moves to slot S. This persists for future

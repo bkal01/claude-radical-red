@@ -185,6 +185,9 @@ def switch(emu: Emulator, pokemon_name: str, active_party: party.Party) -> None:
     emu.step(20)
     emu.press(KEY_A)      # confirm SHIFT
     emu.step(60)          # allow party screen to close before caller's B-press loop starts
+    # Radical Red updates its display cache on voluntary switches the same way it does for
+    # forced replacements: the switched-in pokemon swaps to display slot 0.
+    active_party.update_display_after_send(pokemon_name)
 
 
 def send(emu: Emulator, pokemon_name: str, active_party: party.Party) -> None:
@@ -211,7 +214,7 @@ def send(emu: Emulator, pokemon_name: str, active_party: party.Party) -> None:
     emu.press(KEY_A)      # confirm SEND OUT
     emu.step(60)
     # Game swaps display order: sent-in Pokemon → slot 0, old slot-0 → sent-in's old slot.
-    active_party._update_display_after_send(pokemon_name)
+    active_party.update_display_after_send(pokemon_name)
 
 
 def execute(emu: Emulator, kind: str, arg: str, active_party: party.Party, active_slot: int) -> None:
