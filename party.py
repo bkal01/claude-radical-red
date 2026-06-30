@@ -50,9 +50,10 @@ _MOVE_TABLE = 0x091521D0
 _MOVE_SIZE  = 12
 _MOVE_PP    = 4  # base PP byte offset within a move entry
 
-# Move ID → name, generated from the ROM by scripts/extract_moves.py.
-_moves    = json.loads((Path(__file__).parent / "data" / "moves.json").read_text())
-MOVE_NAME = {i: name for i, name in enumerate(_moves) if name}
+# Move ID → data, generated from the ROM by scripts/extract_moves.py.
+_moves     = json.loads((Path(__file__).parent / "data" / "moves.json").read_text())
+MOVE_NAME  = {i: m["name"] for i, m in enumerate(_moves) if m}
+MOVE_DATA  = {i: m for i, m in enumerate(_moves) if m}
 
 # Ability ID → name, generated from the ROM by scripts/extract_abilities.py.
 _abilities    = json.loads((Path(__file__).parent / "data" / "abilities.json").read_text())

@@ -1,4 +1,4 @@
-from party import MOVE_NAME
+from party import MOVE_DATA, MOVE_NAME
 from battle import AttemptRecord, BattleState, SideHazards, StepLog
 
 
@@ -101,10 +101,18 @@ def build_opp_discovery_text(
         else:
             lines.append("**HP:** (not active)")
         lines.append("**Moves:**")
-        moves = info["moves"]
-        for move in moves:
-            lines.append(f"  - {move}")
-        for _ in range(4 - len(moves)):
+        for move_name in info["moves"]:
+            move_id = next((i for i, m in MOVE_DATA.items() if m["name"] == move_name), None)
+            if move_id is not None:
+                m = MOVE_DATA[move_id]
+                power = str(m["power"]) if m["power"] is not None else "—"
+                acc   = f"{m['accuracy']}%" if m["accuracy"] is not None else "—"
+                lines.append(f"  - **{move_name}** | {m['type']} | {m['category']} | Power: {power} | Acc: {acc} | PP: {m['pp']}")
+                if m.get("description"):
+                    lines.append(f"    {m['description']}")
+            else:
+                lines.append(f"  - {move_name}")
+        for _ in range(4 - len(info["moves"])):
             lines.append("  - ?")
         lines.append("")
 
