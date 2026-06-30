@@ -2,9 +2,9 @@
 
 ## Incineroar
 
-**Level:** 57  **Nature:** Impish (+DEF, -SPATK)  **HP:** 184
+**Level:** 57  **Nature:** Impish (+DEF, -SPATK)  **HP:** 183
 
-**Stats:** ATK 157 | DEF 141 | SPATK 103 | SPDEF 122 | SPD 99
+**Stats:** ATK 149 | DEF 126 | SPATK 91 | SPDEF 114 | SPD 85
 
 **Ability:** Intimidate — Lowers the foe's Attack.
 
@@ -28,9 +28,9 @@
 
 ## Kingambit
 
-**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)  **HP:** 194
+**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)  **HP:** 182
 
-**Stats:** ATK 188 | DEF 146 | SPATK 68 | SPDEF 107 | SPD 71
+**Stats:** ATK 178 | DEF 142 | SPATK 67 | SPDEF 103 | SPD 65
 
 **Ability:** SupremeOverlord — Boosts power depending on fainted allies.
 
@@ -54,9 +54,9 @@
 
 ## Mawile
 
-**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)  **HP:** 135
+**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)  **HP:** 126
 
-**Stats:** ATK 128 | DEF 118 | SPATK 71 | SPDEF 70 | SPD 69
+**Stats:** ATK 119 | DEF 104 | SPATK 63 | SPDEF 68 | SPD 69
 
 **Ability:** Intimidate — Lowers the foe's Attack.
 
@@ -80,9 +80,9 @@
 
 ## Tsareena
 
-**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)  **HP:** 151
+**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)  **HP:** 149
 
-**Stats:** ATK 161 | DEF 117 | SPATK 66 | SPDEF 132 | SPD 100
+**Stats:** ATK 156 | DEF 117 | SPATK 55 | SPDEF 116 | SPD 87
 
 **Ability:** Dazzling — Blocks priority moves.
 
@@ -106,9 +106,9 @@
 
 ## Armarouge
 
-**Level:** 57  **Nature:** Modest (+SPATK, -ATK)  **HP:** 174
+**Level:** 57  **Nature:** Modest (+SPATK, -ATK)  **HP:** 165
 
-**Stats:** ATK 72 | DEF 135 | SPATK 182 | SPDEF 109 | SPD 105
+**Stats:** ATK 72 | DEF 120 | SPATK 163 | SPDEF 96 | SPD 91
 
 **Ability:** Weak Armor — Hits by physical moves drop Def but raises Speed.
 
@@ -132,9 +132,9 @@
 
 ## Gyarados
 
-**Level:** 57  **Nature:** Impish (+DEF, -SPATK)  **HP:** 193
+**Level:** 57  **Nature:** Impish (+DEF, -SPATK)  **HP:** 178
 
-**Stats:** ATK 160 | DEF 106 | SPATK 76 | SPDEF 123 | SPD 109
+**Stats:** ATK 153 | DEF 105 | SPATK 69 | SPDEF 120 | SPD 101
 
 **Ability:** Intimidate — Lowers the foe's Attack.
 
