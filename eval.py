@@ -59,6 +59,8 @@ def main() -> None:
     finally:
         if recorder is not None:
             recorder.close()
+        if hasattr(agent, "total_input_tokens"):
+            print(f"\nTokens used: {agent.total_input_tokens:,} in / {agent.total_output_tokens:,} out")
 
 
 if __name__ == "__main__":

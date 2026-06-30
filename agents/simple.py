@@ -12,6 +12,7 @@ from party import PartyPokemon
 
 load_dotenv()
 
+
 _SYSTEM_PROMPT = (
     "You are a Pokemon battle strategist. "
     "On the first line of your response, write 'REASONING: ' followed by one sentence explaining your decision. "
@@ -43,12 +44,14 @@ class SimpleAgent(Agent):
             api_key=os.environ.get("LLM_API_KEY"),
             base_url=os.environ.get("LLM_BASE_URL"),
         )
+        self.total_input_tokens = 0
+        self.total_output_tokens = 0
 
     @classmethod
     def from_args(cls, team: str, args: argparse.Namespace) -> "SimpleAgent":
         return cls(team, max_attempts=args.max_attempts, model_name=args.model)
 
-    def call_llm(self, context: str) -> tuple[str, str | None]:
+    def call_llm(self, context: str) -> tuple[str, str | None, int, int]:
         response = self.client.chat.completions.create(
             model=self.model_name,
             messages=[
@@ -64,9 +67,23 @@ class SimpleAgent(Agent):
                 reasoning = line[len("REASONING:"):].strip()
                 break
         action = lines[-1] if lines else raw
-        return action, reasoning
 
-    def log(self, state: BattleState | None, action: str, reasoning: str | None) -> None:
+        usage = response.usage
+        input_tokens = usage.prompt_tokens if usage else 0
+        output_tokens = usage.completion_tokens if usage else 0
+        self.total_input_tokens += input_tokens
+        self.total_output_tokens += output_tokens
+
+        return action, reasoning, input_tokens, output_tokens
+
+    def log(
+        self,
+        state: BattleState | None,
+        action: str,
+        reasoning: str | None,
+        input_tokens: int,
+        output_tokens: int,
+    ) -> None:
         attempt = len(self.prior_attempts) + 1
         if state is None:
             label = f"Attempt {attempt} | lead"
@@ -76,7 +93,7 @@ class SimpleAgent(Agent):
             label = f"Attempt {attempt} | action"
 
         reasoning_str = f'"{reasoning}"' if reasoning else "(no reasoning)"
-        print(f"[{label}] → {action}  |  {reasoning_str}")
+        print(f"[{label}] → {action}  |  {reasoning_str}  |  {input_tokens} in / {output_tokens} out")
 
         lines = [f"### {label}"]
         if state is not None:
@@ -99,14 +116,15 @@ class SimpleAgent(Agent):
         if reasoning:
             lines.append(f"**Reasoning:** {reasoning}")
         lines.append(f"**Action:** `{action}`")
+        lines.append(f"**Tokens:** {input_tokens} in / {output_tokens} out")
         lines.append("")
         with open(self._log_path, "a") as f:
             f.write("\n".join(lines) + "\n")
 
     def pick_lead(self) -> str:
         context = build_lead_context(self.team, self.prior_attempts)
-        action, reasoning = self.call_llm(context)
-        self.log(None, action, reasoning)
+        action, reasoning, in_tok, out_tok = self.call_llm(context)
+        self.log(None, action, reasoning, in_tok, out_tok)
         return action
 
     def step(self, state: BattleState, history: list[StepLog]) -> str:
@@ -114,6 +132,6 @@ class SimpleAgent(Agent):
             context = build_replacement_context(state, history, self.team, self.prior_attempts)
         else:
             context = build_action_context(state, history, self.team, self.prior_attempts)
-        action, reasoning = self.call_llm(context)
-        self.log(state, action, reasoning)
+        action, reasoning, in_tok, out_tok = self.call_llm(context)
+        self.log(state, action, reasoning, in_tok, out_tok)
         return f"SEND {action}" if state.needs_replacement else action
