@@ -1,7 +1,13 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from battle import AttemptRecord, BattleState, StepLog
+
+if TYPE_CHECKING:
+    from team import TeamConfig
 
 
 class Agent(ABC):
@@ -24,3 +30,7 @@ class Agent(ABC):
           SWITCH <name>   — voluntary switch
           SEND <name>     — forced replacement (wraps agent's name-only output)
         """
+
+    def propose_team(self, current_config: TeamConfig) -> TeamConfig | None:
+        """Called between episodes. Returns a new TeamConfig to use next attempt, or None to keep current."""
+        return None

@@ -5,6 +5,7 @@ from agents import REGISTRY
 from battle import AttemptRecord, run as run_battle
 from emulator import Emulator
 from party import Party
+from team import TeamConfig
 from video import VideoRecorder
 
 ROM_PATH        = "radicalred.gba"
@@ -31,9 +32,13 @@ def main() -> None:
         emu.set_recorder(recorder)
         print(f"Recording to {video_path}")
 
+    emu.load_state()
+    team_config = TeamConfig.from_mem(emu.mem)
+
     try:
         for _ in range(agent.max_attempts):
             emu.load_state()
+            team_config.apply(emu.mem)
 
             party = Party(emu.mem)
             lead = agent.pick_lead()
@@ -56,6 +61,10 @@ def main() -> None:
 
             if result.won:
                 break
+
+            proposed = agent.propose_team(team_config)
+            if proposed is not None:
+                team_config = proposed
     finally:
         if recorder is not None:
             recorder.close()
