@@ -13,6 +13,7 @@ _base_stats = json.loads((Path(__file__).parent / "data" / "base_stats.json").re
 _PID   = 0x00   # u32: PID % 25 = nature index
 _E0    = 0x38   # u32: HP_EV | ATK_EV<<8 | DEF_EV<<16 | SPE_EV<<24
 _E1    = 0x3C   # u32: SPA_EV | SPDEF_EV<<8 | (contest stats, preserved)
+_IV    = 0x48   # u32: IVs packed 5 bits each; bits 30-31 = is_egg | ability
 _LEVEL = 0x54   # u8
 _CURHP = 0x56   # u16
 _MAXHP = 0x58   # u16
@@ -120,6 +121,8 @@ class PokemonConfig:
         mem.u32[base + _E0] = e0
         mem.u32[base + _E1] = e1
         mem.u16[base + 0x1C] = _checksum(mem, base)
+
+        mem.u32[base + _IV] = mem.u32[base + _IV] & 0xC0000000  # zero IV bits, keep is_egg+ability
 
         level  = mem.u8[base + _LEVEL]
         nature = mem.u32[base + _PID] % 25
