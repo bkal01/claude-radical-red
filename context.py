@@ -1,5 +1,5 @@
 from party import MOVE_DATA, MOVE_NAME
-from battle import AttemptRecord, BattleState, SideHazards, StepLog
+from battle import EpisodeRecord, BattleState, SideHazards, StepLog
 
 
 def _fmt_weather(weather: int, turns_left: int | None) -> str:
@@ -19,13 +19,13 @@ def _fmt_hazards(h: SideHazards) -> str:
     return ", ".join(parts) or "None"
 
 
-def _fmt_attempt(attempt: AttemptRecord) -> str:
-    outcome = "WIN" if attempt.won else "LOSS"
+def _fmt_episode(episode: EpisodeRecord) -> str:
+    outcome = "WIN" if episode.won else "LOSS"
     lines = [
-        f"Attempt {attempt.attempt_num} ({outcome}, {attempt.turns} turns, "
-        f"{attempt.pokemon_remaining} Pokemon remaining):"
+        f"Episode {episode.episode_num} ({outcome}, {episode.turns} turns, "
+        f"{episode.pokemon_remaining} Pokemon remaining):"
     ]
-    for s in attempt.steps:
+    for s in episode.steps:
         opp_name = s.opp_species or "?"
         opp_move = (
             MOVE_NAME.get(s.opponent_move, f"move_{s.opponent_move}")
@@ -34,7 +34,7 @@ def _fmt_attempt(attempt: AttemptRecord) -> str:
         )
         hp = ", ".join(
             f"{name} {cur}/{mx}" + (" (fainted)" if cur == 0 else "")
-            for name, (cur, mx) in zip(attempt.party_names, s.hp_snapshot)
+            for name, (cur, mx) in zip(episode.party_names, s.hp_snapshot)
         )
         order = ""
         if s.player_moved_first is True:
@@ -49,7 +49,7 @@ def _fmt_attempt(attempt: AttemptRecord) -> str:
 
 def build_opp_discovery_text(
     history: list[StepLog],
-    prior_attempts: list[AttemptRecord],
+    prior_episodes: list[EpisodeRecord],
     current_opp_species: str = "",
     current_opp_ability: str = "",
     current_opp_hp: int | None = None,
@@ -69,8 +69,8 @@ def build_opp_discovery_text(
         if move and move not in seen[species]["moves"]:
             seen[species]["moves"].append(move)
 
-    for attempt in prior_attempts:
-        for step in attempt.steps:
+    for episode in prior_episodes:
+        for step in episode.steps:
             record(step.opp_species, step.opp_ability, step.opponent_move)
 
     for step in history:
@@ -119,13 +119,13 @@ def build_opp_discovery_text(
     return "\n".join(lines).rstrip()
 
 
-def build_lead_context(team: str, prior_attempts: list[AttemptRecord]) -> str:
-    opp_text = build_opp_discovery_text([], prior_attempts)
-    prior = "\n\n".join(_fmt_attempt(a) for a in prior_attempts) if prior_attempts else "None"
+def build_lead_context(team: str, prior_episodes: list[EpisodeRecord]) -> str:
+    opp_text = build_opp_discovery_text([], prior_episodes)
+    prior = "\n\n".join(_fmt_episode(a) for a in prior_episodes) if prior_episodes else "None"
     return (
         f"YOUR TEAM:\n{team}\n\n"
         f"OPPONENT'S TEAM (discovered so far):\n{opp_text}\n\n"
-        f"PRIOR ATTEMPTS:\n{prior}\n\n"
+        f"PRIOR EPISODES:\n{prior}\n\n"
         f"TASK:\n"
         f"Respond with only the name of the Pokemon you want to lead with "
         f"(one of the names from YOUR TEAM above, spelled exactly)."
@@ -136,7 +136,7 @@ def build_action_context(
     state: BattleState,
     history: list[StepLog],
     team: str,
-    prior_attempts: list[AttemptRecord],
+    prior_episodes: list[EpisodeRecord],
 ) -> str:
     stat_labels = ["ATK", "DEF", "SPE", "SPA", "SPD", "ACC", "EVA"]
 
@@ -190,18 +190,18 @@ def build_action_context(
         history_text = "\n".join(hist_lines)
 
     opp_text = build_opp_discovery_text(
-        history, prior_attempts, state.opp_species, state.opp_ability,
+        history, prior_episodes, state.opp_species, state.opp_ability,
         state.opp_current_hp, state.opp_max_hp
     )
-    prior = "\n\n".join(_fmt_attempt(a) for a in prior_attempts) if prior_attempts else "None"
+    prior = "\n\n".join(_fmt_episode(a) for a in prior_episodes) if prior_episodes else "None"
     state_text = "\n".join(state_lines)
 
     return (
         f"YOUR TEAM:\n{team}\n\n"
         f"OPPONENT'S TEAM (discovered so far):\n{opp_text}\n\n"
         f"CURRENT BATTLE STATE:\n{state_text}\n\n"
-        f"BATTLE HISTORY (this attempt):\n{history_text}\n\n"
-        f"PRIOR ATTEMPTS:\n{prior}\n\n"
+        f"BATTLE HISTORY (this episode):\n{history_text}\n\n"
+        f"PRIOR EPISODES:\n{prior}\n\n"
         f"TASK:\n"
         f"Choose one action. Respond with exactly one line:\n"
         f'  FIGHT <move_name>      — use a move (e.g. "FIGHT Earthquake")\n'
@@ -213,7 +213,7 @@ def build_replacement_context(
     state: BattleState,
     history: list[StepLog],
     team: str,
-    prior_attempts: list[AttemptRecord],
+    prior_episodes: list[EpisodeRecord],
 ) -> str:
     stat_labels = ["ATK", "DEF", "SPE", "SPA", "SPD", "ACC", "EVA"]
 
@@ -264,18 +264,18 @@ def build_replacement_context(
         history_text = "\n".join(hist_lines)
 
     opp_text = build_opp_discovery_text(
-        history, prior_attempts, state.opp_species, state.opp_ability,
+        history, prior_episodes, state.opp_species, state.opp_ability,
         state.opp_current_hp, state.opp_max_hp
     )
-    prior = "\n\n".join(_fmt_attempt(a) for a in prior_attempts) if prior_attempts else "None"
+    prior = "\n\n".join(_fmt_episode(a) for a in prior_episodes) if prior_episodes else "None"
     state_text = "\n".join(state_lines)
 
     return (
         f"YOUR TEAM:\n{team}\n\n"
         f"OPPONENT'S TEAM (discovered so far):\n{opp_text}\n\n"
         f"CURRENT BATTLE STATE:\n{state_text}\n\n"
-        f"BATTLE HISTORY (this attempt):\n{history_text}\n\n"
-        f"PRIOR ATTEMPTS:\n{prior}\n\n"
+        f"BATTLE HISTORY (this episode):\n{history_text}\n\n"
+        f"PRIOR EPISODES:\n{prior}\n\n"
         f"TASK:\n"
         f"Your active Pokemon has fainted. Choose a replacement from your surviving party members.\n"
         f'Respond with only the Pokemon name (e.g. "Gyarados").'

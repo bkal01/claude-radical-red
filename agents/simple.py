@@ -23,18 +23,18 @@ _SYSTEM_PROMPT = (
 class SimpleAgent(Agent):
     """
     At each iteration:
-    - construct the relevant context (team, turn history in this attempt,
-        attempt history, known info about enemy team, etc.)
+    - construct the relevant context (team, turn history in this episode,
+        episode history, known info about enemy team, etc.)
     - make a single call to an LLM with the entire context and receive a single action back
     """
 
     def __init__(
         self,
         team: str,
-        max_attempts: int,
+        max_episodes: int,
         model_name: str = "gpt-5-mini",
     ):
-        super().__init__(team, max_attempts)
+        super().__init__(team, max_episodes)
         self.model_name = model_name
         self._log_path = f"logs/battle_{self.run_id}.md"
         Path("logs").mkdir(exist_ok=True)
@@ -49,7 +49,7 @@ class SimpleAgent(Agent):
 
     @classmethod
     def from_args(cls, team: str, args: argparse.Namespace) -> "SimpleAgent":
-        return cls(team, max_attempts=args.max_attempts, model_name=args.model)
+        return cls(team, max_episodes=args.max_episodes, model_name=args.model)
 
     def call_llm(self, context: str) -> tuple[str, str | None, int, int]:
         response = self.client.chat.completions.create(
@@ -84,13 +84,13 @@ class SimpleAgent(Agent):
         input_tokens: int,
         output_tokens: int,
     ) -> None:
-        attempt = len(self.prior_attempts) + 1
+        episode = len(self.prior_episodes) + 1
         if state is None:
-            label = f"Attempt {attempt} | lead"
+            label = f"Episode {episode} | lead"
         elif state.needs_replacement:
-            label = f"Attempt {attempt} | replacement"
+            label = f"Episode {episode} | replacement"
         else:
-            label = f"Attempt {attempt} | action"
+            label = f"Episode {episode} | action"
 
         reasoning_str = f'"{reasoning}"' if reasoning else "(no reasoning)"
         print(f"[{label}] → {action}  |  {reasoning_str}  |  {input_tokens} in / {output_tokens} out")
@@ -122,16 +122,16 @@ class SimpleAgent(Agent):
             f.write("\n".join(lines) + "\n")
 
     def pick_lead(self) -> str:
-        context = build_lead_context(self.team, self.prior_attempts)
+        context = build_lead_context(self.team, self.prior_episodes)
         action, reasoning, in_tok, out_tok = self.call_llm(context)
         self.log(None, action, reasoning, in_tok, out_tok)
         return action
 
     def step(self, state: BattleState, history: list[StepLog]) -> str:
         if state.needs_replacement:
-            context = build_replacement_context(state, history, self.team, self.prior_attempts)
+            context = build_replacement_context(state, history, self.team, self.prior_episodes)
         else:
-            context = build_action_context(state, history, self.team, self.prior_attempts)
+            context = build_action_context(state, history, self.team, self.prior_episodes)
         action, reasoning, in_tok, out_tok = self.call_llm(context)
         self.log(state, action, reasoning, in_tok, out_tok)
         return f"SEND {action}" if state.needs_replacement else action

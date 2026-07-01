@@ -117,8 +117,8 @@ class BattleResult:
     steps: list[StepLog]
 
 @dataclass
-class AttemptRecord:
-    attempt_num: int
+class EpisodeRecord:
+    episode_num: int
     won: bool
     turns: int
     pokemon_remaining: int
@@ -254,7 +254,7 @@ def _find_active_slot(mem, active_party: party.Party) -> int:
 
 def run(emu: Emulator, agent, active_party: party.Party) -> BattleResult:
     """
-    Execute one full Giovanni battle attempt.
+    Execute one full Giovanni battle episode.
 
     agent.step is called each turn with the current BattleState and the
     full step history so far. It returns one action string:

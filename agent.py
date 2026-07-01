@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from battle import AttemptRecord, BattleState, StepLog
+from battle import EpisodeRecord, BattleState, StepLog
 
 if TYPE_CHECKING:
     from team import TeamConfig
@@ -12,10 +12,10 @@ if TYPE_CHECKING:
 
 class Agent(ABC):
 
-    def __init__(self, team: str, max_attempts: int) -> None:
+    def __init__(self, team: str, max_episodes: int) -> None:
         self.team = team
-        self.max_attempts = max_attempts
-        self.prior_attempts: list[AttemptRecord] = []
+        self.max_episodes = max_episodes
+        self.prior_episodes: list[EpisodeRecord] = []
         self.run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     @abstractmethod
@@ -32,5 +32,5 @@ class Agent(ABC):
         """
 
     def propose_team(self, current_config: TeamConfig) -> TeamConfig | None:
-        """Called between episodes. Returns a new TeamConfig to use next attempt, or None to keep current."""
+        """Called between episodes. Returns a new TeamConfig to use next episode, or None to keep current."""
         return None

@@ -42,14 +42,14 @@ class HardcodedAgent(Agent):
 
     SEND_ORDER = ["Gyarados", "Kingambit", "Mawile", "Tsareena", "Armarouge", "Incineroar"]
 
-    def __init__(self, team: str, max_attempts: int = 5) -> None:
-        super().__init__(team, max_attempts)
+    def __init__(self, team: str, max_episodes: int = 5) -> None:
+        super().__init__(team, max_episodes)
         self.plan_idx = 0
         self.log_entries: list[str] = []
 
     @classmethod
     def from_args(cls, team: str, args: argparse.Namespace) -> "HardcodedAgent":
-        return cls(team, max_attempts=args.max_attempts)
+        return cls(team, max_episodes=args.max_episodes)
 
     def log(self, header: str, context: str, output: str) -> None:
         self.log_entries.append(
@@ -58,25 +58,25 @@ class HardcodedAgent(Agent):
 
     def pick_lead(self) -> str:
         self.plan_idx = 0
-        attempt_num = len(self.prior_attempts) + 1
-        context = build_lead_context(self.team, self.prior_attempts)
-        self.log(f"Attempt {attempt_num}, Iteration 0 — pick_lead", context, self.LEAD)
+        episode_num = len(self.prior_episodes) + 1
+        context = build_lead_context(self.team, self.prior_episodes)
+        self.log(f"Episode {episode_num}, Iteration 0 — pick_lead", context, self.LEAD)
         return self.LEAD
 
     def step(self, state: BattleState, history: list[StepLog]) -> str:
         turn = len(history) + 1
-        attempt_num = len(self.prior_attempts) + 1
+        episode_num = len(self.prior_episodes) + 1
 
         if state.needs_replacement:
-            context = build_replacement_context(state, history, self.team, self.prior_attempts)
+            context = build_replacement_context(state, history, self.team, self.prior_episodes)
             alive = {p.name for p in state.party if p.current_hp > 0}
             name = next((n for n in self.SEND_ORDER if n in alive), None)
             if name is None:
                 raise RuntimeError("All Pokemon have fainted — battle should have ended already")
-            self.log(f"Attempt {attempt_num}, Iteration {turn} — pick_replacement (Turn {turn})", context, name)
+            self.log(f"Episode {episode_num}, Iteration {turn} — pick_replacement (Turn {turn})", context, name)
             return f"SEND {name}"
 
-        context = build_action_context(state, history, self.team, self.prior_attempts)
+        context = build_action_context(state, history, self.team, self.prior_episodes)
         active = state.party[state.active_slot]
         action = None
         while self.plan_idx < len(self.PLAN):
@@ -90,7 +90,7 @@ class HardcodedAgent(Agent):
             if action is None:
                 raise RuntimeError(f"{active.name} has no usable moves")
 
-        self.log(f"Attempt {attempt_num}, Iteration {turn} — step (Turn {turn})", context, action)
+        self.log(f"Episode {episode_num}, Iteration {turn} — step (Turn {turn})", context, action)
         return action
 
     def write_log(self, path: str) -> None:

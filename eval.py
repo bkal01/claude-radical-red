@@ -2,7 +2,7 @@ import argparse
 from pathlib import Path
 
 from agents import REGISTRY
-from battle import AttemptRecord, run as run_battle
+from battle import EpisodeRecord, run as run_battle
 from emulator import Emulator
 from party import Party
 from team import TeamConfig
@@ -15,10 +15,11 @@ SAVE_STATE_PATH = "save_state.ss0"
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--team", default="default")
-    parser.add_argument("--max-attempts", type=int, default=1)
+    parser.add_argument("--max-episodes", type=int, default=1)
     parser.add_argument("--agent", default="simple", choices=REGISTRY.keys())
     parser.add_argument("--model", default="gpt-5-mini")
     parser.add_argument("--record", action="store_true")
+    parser.add_argument("--optimize-team", action="store_true")
     args = parser.parse_args()
 
     team = Path(f"data/teams/{args.team}.md").read_text()
@@ -36,7 +37,7 @@ def main() -> None:
     team_config = TeamConfig.from_mem(emu.mem)
 
     try:
-        for _ in range(agent.max_attempts):
+        for _ in range(agent.max_episodes):
             emu.load_state()
             team_config.apply(emu.mem)
 
@@ -46,25 +47,27 @@ def main() -> None:
 
             result = run_battle(emu, agent, party)
 
-            record = AttemptRecord(
-                attempt_num=len(agent.prior_attempts) + 1,
+            record = EpisodeRecord(
+                episode_num=len(agent.prior_episodes) + 1,
                 won=result.won,
                 turns=result.turns,
                 pokemon_remaining=result.pokemon_remaining,
                 party_names=party.names,
                 steps=result.steps,
             )
-            agent.prior_attempts.append(record)
+            agent.prior_episodes.append(record)
 
             outcome = "WIN" if result.won else "LOSS"
-            print(f"Attempt {record.attempt_num}: {outcome} in {result.turns} turns")
+            print(f"Episode {record.episode_num}: {outcome} in {result.turns} turns")
 
             if result.won:
                 break
 
-            proposed = agent.propose_team(team_config)
-            if proposed is not None:
-                team_config = proposed
+            if args.optimize_team:
+                proposed = agent.propose_team(team_config)
+                if proposed is not None:
+                    team_config = proposed
+
     finally:
         if recorder is not None:
             recorder.close()
