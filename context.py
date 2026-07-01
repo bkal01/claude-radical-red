@@ -1,5 +1,164 @@
-from party import MOVE_DATA, MOVE_NAME
+import struct
+
 from battle import EpisodeRecord, BattleState, SideHazards, StepLog
+from party import MOVE_DATA, MOVE_NAME, party_count, read_slot, PARTY_BASE_ADDR, SLOT_SIZE
+
+_GBA_ROM = 0x08000000
+
+_MOVE_NAME_TABLE  = 0x010EEEDC
+_MOVE_NAME_STRIDE = 17
+_MOVE_DATA_TABLE  = 0x011521D0
+_MOVE_DATA_STRIDE = 12
+_MOVE_DESC_PTRS   = 0x0103DF70
+_ABILITY_NAME_TABLE  = 0x010E32C0
+_ABILITY_NAME_STRIDE = 17
+_ABILITY_DESC_PTRS   = 0x01009B84
+_ITEM_TABLE  = 0x013C0000
+_ITEM_STRIDE = 44
+_SPECIES3_TABLE    = 0x00254784
+_SPECIES_EXT_TABLE = 0x017B98EC
+_SPECIES_STRIDE    = 28
+_GEN3_SPECIES      = set(range(1, 387))
+
+_PID   = 0x00
+_ATK   = 0x5A
+_DEF   = 0x5C
+_SPD   = 0x5E
+_SPATK = 0x60
+_SPDEF = 0x62
+
+_NATURES = [
+    "Hardy",   "Lonely",  "Brave",   "Adamant", "Naughty",
+    "Bold",    "Docile",  "Relaxed", "Impish",  "Lax",
+    "Timid",   "Hasty",   "Serious", "Jolly",   "Naive",
+    "Modest",  "Mild",    "Quiet",   "Bashful", "Rash",
+    "Calm",    "Gentle",  "Sassy",   "Careful", "Quirky",
+]
+_NATURE_EFFECT = {
+    "Hardy": None,   "Lonely": ("+ATK","-DEF"),   "Brave": ("+ATK","-SPD"),
+    "Adamant": ("+ATK","-SPATK"), "Naughty": ("+ATK","-SPDEF"),
+    "Bold": ("+DEF","-ATK"),     "Docile": None,  "Relaxed": ("+DEF","-SPD"),
+    "Impish": ("+DEF","-SPATK"), "Lax": ("+DEF","-SPDEF"),
+    "Timid": ("+SPD","-ATK"),    "Hasty": ("+SPD","-DEF"),  "Serious": None,
+    "Jolly": ("+SPD","-SPATK"),  "Naive": ("+SPD","-SPDEF"),
+    "Modest": ("+SPATK","-ATK"), "Mild": ("+SPATK","-DEF"), "Quiet": ("+SPATK","-SPD"),
+    "Bashful": None,             "Rash": ("+SPATK","-SPDEF"),
+    "Calm": ("+SPDEF","-ATK"),   "Gentle": ("+SPDEF","-DEF"), "Sassy": ("+SPDEF","-SPD"),
+    "Careful": ("+SPDEF","-SPATK"), "Quirky": None,
+}
+_TYPES = {
+    0: "Normal", 1: "Fighting", 2: "Flying", 3: "Poison", 4: "Ground",
+    5: "Rock",   6: "Bug",      7: "Ghost",  8: "Steel",  9: "???",
+    10: "Fire",  11: "Water",   12: "Grass", 13: "Electric", 14: "Psychic",
+    15: "Ice",   16: "Dragon",  17: "Dark",  18: "Fairy", 23: "Fairy",
+}
+_CATEGORIES = {0: "Physical", 1: "Special", 2: "Status"}
+
+
+def _decode(rom: bytes, offset: int, max_len: int = 200) -> str:
+    out = []
+    for b in rom[offset:offset + max_len]:
+        if b == 0xFF:
+            break
+        if 0xBB <= b <= 0xD4:   out.append(chr(ord('A') + b - 0xBB))
+        elif 0xD5 <= b <= 0xEE: out.append(chr(ord('a') + b - 0xD5))
+        elif b in (0x00, 0xA0): out.append(' ')
+        elif b == 0xAD:         out.append('.')
+        elif b == 0xAE:         out.append('-')
+        elif 0xA1 <= b <= 0xAA: out.append(str(b - 0xA1))
+        elif b == 0xFE:         out.append('\n')
+        elif b == 0x5B:         out.append('%')
+        elif b == 0xB4:         out.append("'")
+        elif b == 0xB8:         out.append(',')
+        elif b == 0x1B:         out.append('e')
+        elif b == 0xAB:         out.append('!')
+        elif b == 0xAC:         out.append('?')
+        else: break
+    return ''.join(out).strip()
+
+
+def _gba_ptr(rom: bytes, offset: int) -> int | None:
+    v = struct.unpack_from('<I', rom, offset)[0]
+    off = v - _GBA_ROM
+    return off if 0 < off < len(rom) else None
+
+
+def _species_ability_id(rom: bytes, species_id: int, ability_index: int) -> int:
+    if species_id in _GEN3_SPECIES:
+        base = _SPECIES3_TABLE + species_id * _SPECIES_STRIDE
+        return rom[base + 23] if ability_index == 1 else rom[base + 22]
+    else:
+        base = _SPECIES_EXT_TABLE + species_id * _SPECIES_STRIDE
+        ab0, ab1, ha = rom[base + 22], rom[base + 23], rom[base + 26]
+        return (ab1 if ab1 != 0 else ha) if ability_index == 1 else ab0
+
+
+def build_team_description(mem, rom: bytes) -> str:
+    lines: list[str] = ["# Player Team\n"]
+
+    for slot in range(party_count(mem)):
+        poke = read_slot(mem, slot)
+        base = PARTY_BASE_ADDR + slot * SLOT_SIZE
+
+        pid    = mem.u32[base + _PID]
+        nature = _NATURES[pid % 25]
+        effect = _NATURE_EFFECT[nature]
+        nature_str = f"{nature} ({effect[0]}, {effect[1]})" if effect else f"{nature} (neutral)"
+
+        ab_id   = _species_ability_id(rom, poke.species_id, pid & 1)
+        ab_name = _decode(rom, _ABILITY_NAME_TABLE + ab_id * _ABILITY_NAME_STRIDE, _ABILITY_NAME_STRIDE) if ab_id else '(none)'
+        ab_desc_ptr = _gba_ptr(rom, _ABILITY_DESC_PTRS + ab_id * 4)
+        ab_desc = ' '.join(_decode(rom, ab_desc_ptr, 200).split()) if ab_desc_ptr else ''
+
+        item_name = _decode(rom, _ITEM_TABLE + poke.held_item * _ITEM_STRIDE, 14) if poke.held_item else 'None'
+        item_desc_ptr = _gba_ptr(rom, _ITEM_TABLE + poke.held_item * _ITEM_STRIDE + 20) if poke.held_item else None
+        item_desc = ' '.join(_decode(rom, item_desc_ptr, 200).split()) if item_desc_ptr else ''
+
+        a0 = mem.u32[base + 0x2C]
+        a1 = mem.u32[base + 0x30]
+        a2 = mem.u32[base + 0x34]
+        move_ids = (a0 & 0xFFFF, (a0 >> 16) & 0xFFFF, a1 & 0xFFFF, (a1 >> 16) & 0xFFFF)
+        move_pps = (a2 & 0xFF, (a2 >> 8) & 0xFF, (a2 >> 16) & 0xFF, (a2 >> 24) & 0xFF)
+
+        lines.append(f"## {poke.name}\n")
+        lines.append(
+            f"**Level:** {poke.level}  **Nature:** {nature_str}\n"
+        )
+        lines.append(
+            f"**Stats:** HP {poke.max_hp} | ATK {mem.u16[base + _ATK]} | DEF {mem.u16[base + _DEF]} | "
+            f"SPATK {mem.u16[base + _SPATK]} | SPDEF {mem.u16[base + _SPDEF]} | SPD {mem.u16[base + _SPD]}\n"
+        )
+        e0 = mem.u32[base + 0x38]
+        e1 = mem.u32[base + 0x3C]
+        lines.append(
+            f"**EVs:** HP {e0 & 0xFF} | ATK {(e0 >> 8) & 0xFF} | DEF {(e0 >> 16) & 0xFF} | "
+            f"SPATK {e1 & 0xFF} | SPDEF {(e1 >> 8) & 0xFF} | SPD {(e0 >> 24) & 0xFF}\n"
+        )
+        lines.append(f"**Ability:** {ab_name}" + (f" — {ab_desc}" if ab_desc else "") + "\n")
+        lines.append(f"**Item:** {item_name}" + (f" — {item_desc}" if item_desc else "") + "\n")
+        lines.append("**Moves:**\n")
+
+        for move_id, cur_pp in zip(move_ids, move_pps):
+            if move_id == 0:
+                continue
+            mname_addr = _MOVE_NAME_TABLE + move_id * _MOVE_NAME_STRIDE
+            mname = _decode(rom, mname_addr, _MOVE_NAME_STRIDE)
+            maddr = _MOVE_DATA_TABLE + move_id * _MOVE_DATA_STRIDE
+            mtype     = _TYPES.get(rom[maddr + 2], f'type{rom[maddr + 2]}')
+            mcat      = _CATEGORIES.get(rom[maddr + 10], '?')
+            power_str = str(rom[maddr + 1]) if rom[maddr + 1] else '—'
+            acc_str   = f"{rom[maddr + 3]}%" if rom[maddr + 3] else '—'
+            base_pp   = rom[maddr + 4]
+            desc_ptr  = _gba_ptr(rom, _MOVE_DESC_PTRS + move_id * 4)
+            mdesc     = ' '.join(_decode(rom, desc_ptr, 300).split()) if desc_ptr else ''
+            lines.append(
+                f"  - **{mname}** | {mtype} | {mcat} | Power: {power_str} | Acc: {acc_str} | PP: {cur_pp}/{base_pp}\n"
+                f"    {mdesc}\n"
+            )
+
+        lines.append("\n")
+
+    return "\n".join(lines)
 
 
 def _fmt_weather(weather: int, turns_left: int | None) -> str:
@@ -279,4 +438,28 @@ def build_replacement_context(
         f"TASK:\n"
         f"Your active Pokemon has fainted. Choose a replacement from your surviving party members.\n"
         f'Respond with only the Pokemon name (e.g. "Gyarados").'
+    )
+
+def build_propose_team_context(
+    team: str,
+    prior_episodes: list[EpisodeRecord],
+) -> str:
+    prior = "\n\n".join(_fmt_episode(a) for a in prior_episodes) if prior_episodes else "None"
+
+    pokemon_names = [line[3:].strip() for line in team.split('\n') if line.startswith('## ')]
+    ev_format_lines = '\n'.join(
+        f'  {name}: HP <n>, ATK <n>, DEF <n>, SPATK <n>, SPDEF <n>, SPD <n>'
+        for name in pokemon_names
+    )
+
+    return (
+        f"YOUR TEAM (with current EV allocations):\n{team}\n\n"
+        f"PRIOR EPISODES:\n{prior}\n\n"
+        f"TASK:\n"
+        f"Propose new EV allocations for each Pokemon based on what problems the team is facing.\n"
+        f"EV rules: max 252 per stat, max 508 total per Pokemon, use multiples of 4.\n\n"
+        f"Respond with:\n"
+        f"REASONING: <one sentence on what problems you identified and how your EV changes address them>\n"
+        f"Then one line per Pokemon in the order above:\n"
+        f"{ev_format_lines}"
     )

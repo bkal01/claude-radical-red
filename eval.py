@@ -3,6 +3,7 @@ from pathlib import Path
 
 from agents import REGISTRY
 from battle import EpisodeRecord, run as run_battle
+from context import build_team_description
 from emulator import Emulator
 from party import Party
 from team import TeamConfig
@@ -14,7 +15,6 @@ SAVE_STATE_PATH = "save_state.ss0"
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--team", default="default")
     parser.add_argument("--max-episodes", type=int, default=1)
     parser.add_argument("--agent", default="simple", choices=REGISTRY.keys())
     parser.add_argument("--model", default="gpt-5-mini")
@@ -22,8 +22,12 @@ def main() -> None:
     parser.add_argument("--optimize-team", action="store_true")
     args = parser.parse_args()
 
-    team = Path(f"data/teams/{args.team}.md").read_text()
     emu = Emulator(ROM_PATH, SAVE_STATE_PATH)
+    emu.load_state()
+    rom = Path(ROM_PATH).read_bytes()
+    team_config = TeamConfig.from_mem(emu.mem)
+    team = build_team_description(emu.mem, rom)
+
     agent = REGISTRY[args.agent].from_args(team, args)
 
     recorder = None
@@ -32,9 +36,6 @@ def main() -> None:
         recorder = VideoRecorder(video_path)
         emu.set_recorder(recorder)
         print(f"Recording to {video_path}")
-
-    emu.load_state()
-    team_config = TeamConfig.from_mem(emu.mem)
 
     try:
         for _ in range(agent.max_episodes):
@@ -67,6 +68,8 @@ def main() -> None:
                 proposed = agent.propose_team(team_config)
                 if proposed is not None:
                     team_config = proposed
+                    team_config.apply(emu.mem)
+                    agent.team = build_team_description(emu.mem, rom)
 
     finally:
         if recorder is not None:
