@@ -458,8 +458,6 @@ def build_propose_team_context(
         f"TASK:\n"
         f"Propose new EV allocations for each Pokemon based on what problems the team is facing.\n"
         f"EV rules: max 252 per stat, max 508 total per Pokemon, use multiples of 4.\n\n"
-        f"Respond with:\n"
-        f"REASONING: <one sentence on what problems you identified and how your EV changes address them>\n"
-        f"Then one line per Pokemon in the order above:\n"
+        f"Respond with one line per Pokemon in the order above:\n"
         f"{ev_format_lines}"
     )

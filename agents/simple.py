@@ -21,14 +21,12 @@ load_dotenv()
 
 _SYSTEM_PROMPT = (
     "You are a Pokemon battle strategist. "
-    "On the first line of your response, write 'REASONING: ' followed by one sentence explaining your decision. "
-    "On the second line, write your answer exactly as instructed by the user."
+    "Write your answer exactly as instructed by the user."
 )
 
 _PROPOSE_SYSTEM_PROMPT = (
     "You are a Pokemon EV optimizer. "
-    "On the first line of your response, write 'REASONING: ' followed by one sentence. "
-    "On the following lines, write your EV allocations exactly as instructed by the user."
+    "Write your EV allocations exactly as instructed by the user."
 )
 
 _EV_LINE_RE = re.compile(
@@ -64,35 +62,39 @@ class SimpleAgent(Agent):
         )
         self.total_input_tokens = 0
         self.total_output_tokens = 0
+        self.total_reasoning_tokens = 0
 
     @classmethod
     def from_args(cls, team: str, args: argparse.Namespace) -> "SimpleAgent":
         return cls(team, max_episodes=args.max_episodes, model_name=args.model)
 
-    def call_llm(self, context: str) -> tuple[str, str | None, int, int]:
-        response = self.client.chat.completions.create(
+    def call_llm(self, context: str) -> tuple[str, str | None, int, int, int]:
+        response = self.client.responses.create(
             model=self.model_name,
-            messages=[
-                {"role": "system", "content": _SYSTEM_PROMPT},
-                {"role": "user", "content": context},
-            ],
+            reasoning={"effort": "medium", "summary": "auto"},
+            instructions=_SYSTEM_PROMPT,
+            input=context,
         )
-        raw = response.choices[0].message.content.strip()
-        lines = [l.strip() for l in raw.splitlines() if l.strip()]
+        action = response.output_text.strip()
         reasoning = None
-        for line in lines:
-            if line.startswith("REASONING:"):
-                reasoning = line[len("REASONING:"):].strip()
+        for item in response.output:
+            if item.type == "reasoning" and item.summary:
+                reasoning = " ".join(s.text for s in item.summary if hasattr(s, "text"))
                 break
-        action = lines[-1] if lines else raw
 
         usage = response.usage
-        input_tokens = usage.prompt_tokens if usage else 0
-        output_tokens = usage.completion_tokens if usage else 0
+        input_tokens = usage.input_tokens if usage else 0
+        output_tokens = usage.output_tokens if usage else 0
+        reasoning_tokens = (
+            getattr(usage.output_tokens_details, "reasoning_tokens", 0)
+            if usage and usage.output_tokens_details
+            else 0
+        )
         self.total_input_tokens += input_tokens
         self.total_output_tokens += output_tokens
+        self.total_reasoning_tokens += reasoning_tokens
 
-        return action, reasoning, input_tokens, output_tokens
+        return action, reasoning, input_tokens, output_tokens, reasoning_tokens
 
     def log_episode_start(self) -> None:
         episode = len(self.prior_episodes) + 1
@@ -107,6 +109,7 @@ class SimpleAgent(Agent):
         reasoning: str | None,
         input_tokens: int,
         output_tokens: int,
+        reasoning_tokens: int,
     ) -> None:
         episode = len(self.prior_episodes) + 1
         if state is None:
@@ -117,7 +120,7 @@ class SimpleAgent(Agent):
             label = f"Episode {episode} | action"
 
         reasoning_str = f'"{reasoning}"' if reasoning else "(no reasoning)"
-        print(f"[{label}] → {action}  |  {reasoning_str}  |  {input_tokens} in / {output_tokens} out")
+        print(f"[{label}] → {action}  |  {reasoning_str}  |  {input_tokens} in / {output_tokens} out ({reasoning_tokens} reasoning)")
 
         lines = [f"### {label}"]
         if state is not None:
@@ -140,7 +143,7 @@ class SimpleAgent(Agent):
         if reasoning:
             lines.append(f"**Reasoning:** {reasoning}")
         lines.append(f"**Action:** `{action}`")
-        lines.append(f"**Tokens:** {input_tokens} in / {output_tokens} out")
+        lines.append(f"**Tokens:** {input_tokens} in / {output_tokens} out ({reasoning_tokens} reasoning)")
         lines.append("")
         with open(self._log_path, "a") as f:
             f.write("\n".join(lines) + "\n")
@@ -152,12 +155,13 @@ class SimpleAgent(Agent):
         reasoning: str | None,
         input_tokens: int,
         output_tokens: int,
+        reasoning_tokens: int,
     ) -> None:
         episode_num = len(self.prior_episodes)
         label = f"Episode {episode_num} | propose_team"
 
         reasoning_str = f'"{reasoning}"' if reasoning else "(no reasoning)"
-        print(f"[{label}]  |  {reasoning_str}  |  {input_tokens} in / {output_tokens} out")
+        print(f"[{label}]  |  {reasoning_str}  |  {input_tokens} in / {output_tokens} out ({reasoning_tokens} reasoning)")
 
         pokemon_names = [line[3:].strip() for line in self.team.split('\n') if line.startswith('## ')]
 
@@ -176,7 +180,7 @@ class SimpleAgent(Agent):
             lines.append(f"  Current:  {fmt_evs(old.evs)}")
             lines.append(f"  Proposed: {fmt_evs(new.evs)}")
         lines.append("")
-        lines.append(f"**Tokens:** {input_tokens} in / {output_tokens} out")
+        lines.append(f"**Tokens:** {input_tokens} in / {output_tokens} out ({reasoning_tokens} reasoning)")
         lines.append("")
         with open(self._log_path, "a") as f:
             f.write("\n".join(lines) + "\n")
@@ -184,8 +188,8 @@ class SimpleAgent(Agent):
     def pick_lead(self) -> str:
         self.log_episode_start()
         context = build_lead_context(self.team, self.prior_episodes)
-        action, reasoning, in_tok, out_tok = self.call_llm(context)
-        self.log_step(None, action, reasoning, in_tok, out_tok)
+        action, reasoning, in_tok, out_tok, r_tok = self.call_llm(context)
+        self.log_step(None, action, reasoning, in_tok, out_tok, r_tok)
         return action
 
     def step(self, state: BattleState, history: list[StepLog]) -> str:
@@ -193,34 +197,38 @@ class SimpleAgent(Agent):
             context = build_replacement_context(state, history, self.team, self.prior_episodes)
         else:
             context = build_action_context(state, history, self.team, self.prior_episodes)
-        action, reasoning, in_tok, out_tok = self.call_llm(context)
-        self.log_step(state, action, reasoning, in_tok, out_tok)
+        action, reasoning, in_tok, out_tok, r_tok = self.call_llm(context)
+        self.log_step(state, action, reasoning, in_tok, out_tok, r_tok)
         return f"SEND {action}" if state.needs_replacement else action
 
     def propose_team(self, current_config: TeamConfig) -> TeamConfig | None:
         context = build_propose_team_context(self.team, self.prior_episodes)
 
-        response = self.client.chat.completions.create(
+        response = self.client.responses.create(
             model=self.model_name,
-            messages=[
-                {"role": "system", "content": _PROPOSE_SYSTEM_PROMPT},
-                {"role": "user", "content": context},
-            ],
+            reasoning={"effort": "medium", "summary": "auto"},
+            instructions=_PROPOSE_SYSTEM_PROMPT,
+            input=context,
         )
-        raw = response.choices[0].message.content.strip()
+        raw = response.output_text.strip()
+        reasoning = None
+        for item in response.output:
+            if item.type == "reasoning" and item.summary:
+                reasoning = " ".join(s.text for s in item.summary if hasattr(s, "text"))
+                break
         usage = response.usage
-        in_tok = usage.prompt_tokens if usage else 0
-        out_tok = usage.completion_tokens if usage else 0
+        in_tok = usage.input_tokens if usage else 0
+        out_tok = usage.output_tokens if usage else 0
+        r_tok = (
+            getattr(usage.output_tokens_details, "reasoning_tokens", 0)
+            if usage and usage.output_tokens_details
+            else 0
+        )
         self.total_input_tokens += in_tok
         self.total_output_tokens += out_tok
+        self.total_reasoning_tokens += r_tok
 
         lines = [l.strip() for l in raw.splitlines() if l.strip()]
-        reasoning = None
-        for line in lines:
-            if line.startswith("REASONING:"):
-                reasoning = line[len("REASONING:"):].strip()
-                break
-
         matches = [m for line in lines if (m := _EV_LINE_RE.match(line))]
         episode_num = len(self.prior_episodes)
 
@@ -237,5 +245,5 @@ class SimpleAgent(Agent):
             ))
 
         new_config = TeamConfig(members=new_members)
-        self.log_propose_team(current_config, new_config, reasoning, in_tok, out_tok)
+        self.log_propose_team(current_config, new_config, reasoning, in_tok, out_tok, r_tok)
         return new_config
