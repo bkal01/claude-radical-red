@@ -178,32 +178,46 @@ def _fmt_hazards(h: SideHazards) -> str:
     return ", ".join(parts) or "None"
 
 
+def _render_transcript(steps: list[StepLog], party_names: list[str], show_deltas: bool = True) -> str:
+    """Render steps as the verbatim on-screen battle text, one message per line.
+
+    With show_deltas, each message is annotated with the HP that changed while it was
+    displayed (diffed against the previous message; the opponent baseline resets when
+    Giovanni switches). HP is keyed by name, so this is robust to the EWRAM party
+    reordering that happens during a faint. Who moved first is intentionally NOT shown —
+    the message order already conveys it; current stat stages live in the state block.
+    """
+    lines: list[str] = []
+    prev_party: dict | None = None
+    prev_opp: tuple | None = None  # (species, current_hp)
+    for step in steps:
+        lines.append("Battle start:" if step.step == 0 else f"Turn {step.step} — you chose {step.action}:")
+        if not step.messages:
+            lines.append("    (no text captured)")
+        for ev in step.messages:
+            parts = []
+            if show_deltas:
+                if prev_party is not None:
+                    for name, (cur, _mx) in ev.party_hp.items():
+                        pc = prev_party.get(name, (cur, 0))[0]
+                        if cur != pc:
+                            parts.append(f"{name} {pc}→{cur} HP")
+                if (ev.opp_hp is not None and prev_opp is not None
+                        and prev_opp[0] == ev.opp_species and prev_opp[1] != ev.opp_hp[0]):
+                    parts.append(f"{ev.opp_species} {prev_opp[1]}→{ev.opp_hp[0]} HP")
+            annotation = "   [" + ", ".join(parts) + "]" if parts else ""
+            lines.append(f"    {ev.text}{annotation}")
+            prev_party = ev.party_hp
+            if ev.opp_hp is not None:
+                prev_opp = (ev.opp_species, ev.opp_hp[0])
+    return "\n".join(lines)
+
+
 def _fmt_episode(episode: EpisodeRecord) -> str:
     outcome = "WIN" if episode.won else "LOSS"
-    lines = [
-        f"Episode {episode.episode_num} ({outcome}, {episode.turns} turns, "
-        f"{episode.pokemon_remaining} Pokemon remaining):"
-    ]
-    for s in episode.steps:
-        opp_name = s.opp_species or "?"
-        opp_move = (
-            MOVE_NAME.get(s.opponent_move, f"move_{s.opponent_move}")
-            if s.opponent_move
-            else "—"
-        )
-        hp = ", ".join(
-            f"{name} {cur}/{mx}" + (" (fainted)" if cur == 0 else "")
-            for name, (cur, mx) in zip(episode.party_names, s.hp_snapshot)
-        )
-        order = ""
-        if s.player_moved_first is True:
-            order = " [player first]"
-        elif s.player_moved_first is False:
-            order = " [Giovanni first]"
-        lines.append(
-            f"  Turn {s.step}: {s.action} | Giovanni's {opp_name}: {opp_move}{order} | HP: [{hp}]"
-        )
-    return "\n".join(lines)
+    header = (f"Episode {episode.episode_num} ({outcome}, {episode.turns} turns, "
+              f"{episode.pokemon_remaining} Pokemon remaining):")
+    return header + "\n" + _render_transcript(episode.steps, episode.party_names, show_deltas=False)
 
 
 def build_opp_discovery_text(
@@ -326,27 +340,7 @@ def build_action_context(
     if not history:
         history_text = "No turns yet (battle just started)."
     else:
-        hist_lines = []
-        for s in history:
-            opp_name = s.opp_species or "?"
-            opp_move = (
-                MOVE_NAME.get(s.opponent_move, f"move_{s.opponent_move}")
-                if s.opponent_move
-                else "—"
-            )
-            hp = ", ".join(
-                f"{name} {cur}/{mx}" + (" (fainted)" if cur == 0 else "")
-                for name, (cur, mx) in zip(party_names, s.hp_snapshot)
-            )
-            order = ""
-            if s.player_moved_first is True:
-                order = " [player first]"
-            elif s.player_moved_first is False:
-                order = " [Giovanni first]"
-            hist_lines.append(
-                f"  Turn {s.step}: {s.action} | Giovanni's {opp_name}: {opp_move}{order} | HP: [{hp}]"
-            )
-        history_text = "\n".join(hist_lines)
+        history_text = _render_transcript(history, party_names, show_deltas=True)
 
     opp_text = build_opp_discovery_text(
         history, prior_episodes, state.opp_species, state.opp_ability,
@@ -400,27 +394,7 @@ def build_replacement_context(
     if not history:
         history_text = "No turns yet."
     else:
-        hist_lines = []
-        for s in history:
-            opp_name = s.opp_species or "?"
-            opp_move = (
-                MOVE_NAME.get(s.opponent_move, f"move_{s.opponent_move}")
-                if s.opponent_move
-                else "—"
-            )
-            hp = ", ".join(
-                f"{name} {cur}/{mx}" + (" (fainted)" if cur == 0 else "")
-                for name, (cur, mx) in zip(party_names, s.hp_snapshot)
-            )
-            order = ""
-            if s.player_moved_first is True:
-                order = " [player first]"
-            elif s.player_moved_first is False:
-                order = " [Giovanni first]"
-            hist_lines.append(
-                f"  Turn {s.step}: {s.action} | Giovanni's {opp_name}: {opp_move}{order} | HP: [{hp}]"
-            )
-        history_text = "\n".join(hist_lines)
+        history_text = _render_transcript(history, party_names, show_deltas=True)
 
     opp_text = build_opp_discovery_text(
         history, prior_episodes, state.opp_species, state.opp_ability,

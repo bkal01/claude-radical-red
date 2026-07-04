@@ -49,9 +49,11 @@ class SimpleAgent(Agent):
         team: str,
         max_episodes: int,
         model_name: str = "gpt-5-mini",
+        debug: bool = False,
     ):
         super().__init__(team, max_episodes)
         self.model_name = model_name
+        self.debug = debug
         self._log_path = f"logs/battle_{self.run_id}.md"
         Path("logs").mkdir(exist_ok=True)
         Path(self._log_path).write_text("# Battle Log\n\n")
@@ -66,7 +68,8 @@ class SimpleAgent(Agent):
 
     @classmethod
     def from_args(cls, team: str, args: argparse.Namespace) -> "SimpleAgent":
-        return cls(team, max_episodes=args.max_episodes, model_name=args.model)
+        return cls(team, max_episodes=args.max_episodes, model_name=args.model,
+                   debug=getattr(args, "debug", False))
 
     def call_llm(self, context: str) -> tuple[str, str | None, int, int, int]:
         response = self.client.responses.create(
@@ -102,6 +105,23 @@ class SimpleAgent(Agent):
             f.write(f"## Episode {episode}\n\n")
             f.write(self.team + "\n\n")
 
+    def _write_full_io(self, label: str, system_prompt: str, context: str,
+                       reasoning: str | None, output: str,
+                       input_tokens: int, output_tokens: int, reasoning_tokens: int) -> None:
+        """Debug mode: append the exact LLM input and output verbatim to the log."""
+        block = [
+            f"### {label} (debug: full I/O)",
+            "",
+            "**SYSTEM PROMPT:**", "```", system_prompt, "```",
+            "**INPUT PROMPT:**", "```", context, "```",
+            "**OUTPUT — reasoning:**", "```", reasoning or "(none)", "```",
+            "**OUTPUT — response:**", "```", output, "```",
+            f"**Tokens:** {input_tokens} in / {output_tokens} out ({reasoning_tokens} reasoning)",
+            "",
+        ]
+        with open(self._log_path, "a") as f:
+            f.write("\n".join(block) + "\n")
+
     def log_step(
         self,
         state: BattleState | None,
@@ -110,6 +130,8 @@ class SimpleAgent(Agent):
         input_tokens: int,
         output_tokens: int,
         reasoning_tokens: int,
+        context: str | None = None,
+        system_prompt: str | None = None,
     ) -> None:
         episode = len(self.prior_episodes) + 1
         if state is None:
@@ -121,6 +143,11 @@ class SimpleAgent(Agent):
 
         reasoning_str = f'"{reasoning}"' if reasoning else "(no reasoning)"
         print(f"[{label}] → {action}  |  {reasoning_str}  |  {input_tokens} in / {output_tokens} out ({reasoning_tokens} reasoning)")
+
+        if self.debug and context is not None:
+            self._write_full_io(label, system_prompt or "", context, reasoning, action,
+                                input_tokens, output_tokens, reasoning_tokens)
+            return
 
         lines = [f"### {label}"]
         if state is not None:
@@ -156,12 +183,20 @@ class SimpleAgent(Agent):
         input_tokens: int,
         output_tokens: int,
         reasoning_tokens: int,
+        context: str | None = None,
+        system_prompt: str | None = None,
+        raw_output: str | None = None,
     ) -> None:
         episode_num = len(self.prior_episodes)
         label = f"Episode {episode_num} | propose_team"
 
         reasoning_str = f'"{reasoning}"' if reasoning else "(no reasoning)"
         print(f"[{label}]  |  {reasoning_str}  |  {input_tokens} in / {output_tokens} out ({reasoning_tokens} reasoning)")
+
+        if self.debug and context is not None:
+            self._write_full_io(label, system_prompt or "", context, reasoning, raw_output or "",
+                                input_tokens, output_tokens, reasoning_tokens)
+            return
 
         pokemon_names = [line[3:].strip() for line in self.team.split('\n') if line.startswith('## ')]
 
@@ -189,7 +224,8 @@ class SimpleAgent(Agent):
         self.log_episode_start()
         context = build_lead_context(self.team, self.prior_episodes)
         action, reasoning, in_tok, out_tok, r_tok = self.call_llm(context)
-        self.log_step(None, action, reasoning, in_tok, out_tok, r_tok)
+        self.log_step(None, action, reasoning, in_tok, out_tok, r_tok,
+                      context=context, system_prompt=_SYSTEM_PROMPT)
         return action
 
     def step(self, state: BattleState, history: list[StepLog]) -> str:
@@ -198,7 +234,8 @@ class SimpleAgent(Agent):
         else:
             context = build_action_context(state, history, self.team, self.prior_episodes)
         action, reasoning, in_tok, out_tok, r_tok = self.call_llm(context)
-        self.log_step(state, action, reasoning, in_tok, out_tok, r_tok)
+        self.log_step(state, action, reasoning, in_tok, out_tok, r_tok,
+                      context=context, system_prompt=_SYSTEM_PROMPT)
         return f"SEND {action}" if state.needs_replacement else action
 
     def propose_team(self, current_config: TeamConfig) -> TeamConfig | None:
@@ -234,6 +271,10 @@ class SimpleAgent(Agent):
 
         if len(matches) != len(current_config.members):
             print(f"[Episode {episode_num} | propose_team] parse failed: expected {len(current_config.members)} EV lines, got {len(matches)}")
+            if self.debug:
+                self._write_full_io(f"Episode {episode_num} | propose_team (parse failed)",
+                                    _PROPOSE_SYSTEM_PROMPT, context, reasoning, raw,
+                                    in_tok, out_tok, r_tok)
             return None
 
         new_members = []
@@ -245,5 +286,6 @@ class SimpleAgent(Agent):
             ))
 
         new_config = TeamConfig(members=new_members)
-        self.log_propose_team(current_config, new_config, reasoning, in_tok, out_tok, r_tok)
+        self.log_propose_team(current_config, new_config, reasoning, in_tok, out_tok, r_tok,
+                              context=context, system_prompt=_PROPOSE_SYSTEM_PROMPT, raw_output=raw)
         return new_config

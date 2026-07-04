@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from emulator import Emulator, KEY_A, KEY_B, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP
 import party
@@ -18,6 +18,14 @@ WEATHER_TIMER     = 0x02022883  # u8 countdown; decrements each turn (observed 3
 # Confirmed by matching species u16 at base: 0x03B0=944=Incineroar (slot 0), 0x02F7=759=Hippowdon (slot 1).
 BATTLE_MONS_BASE  = 0x02023BE4  # gBattleMons[0] base address (player active)
 BATTLE_MON_SIZE   = 0x58        # bytes per battler struct
+OPP_MON_BASE      = BATTLE_MONS_BASE + BATTLE_MON_SIZE  # gBattleMons[1] (opponent active)
+
+# gDisplayedStringBattle — the buffer the engine expands each battle message into
+# before printing it (post-substitution: nicknames/species already inlined).
+# Address confirmed empirically by scripts/find_msg_buffer.py.
+MSG_BUFFER    = 0x0202298C
+_EWRAM_BASE   = 0x02000000
+MENU_SENTINEL = "What will"     # "What will <name> do?" — control returned to the player
 
 # Offsets within a gBattleMons entry:
 _MON_SPECIES     = 0x00  # u16
@@ -100,6 +108,21 @@ def read_battle_state(mem, active_slot: int, poke_party: list[party.PartyPokemon
 
 
 @dataclass
+class MessageEvent:
+    """One on-screen battle message plus the HP state captured while it was displayed.
+
+    party_hp/opp_hp are the "after" snapshot for this message; per-event deltas are
+    obtained by diffing consecutive events (and the first against the step's entry HP).
+    party_hp is keyed by species name (not slot index) so it survives the EWRAM party
+    reordering Radical Red does during a faint.
+    """
+    text: str
+    party_hp: dict                     # {name: (current_hp, max_hp)}
+    opp_hp: tuple | None               # (current_hp, max_hp) of the opponent active, or None
+    opp_species: str                   # opponent active when this message showed (can change mid-turn)
+
+
+@dataclass
 class StepLog:
     step: int
     action: str                        # e.g. "FIGHT Ice Fang", "SWITCH Gyarados", "SEND Mawile"
@@ -107,7 +130,7 @@ class StepLog:
     hp_snapshot: tuple                 # ((current_hp, max_hp), ...) per party slot after this step
     opp_species: str = ""              # Giovanni's active Pokemon at the start of this step
     opp_ability: str = ""              # Giovanni's active Pokemon ability at the start of this step
-    player_moved_first: bool | None = None  # None for SEND (forced replacement, not a normal turn)
+    messages: list[MessageEvent] = field(default_factory=list)  # verbatim text captured during this step
 
 @dataclass
 class BattleResult:
@@ -228,14 +251,159 @@ def execute(emu: Emulator, kind: str, arg: str, active_party: party.Party, activ
         raise ValueError(f"Unknown action kind: {kind!r}")
 
 
-def _b_press_loop(emu: Emulator) -> tuple[bool, bool]:
-    """Press B to advance text; poll for battle end each press. Returns (ended, won)."""
-    for _ in range(TURN_WAIT_B_PRESSES):
-        emu.press(KEY_B, hold_frames=1)
-        emu.step(60)
+# ---------------------------------------------------------------------------
+# Battle-text capture
+# ---------------------------------------------------------------------------
+
+_SPECIES_NAMES = {n for n in party.SPECIES_NAME.values() if n}
+
+
+def _decode_msg(raw: bytes) -> str:
+    """Decode a gDisplayedStringBattle buffer to a single clean line.
+
+    Newlines become spaces and control codes (0xFC formatting + arg, 0xFB scroll,
+    0xFD placeholder id) are skipped rather than truncating the message.
+    """
+    out = []
+    i = 0
+    while i < len(raw):
+        b = raw[i]
+        if b == 0xFF:
+            break
+        if 0xBB <= b <= 0xD4:   out.append(chr(ord('A') + b - 0xBB))
+        elif 0xD5 <= b <= 0xEE: out.append(chr(ord('a') + b - 0xD5))
+        elif b in (0x00, 0xA0): out.append(' ')
+        elif b == 0xAD:         out.append('.')
+        elif b == 0xAE:         out.append('-')
+        elif 0xA1 <= b <= 0xAA: out.append(str(b - 0xA1))
+        elif b == 0xFE:         out.append(' ')
+        elif b == 0xFB:         pass
+        elif b == 0xFC:         i += 1
+        elif b == 0xFD:         i += 1
+        elif b == 0x5B:         out.append('%')
+        elif b == 0xB4:         out.append("'")
+        elif b == 0xB8:         out.append(',')
+        elif b == 0xAB:         out.append('!')
+        elif b == 0xAC:         out.append('?')
+        i += 1
+    return ' '.join(''.join(out).split())
+
+
+def _poll_msg(mem) -> str:
+    off = MSG_BUFFER - _EWRAM_BASE
+    return _decode_msg(bytes(mem.wram[off:off + 160]))
+
+
+def _hp_snapshot(mem, active_party: party.Party) -> tuple[dict, tuple | None, str]:
+    """({name: (cur, max)}, opp_hp, opp_species). The two actives are read live from
+    gBattleMons; bench mons come from the party struct (which only syncs at turn
+    boundaries). Keyed by name so faint-time EWRAM reordering cannot misalign it."""
+    active_party.refresh()
+    party_hp = {p.name: (p.current_hp, p.max_hp) for p in active_party.members}
+
+    active_species = mem.u16[BATTLE_MONS_BASE + _MON_SPECIES]
+    active_name = party.SPECIES_NAME.get(active_species)
+    if active_name in party_hp:
+        party_hp[active_name] = (mem.u16[BATTLE_MONS_BASE + _MON_CUR_HP],
+                                 mem.u16[BATTLE_MONS_BASE + _MON_MAX_HP])
+
+    opp_cur = mem.u16[OPP_MON_BASE + _MON_CUR_HP]
+    opp_max = mem.u16[OPP_MON_BASE + _MON_MAX_HP]
+    opp_hp = (opp_cur, opp_max) if 0 <= opp_cur <= opp_max <= 2000 else None
+    opp_sp = mem.u16[OPP_MON_BASE + _MON_SPECIES]
+    opp_species = party.SPECIES_NAME.get(opp_sp, f"species_{opp_sp}")
+    return party_hp, opp_hp, opp_species
+
+
+class _TurnRecorder:
+    """Accumulates on-screen battle messages, binding each to the HP state observed
+    while it was displayed. Poll it between emulator steps; a message's HP change
+    animates while the message is up, so extending the current event's snapshot each
+    poll pins the delta to the message that was actually on screen."""
+
+    def __init__(self) -> None:
+        self.events: list[MessageEvent] = []
+        self._last_msg: str | None = None
+        self._cur: dict | None = None
+
+    @property
+    def started(self) -> bool:
+        return self._last_msg is not None
+
+    def _flush(self) -> None:
+        if self._cur is not None:
+            party_hp, opp_hp, opp_species = self._cur['end']
+            self.events.append(MessageEvent(self._cur['msg'], party_hp, opp_hp, opp_species))
+            self._cur = None
+
+    def poll(self, emu: Emulator, active_party: party.Party) -> bool:
+        """Sample the buffer + HP once. Returns True if the battle menu is showing."""
+        msg = _poll_msg(emu.mem)
+        is_menu = MENU_SENTINEL in msg
+        snap = _hp_snapshot(emu.mem, active_party)
+        if self._cur is not None:
+            self._cur['end'] = snap
+        if msg and not is_menu and msg not in _SPECIES_NAMES and msg != self._last_msg:
+            self._flush()
+            self._cur = {'msg': msg, 'end': snap}
+            self._last_msg = msg
+        return is_menu
+
+    def finish(self) -> list[MessageEvent]:
+        self._flush()
+        return self.events
+
+
+def _capture_turn(emu: Emulator, active_party: party.Party,
+                  max_polls: int = 400, step_frames: int = 4) -> tuple[list[MessageEvent], bool, bool]:
+    """Advance a turn's text with B, capturing messages. Returns (events, ended, won).
+
+    Stops on the battle menu (normal turn done), on the forced-replacement screen
+    (active fainted — faint text is flushed first so send() finds an open screen),
+    or on battle end.
+    """
+    rec = _TurnRecorder()
+    faint_flush = 0
+    for _ in range(max_polls):
+        is_menu = rec.poll(emu, active_party)
+
+        if is_menu and rec.started:
+            emu.step(30)   # let the menu become input-ready before the caller acts
+            return rec.finish(), False, False
         if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
-            return True, emu.mem.u16[BATTLE_MONS_BASE + _MON_CUR_HP] > 0
-    return False, False
+            won = emu.mem.u16[BATTLE_MONS_BASE + _MON_CUR_HP] > 0
+            return rec.finish(), True, won
+
+        # After a faint the active reads 0 HP well before the "choose next Pokemon"
+        # screen opens; advance with a long settle to flush faint text and let it appear.
+        if emu.mem.u16[BATTLE_MONS_BASE + _MON_CUR_HP] == 0:
+            faint_flush += 1
+            emu.press(KEY_B, hold_frames=1)
+            emu.step(60)
+            if faint_flush >= 12:
+                return rec.finish(), False, False
+            continue
+
+        emu.press(KEY_B, hold_frames=1)
+        emu.step(step_frames)
+    return rec.finish(), False, False
+
+
+def _capture_intro(emu: Emulator, active_party: party.Party) -> list[MessageEvent]:
+    """Capture the intro/setup text (send-outs, abilities, weather) using the proven
+    A-press-then-settle input sequence, polling for messages throughout."""
+    rec = _TurnRecorder()
+    for _ in range(INTRO_A_PRESSES):
+        emu.press(KEY_A, hold_frames=3)
+        for _ in range(5):
+            emu.step(8)
+            rec.poll(emu, active_party)
+    for _ in range(INTRO_SETTLE_FRAMES // 8):
+        emu.step(8)
+        if rec.poll(emu, active_party) and rec.started:
+            break
+    emu.step(30)   # let the battle menu become input-ready before the first action
+    return rec.finish()
 
 
 def _find_active_slot(mem, active_party: party.Party) -> int:
@@ -283,23 +451,30 @@ def run(emu: Emulator, agent, active_party: party.Party) -> BattleResult:
     else:
         raise RuntimeError("Battle did not start — check the save state position")
 
-    # Advance trainer intro and send-out dialogue with A, then let auto-advance
-    # messages (Intimidate, weather abilities) finish on their own.
-    for _ in range(INTRO_A_PRESSES):
-        emu.press(KEY_A, hold_frames=3)
-        emu.step(40)
-    emu.step(INTRO_SETTLE_FRAMES)
+    # Advance trainer intro and send-out dialogue with A, letting auto-advance
+    # messages (Intimidate, weather abilities) finish, capturing the text as "step 0".
+    intro_messages = _capture_intro(emu, active_party)
+    active_party.refresh()
+    intro_state = read_battle_state(emu.mem, 0, active_party.members)
 
     active_slot = 0  # lead is always party slot 0; updated after each switch
-    steps = []
-    step  = 0
+    steps = [StepLog(
+        step=0,
+        action="(battle start)",
+        opponent_move=0,
+        hp_snapshot=tuple((p.current_hp, p.max_hp) for p in active_party.members),
+        opp_species=intro_state.opp_species,
+        opp_ability=intro_state.opp_ability,
+        messages=intro_messages,
+    )]
+    step = 0
 
     """
     In a loop, we will:
     1. Get the current state of the battle
     2. Get the next action from the agent via step()
     3. Execute that action and skip through any text prompts
-    4. Capture a log of what just happened (HP diffs, who moved first, did the battle end, etc.)
+    4. Capture the battle text and HP/stat changes that just happened, and whether the battle ended.
     """
     while True:
         active_party.refresh()
@@ -310,8 +485,7 @@ def run(emu: Emulator, agent, active_party: party.Party) -> BattleResult:
 
         action_type, action_arg = action_string.split(maxsplit=1)
         execute(emu, action_type, action_arg, active_party, active_slot)
-        player_first = None if action_type == "SEND" else (emu.mem.u8[BATTLER_TURN_ORDER] == 0)
-        ended, won = _b_press_loop(emu)
+        messages, ended, won = _capture_turn(emu, active_party)
 
         opp_move = emu.mem.u16[LAST_MOVES + 2]
         active_party.refresh()
@@ -327,7 +501,7 @@ def run(emu: Emulator, agent, active_party: party.Party) -> BattleResult:
             hp_snapshot=hp_snap,
             opp_species=state.opp_species,
             opp_ability=state.opp_ability,
-            player_moved_first=player_first,
+            messages=messages,
         ))
 
         if ended:
@@ -336,7 +510,7 @@ def run(emu: Emulator, agent, active_party: party.Party) -> BattleResult:
     pokemon_remaining = sum(1 for hp, _ in steps[-1].hp_snapshot if hp > 0)
     return BattleResult(
         won=won,
-        turns=len(steps),
+        turns=len(steps) - 1,  # exclude the step-0 intro record
         pokemon_remaining=pokemon_remaining,
         steps=steps,
     )

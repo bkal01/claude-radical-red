@@ -20,6 +20,8 @@ def main() -> None:
     parser.add_argument("--model", default="gpt-5-mini")
     parser.add_argument("--record", action="store_true")
     parser.add_argument("--optimize-team", action="store_true")
+    parser.add_argument("--debug", action="store_true",
+                        help="log the exact full LLM input prompt and output for each agent step")
     args = parser.parse_args()
 
     emu = Emulator(ROM_PATH, SAVE_STATE_PATH)
@@ -38,7 +40,7 @@ def main() -> None:
         print(f"Recording to {video_path}")
 
     try:
-        for _ in range(agent.max_episodes):
+        for episode_idx in range(agent.max_episodes):
             emu.load_state()
             team_config.apply(emu.mem)
 
@@ -64,7 +66,7 @@ def main() -> None:
             if result.won:
                 break
 
-            if args.optimize_team:
+            if args.optimize_team and episode_idx < agent.max_episodes - 1:
                 proposed = agent.propose_team(team_config)
                 if proposed is not None:
                     team_config = proposed
