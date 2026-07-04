@@ -67,6 +67,7 @@ class BattleState:
     hazards_player: SideHazards        # entry hazards on the player's side
     hazards_opp: SideHazards           # entry hazards on the opponent's side
     opp_species: str                   # Giovanni's current active Pokemon name (or "species_XXX" if unknown)
+    opp_species_id: int                # Giovanni's active Pokemon species ID (disambiguates base/mega/regional forms)
     opp_ability: str                   # Giovanni's active Pokemon ability name
     opp_current_hp: int | None         # Giovanni's active Pokemon current HP (None if offset unverified)
     opp_max_hp: int | None             # Giovanni's active Pokemon max HP (None if offset unverified)
@@ -101,6 +102,7 @@ def read_battle_state(mem, active_slot: int, poke_party: list[party.PartyPokemon
             toxic_spikes=0,
         ),
         opp_species=party.SPECIES_NAME.get(opp_species_id, f"species_{opp_species_id}"),
+        opp_species_id=opp_species_id,
         opp_ability=party.ABILITY_NAME.get(mem.u8[opp_base + _MON_ABILITY], ""),
         opp_current_hp=opp_cur if opp_cur < 2000 else None,
         opp_max_hp=opp_max if opp_max < 2000 else None,
@@ -129,6 +131,7 @@ class StepLog:
     opponent_move: int                 # last move ID used by battler 1; 0 if undetected
     hp_snapshot: tuple                 # ((current_hp, max_hp), ...) per party slot after this step
     opp_species: str = ""              # Giovanni's active Pokemon at the start of this step
+    opp_species_id: int = 0            # species ID for the above (disambiguates base/mega/regional forms)
     opp_ability: str = ""              # Giovanni's active Pokemon ability at the start of this step
     messages: list[MessageEvent] = field(default_factory=list)  # verbatim text captured during this step
 
@@ -466,6 +469,7 @@ def run(emu: Emulator, agent, active_party: party.Party) -> BattleResult:
         opponent_move=0,
         hp_snapshot=tuple((p.current_hp, p.max_hp) for p in active_party.members),
         opp_species=intro_state.opp_species,
+        opp_species_id=intro_state.opp_species_id,
         opp_ability=intro_state.opp_ability,
         messages=intro_messages,
     )]
@@ -502,6 +506,7 @@ def run(emu: Emulator, agent, active_party: party.Party) -> BattleResult:
             opponent_move=opp_move,
             hp_snapshot=hp_snap,
             opp_species=state.opp_species,
+            opp_species_id=state.opp_species_id,
             opp_ability=state.opp_ability,
             messages=messages,
         ))

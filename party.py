@@ -59,9 +59,10 @@ MOVE_DATA  = {i: m for i, m in enumerate(_moves) if m}
 _abilities    = json.loads((Path(__file__).parent / "data" / "abilities.json").read_text())
 ABILITY_NAME  = {i: name for i, name in enumerate(_abilities) if name}
 
-# Species ID → name, generated from the ROM by scripts/extract_species.py.
-_species     = json.loads((Path(__file__).parent / "data" / "species.json").read_text())
-SPECIES_NAME = {i: name for i, name in enumerate(_species) if name}
+# Species ID → {name, types}, generated from the ROM by scripts/extract_species.py.
+_species      = json.loads((Path(__file__).parent / "data" / "species.json").read_text())
+SPECIES_NAME  = {i: e["name"] for i, e in enumerate(_species) if e}
+SPECIES_TYPES = {i: e["types"] for i, e in enumerate(_species) if e}
 
 
 @dataclass

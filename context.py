@@ -1,7 +1,10 @@
 import struct
 
 from battle import EpisodeRecord, BattleState, SideHazards, StepLog
-from party import MOVE_DATA, MOVE_NAME, party_count, read_slot, PARTY_BASE_ADDR, SLOT_SIZE
+from party import (
+    MOVE_DATA, MOVE_NAME, SPECIES_TYPES,
+    party_count, read_slot, PARTY_BASE_ADDR, SLOT_SIZE,
+)
 
 _GBA_ROM = 0x08000000
 
@@ -120,9 +123,12 @@ def build_team_description(mem, rom: bytes) -> str:
         move_ids = (a0 & 0xFFFF, (a0 >> 16) & 0xFFFF, a1 & 0xFFFF, (a1 >> 16) & 0xFFFF)
         move_pps = (a2 & 0xFF, (a2 >> 8) & 0xFF, (a2 >> 16) & 0xFF, (a2 >> 24) & 0xFF)
 
+        types = SPECIES_TYPES.get(poke.species_id)
+        type_str = "/".join(types) if types else "?"
+
         lines.append(f"## {poke.name}\n")
         lines.append(
-            f"**Level:** {poke.level}  **Nature:** {nature_str}\n"
+            f"**Type:** {type_str}  **Level:** {poke.level}  **Nature:** {nature_str}\n"
         )
         lines.append(
             f"**Stats:** HP {poke.max_hp} | ATK {mem.u16[base + _ATK]} | DEF {mem.u16[base + _DEF]} | "
@@ -240,6 +246,7 @@ def build_opp_discovery_text(
     history: list[StepLog],
     prior_episodes: list[EpisodeRecord],
     current_opp_species: str = "",
+    current_opp_species_id: int = 0,
     current_opp_ability: str = "",
     current_opp_hp: int | None = None,
     current_opp_max_hp: int | None = None,
@@ -247,11 +254,13 @@ def build_opp_discovery_text(
     """Build a partial Giovanni team sheet from what has been discovered in battle."""
     seen: dict[str, dict] = {}
 
-    def record(species: str, ability: str, move_id: int) -> None:
+    def record(species: str, species_id: int, ability: str, move_id: int) -> None:
         if not species:
             return
         if species not in seen:
-            seen[species] = {"ability": "", "moves": []}
+            seen[species] = {"species_id": species_id, "ability": "", "moves": []}
+        if species_id:
+            seen[species]["species_id"] = species_id
         if ability and not seen[species]["ability"]:
             seen[species]["ability"] = ability
         move = MOVE_NAME.get(move_id) if move_id else None
@@ -260,16 +269,13 @@ def build_opp_discovery_text(
 
     for episode in prior_episodes:
         for step in episode.steps:
-            record(step.opp_species, step.opp_ability, step.opponent_move)
+            record(step.opp_species, step.opp_species_id, step.opp_ability, step.opponent_move)
 
     for step in history:
-        record(step.opp_species, step.opp_ability, step.opponent_move)
+        record(step.opp_species, step.opp_species_id, step.opp_ability, step.opponent_move)
 
     if current_opp_species:
-        if current_opp_species not in seen:
-            seen[current_opp_species] = {"ability": "", "moves": []}
-        if current_opp_ability and not seen[current_opp_species]["ability"]:
-            seen[current_opp_species]["ability"] = current_opp_ability
+        record(current_opp_species, current_opp_species_id, current_opp_ability, 0)
 
     if not seen:
         return "No information yet — opponent's team is unknown."
@@ -279,6 +285,9 @@ def build_opp_discovery_text(
         is_active = name == current_opp_species
         active_marker = " **(active)**" if is_active else ""
         lines.append(f"## {name}{active_marker}")
+        types = SPECIES_TYPES.get(info["species_id"])
+        if types:
+            lines.append(f"**Type:** {'/'.join(types)}")
         lines.append(f"**Ability:** {info['ability'] or '?'}")
         if is_active:
             if current_opp_hp is not None and current_opp_max_hp is not None:
@@ -359,8 +368,8 @@ def build_action_context(
         history_text = _render_transcript(history, party_names, show_deltas=True)
 
     opp_text = build_opp_discovery_text(
-        history, prior_episodes, state.opp_species, state.opp_ability,
-        state.opp_current_hp, state.opp_max_hp
+        history, prior_episodes, state.opp_species, state.opp_species_id,
+        state.opp_ability, state.opp_current_hp, state.opp_max_hp
     )
     prior = "\n\n".join(_fmt_episode(a) for a in prior_episodes) if prior_episodes else "None"
     state_text = "\n".join(state_lines)
@@ -413,8 +422,8 @@ def build_replacement_context(
         history_text = _render_transcript(history, party_names, show_deltas=True)
 
     opp_text = build_opp_discovery_text(
-        history, prior_episodes, state.opp_species, state.opp_ability,
-        state.opp_current_hp, state.opp_max_hp
+        history, prior_episodes, state.opp_species, state.opp_species_id,
+        state.opp_ability, state.opp_current_hp, state.opp_max_hp
     )
     prior = "\n\n".join(_fmt_episode(a) for a in prior_episodes) if prior_episodes else "None"
     state_text = "\n".join(state_lines)

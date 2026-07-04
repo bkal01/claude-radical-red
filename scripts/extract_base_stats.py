@@ -42,12 +42,11 @@ def _read_base_stats(rom: bytes, species_id: int) -> dict | None:
 
 def main():
     rom = ROM.read_bytes()
-    species_names = json.loads((ROOT / "data" / "species.json").read_text())
+    species = json.loads((ROOT / "data" / "species.json").read_text())
 
     entries = [None]  # index 0 = null
-    for species_id in range(1, len(species_names)):
-        name = species_names[species_id] if species_id < len(species_names) else ""
-        if not name:
+    for species_id in range(1, len(species)):
+        if not species[species_id]:
             entries.append(None)
             continue
         entries.append(_read_base_stats(rom, species_id))
