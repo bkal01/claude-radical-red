@@ -1,5 +1,6 @@
 import numpy as np
 import imageio
+from PIL import Image
 
 
 class VideoRecorder:
@@ -13,6 +14,12 @@ class VideoRecorder:
 
     def capture(self, image) -> None:
         pil = image.to_pil().convert("RGB")
+
+        scale = 4 # this turns 240×160 frames into 960×640
+        pil = pil.resize(
+            (pil.width * scale, pil.height * scale),
+            Image.NEAREST,
+        )
         self._writer.append_data(np.asarray(pil))
 
     def close(self) -> None:
