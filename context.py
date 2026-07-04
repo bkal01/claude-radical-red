@@ -213,11 +213,27 @@ def _render_transcript(steps: list[StepLog], party_names: list[str], show_deltas
     return "\n".join(lines)
 
 
+def _fmt_ev_spread(evs: dict) -> str:
+    parts = [f"{stat} {ev}" for stat, ev in evs.items() if ev]
+    return ", ".join(parts) if parts else "no EVs"
+
+
 def _fmt_episode(episode: EpisodeRecord) -> str:
     outcome = "WIN" if episode.won else "LOSS"
     header = (f"Episode {episode.episode_num} ({outcome}, {episode.turns} turns, "
               f"{episode.pokemon_remaining} Pokemon remaining):")
-    return header + "\n" + _render_transcript(episode.steps, episode.party_names, show_deltas=False)
+
+    # Per-episode config (the variables that change between episodes). The static team
+    # sheet — moves, base stats, abilities — is shown once in YOUR TEAM, not repeated here.
+    config_lines = []
+    if episode.lead:
+        config_lines.append(f"Lead: {episode.lead}")
+    if episode.ev_spreads:
+        spread = "; ".join(f"{name} ({_fmt_ev_spread(evs)})" for name, evs in episode.ev_spreads)
+        config_lines.append(f"EV spreads: {spread}")
+    config_text = ("\n".join(config_lines) + "\n") if config_lines else ""
+
+    return header + "\n" + config_text + _render_transcript(episode.steps, episode.party_names, show_deltas=False)
 
 
 def build_opp_discovery_text(

@@ -147,6 +147,8 @@ class EpisodeRecord:
     pokemon_remaining: int
     party_names: list[str]
     steps: list[StepLog]
+    lead: str = ""                                         # Pokemon led with this episode
+    ev_spreads: list[tuple] = field(default_factory=list)  # [(name, {stat: ev}), ...] used this episode
 
 # ---------------------------------------------------------------------------
 # Action executors

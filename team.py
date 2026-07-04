@@ -162,3 +162,7 @@ class TeamConfig:
     def apply(self, mem) -> None:
         for slot, cfg in enumerate(self.members):
             cfg.apply(mem, slot)
+
+    def ev_summary(self) -> list[tuple[str, dict[str, int]]]:
+        """Per-Pokemon (name, EVs) snapshot — the config that varies between episodes."""
+        return [(SPECIES_NAME.get(m.species_id, f"#{m.species_id}"), dict(m.evs)) for m in self.members]

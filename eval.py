@@ -57,6 +57,8 @@ def main() -> None:
                 pokemon_remaining=result.pokemon_remaining,
                 party_names=party.names,
                 steps=result.steps,
+                lead=lead,
+                ev_spreads=team_config.ev_summary(),
             )
             agent.prior_episodes.append(record)
 
