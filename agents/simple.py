@@ -20,12 +20,20 @@ load_dotenv()
 
 
 _SYSTEM_PROMPT = (
-    "You are a Pokemon battle strategist. "
+    "You are a Pokemon battler whose goal is to win the battle against an enemy trainer. "
+    "The enemy AI is deterministic: given the exact same game state, it always takes "
+    "the same action, and the same attacks crit, miss, and deal the same damage. As long "
+    "as you replay the same sequence of actions, the battle unfolds identically. "
     "Write your answer exactly as instructed by the user."
 )
 
 _PROPOSE_SYSTEM_PROMPT = (
-    "You are a Pokemon EV optimizer. "
+    "You are a Pokemon battler whose goal is to win the battle against an enemy trainer. "
+    "You are reviewing the history of failed attempts to optimize your team's EV "
+    "allocations for a better chance of winning on your next try. "
+    "The enemy AI is deterministic: given the exact same game state, it always takes "
+    "the same action, and the same attacks crit, miss, and deal the same damage. As long "
+    "as you replay the same sequence of actions, the battle unfolds identically. "
     "Write your EV allocations exactly as instructed by the user."
 )
 
