@@ -8,15 +8,19 @@ This project is a benchmark to see how good agents are at clearing Radical Red's
 
 ## Benchmark Description
 
-At the moment, we only have one boss battle: the fight against Giovanni in Silph Co. Tower, with a level cap of 57. Giovanni has a strong Rock/Ground based team, with a wide variety of secondary typings and coverage moves along with actually useful items.
+At the moment, we only have one boss battle: the fight against Giovanni in Silph Co. Tower, with a level cap of 57. Giovanni has a strong Rock/Ground based team, with a wide variety of secondary typings and coverage moves along with actually useful items. This is his team:
+
+![](assets/giovanni-team.png)
 
 The agent has access to this team:
 
-![alt text](assets/default_team.png)
+![](assets/default_team.png)
 
 All Pokemon are max level (57), and some have useful abilities/items. For example, Incineroar and Gyarados have Intimidate to cut the ATK stat of opposing Pokemon, Kingambit has Black Glasses to boost Dark type attacks, and Armarouge has the Weak Armor ability to potentially allow it to sweep with strategic switch-ins.
 
-It took me ~6-8 hours to beat this battle, but a lot of that time was trying different Pokemon, items, moves, and abilities to produce a winning strategy for Giovanni. It's important to note that Giovanni's AI is *deterministic*: given the exact same setup and exact same sequence of actions in the battle, Giovanni will *always* do the same thing. The same attacks will crit/miss as well. This is an important distinction because it turns this benchmark into a search problem rather than needing to predict opponent behavior: can the agent find the winning setup/sequence of actions that leads to victory?
+It took me ~6-8 hours to beat this battle, but a lot of that time was trying different Pokemon, items, moves, and abilities to produce a winning strategy for Giovanni. It's important to note that Giovanni's AI is is predictable. Given the exact same game state, the enemy AI will always perform the same action. The same attacks will crit and miss, and moves will do the exact same damage. This is exploitable: for example, if you know the opponent is going to use a Dragon-type move, you can switch into a Fairy-type Pokemon to avoid taking damage.
+
+This turns boss battles into more of a search problem: can the agent find the right setup and sequence of actions to win? Once it finds a prefix of steps in an episode that makes progress towards the goal, it can reuse that prefix across episodes and build off of it.
 
 ## Setup
 
@@ -58,9 +62,14 @@ Ensure you've set `LLM_API_KEY` and `LLM_BASE_URL` in your `.env` file.
 
 Use the following command to evaluate an agent against the benchmark:
 
-`uv run eval.py --max-attempts <m> --agent <agent_name> --model <model_name> --record`
+`uv run eval.py --max-episodes <m> --agent <agent_name> --model <model_name>`
 
-The logs for your agent will be saved in `logs/`, and if the `--record` flag is enabled, then a video recording of the battle will also be saved.
+The logs for your agent will be saved in `logs/`. Some useful flags:
+
+- the `--record` flag will save a video recording of the episodes to `logs/`.
+- the `--debug` flag ensures logs will contain the exact input prompts to LLM calls, rather than an abbreviated version.
+- the `--optimize-team` flag adds an additional step between episodes where the agent must provide an updated team config based on prior episodes.
+
 
 ## Next Steps
 
