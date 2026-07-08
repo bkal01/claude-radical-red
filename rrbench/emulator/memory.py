@@ -50,17 +50,20 @@ _MOVE_TABLE = 0x091521D0
 _MOVE_SIZE  = 12
 _MOVE_PP    = 4  # base PP byte offset within a move entry
 
+# Static game data lives at the repo root (memory.py sits two levels down in rrbench/emulator/).
+_DATA_DIR = Path(__file__).resolve().parents[2] / "data"
+
 # Move ID → data, generated from the ROM by scripts/extract_moves.py.
-_moves     = json.loads((Path(__file__).parent / "data" / "moves.json").read_text())
+_moves     = json.loads((_DATA_DIR / "moves.json").read_text())
 MOVE_NAME  = {i: m["name"] for i, m in enumerate(_moves) if m}
 MOVE_DATA  = {i: m for i, m in enumerate(_moves) if m}
 
 # Ability ID → name, generated from the ROM by scripts/extract_abilities.py.
-_abilities    = json.loads((Path(__file__).parent / "data" / "abilities.json").read_text())
+_abilities    = json.loads((_DATA_DIR / "abilities.json").read_text())
 ABILITY_NAME  = {i: name for i, name in enumerate(_abilities) if name}
 
 # Species ID → {name, types}, generated from the ROM by scripts/extract_species.py.
-_species      = json.loads((Path(__file__).parent / "data" / "species.json").read_text())
+_species      = json.loads((_DATA_DIR / "species.json").read_text())
 SPECIES_NAME  = {i: e["name"] for i, e in enumerate(_species) if e}
 SPECIES_TYPES = {i: e["types"] for i, e in enumerate(_species) if e}
 
