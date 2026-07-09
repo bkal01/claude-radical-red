@@ -21,6 +21,7 @@ class BattleSession:
     emu: Emulator
     party: Party
     active_slot: int = 0
+    num_steps: int = 0
     ended: bool = False
     won: bool = False
 
@@ -43,7 +44,7 @@ class SideHazards:
 
 @dataclass
 class BattleState:
-    party: list[PartyPokemon]   # all party members in party-slot order
+    party: Party                       # full Party, `members` is in party-slot order
     active_slot: int                   # which party slot is currently on the field
     needs_replacement: bool            # True when active Pokemon fainted; agent must name a replacement
     weather: int                       # BATTLE_WEATHER bitmask (0x08 = permanent sandstorm)
@@ -59,7 +60,7 @@ class BattleState:
     opp_max_hp: int | None             # Giovanni's active Pokemon max HP (None if offset unverified)
 
 
-def read_battle_state(mem, active_slot: int, poke_party: list[PartyPokemon]) -> BattleState:
+def read_battle_state(mem, party: Party) -> BattleState:
     opp_base    = BATTLE_MONS_BASE + BATTLE_MON_SIZE
     weather_val = mem.u32[BATTLE_WEATHER] & 0xFF
     # bit 0x08 = WEATHER_SANDSTORM_PERMANENT (Sand Stream); timer is irrelevant for permanent weather
@@ -70,8 +71,13 @@ def read_battle_state(mem, active_slot: int, poke_party: list[PartyPokemon]) -> 
     opp_cur = mem.u16[opp_base + MON_CUR_HP]
     opp_max = mem.u16[opp_base + MON_MAX_HP]
     opp_species_id = mem.u16[opp_base + MON_SPECIES]
+
+    species_id = mem.u16[BATTLE_MONS_BASE + MON_SPECIES]
+    name = SPECIES_NAME.get(species_id, f"species_{species_id}")
+    active_slot = party.get_slot_number(name)
+
     return BattleState(
-        party=poke_party,
+        party=party,
         active_slot=active_slot,
         needs_replacement=mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] == 0,
         weather=weather_val,
