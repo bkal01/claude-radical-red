@@ -1,8 +1,5 @@
-import json
-from pathlib import Path
-
 from rrbench.battle.engine import start_battle, do_action
-from rrbench.battle.state import in_battle, read_battle_state
+from rrbench.battle.state import BattleSession, in_battle, read_battle_state
 from rrbench.emulator.emulator import Emulator
 from rrbench.emulator.memory import Party, PokemonNotInPartyError
 from rrbench.interface.protocol import (
@@ -10,7 +7,7 @@ from rrbench.interface.protocol import (
     render_pre_battle,
     render_messages,
 )
-from rrbench.tasks import TaskSpec, load_task
+from rrbench.tasks import TaskSpec
 
 
 def create_emulator(task: TaskSpec) -> Emulator:
@@ -19,23 +16,35 @@ def create_emulator(task: TaskSpec) -> Emulator:
     return emulator
 
 
-_REPO_ROOT = Path(__file__).resolve().parents[2]
-_DEFAULT_TASK = load_task(
-    _REPO_ROOT / "tasks/giovanni", rom_path=_REPO_ROOT / "radicalred.gba"
-)
-emu = create_emulator(_DEFAULT_TASK)
+class BattleService:
+    """
+    Persistent Service that holds the state of a Task, takes in agent actions,
+    and returns the corresponding output back to the agent.
+    """
 
+    def __init__(self, task: TaskSpec) -> None:
+        self.task = task
+        self.emu = create_emulator(task)
+        self.session: BattleSession | None = None
 
-def observe() -> str:
-    party = Party(emu.mem)
-    if not in_battle(emu.mem):
-        return json.dumps(render_pre_battle(party))
-    return json.dumps(render_observation(read_battle_state(emu.mem, party)))
+    def observe(self) -> dict:
+        party = Party(self.emu.mem)
+        if not in_battle(self.emu.mem):
+            observation = render_pre_battle(party)
+        else:
+            observation = render_observation(read_battle_state(self.emu.mem, party))
+        return {"ok": True, "observation": observation}
 
-def lead(lead_pokemon: str) -> str:
-    party = Party(emu.mem)
-    try:
-        session, state, messages = start_battle(emu, party, lead_pokemon)
-    except PokemonNotInPartyError as e:
-        return json.dumps({"error": str(e)})
-    return json.dumps({"messages": render_messages(messages)})
+    def lead(self, lead_pokemon: str) -> dict:
+        party = Party(self.emu.mem)
+        try:
+            self.session, state, messages = start_battle(self.emu, party, lead_pokemon)
+        except PokemonNotInPartyError as e:
+            return {"ok": False, "error": str(e)}
+        return {
+            "ok": True,
+            "messages": render_messages(messages),
+            "observation": render_observation(state),
+            "ended": self.session.ended,
+            "won": self.session.won,
+        }
