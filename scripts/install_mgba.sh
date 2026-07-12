@@ -1,10 +1,16 @@
 #!/bin/bash
-# Rebuild and install mgba Python bindings into the project venv.
+# Rebuild the mgba Python bindings and install them into the project venv.
 #
-# Run this after any `uv sync`, or after a system restart wipes ~/mgba/build.
-# mgba source lives at ~/mgba (cloned from https://github.com/mgba-emu/mgba.git,
-# tag 0.10.5). The build requires ffmpeg (brew install ffmpeg) so that
-# EReaderAnchorList symbols are compiled into libmgba.dylib.
+# Run this after a system restart wipes ~/mgba/build, or whenever the compiled
+# bindings need refreshing. mgba source lives at ~/mgba (cloned from
+# https://github.com/mgba-emu/mgba.git, tag 0.10.5). The build requires ffmpeg
+# (brew install ffmpeg) so that EReaderAnchorList symbols are compiled into
+# libmgba.dylib.
+#
+# mgba is wired into the project as a uv path dependency (vendor/mgba, see
+# pyproject.toml [tool.uv.sources]). This script rebuilds the compiled package,
+# copies it into vendor/mgba/mgba, and lets `uv sync` install it as a normal
+# tracked package -- so plain `uv run` / `uv sync` never prune it.
 #
 # Usage: bash scripts/install_mgba.sh
 
@@ -15,7 +21,7 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 MGBA_SRC=~/mgba
 MGBA_BUILD=~/mgba/build
 PYTHON="$PROJECT_DIR/.venv/bin/python"
-PTH_FILE="$PROJECT_DIR/.venv/lib/python3.10/site-packages/mgba.pth"
+VENDOR_PKG="$PROJECT_DIR/vendor/mgba/mgba"
 
 if [ ! -d "$MGBA_SRC" ]; then
     echo "Cloning mgba 0.10.5..."
@@ -36,8 +42,14 @@ cmake -S "$MGBA_SRC" -B "$MGBA_BUILD" \
 echo "Building mgba-py..."
 cmake --build "$MGBA_BUILD" --target mgba-py -j"$(sysctl -n hw.logicalcpu)"
 
-LIB_DIR=$(ls -d "$MGBA_BUILD/python/lib."*)
-echo "$LIB_DIR" > "$PTH_FILE"
-echo "Installed via $PTH_FILE -> $LIB_DIR"
+LIB_DIR=$(ls -d "$MGBA_BUILD/python/lib."*cpython* | head -1)
+echo "Vendoring built package from $LIB_DIR/mgba"
+rm -rf "$VENDOR_PKG"
+cp -R "$LIB_DIR/mgba" "$VENDOR_PKG"
+rm -rf "$VENDOR_PKG/__pycache__"
 
-"$PYTHON" -c "import mgba.core; print('mgba OK')"
+echo "Installing into venv via uv..."
+cd "$PROJECT_DIR"
+uv sync --reinstall-package mgba
+
+uv run python -c "import mgba.core; print('mgba OK')"

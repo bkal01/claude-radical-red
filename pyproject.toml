@@ -9,9 +9,13 @@ dependencies = [
     "cffi>=2.0.0",
     "imageio>=2.34.0",
     "imageio-ffmpeg>=0.5.0",
+    "mgba",
     "openai>=2.44.0",
     "pip>=26.1.2",
     "pytest-runner>=6.0.1",
     "python-dotenv>=1.2.2",
     "setuptools>=82.0.1",
 ]
+
+[tool.uv.sources]
+mgba = { path = "vendor/mgba" }

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+# Packages the prebuilt mgba Python bindings (built by scripts/install_mgba.sh)
+# into a real, uv-tracked distribution so `uv sync` / `uv run` never prunes it.
+# The compiled mgba/_pylib.abi3.so has an absolute rpath to ~/mgba/build, so the
+# shared library is found without being vendored alongside it.
+[project]
+name = "mgba"
+version = "0.10.5"
+requires-python = ">=3.10"
+dependencies = ["cffi"]
+
+[tool.setuptools]
+packages = ["mgba"]
+
+[tool.setuptools.package-data]
+mgba = ["*.so"]
