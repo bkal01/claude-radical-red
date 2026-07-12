@@ -1,6 +1,7 @@
 import json
+from pathlib import Path
 
-from rrbench.battle.engine import start_battle
+from rrbench.battle.engine import start_battle, do_action
 from rrbench.battle.state import in_battle, read_battle_state
 from rrbench.emulator.emulator import Emulator
 from rrbench.emulator.memory import Party, PokemonNotInPartyError
@@ -9,15 +10,20 @@ from rrbench.interface.protocol import (
     render_pre_battle,
     render_messages,
 )
+from rrbench.tasks import TaskSpec, load_task
 
-ROM_PATH = "radicalred.gba"
-SAVE_STATE_PATH = "tasks/giovanni/save_state.ss0"
 
-emu = Emulator(
-    rom_path=ROM_PATH,
-    save_state_path=SAVE_STATE_PATH
+def create_emulator(task: TaskSpec) -> Emulator:
+    emulator = Emulator(task.rom_path, task.save_state_path)
+    emulator.load_state()
+    return emulator
+
+
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_DEFAULT_TASK = load_task(
+    _REPO_ROOT / "tasks/giovanni", rom_path=_REPO_ROOT / "radicalred.gba"
 )
-emu.load_state()
+emu = create_emulator(_DEFAULT_TASK)
 
 
 def observe() -> str:

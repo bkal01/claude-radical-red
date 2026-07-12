@@ -1,3 +1,3 @@
 # Battle against Giovanni in Silph Co. Tower
-
-level-cap: 57
+id: giovanni
+save_state: save_state.ss0
