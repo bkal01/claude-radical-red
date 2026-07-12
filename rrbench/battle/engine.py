@@ -3,9 +3,9 @@ from rrbench.emulator.emulator import (
     KEY_A, KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT,
 )
 from rrbench.emulator.memory import Party
-from rrbench.battle.addresses import BATTLE_TYPE_FLAGS, LAST_MOVES
+from rrbench.battle.addresses import LAST_MOVES
 from rrbench.battle.capture import MessageEvent, capture_intro, capture_turn
-from rrbench.battle.state import BattleSession, BattleState, StepLog, read_battle_state
+from rrbench.battle.state import BattleSession, BattleState, StepLog, in_battle, read_battle_state
 
 
 def start_battle(emu: Emulator, party: Party, lead: str) -> tuple[BattleSession, BattleState, list[MessageEvent]]:
@@ -26,7 +26,7 @@ def start_battle(emu: Emulator, party: Party, lead: str) -> tuple[BattleSession,
     # Advance dialogue until the battle actually starts. Hold A for 3 frames (registers
     # the press + speeds text scroll), then release for 20 so the game processes the edge.
     for _ in range(120):
-        if emu.mem.u32[BATTLE_TYPE_FLAGS] != 0:
+        if in_battle(emu.mem):
             break
         emu.press(KEY_A, hold_frames=3)
         emu.step(20)

@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 from rrbench.battle.addresses import (
-    BATTLE_MONS_BASE, BATTLE_MON_SIZE, BATTLE_WEATHER,
+    BATTLE_MONS_BASE, BATTLE_MON_SIZE, BATTLE_TYPE_FLAGS, BATTLE_WEATHER,
     MON_ABILITY, MON_CUR_HP, MON_MAX_HP, MON_SPECIES, MON_STAT_STAGES,
     SIDE_STATUS_PLAYER, SIDE_STATUS_OPP,
     WEATHER_TIMER,
@@ -58,6 +58,12 @@ class BattleState:
     opp_ability: str                   # Giovanni's active Pokemon ability name
     opp_current_hp: int | None         # Giovanni's active Pokemon current HP (None if offset unverified)
     opp_max_hp: int | None             # Giovanni's active Pokemon max HP (None if offset unverified)
+
+
+def in_battle(mem) -> bool:
+    """True while a trainer battle is live. BATTLE_TYPE_FLAGS is non-zero during the
+    battle and clears to 0 when it ends."""
+    return mem.u32[BATTLE_TYPE_FLAGS] != 0
 
 
 def read_battle_state(mem, party: Party) -> BattleState:
