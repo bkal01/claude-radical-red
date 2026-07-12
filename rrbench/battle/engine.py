@@ -93,7 +93,8 @@ def switch(emu: Emulator, pokemon_name: str, active_party: Party) -> None:
     """
     # Use the visual display slot, not the EWRAM slot. After a forced replacement
     # Radical Red caches a display order that diverges from EWRAM (see send() below).
-    target = active_party.get_display_slot(pokemon_name)
+    # Validate before any key press so an invalid target can't desync the menu.
+    target = active_party.resolve_switch_target(pokemon_name)
     emu.press(KEY_DOWN)   # FIGHT → POKÉMON in the 2×2 battle menu
     emu.step(15)
     emu.press(KEY_A)      # open party screen
@@ -124,7 +125,7 @@ def send(emu: Emulator, pokemon_name: str, active_party: Party) -> None:
     # (captured by the top-of-loop refresh()). Sync display_pos to that same order so
     # the visual slot == EWRAM slot, which is true at forced-replacement time.
     active_party._sync_display_to_ewram()
-    target = active_party.get_display_slot(pokemon_name)
+    target = active_party.resolve_switch_target(pokemon_name)
     emu.step(80)          # wait for party screen transition to complete
     _nav_party_slot(emu, target)
     emu.press(KEY_A)      # select → SEND OUT submenu

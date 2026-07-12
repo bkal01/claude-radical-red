@@ -15,6 +15,19 @@ class PokemonNotInPartyError(ValueError):
         )
 
 
+class PokemonFaintedError(ValueError):
+    """Raised when an action tries to send out a Pokemon that has already fainted."""
+
+    def __init__(self, name: str, available: list[str]):
+        self.name = name
+        self.available = available
+        avail = ", ".join(available) if available else "none"
+        super().__init__(
+            f"{name!r} has fainted and can't be sent out. "
+            f"Available Pokemon: {avail}."
+        )
+
+
 # FireRed party memory layout (EWRAM)
 PARTY_COUNT_ADDR = 0x02024029
 PARTY_BASE_ADDR  = 0x02024284
@@ -193,6 +206,17 @@ class Party:
     def get_display_slot(self, name: str) -> int:
         """Visual party screen position for this Pokemon (may differ from EWRAM slot)."""
         return self.display_pos[name]
+
+    def resolve_switch_target(self, name: str) -> int:
+        """Display slot for a legal switch/send target. Raises PokemonNotInPartyError
+        if `name` isn't in the party, or PokemonFaintedError if it has already fainted.
+        Call before touching the emulator so an invalid target never desyncs menu state."""
+        if name not in self._slot_map:
+            raise PokemonNotInPartyError(name, self.names)
+        if self.members[self._slot_map[name]].current_hp == 0:
+            alive = [p.name for p in self.members if p.current_hp > 0]
+            raise PokemonFaintedError(name, alive)
+        return self.get_display_slot(name)
 
     def set_lead(self, name: str) -> None:
         if self.members[0].name == name:
