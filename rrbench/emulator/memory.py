@@ -3,6 +3,18 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
+class PokemonNotInPartyError(ValueError):
+    """Raised when an action names a Pokemon that isn't in the player's party."""
+
+    def __init__(self, name: str, available: list[str]):
+        self.name = name
+        self.available = available
+        super().__init__(
+            f"{name!r} is not in your party. Available Pokemon: "
+            f"{', '.join(available)}. Choose one of these, or change your team."
+        )
+
+
 # FireRed party memory layout (EWRAM)
 PARTY_COUNT_ADDR = 0x02024029
 PARTY_BASE_ADDR  = 0x02024284
@@ -187,7 +199,9 @@ class Party:
             return
 
         # swap the two pokemon in game memory
-        slot = next(i for i, p in enumerate(self.members) if p.name == name)
+        slot = next((i for i, p in enumerate(self.members) if p.name == name), None)
+        if slot is None:
+            raise PokemonNotInPartyError(name, self.names)
         base_a = PARTY_BASE_ADDR
         base_b = PARTY_BASE_ADDR + slot * SLOT_SIZE
         for i in range(0, SLOT_SIZE, 4):

@@ -1,3 +1,4 @@
+from rrbench.battle.capture import MessageEvent
 from rrbench.battle.state import BattleState, SideHazards
 
 STAT_LABELS = ("ATK", "DEF", "SPE", "SPA", "SPD", "ACC", "EVA")
@@ -78,3 +79,9 @@ def render_observation(state: BattleState) -> dict:
             "opponent": render_stat_stages(state.opp_stat_stages),
         },
     }
+
+def render_messages(messages: list[MessageEvent]) -> list[str]:
+    """
+    Render a list of MessageEvents into a form that's consumable by an agent via cli.
+    """
+    return [ev.text for ev in messages]

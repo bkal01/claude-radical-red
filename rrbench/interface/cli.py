@@ -8,8 +8,13 @@ def main(args):
 
     sub.add_parser("observe")
 
+    lead = sub.add_parser("lead")
+    lead.add_argument("lead-pokemon")
+
     if args.verb == "observe":
         result = service.observe()
+    elif args.verb == "lead":
+        pass
     else:
         raise ValueError(f"Unknown verb {args.verb}")
 
