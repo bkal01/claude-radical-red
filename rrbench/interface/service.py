@@ -28,14 +28,23 @@ class BattleService:
         self.session: BattleSession | None = None
 
     def observe(self) -> dict:
-        party = Party(self.emu.mem)
-        if not in_battle(self.emu.mem):
+        battle_active = in_battle(self.emu.mem)
+        if battle_active and self.session is not None:
+            party = self.session.party
+            party.refresh()
+        else:
+            party = Party(self.emu.mem)
+
+        if not battle_active:
             observation = render_pre_battle(party)
         else:
             observation = render_observation(read_battle_state(self.emu.mem, party))
         return {"ok": True, "observation": observation}
 
     def lead(self, lead_pokemon: str) -> dict:
+        if self.session is not None or in_battle(self.emu.mem):
+            return {"ok": False, "error": "lead is only valid in no_battle phase"}
+
         party = Party(self.emu.mem)
         try:
             self.session, state, messages = start_battle(self.emu, party, lead_pokemon)
@@ -48,3 +57,8 @@ class BattleService:
             "ended": self.session.ended,
             "won": self.session.won,
         }
+
+    def reset(self) -> dict:
+        self.emu.load_state()
+        self.session = None
+        return self.observe()
