@@ -45,9 +45,6 @@ def start_battle(emu: Emulator, party: Party, lead: str) -> tuple[BattleSession,
     return session, battle_state, intro_messages
 
 def fight(emu: Emulator, move_name: str, active_party: Party, active_slot: int) -> None:
-    print(f"Active slot: {active_slot}")
-    print(f"Active party member: {active_party.members[active_slot].name}")
-    print(f"Active party member's moves: {active_party.members[active_slot].moves}")
     move_slot = active_party.members[active_slot].moves.index(move_name)
     row, col  = divmod(move_slot, 2)   # 2-column move grid: slot 0→(0,0), 1→(0,1), 2→(1,0), 3→(1,1)
 
@@ -124,8 +121,9 @@ def send(emu: Emulator, pokemon_name: str, active_party: Party) -> None:
     # At this point active_party.members already reflects the faint-reordered EWRAM
     # (captured by the top-of-loop refresh()). Sync display_pos to that same order so
     # the visual slot == EWRAM slot, which is true at forced-replacement time.
+    active_party.resolve_switch_target(pokemon_name)
     active_party._sync_display_to_ewram()
-    target = active_party.resolve_switch_target(pokemon_name)
+    target = active_party.get_display_slot(pokemon_name)
     emu.step(80)          # wait for party screen transition to complete
     _nav_party_slot(emu, target)
     emu.press(KEY_A)      # select → SEND OUT submenu
@@ -155,7 +153,8 @@ def do_action(
     emu: Emulator,
     party: Party,
     session: BattleSession,
-    action: str,
+    action_type: str,
+    action_arg: str,
 ) -> tuple[BattleSession, BattleState, StepLog]:
     """
     Execute the given `action` from the agent in the environment.
@@ -167,8 +166,8 @@ def do_action(
         party=party,
     )
 
-    action_arr = action.split()
-    action_type, action_arg = action_arr[0], " ".join(action_arr[1:]) # TODO: clean this up with max_split?
+    if not action_arg:
+        raise ValueError("Action must be FIGHT, SWITCH, or SEND followed by a name")
     execute(emu, action_type, action_arg, party, battle_state.active_slot)
     messages, ended, won = capture_turn(emu, party)
     session.ended, session.won = ended, won
@@ -177,7 +176,7 @@ def do_action(
     opp_move = emu.mem.u16[LAST_MOVES + 2]
     step_log = StepLog(
         step=session.num_steps,
-        action=action,
+        action=f"{action_type} {action_arg}",
         opponent_move=opp_move,
         hp_snapshot=tuple((p.current_hp, p.max_hp) for p in party.members),
         opp_species=battle_state.opp_species,
@@ -189,5 +188,6 @@ def do_action(
         mem=emu.mem,
         party=party,
     )
+    session.active_slot = new_battle_state.active_slot
     
     return session, new_battle_state, step_log
