@@ -4,6 +4,7 @@ from pathlib import Path
 import socket
 import sys
 
+from rrbench.harness.trial import Trial
 from rrbench.interface.service import BattleService
 from rrbench.tasks import load_task
 
@@ -12,10 +13,19 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog="rrbench-env-server")
     parser.add_argument("--socket", type=Path, required=True)
     parser.add_argument("--task-dir", type=Path, required=True)
+    parser.add_argument("--max-episodes", type=int, required=True)
+    parser.add_argument("--trajectory-path", type=Path, required=True)
+    parser.add_argument("--score-path", type=Path, required=True)
     args = parser.parse_args()
 
     task = load_task(args.task_dir)
-    service = BattleService(task)
+    trial = Trial(
+        task=task,
+        max_episodes=args.max_episodes,
+        trajectory_path=args.trajectory_path,
+        score_path=args.score_path,
+        service_factory=BattleService,
+    )
     socket_path = args.socket
     bound = False
 
@@ -34,26 +44,7 @@ def main() -> None:
                             request_line = request_file.readline()
                         request = json.loads(request_line)
 
-                        if not isinstance(request, dict):
-                            result = {"ok": False, "error": "request must be a JSON object"}
-                        elif request.get("verb") == "observe":
-                            result = service.observe()
-                        elif request.get("verb") == "lead":
-                            pokemon = request.get("pokemon")
-                            if not isinstance(pokemon, str):
-                                result = {"ok": False, "error": "lead requires a string pokemon"}
-                            else:
-                                result = service.lead(pokemon)
-                        elif request.get("verb") == "action":
-                            command = request.get("command")
-                            if not isinstance(command, str):
-                                result = {"ok": False, "error": "action requires a string command"}
-                            else:
-                                result = service.action(command)
-                        elif request.get("verb") == "reset":
-                            result = service.reset()
-                        else:
-                            result = {"ok": False, "error": "unknown request verb"}
+                        result = trial.handle(request)
                     except (json.JSONDecodeError, UnicodeDecodeError):
                         result = {"ok": False, "error": "request must be valid JSON"}
                     except Exception as error:
