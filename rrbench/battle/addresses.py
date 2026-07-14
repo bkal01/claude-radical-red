@@ -28,10 +28,11 @@ WEATHER_SANDSTORM_PERMANENT = 0x08
 BATTLER_TURN_ORDER = 0x02023D6D
 
 # Side status — bit 0x10 = SIDE_STATUS_STEALTH_ROCK; set when SR is placed on that side.
-# 0x02023DDE flips 0->16 when Hippowdon uses Stealth Rock (persistent across turns).
-# 0x02023DEE is 16 bytes away and likely the opponent-side mirror.
+# Hippowdon setting rocks flips 0x02023DDE; a player-set Stealth Rock flips
+# 0x02023DE0. 0x02023DEE changes with the player-side effect too, but is not
+# the opponent-side status field.
 SIDE_STATUS_PLAYER = 0x02023DDE  # u8/u32 bitmask, player's field side
-SIDE_STATUS_OPP    = 0x02023DEE  # u8/u32 bitmask, opponent's field side
+SIDE_STATUS_OPP    = 0x02023DE0  # u8/u32 bitmask, opponent's field side
 SIDE_STATUS_STEALTH_ROCK = 0x10
 
 # --- gBattleMons — active battler structs (0x58 bytes each, 4 slots) ---------
