@@ -133,7 +133,7 @@ wheels = [
 [[package]]
 name = "claude-radical-red"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "cached-property" },
     { name = "cffi" },

@@ -11,7 +11,10 @@ from rrbench.tasks import load_task
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="rrbench-env-server")
-    parser.add_argument("--socket", type=Path, required=True)
+    transport = parser.add_mutually_exclusive_group(required=True)
+    transport.add_argument("--socket", type=Path)
+    transport.add_argument("--port", type=int)
+    parser.add_argument("--host", default="0.0.0.0")
     parser.add_argument("--task-dir", type=Path, required=True)
     parser.add_argument("--max-episodes", type=int, required=True)
     parser.add_argument("--trajectory-path", type=Path, required=True)
@@ -29,11 +32,16 @@ def main() -> None:
     socket_path = args.socket
     bound = False
 
-    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as listener:
+    family = socket.AF_UNIX if socket_path else socket.AF_INET
+    with socket.socket(family, socket.SOCK_STREAM) as listener:
         try:
-            listener.bind(str(socket_path))
+            if socket_path:
+                listener.bind(str(socket_path))
+            else:
+                listener.bind((args.host, args.port))
             bound = True
-            socket_path.chmod(0o600)
+            if socket_path:
+                socket_path.chmod(0o600)
             listener.listen()
 
             while True:

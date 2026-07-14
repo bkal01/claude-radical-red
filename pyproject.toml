@@ -18,5 +18,16 @@ dependencies = [
     "setuptools>=82.0.1",
 ]
 
+[build-system]
+requires = ["setuptools>=82.0.1"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["rrbench*"]
+namespaces = true
+
 [tool.uv.sources]
 mgba = { path = "vendor/mgba" }
+
+[project.scripts]
+rrbench-runner = "rrbench.harness.runner:main"
