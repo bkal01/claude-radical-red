@@ -147,7 +147,11 @@ def capture_turn(
             emu.step(60)
             faint_flushes += 1
             if faint_flushes >= 12:
-                return rec.events, False, False
+                active_party.refresh()
+                all_fainted = bool(active_party.members) and all(
+                    pokemon.current_hp == 0 for pokemon in active_party.members
+                )
+                return rec.events, all_fainted, False
             continue
 
         emu.press(KEY_B, hold_frames=1)

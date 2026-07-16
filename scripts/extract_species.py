@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """
-Extract species data (name + typing) from the Radical Red ROM and write to data/species.json.
+Extract species data from the Radical Red ROM and write to data/species.json.
 
 Output is a JSON array where index = species ID. Index 0 is null (the null species);
-each populated entry is {"name": str, "types": [str, ...]} with one type for monotypes
-and two for dual types.
+each populated entry contains its name, types, and base stats.
 
 Name table base 0x14042CC, stride 11. Typing comes from the extended base-stats table
 0x017B98EC (stride 28), type bytes at offsets 6 and 7 — this table holds Radical Red's
@@ -28,6 +27,8 @@ _SPECIES_STATS_TABLE = 0x017B98EC
 _SPECIES_STATS_STRIDE = 28
 _TYPE1_OFFSET = 6
 _TYPE2_OFFSET = 7
+GEN3_SPECIES_STATS_TABLE = 0x00254784
+GEN3_MAX = 386
 
 _TYPES = {
     0: "Normal", 1: "Fighting", 2: "Flying", 3: "Poison", 4: "Ground",
@@ -78,7 +79,29 @@ def main():
 
     for species_id in range(1, 2048):
         name = decode_name(rom, species_id)
-        entries.append({"name": name, "types": read_types(rom, species_id)} if name else None)
+        if name:
+            if species_id <= GEN3_MAX:
+                stats_base = GEN3_SPECIES_STATS_TABLE + species_id * _SPECIES_STATS_STRIDE
+            else:
+                stats_base = _SPECIES_STATS_TABLE + species_id * _SPECIES_STATS_STRIDE
+            hp, atk, defense, speed, spa, spdef = rom[stats_base:stats_base + 6]
+            base_stats = None
+            if hp or atk:
+                base_stats = {
+                    "hp": hp,
+                    "atk": atk,
+                    "def": defense,
+                    "spe": speed,
+                    "spa": spa,
+                    "spdef": spdef,
+                }
+            entries.append({
+                "name": name,
+                "types": read_types(rom, species_id),
+                "base_stats": base_stats,
+            })
+        else:
+            entries.append(None)
         empty_streak = 0 if name else empty_streak + 1
         if empty_streak >= 32:
             while entries and not entries[-1]:
@@ -88,18 +111,23 @@ def main():
     OUT.write_text(json.dumps(entries, indent=2) + "\n")
     print(f"Wrote {len(entries)} species entries to {OUT}")
 
-    for sid, expected_name, expected_types in [
-        (1, "Bulbasaur", ["Grass", "Poison"]),
-        (6, "Charizard", ["Fire", "Flying"]),
-        (35, "Clefairy", ["Fairy"]),
-        (130, "Gyarados", ["Water", "Flying"]),
-        (355, "Mawile", ["Steel", "Fairy"]),
-        (503, "Hippowdon", ["Ground"]),
-        (944, "Incineroar", ["Fire", "Dark"]),
-        (1342, "Garganacl", ["Rock"]),
+    for sid, expected_name, expected_types, expected_hp in [
+        (1, "Bulbasaur", ["Grass", "Poison"], 45),
+        (6, "Charizard", ["Fire", "Flying"], 78),
+        (35, "Clefairy", ["Fairy"], 70),
+        (130, "Gyarados", ["Water", "Flying"], 95),
+        (355, "Mawile", ["Steel", "Fairy"], 50),
+        (503, "Hippowdon", ["Ground"], 108),
+        (944, "Incineroar", ["Fire", "Dark"], 95),
+        (1342, "Garganacl", ["Rock"], 100),
     ]:
         e = entries[sid] if sid < len(entries) else None
-        ok = e and e["name"] == expected_name and e["types"] == expected_types
+        ok = (
+            e
+            and e["name"] == expected_name
+            and e["types"] == expected_types
+            and e["base_stats"]["hp"] == expected_hp
+        )
         status = "✓" if ok else f"✗ (got {e!r})"
         print(f"  [{sid}] {expected_name} {status}")
 

@@ -29,6 +29,7 @@ def main() -> None:
         score_path=args.score_path,
         service_factory=BattleService,
     )
+    completion_path = args.score_path.with_name("complete")
     socket_path = args.socket
     bound = False
 
@@ -63,10 +64,13 @@ def main() -> None:
                         connection.sendall(json.dumps(result, separators=(",", ":")).encode() + b"\n")
                     except OSError:
                         pass
+                    if trial.finished:
+                        completion_path.touch()
+                        break
         except KeyboardInterrupt:
             pass
         finally:
-            if bound:
+            if bound and socket_path:
                 socket_path.unlink(missing_ok=True)
 
 

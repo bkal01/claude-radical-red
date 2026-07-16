@@ -7,7 +7,10 @@ from party import (
     _checksum, _G0, SPECIES_NAME,
 )
 
-_base_stats = json.loads((Path(__file__).parent / "data" / "base_stats.json").read_text())
+species_data = json.loads(
+    (Path(__file__).resolve().parents[1] / "data" / "species.json").read_text()
+)
+base_stats = [entry["base_stats"] if entry else None for entry in species_data]
 
 # EWRAM offsets not already in party.py
 _PID   = 0x00   # u32: PID % 25 = nature index
@@ -66,7 +69,7 @@ def _nature_mult(nature_id: int, stat: str) -> float:
 
 
 def _calc_all_stats(species_id: int, evs: dict, level: int, nature_id: int) -> dict[str, int]:
-    bs = _base_stats[species_id]
+    bs = base_stats[species_id]
     if bs is None:
         raise ValueError(f"No base stats for species_id {species_id}")
 

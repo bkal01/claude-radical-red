@@ -31,3 +31,6 @@ mgba = { path = "vendor/mgba" }
 
 [project.scripts]
 rrbench-runner = "rrbench.harness.runner:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

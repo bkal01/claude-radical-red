@@ -2,9 +2,9 @@
 
 ## Incineroar
 
-**Level:** 57  **Nature:** Impish (+DEF, -SPATK)  **HP:** 183
+**Level:** 57  **Nature:** Impish (+DEF, -SPATK)
 
-**Stats:** ATK 149 | DEF 126 | SPATK 91 | SPDEF 114 | SPD 85
+**Stats:** HP 175 | ATK 136 | DEF 117 | SPATK 86 | SPDEF 107 | SPD 73
 
 **Ability:** Intimidate — Lowers the foe's Attack.
 
@@ -28,9 +28,9 @@
 
 ## Kingambit
 
-**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)  **HP:** 182
+**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)
 
-**Stats:** ATK 178 | DEF 142 | SPATK 67 | SPDEF 103 | SPD 65
+**Stats:** HP 181 | ATK 173 | DEF 141 | SPATK 65 | SPDEF 101 | SPD 62
 
 **Ability:** SupremeOverlord — Boosts power depending on fainted allies.
 
@@ -54,9 +54,9 @@
 
 ## Mawile
 
-**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)  **HP:** 126
+**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)
 
-**Stats:** ATK 119 | DEF 104 | SPATK 63 | SPDEF 68 | SPD 69
+**Stats:** HP 124 | ATK 111 | DEF 101 | SPATK 60 | SPDEF 67 | SPD 62
 
 **Ability:** Intimidate — Lowers the foe's Attack.
 
@@ -80,9 +80,9 @@
 
 ## Tsareena
 
-**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)  **HP:** 149
+**Level:** 57  **Nature:** Adamant (+ATK, -SPATK)
 
-**Stats:** ATK 156 | DEF 117 | SPATK 55 | SPDEF 116 | SPD 87
+**Stats:** HP 149 | ATK 155 | DEF 116 | SPATK 55 | SPDEF 116 | SPD 87
 
 **Ability:** Dazzling — Blocks priority moves.
 
@@ -106,9 +106,9 @@
 
 ## Armarouge
 
-**Level:** 57  **Nature:** Modest (+SPATK, -ATK)  **HP:** 165
+**Level:** 57  **Nature:** Modest (+SPATK, -ATK)
 
-**Stats:** ATK 72 | DEF 120 | SPATK 163 | SPDEF 96 | SPD 91
+**Stats:** HP 163 | ATK 65 | DEF 119 | SPATK 161 | SPDEF 96 | SPD 90
 
 **Ability:** Weak Armor — Hits by physical moves drop Def but raises Speed.
 
@@ -132,9 +132,9 @@
 
 ## Gyarados
 
-**Level:** 57  **Nature:** Impish (+DEF, -SPATK)  **HP:** 178
+**Level:** 57  **Nature:** Impish (+DEF, -SPATK)
 
-**Stats:** ATK 153 | DEF 105 | SPATK 69 | SPDEF 120 | SPD 101
+**Stats:** HP 175 | ATK 147 | DEF 104 | SPATK 65 | SPDEF 119 | SPD 97
 
 **Ability:** Intimidate — Lowers the foe's Attack.
 
@@ -153,5 +153,3 @@
 
   - **Ice Fang** | Ice | Physical | Power: 65 | Acc: 100% | PP: 15/15
     The user bites the foe. It may also make the foe flinch, or leave it frozen.
-
-
