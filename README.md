@@ -24,31 +24,33 @@ This turns boss battles into more of a search problem: can the agent find the ri
 
 ## Setup
 
-### 1. Install dependencies
+### 1. Install prerequisites
+
+Install [uv](https://docs.astral.sh/uv/) and Docker, make sure Docker is
+running, then install the Python dependencies:
 
 ```bash
-brew install ffmpeg cmake
 uv sync
 ```
 
-### 2. Build the mGBA Python bindings
+### 2. Add the ROM
 
-The mGBA Python bindings are not on PyPI and must be built from source. A script is included that clones mGBA 0.10.5, builds the bindings, and wires them into the project venv:
+It's illegal to distribute the ROM itself, so obtain it separately and place it
+at `radicalred.gba` in the repository root. The committed task fixture starts
+at the Giovanni battle.
+
+### Optional: local emulator development
+
+Coding-agent evaluations build mGBA inside the server image, so they do not need
+host-side mGBA bindings. To run emulator code directly on macOS, build the local
+bindings separately:
 
 ```bash
+brew install ffmpeg cmake
 bash scripts/install_mgba.sh
 ```
 
-This only needs to be run once (or again after `uv sync` recreates the venv).
-
-### 3. Add the ROM.
-
-It's illegal to distribute the ROM itself, so you will need to find a way to obtain it and place `radicalred.gba` it in the repo root. Once you do, the committed save files should let you/an agent pick up from the Giovanni battle.
-
-
-### Playing manually
-
-To open the game in the mGBA GUI:
+To play manually, install the mGBA application and open the ROM:
 
 ```bash
 mgba radicalred.gba
@@ -58,20 +60,36 @@ mGBA picks up `radicalred.sav` automatically since it shares the same name as th
 
 ## Evaluation
 
-Ensure you've set `LLM_API_KEY` and `LLM_BASE_URL` in your `.env` file.
+Evaluations run a coding agent in an isolated Docker sandbox. Build the trusted
+server and allowlisted provider proxy once:
 
-Use the following command to evaluate an agent against the benchmark:
+```bash
+docker build -t rrbench-server:dev -f docker/rrbench-server.Dockerfile .
+docker build -t rrbench-provider-proxy:dev -f docker/provider-proxy.Dockerfile .
+docker network create --internal rrbench-egress
+docker run -d --name rrbench-provider-proxy --network rrbench-egress --network-alias provider-proxy rrbench-provider-proxy:dev
+docker network connect bridge rrbench-provider-proxy
+```
 
-`uv run eval.py --max-episodes <m> --agent <agent_name> --model <model_name>`
+Authenticate Codex once, then run a trial:
 
-The logs for your agent will be saved in `logs/`. Some useful flags:
+```bash
+uv run rrbench-runner --agent codex --auth-setup \
+  --credential-dir ~/.local/share/rrbench/auth/codex \
+  --egress-network rrbench-egress --egress-proxy http://provider-proxy:3128
 
-- the `--record` flag will save a video recording of the episodes to `logs/`.
-- the `--debug` flag ensures logs will contain the exact input prompts to LLM calls, rather than an abbreviated version.
-- the `--optimize-team` flag adds an additional step between episodes where the agent must provide an updated team config based on prior episodes.
+uv run rrbench-runner tasks/giovanni --agent codex --model gpt-5.6-luna \
+  --max-episodes 2 --reasoning-effort low \
+  --credential-dir ~/.local/share/rrbench/auth/codex \
+  --egress-network rrbench-egress --egress-proxy http://provider-proxy:3128 \
+  --artifacts-dir logs/codex
+```
+
+Use `--agent claude-code` with its own model and credential directory to test
+Claude Code. Each retained trial contains the score, trajectory, agent event
+stream, token usage, and scratch files.
 
 
 ## Next Steps
 
 In its current state, the benchmark is quite primitive. It would be nice to actually let the agent choose its team, abilities, items, moves, EV spreads, etc., which would expand the search space significantly and make the task a lot harder. Adding more battles would be great as well. Contributions are welcome to make this happen!
-
