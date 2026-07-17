@@ -64,19 +64,13 @@ Evaluations run a coding agent in an isolated Docker sandbox. Build the trusted
 server and allowlisted provider proxy once:
 
 ```bash
-docker build -t rrbench-server:dev -f docker/rrbench-server.Dockerfile .
-docker build -t rrbench-provider-proxy:dev -f docker/provider-proxy.Dockerfile .
-docker network create --internal rrbench-egress
-docker run -d --name rrbench-provider-proxy --network rrbench-egress --network-alias provider-proxy rrbench-provider-proxy:dev
-docker network connect bridge rrbench-provider-proxy
+scripts/setup_docker.sh
 ```
 
-Authenticate Codex once, then run a trial:
+Authenticate your own Codex account once, then run a trial:
 
 ```bash
-uv run rrbench-runner --agent codex --auth-setup \
-  --credential-dir ~/.local/share/rrbench/auth/codex \
-  --egress-network rrbench-egress --egress-proxy http://provider-proxy:3128
+scripts/setup_codex_auth.sh
 
 uv run rrbench-runner tasks/giovanni --agent codex --model gpt-5.6-luna \
   --max-episodes 2 --reasoning-effort low \

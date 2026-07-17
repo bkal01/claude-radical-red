@@ -770,6 +770,7 @@ def main() -> None:
             adapter = get_agent(args.agent)
             credential_dir = args.credential_dir.resolve()
             credential_dir.mkdir(parents=True, exist_ok=True)
+            credential_dir.chmod(0o700)
             image = args.image or adapter.default_image
             setup_runner = Runner(
                 task_dir=Path("."),
