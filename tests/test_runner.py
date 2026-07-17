@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import stat
 import subprocess
 import sys
 
@@ -142,6 +143,42 @@ def test_agent_and_manual_command_are_mutually_exclusive(
         main()
 
     assert exit_info.value.code == 2
+
+
+def test_auth_setup_makes_credential_directory_private(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    credential_dir = tmp_path / "credentials"
+    credential_dir.mkdir(mode=0o755)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "rrbench-runner",
+            "--agent",
+            "codex",
+            "--auth-setup",
+            "--credential-dir",
+            str(credential_dir),
+            "--egress-network",
+            "rrbench-egress",
+            "--egress-proxy",
+            "http://provider-proxy:3128",
+        ],
+    )
+    monkeypatch.setattr(Runner, "prepare_agent_image", lambda self: None)
+    monkeypatch.setattr(Runner, "validate_egress", lambda self: None)
+    monkeypatch.setattr(
+        "rrbench.harness.runner.subprocess.run",
+        lambda command, **kwargs: subprocess.CompletedProcess(command, 0),
+    )
+
+    with pytest.raises(SystemExit) as exit_info:
+        main()
+
+    assert exit_info.value.code == 0
+    assert stat.S_IMODE(credential_dir.stat().st_mode) == 0o700
 
 
 def test_sandbox_stops_agent_after_server_completion(

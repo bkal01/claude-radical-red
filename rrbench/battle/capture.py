@@ -87,6 +87,7 @@ class TurnRecorder:
 
     def __init__(self) -> None:
         self.events: list[MessageEvent] = []
+        self.last_message: str | None = None
 
     @property
     def started(self) -> bool:
@@ -109,8 +110,11 @@ class TurnRecorder:
         # A new, distinct message opens a new event. Bare species names (send-out text)
         # and the "What will X do?" menu are not messages.
         is_message = msg and not is_menu and msg not in _SPECIES_NAMES
-        if is_message and (not self.events or msg != self.events[-1].text):
+        if is_message and msg != self.last_message:
             self.events.append(MessageEvent(msg, party_hp, opp_hp, opp_species))
+            self.last_message = msg
+        elif not is_message:
+            self.last_message = None
         return is_menu
 
 

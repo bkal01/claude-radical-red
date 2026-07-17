@@ -1,7 +1,11 @@
 from types import SimpleNamespace
 
-from rrbench.battle.addresses import BATTLE_MONS_BASE, BATTLE_TYPE_FLAGS, MON_CUR_HP
-from rrbench.battle.capture import capture_turn
+from rrbench.battle.addresses import (
+    BATTLE_MONS_BASE,
+    BATTLE_TYPE_FLAGS,
+    MON_CUR_HP,
+)
+from rrbench.battle.capture import TurnRecorder, capture_turn
 
 
 class MemoryValues(dict):
@@ -60,3 +64,31 @@ def test_capture_turn_waits_for_replacement_when_party_member_remains() -> None:
     assert events == []
     assert ended is False
     assert won is False
+
+
+def test_turn_recorder_keeps_repeated_messages_after_buffer_clears() -> None:
+    emulator = FakeEmulator()
+    party = FakeParty([100])
+    message = "The opposing Kangaskhan's Attack rose!"
+    encoded_message = bytes(
+        0xBB + ord(character) - ord("A") if "A" <= character <= "Z"
+        else 0xD5 + ord(character) - ord("a") if "a" <= character <= "z"
+        else 0x00 if character == " "
+        else 0xB4 if character == "'"
+        else 0xAB if character == "!"
+        else 0xFF
+        for character in message
+    ) + b"\xff"
+    message_offset = 0x0202298C - 0x02000000
+    emulator.mem.wram[message_offset:message_offset + len(encoded_message)] = encoded_message
+
+    recorder = TurnRecorder()
+    recorder.poll(emulator, party)
+
+    emulator.mem.wram[message_offset] = 0xFF
+    recorder.poll(emulator, party)
+
+    emulator.mem.wram[message_offset:message_offset + len(encoded_message)] = encoded_message
+    recorder.poll(emulator, party)
+
+    assert [event.text for event in recorder.events] == [message, message]
