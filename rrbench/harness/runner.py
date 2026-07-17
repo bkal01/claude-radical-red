@@ -43,6 +43,7 @@ class Runner:
         egress_network: str | None = None,
         egress_proxy: str | None = None,
         artifacts_dir: Path | None = None,
+        record: bool = False,
         pids_limit: int = 256,
         memory: str = "2g",
         cpus: float = 2.0,
@@ -81,6 +82,7 @@ class Runner:
         self.egress_network = egress_network
         self.egress_proxy = egress_proxy
         self.artifacts_dir = artifacts_dir.resolve() if artifacts_dir else None
+        self.record = record
         self.pids_limit = pids_limit
         self.memory = memory
         self.cpus = cpus
@@ -238,6 +240,13 @@ class Runner:
             return return_code
         finally:
             if shutil.which("docker"):
+                if self.record:
+                    subprocess.run(
+                        ["docker", "stop", "--time", "5", server_name],
+                        check=False,
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
                 logs = subprocess.run(
                     ["docker", "logs", server_name],
                     check=False,
@@ -360,28 +369,39 @@ class Runner:
         score_path: Path,
     ) -> None:
         harness_dir = trajectory_path.parent
-        subprocess.run(
+        command = [
+            "docker",
+            "run",
+            "--detach",
+            "--name",
+            server_name,
+            "--network",
+            network_name,
+            "--network-alias",
+            "rrbench-env",
+            "--read-only",
+            "--cap-drop=ALL",
+            "--security-opt=no-new-privileges",
+            "--tmpfs",
+            "/tmp:rw,noexec,nosuid,size=256m",
+            "--mount",
+            f"type=bind,src={self.task_dir},dst=/task,readonly",
+            "--mount",
+            f"type=bind,src={self.task_dir.parents[1] / 'radicalred.gba'},dst=/app/radicalred.gba,readonly",
+            "--mount",
+            f"type=bind,src={harness_dir},dst=/trial",
+        ]
+        if self.record:
+            record_dir = root / "videos"
+            record_dir.mkdir(exist_ok=True)
+            command.extend(
+                [
+                    "--mount",
+                    f"type=bind,src={record_dir},dst=/videos",
+                ]
+            )
+        command.extend(
             [
-                "docker",
-                "run",
-                "--detach",
-                "--name",
-                server_name,
-                "--network",
-                network_name,
-                "--network-alias",
-                "rrbench-env",
-                "--read-only",
-                "--cap-drop=ALL",
-                "--security-opt=no-new-privileges",
-                "--tmpfs",
-                "/tmp:rw,noexec,nosuid,size=256m",
-                "--mount",
-                f"type=bind,src={self.task_dir},dst=/task,readonly",
-                "--mount",
-                f"type=bind,src={self.task_dir.parents[1] / 'radicalred.gba'},dst=/app/radicalred.gba,readonly",
-                "--mount",
-                f"type=bind,src={harness_dir},dst=/trial",
                 self.server_image,
                 "python",
                 "-m",
@@ -396,7 +416,12 @@ class Runner:
                 str(Path("/trial") / trajectory_path.name),
                 "--score-path",
                 str(Path("/trial") / score_path.name),
-            ],
+            ]
+        )
+        if self.record:
+            command.append("--record")
+        subprocess.run(
+            command,
             check=True,
             stdout=subprocess.DEVNULL,
         )
@@ -723,6 +748,7 @@ def main() -> None:
         help="proxy URL reachable only through the trusted egress network",
     )
     parser.add_argument("--artifacts-dir", type=Path)
+    parser.add_argument("--record", action="store_true")
     parser.add_argument("--pids-limit", type=int, default=256)
     parser.add_argument("--memory", default="2g")
     parser.add_argument("--cpus", type=float, default=2.0)
@@ -805,6 +831,7 @@ def main() -> None:
             egress_network=args.egress_network,
             egress_proxy=args.egress_proxy,
             artifacts_dir=args.artifacts_dir,
+            record=args.record,
             pids_limit=args.pids_limit,
             memory=args.memory,
             cpus=args.cpus,

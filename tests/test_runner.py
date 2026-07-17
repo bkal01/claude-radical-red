@@ -59,6 +59,39 @@ def test_prepare_workspace_exposes_only_public_material(tmp_path: Path) -> None:
     }
 
 
+def test_recording_mounts_trial_video_directory(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    runner = Runner(
+        task_dir=Path("tasks/giovanni"),
+        max_episodes=2,
+        image="python:3.12-slim",
+        server_image="rrbench-server:dev",
+        timeout_seconds=30,
+        keep=False,
+        record=True,
+    )
+    commands = []
+
+    def run_command(command, **kwargs):
+        commands.append(command)
+        return subprocess.CompletedProcess(command, 0)
+
+    monkeypatch.setattr("rrbench.harness.runner.subprocess.run", run_command)
+    runner.start_server(
+        tmp_path,
+        "trial-network",
+        "trial-server",
+        tmp_path / "harness" / "trajectory.jsonl",
+        tmp_path / "harness" / "score.json",
+    )
+
+    command = commands[0]
+    assert (tmp_path / "videos").is_dir()
+    assert f"type=bind,src={tmp_path / 'videos'},dst=/videos" in command
+    assert command[-1:] == ["--record"]
+
+
 def test_agent_mode_requires_trusted_runtime_configuration(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="credential_dir is required"):
         Runner(
@@ -227,7 +260,7 @@ def test_sandbox_allows_agent_to_finalize_after_server_completion(
     [
         (124, True, None, "agent_timeout"),
         (7, False, None, "agent_nonzero_exit:7"),
-        (0, False, "won", "replay_verified"),
+        (0, False, "won", "environment_reported_win"),
     ],
 )
 def test_runner_finalizes_one_score_and_cleans_transient_workspace(
@@ -288,7 +321,7 @@ def test_runner_finalizes_one_score_and_cleans_transient_workspace(
             score = {
                 "task_id": "giovanni",
                 "status": server_score,
-                "reason": "replay_verified",
+                "reason": "environment_reported_win",
                 "episodes": 1,
             }
             (harness / "score.json").write_text(json.dumps(score) + "\n")

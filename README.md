@@ -82,12 +82,13 @@ uv run rrbench-runner tasks/giovanni --agent codex --model gpt-5.6-luna \
   --max-episodes 2 --reasoning-effort low \
   --credential-dir ~/.local/share/rrbench/auth/codex \
   --egress-network rrbench-egress --egress-proxy http://provider-proxy:3128 \
-  --artifacts-dir logs/codex
+  --artifacts-dir logs/codex --record
 ```
 
 Use `--agent claude-code` with its own model and credential directory to test
 Claude Code. Each retained trial contains the score, trajectory, agent event
-stream, token usage, and scratch files.
+stream, token usage, and scratch files. With `--record`, it also contains one
+MP4 per started episode in `videos/`.
 
 
 ## Next Steps

@@ -20,7 +20,7 @@ def start_battle(emu: Emulator, party: Party, lead: str) -> tuple[BattleSession,
     # Walk up into the room to trigger the encounter script.
     for _ in range(60):
         emu._core.set_keys(KEY_UP)
-        emu._core.run_frame()
+        emu.step()
         emu._core.set_keys()
 
     # Advance dialogue until the battle actually starts. Hold A for 3 frames (registers

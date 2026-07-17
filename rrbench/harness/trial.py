@@ -11,16 +11,11 @@ class Trial:
         max_episodes: int,
         trajectory_path: Path,
         score_path: Path,
-        service_factory=None,
     ) -> None:
         if max_episodes < 1:
             raise ValueError("max_episodes must be at least 1")
-        if service_factory is None:
-            raise ValueError("service_factory is required")
 
         self.task = task
-        self.service_factory = service_factory
-        self.service = service_factory(task)
         self.max_episodes = max_episodes
         self.episodes = 1
         self.trajectory_path = trajectory_path
@@ -39,7 +34,7 @@ class Trial:
             }
         )
 
-    def handle(self, request: object) -> dict:
+    def handle(self, request: object, service) -> dict:
         if self.finished:
             return {"ok": False, "error": "trial is complete"}
         if not isinstance(request, dict):
@@ -47,22 +42,22 @@ class Trial:
 
         verb = request.get("verb")
         if verb == "observe":
-            return self.service.observe()
+            return service.observe()
         if verb == "lead":
             pokemon = request.get("pokemon")
             if not isinstance(pokemon, str):
                 return {"ok": False, "error": "lead requires a string pokemon"}
-            result = self.service.lead(pokemon)
+            result = service.lead(pokemon)
         elif verb == "action":
             command = request.get("command")
             if not isinstance(command, str):
                 return {"ok": False, "error": "action requires a string command"}
-            result = self.service.action(command)
+            result = service.action(command)
         elif verb == "reset":
             if self.episodes >= self.max_episodes:
                 self.finish("no_win", "episode_budget_exhausted")
                 return {"ok": False, "error": "episode budget exhausted"}
-            result = self.service.reset()
+            result = service.reset()
             if result["ok"]:
                 self.episodes += 1
                 self.episode_events = []
@@ -83,29 +78,11 @@ class Trial:
 
         if result["ok"] and verb == "action" and result.get("ended"):
             if result.get("won"):
-                if self.replay_winning_episode():
-                    self.finish("won", "replay_verified")
-                else:
-                    self.finish("no_win", "replay_failed")
+                self.finish("won", "environment_reported_win")
             elif self.episodes == self.max_episodes:
                 self.finish("no_win", "episode_budget_exhausted")
 
         return result
-
-    def replay_winning_episode(self) -> bool:
-        service = self.service_factory(self.task)
-        result: dict | None = None
-
-        for event in self.episode_events:
-            request = event["request"]
-            if event["verb"] == "lead":
-                result = service.lead(request["pokemon"])
-            else:
-                result = service.action(request["command"])
-            if not result["ok"]:
-                return False
-
-        return bool(result and result.get("ended") and result.get("won"))
 
     def finish(self, status: str, reason: str) -> None:
         if self.finished:

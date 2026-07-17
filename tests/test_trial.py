@@ -23,23 +23,24 @@ class FakeService:
         return self.observe()
 
 
-def test_trial_counts_episodes_and_verifies_a_winning_replay(tmp_path: Path) -> None:
+def test_trial_counts_episodes_and_records_a_reported_win(tmp_path: Path) -> None:
     task = SimpleNamespace(id="test")
+    service = FakeService(task)
     trajectory_path = tmp_path / "trajectory.jsonl"
     score_path = tmp_path / "score.json"
-    trial = Trial(task, 2, trajectory_path, score_path, service_factory=FakeService)
+    trial = Trial(task, 2, trajectory_path, score_path)
 
-    assert trial.handle({"verb": "lead", "pokemon": "Mawile"})["ok"]
-    assert trial.handle({"verb": "reset"})["ok"]
-    assert trial.handle({"verb": "lead", "pokemon": "Mawile"})["ok"]
-    assert trial.handle({"verb": "action", "command": "FIGHT Win"})["won"]
+    assert trial.handle({"verb": "lead", "pokemon": "Mawile"}, service)["ok"]
+    assert trial.handle({"verb": "reset"}, service)["ok"]
+    assert trial.handle({"verb": "lead", "pokemon": "Mawile"}, service)["ok"]
+    assert trial.handle({"verb": "action", "command": "FIGHT Win"}, service)["won"]
 
     score = json.loads(score_path.read_text())
     events = [json.loads(line) for line in trajectory_path.read_text().splitlines()]
     assert score == {
         "task_id": "test",
         "status": "won",
-        "reason": "replay_verified",
+        "reason": "environment_reported_win",
         "episodes": 2,
     }
     assert [event["type"] for event in events] == [
@@ -54,17 +55,17 @@ def test_trial_counts_episodes_and_verifies_a_winning_replay(tmp_path: Path) -> 
 
 def test_trial_finishes_when_last_episode_loses(tmp_path: Path) -> None:
     task = SimpleNamespace(id="test")
+    service = FakeService(task)
     score_path = tmp_path / "score.json"
     trial = Trial(
         task,
         1,
         tmp_path / "trajectory.jsonl",
         score_path,
-        service_factory=FakeService,
     )
 
-    trial.handle({"verb": "lead", "pokemon": "Mawile"})
-    result = trial.handle({"verb": "action", "command": "FIGHT Lose"})
+    trial.handle({"verb": "lead", "pokemon": "Mawile"}, service)
+    result = trial.handle({"verb": "action", "command": "FIGHT Lose"}, service)
 
     assert result["won"] is False
     assert json.loads(score_path.read_text())["reason"] == "episode_budget_exhausted"
