@@ -6,7 +6,7 @@ import sys
 
 import pytest
 
-from rrbench.harness.coding_agent import get_agent
+from rrbench.harness.coding_agent import build_prompt, get_agent
 from rrbench.harness.runner import COMPLETION_GRACE_SECONDS, Runner, main
 
 
@@ -16,7 +16,6 @@ def test_prepare_workspace_exposes_only_public_material(tmp_path: Path) -> None:
         max_episodes=2,
         image="python:3.12-slim",
         server_image="rrbench-server:dev",
-        timeout_seconds=30,
         keep=False,
     )
 
@@ -78,7 +77,6 @@ def test_recording_mounts_trial_video_directory(
         max_episodes=2,
         image="python:3.12-slim",
         server_image="rrbench-server:dev",
-        timeout_seconds=30,
         keep=False,
         record=True,
     )
@@ -110,7 +108,6 @@ def test_agent_mode_requires_trusted_runtime_configuration(tmp_path: Path) -> No
             max_episodes=2,
             image=None,
             server_image="rrbench-server:dev",
-            timeout_seconds=30,
             keep=False,
             agent=get_agent("codex"),
             model="gpt-5",
@@ -124,13 +121,46 @@ def test_agent_mode_requires_trusted_runtime_configuration(tmp_path: Path) -> No
             max_episodes=2,
             image=None,
             server_image="rrbench-server:dev",
-            timeout_seconds=30,
             keep=False,
             agent=get_agent("codex"),
             model="gpt-5",
             credential_dir=tmp_path,
             egress_proxy="http://provider-proxy:3128",
         )
+
+
+def test_agent_run_records_the_exact_initial_prompt(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    credentials = tmp_path / "credentials"
+    credentials.mkdir()
+    runner = Runner(
+        task_dir=Path("tasks/giovanni"),
+        max_episodes=2,
+        image="rrbench-codex:test",
+        server_image="rrbench-server:dev",
+        keep=False,
+        agent=get_agent("codex"),
+        model="gpt-5",
+        credential_dir=credentials,
+        egress_network="provider-egress",
+        egress_proxy="http://provider-proxy:3128",
+    )
+    captured = {}
+
+    monkeypatch.setattr(runner, "prepare_agent_image", lambda: None)
+    monkeypatch.setattr(runner, "validate_egress", lambda: None)
+    monkeypatch.setattr(runner, "authentication_ready", lambda: True)
+
+    def run_command(command, interactive=False, initial_prompt=None):
+        captured["command"] = command
+        captured["initial_prompt"] = initial_prompt
+        return 0
+
+    monkeypatch.setattr(runner, "run", run_command)
+
+    assert runner.run_agent() == 0
+    assert captured["initial_prompt"] == build_prompt("giovanni", 2)
 
 
 def test_agent_and_manual_command_are_mutually_exclusive(
@@ -200,7 +230,6 @@ def test_sandbox_stops_agent_after_server_completion(
         max_episodes=1,
         image="python:3.12-slim",
         server_image="rrbench-server:dev",
-        timeout_seconds=60,
         keep=False,
     )
     workspace = tmp_path / "workspace"
@@ -244,7 +273,7 @@ def test_sandbox_stops_agent_after_server_completion(
         False,
     )
 
-    assert result == (0, False)
+    assert result == 0
     assert wait_timeouts == [COMPLETION_GRACE_SECONDS]
     assert ["docker", "stop", "--time", "1", "agent-container"] in commands
 
@@ -258,7 +287,6 @@ def test_sandbox_allows_agent_to_finalize_after_server_completion(
         max_episodes=1,
         image="python:3.12-slim",
         server_image="rrbench-server:dev",
-        timeout_seconds=30,
         keep=False,
     )
     workspace = tmp_path / "workspace"
@@ -298,23 +326,22 @@ def test_sandbox_allows_agent_to_finalize_after_server_completion(
         False,
     )
 
-    assert result == (0, False)
+    assert result == 0
     assert not any(command[:2] == ["docker", "stop"] for command in commands)
 
 
 @pytest.mark.parametrize(
-    ("return_code", "timed_out", "server_score", "expected_reason"),
+    ("return_code", "server_score", "expected_reason"),
     [
-        (124, True, None, "agent_timeout"),
-        (7, False, None, "agent_nonzero_exit:7"),
-        (0, False, "won", "environment_reported_win"),
+        (124, None, "agent_nonzero_exit:124"),
+        (7, None, "agent_nonzero_exit:7"),
+        (0, "won", "environment_reported_win"),
     ],
 )
 def test_runner_finalizes_one_score_and_cleans_transient_workspace(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
     return_code: int,
-    timed_out: bool,
     server_score: str | None,
     expected_reason: str,
 ) -> None:
@@ -326,7 +353,6 @@ def test_runner_finalizes_one_score_and_cleans_transient_workspace(
         max_episodes=2,
         image="rrbench-codex:test",
         server_image="rrbench-server:dev",
-        timeout_seconds=30,
         keep=False,
         agent=get_agent("codex"),
         model="gpt-5",
@@ -354,7 +380,7 @@ def test_runner_finalizes_one_score_and_cleans_transient_workspace(
         stdout_path: Path,
         stderr_path: Path,
         interactive: bool,
-    ) -> tuple[int, bool]:
+    ) -> int:
         stdout_path.write_text(
             '{"type":"turn.completed","usage":{"input_tokens":3,"output_tokens":2}}\n'
         )
@@ -372,11 +398,11 @@ def test_runner_finalizes_one_score_and_cleans_transient_workspace(
                 "episodes": 1,
             }
             (harness / "score.json").write_text(json.dumps(score) + "\n")
-        return return_code, timed_out
+        return return_code
 
     monkeypatch.setattr(runner, "start_sandbox", run_sandbox)
 
-    result = runner.run(["codex"])
+    result = runner.run(["codex"], initial_prompt="Solve the task.")
 
     trial_root = next(artifacts.iterdir())
     score_files = list(trial_root.rglob("score.json"))
@@ -389,5 +415,8 @@ def test_runner_finalizes_one_score_and_cleans_transient_workspace(
     assert metadata["agent"]["usage"]["input_tokens"] == 3
     assert (trial_root / "agent-stream.jsonl").exists()
     assert (trial_root / "agent-stderr.log").read_text() == "diagnostic\n"
-    assert (trial_root / "agent-scratch" / "notes.txt").read_text() == "retained\n"
+    assert (trial_root / "initial_prompt.md").read_text() == "Solve the task."
+    assert (trial_root / "agent-sandbox" / "ENV_USAGE.md").exists()
+    assert (trial_root / "agent-sandbox" / "data" / "moves.json").exists()
+    assert (trial_root / "agent-sandbox" / "scratch" / "notes.txt").read_text() == "retained\n"
     assert not (trial_root / "workspace").exists()

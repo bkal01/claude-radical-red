@@ -33,7 +33,6 @@ class Runner:
         max_episodes: int,
         image: str | None,
         server_image: str,
-        timeout_seconds: int,
         keep: bool,
         agent: CodingAgentAdapter | None = None,
         model: str | None = None,
@@ -50,8 +49,6 @@ class Runner:
     ) -> None:
         if max_episodes < 1:
             raise ValueError("max_episodes must be at least 1")
-        if timeout_seconds < 1:
-            raise ValueError("timeout_seconds must be at least 1")
         if agent_turn_limit is not None and agent_turn_limit < 1:
             raise ValueError("agent_turn_limit must be at least 1")
         if pids_limit < 1:
@@ -76,7 +73,6 @@ class Runner:
         self.reasoning_effort = reasoning_effort
         self.image = image or (agent.default_image if agent else "python:3.12-slim")
         self.server_image = server_image
-        self.timeout_seconds = timeout_seconds
         self.keep = keep
         self.credential_dir = credential_dir.resolve() if credential_dir else None
         self.egress_network = egress_network
@@ -102,9 +98,14 @@ class Runner:
         self.validate_egress()
         if not self.authentication_ready():
             raise AuthenticationRequiredError(self.agent.id)
-        return self.run(command)
+        return self.run(command, initial_prompt=prompt)
 
-    def run(self, command: list[str], interactive: bool = False) -> int:
+    def run(
+        self,
+        command: list[str],
+        interactive: bool = False,
+        initial_prompt: str | None = None,
+    ) -> int:
         preserve = self.keep or self.agent is not None
         if self.artifacts_dir is not None:
             self.artifacts_dir.mkdir(parents=True, exist_ok=True)
@@ -117,6 +118,8 @@ class Runner:
             root = Path(tempfile.mkdtemp(prefix="rrbench-trial-"))
 
         trial_id = root.name.removeprefix("rrbench-trial-")
+        if initial_prompt is not None:
+            (root / "initial_prompt.md").write_text(initial_prompt)
         container_name = f"rrbench-{trial_id}"
         server_name = f"{container_name}-env"
         network_name = f"{container_name}-network"
@@ -127,7 +130,6 @@ class Runner:
         started_at = datetime.now(timezone.utc)
         started = time.monotonic()
         return_code = 1
-        timed_out = False
         parsed_output = None
         execution_error = None
         workspace = root / "workspace"
@@ -147,7 +149,7 @@ class Runner:
                     score_path,
                 )
                 self.wait_for_server(server_name)
-                return_code, timed_out = self.start_sandbox(
+                return_code = self.start_sandbox(
                     workspace,
                     scratch,
                     container_name,
@@ -174,8 +176,6 @@ class Runner:
 
                 if execution_error is not None:
                     reason = f"runner_error:{type(execution_error).__name__}"
-                elif timed_out:
-                    reason = "agent_timeout"
                 elif return_code != 0:
                     reason = f"agent_nonzero_exit:{return_code}"
                 elif parsed_output is not None and parsed_output.parse_error is not None:
@@ -195,8 +195,6 @@ class Runner:
             score = json.loads(score_path.read_text())
             if execution_error is not None:
                 exit_status = "runner_error"
-            elif timed_out:
-                exit_status = "timeout"
             elif return_code == 0:
                 exit_status = "completed"
             else:
@@ -206,7 +204,6 @@ class Runner:
                 "trial_id": trial_id,
                 "started_at": started_at.isoformat(),
                 "elapsed_seconds": elapsed_seconds,
-                "timeout_seconds": self.timeout_seconds,
                 "exit_status": exit_status,
                 "exit_code": return_code,
                 "score": score,
@@ -269,10 +266,9 @@ class Runner:
                     stderr=subprocess.DEVNULL,
                 )
             workspace_path = root / "workspace"
-            scratch_path = workspace_path / "scratch"
-            scratch_snapshot = root / "agent-scratch"
-            if preserve and scratch_path.exists() and not scratch_snapshot.exists():
-                shutil.copytree(scratch_path, scratch_snapshot)
+            sandbox_snapshot = root / "agent-sandbox"
+            if preserve and workspace_path.exists() and not sandbox_snapshot.exists():
+                shutil.copytree(workspace_path, sandbox_snapshot, symlinks=True)
             if workspace_path.exists():
                 for path in workspace_path.rglob("*"):
                     if path.is_dir():
@@ -304,8 +300,8 @@ class Runner:
             team_optimization_usage = (
                 "## Team optimization\n\n"
                 "This task permits team modifications. Use `rrbench-env apply-team '<JSON>'` "
-                "during a live battle to forfeit that attempt, or after a loss. A successful "
-                "update automatically resets the environment, advances to the next episode, "
+                "after a loss to update your team. Use this to adapt your team to the battle. "
+                "A successful update automatically resets the environment, advances to the next episode, "
                 "and applies the accepted configuration. The command is not available before "
                 "a battle starts or after a win. Invalid requests do not change the configuration "
                 "or reset the episode.\n\n"
@@ -318,8 +314,7 @@ class Runner:
                 "and each must contain `slot`, `species_id`, and `evs`. `species_id` must match "
                 "the active team member at that slot. Each `evs` object must contain exactly "
                 "`HP`, `ATK`, `DEF`, `SPE`, `SPA`, and `SPDEF`; values must be integers from 0 "
-                "through 252, divisible by four, with at most 508 EVs per Pokemon. Species, "
-                "moves, items, abilities, and level cannot be changed.\n\n"
+                "through 252, divisible by four, with at most 508 EVs per Pokemon. \n\n"
                 "Example shape:\n\n"
                 "```json\n"
                 "{\"members\":[{\"slot\":0,\"species_id\":727,\"evs\":{\"HP\":252,\"ATK\":0,\"DEF\":4,\"SPE\":0,\"SPA\":0,\"SPDEF\":252}}]}\n"
@@ -496,7 +491,7 @@ class Runner:
         stdout_path: Path,
         stderr_path: Path,
         interactive: bool,
-    ) -> tuple[int, bool]:
+    ) -> int:
         if not shutil.which("docker"):
             raise RuntimeError("Docker is required to run the agent sandbox")
 
@@ -596,16 +591,11 @@ class Runner:
                 text=not interactive,
             )
             completion_path = workspace.parent / "harness" / "complete"
-            deadline = time.monotonic() + self.timeout_seconds
 
             while process.poll() is None:
                 if completion_path.exists():
-                    grace_seconds = min(
-                        COMPLETION_GRACE_SECONDS,
-                        max(0, deadline - time.monotonic()),
-                    )
                     try:
-                        process.wait(timeout=grace_seconds)
+                        process.wait(timeout=COMPLETION_GRACE_SECONDS)
                     except subprocess.TimeoutExpired:
                         subprocess.run(
                             ["docker", "stop", "--time", "1", container_name],
@@ -614,16 +604,7 @@ class Runner:
                             stderr=subprocess.DEVNULL,
                         )
                         process.wait()
-                    return 0, False
-                if time.monotonic() >= deadline:
-                    subprocess.run(
-                        ["docker", "kill", container_name],
-                        check=False,
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL,
-                    )
-                    process.wait()
-                    return 124, True
+                    return 0
                 time.sleep(0.05)
         finally:
             if stdout_file is not None:
@@ -632,7 +613,7 @@ class Runner:
                 stderr_file.close()
 
         if completion_path.exists():
-            return 0, False
+            return 0
 
         inspect = subprocess.run(
             ["docker", "inspect", "--format", "{{.State.ExitCode}}", container_name],
@@ -640,7 +621,7 @@ class Runner:
             capture_output=True,
             text=True,
         )
-        return int(inspect.stdout.strip()), False
+        return int(inspect.stdout.strip())
 
     def prepare_agent_image(self) -> None:
         if self.agent is None:
@@ -762,7 +743,6 @@ def main() -> None:
     launch_mode.add_argument("--command", nargs=argparse.REMAINDER)
     parser.add_argument("--model")
     parser.add_argument("--max-episodes", type=int, default=1)
-    parser.add_argument("--timeout-seconds", type=int, default=300)
     parser.add_argument("--image")
     parser.add_argument("--server-image", default="rrbench-server:dev")
     parser.add_argument("--agent-turn-limit", type=int)
@@ -810,7 +790,6 @@ def main() -> None:
                 max_episodes=1,
                 image=image,
                 server_image=args.server_image,
-                timeout_seconds=args.timeout_seconds,
                 keep=False,
             )
             setup_runner.agent = adapter
@@ -855,7 +834,6 @@ def main() -> None:
             max_episodes=args.max_episodes,
             image=args.image,
             server_image=args.server_image,
-            timeout_seconds=args.timeout_seconds,
             keep=args.keep,
             agent=adapter,
             model=args.model,
