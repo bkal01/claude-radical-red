@@ -53,6 +53,22 @@ class Trial:
             if not isinstance(command, str):
                 return {"ok": False, "error": "action requires a string command"}
             result = service.action(command)
+        elif verb == "apply-team":
+            team = request.get("team")
+            if not isinstance(team, dict):
+                return {"ok": False, "error": "apply-team requires a team object"}
+            if self.episodes >= self.max_episodes:
+                self.finish("no_win", "episode_budget_exhausted")
+                return {"ok": False, "error": "episode budget exhausted"}
+
+            result = service.apply_team(team)
+            if result["ok"]:
+                reset_result = service.reset()
+                if not reset_result["ok"]:
+                    return reset_result
+                self.episodes += 1
+                self.episode_events = []
+                result["observation"] = reset_result["observation"]
         elif verb == "reset":
             if self.episodes >= self.max_episodes:
                 self.finish("no_win", "episode_budget_exhausted")
@@ -64,7 +80,7 @@ class Trial:
         else:
             return {"ok": False, "error": "unknown request verb"}
 
-        if result["ok"] and verb in {"lead", "action", "reset"}:
+        if result["ok"] and verb in {"lead", "action", "apply-team", "reset"}:
             event = {
                 "type": "request",
                 "episode": self.episodes,

@@ -40,7 +40,9 @@ def test_prepare_workspace_exposes_only_public_material(tmp_path: Path) -> None:
     assert "An episode is one attempt" in usage
     assert "even if you reset before the current battle ends" in usage
     assert "species_id" in usage
-    assert "apply-team" not in usage
+    assert "apply-team" in usage
+    assert "This task permits team modifications" in usage
+    assert "This task permits EV updates only" in usage
     assert {path.name for path in (workspace / "data").iterdir()} == {
         "moves.json",
         "species.json",

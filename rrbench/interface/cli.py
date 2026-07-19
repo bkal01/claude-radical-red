@@ -21,6 +21,9 @@ def main() -> None:
     action = subparsers.add_parser("action")
     action.add_argument("command", nargs=argparse.REMAINDER)
 
+    apply_team = subparsers.add_parser("apply-team")
+    apply_team.add_argument("team")
+
     subparsers.add_parser("reset")
 
     args = parser.parse_args()
@@ -36,6 +39,14 @@ def main() -> None:
         request["pokemon"] = args.pokemon
     elif args.verb == "action":
         request["command"] = " ".join(args.command)
+    elif args.verb == "apply-team":
+        try:
+            team = json.loads(args.team)
+        except json.JSONDecodeError:
+            parser.error("apply-team requires a valid JSON object")
+        if not isinstance(team, dict):
+            parser.error("apply-team requires a JSON object")
+        request["team"] = team
 
     try:
         if args.socket:

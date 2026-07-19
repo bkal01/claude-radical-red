@@ -69,7 +69,8 @@ def main() -> None:
                             recorder.close(service.emu)
 
                         result = trial.handle(request, service)
-                        if recorder is not None and verb == "reset" and result["ok"]:
+                        if recorder is not None and verb in {"reset", "apply-team"} and result["ok"]:
+                            recorder.close(service.emu)
                             recorder.next_episode()
                         if recorder is not None and verb == "action" and result.get("ended"):
                             recorder.close(service.emu)

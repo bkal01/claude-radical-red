@@ -2,9 +2,9 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from party import (
-    PARTY_BASE_ADDR, PARTY_COUNT_ADDR, SLOT_SIZE,
-    _checksum, _G0, SPECIES_NAME,
+from rrbench.emulator.memory import (
+    PARTY_BASE_ADDR, PARTY_COUNT_ADDR, PARTY_SPECIES_OFFSET, SLOT_SIZE,
+    checksum, SPECIES_NAME,
 )
 
 species_data = json.loads(
@@ -100,7 +100,7 @@ class PokemonConfig:
         e0 = mem.u32[base + _E0]
         e1 = mem.u32[base + _E1]
         return cls(
-            species_id=mem.u32[base + _G0] & 0xFFFF,
+            species_id=mem.u32[base + PARTY_SPECIES_OFFSET] & 0xFFFF,
             evs={
                 "HP":    (e0 >> 0)  & 0xFF,
                 "ATK":   (e0 >> 8)  & 0xFF,
@@ -128,7 +128,7 @@ class PokemonConfig:
         # Radical Red's battle-init routine reads the checksum field as a species ID
         # and substitutes that Pokemon if valid. Avoid the collision by nudging the
         # unused contest-stat bytes (E2) until the checksum clears the valid range.
-        cs = _checksum(mem, base)
+        cs = checksum(mem, base)
         if cs in SPECIES_NAME:
             e2 = mem.u32[base + _E2]
             low = e2 & 0xFFFF
@@ -136,7 +136,7 @@ class PokemonConfig:
             while ((cs + v) & 0xFFFF) in SPECIES_NAME:
                 v += 1
             mem.u32[base + _E2] = (e2 & 0xFFFF0000) | ((low + v) & 0xFFFF)
-            cs = _checksum(mem, base)
+            cs = checksum(mem, base)
         mem.u16[base + 0x1C] = cs
 
         mem.u32[base + _IV] = mem.u32[base + _IV] & 0xC0000000  # zero IV bits, keep is_egg+ability

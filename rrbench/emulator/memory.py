@@ -48,6 +48,8 @@ _LEVEL    = 0x54  # u8
 _CURHP    = 0x56  # u16
 _MAXHP    = 0x58  # u16
 
+PARTY_SPECIES_OFFSET = _G0
+
 # Status word bit masks
 STATUS_SLEEP    = 0x07
 STATUS_POISON   = 0x08
@@ -106,7 +108,7 @@ class PartyPokemon:
     level: int
 
 
-def _checksum(mem, base: int) -> int:
+def checksum(mem, base: int) -> int:
     total = sum((mem.u32[base + 0x20 + i * 4] & 0xFFFF) + (mem.u32[base + 0x20 + i * 4] >> 16)
                 for i in range(12))
     return total & 0xFFFF
@@ -156,7 +158,7 @@ def write_slot(mem, slot: int, *, moves: tuple[int, int, int, int], held_item: i
         full_pp[0] | (full_pp[1] << 8) | (full_pp[2] << 16) | (full_pp[3] << 24)
     )
 
-    mem.u16[base + _CHECKSUM] = _checksum(mem, base)
+    mem.u16[base + _CHECKSUM] = checksum(mem, base)
     mem.u16[base + _CURHP] = mem.u16[base + _MAXHP]
     mem.u32[base + _STATUS] = 0
 

@@ -1,7 +1,12 @@
 from dataclasses import dataclass
+from enum import Enum
 from pathlib import Path
 
 import yaml
+
+
+class TeamModification(str, Enum):
+    EVS = "evs"
 
 
 @dataclass(frozen=True)
@@ -11,7 +16,7 @@ class TaskSpec:
     id: str
     rom_path: Path
     save_state_path: Path
-    # TODO: add more configurability: level cap, allowed team modifications, etc.
+    allowed_team_modifications: frozenset[TeamModification]
 
 
 def load_task(task_dir: str | Path) -> TaskSpec:
@@ -22,4 +27,8 @@ def load_task(task_dir: str | Path) -> TaskSpec:
         id=manifest["id"],
         rom_path=Path(__file__).resolve().parents[1] / "radicalred.gba",
         save_state_path=task_dir / manifest["save_state"],
+        allowed_team_modifications=frozenset(
+            TeamModification(value)
+            for value in manifest.get("allowed_team_modifications", [])
+        ),
     )

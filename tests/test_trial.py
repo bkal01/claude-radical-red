@@ -8,6 +8,8 @@ from rrbench.harness.trial import Trial
 class FakeService:
     def __init__(self, task: object) -> None:
         self.task = task
+        self.applied_team = None
+        self.reset_calls = 0
 
     def observe(self) -> dict:
         return {"ok": True, "observation": {"phase": "no_battle"}}
@@ -20,7 +22,12 @@ class FakeService:
         return {"ok": True, "ended": True, "won": won}
 
     def reset(self) -> dict:
+        self.reset_calls += 1
         return self.observe()
+
+    def apply_team(self, team: dict) -> dict:
+        self.applied_team = team
+        return {"ok": True}
 
 
 def test_trial_counts_episodes_and_records_a_reported_win(tmp_path: Path) -> None:
@@ -69,3 +76,18 @@ def test_trial_finishes_when_last_episode_loses(tmp_path: Path) -> None:
 
     assert result["won"] is False
     assert json.loads(score_path.read_text())["reason"] == "episode_budget_exhausted"
+
+
+def test_apply_team_resets_and_advances_the_episode(tmp_path: Path) -> None:
+    task = SimpleNamespace(id="test")
+    service = FakeService(task)
+    trial = Trial(task, 2, tmp_path / "trajectory.jsonl", tmp_path / "score.json")
+    team = {"members": []}
+
+    assert trial.handle({"verb": "lead", "pokemon": "Mawile"}, service)["ok"]
+    result = trial.handle({"verb": "apply-team", "team": team}, service)
+
+    assert result == {"ok": True, "observation": {"phase": "no_battle"}}
+    assert service.applied_team == team
+    assert service.reset_calls == 1
+    assert trial.episodes == 2

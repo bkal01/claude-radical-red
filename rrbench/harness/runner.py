@@ -15,7 +15,7 @@ from rrbench.harness.coding_agent import (
     build_prompt,
     get_agent,
 )
-from rrbench.tasks import load_task
+from rrbench.tasks import TeamModification, load_task
 
 COMPLETION_GRACE_SECONDS = 30
 
@@ -298,6 +298,34 @@ class Runner:
         harness_dir.mkdir()
         scratch.chmod(0o777)
 
+        task = load_task(self.task_dir)
+        team_optimization_usage = ""
+        if task.allowed_team_modifications:
+            team_optimization_usage = (
+                "## Team optimization\n\n"
+                "This task permits team modifications. Use `rrbench-env apply-team '<JSON>'` "
+                "during a live battle to forfeit that attempt, or after a loss. A successful "
+                "update automatically resets the environment, advances to the next episode, "
+                "and applies the accepted configuration. The command is not available before "
+                "a battle starts or after a win. Invalid requests do not change the configuration "
+                "or reset the episode.\n\n"
+            )
+        if TeamModification.EVS in task.allowed_team_modifications:
+            team_optimization_usage += (
+                "### EV updates\n\n"
+                "This task permits EV updates. The JSON object must have a `members` array "
+                "containing exactly one entry for each team slot. Entries may be in any order "
+                "and each must contain `slot`, `species_id`, and `evs`. `species_id` must match "
+                "the active team member at that slot. Each `evs` object must contain exactly "
+                "`HP`, `ATK`, `DEF`, `SPE`, `SPA`, and `SPDEF`; values must be integers from 0 "
+                "through 252, divisible by four, with at most 508 EVs per Pokemon. Species, "
+                "moves, items, abilities, and level cannot be changed.\n\n"
+                "Example shape:\n\n"
+                "```json\n"
+                "{\"members\":[{\"slot\":0,\"species_id\":727,\"evs\":{\"HP\":252,\"ATK\":0,\"DEF\":4,\"SPE\":0,\"SPA\":0,\"SPDEF\":252}}]}\n"
+                "```\n\n"
+            )
+
         (workspace / "ENV_USAGE.md").write_text(
             "# Environment protocol\n\n"
             "Each `rrbench-env` invocation sends one JSON request to the persistent "
@@ -316,13 +344,15 @@ class Runner:
             "`rrbench-env observe` is legal in every phase and has no side effect. "
             "Calls after trial completion are rejected.\n\n"
             "## Episodes and reset\n\n"
-            "An episode is one attempt starting from the original battle fixture. The "
+            "An episode is one attempt starting from the original battle state. The "
             "trial begins in episode 1, and `rrbench-env lead <pokemon>` starts its "
             "battle. A successful `rrbench-env reset` ends the current episode, restores "
-            "the original fixture, and advances to the next episode. This uses an episode "
+            "the original battle state, and advances to the next episode. This uses an episode "
             "even if you reset before the current battle ends. A reset is rejected when "
             "no episode remains.\n"
-            "\n## Reference data\n\n"
+            "\n"
+            + team_optimization_usage
+            + "\n## Reference data\n\n"
             "The files in `/workspace/data` are JSON arrays indexed by game ID. "
             "An opponent observation's `species_id` is the array index for "
             "`species.json`, whose entries contain the species name, types, and base "
