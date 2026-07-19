@@ -1,5 +1,7 @@
 from rrbench.battle.capture import MessageEvent
 from rrbench.battle.state import BattleState, SideHazards
+from rrbench.emulator.memory import ABILITY_NAME, MOVE_NAME, SPECIES_NAME, SPECIES_TYPES
+from rrbench.team import NATURE_NAMES, TeamConfig
 
 STAT_LABELS = ("ATK", "DEF", "SPE", "SPA", "SPD", "ACC", "EVA")
 
@@ -33,8 +35,7 @@ def render_pokemon(p, active: bool) -> dict:
         "status": p.status,
         "active": active,
         "fainted": p.current_hp == 0,
-        # PP remaining only — dynamic and the reason to surface it live; max PP is static
-        # (agent has it from the roster / moves.json). Empty move slots are dropped.
+        # PP remaining only — dynamic and the reason to surface it live; max PP is in moves.json.
         "moves": [{"name": m, "pp_remaining": pp} for m, pp in zip(p.moves, p.pp) if m],
     }
 
@@ -46,6 +47,50 @@ def render_pre_battle(party) -> dict:
         "phase": "no_battle",
         "party": [render_pokemon(p, active=False) for p in party.members],
     }
+
+
+def render_team(config: TeamConfig) -> dict:
+    members = []
+    for slot, member in enumerate(config.members):
+        calculated_stats = member.calculated_stats()
+        members.append(
+            {
+                "slot": slot,
+                "species_id": member.species_id,
+                "name": SPECIES_NAME.get(member.species_id, f"species_{member.species_id}"),
+                "types": SPECIES_TYPES.get(member.species_id, []),
+                "level": member.level,
+                "nature": {
+                    "id": member.nature_id,
+                    "name": (
+                        NATURE_NAMES[member.nature_id]
+                        if member.nature_id is not None
+                        else None
+                    ),
+                },
+                "ability_id": member.ability_id,
+                "ability": ABILITY_NAME.get(member.ability_id or 0, ""),
+                "held_item_id": member.held_item,
+                "moves": [
+                    {
+                        "slot": move_slot,
+                        "move_id": move_id,
+                        "name": MOVE_NAME.get(move_id, ""),
+                    }
+                    for move_slot, move_id in enumerate(member.move_ids or ())
+                ],
+                "evs": dict(member.evs),
+                "stats": {
+                    "HP": calculated_stats["MAXHP"],
+                    "ATK": calculated_stats["ATK"],
+                    "DEF": calculated_stats["DEF"],
+                    "SPE": calculated_stats["SPE"],
+                    "SPA": calculated_stats["SPA"],
+                    "SPDEF": calculated_stats["SPDEF"],
+                },
+            }
+        )
+    return {"members": members}
 
 
 def render_observation(state: BattleState) -> dict:

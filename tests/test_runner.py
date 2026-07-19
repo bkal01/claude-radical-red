@@ -24,7 +24,6 @@ def test_prepare_workspace_exposes_only_public_material(tmp_path: Path) -> None:
 
     assert {path.name for path in workspace.iterdir()} == {
         "ENV_USAGE.md",
-        "roster.md",
         "data",
         "scratch",
         "bin",
@@ -41,11 +40,19 @@ def test_prepare_workspace_exposes_only_public_material(tmp_path: Path) -> None:
     assert "even if you reset before the current battle ends" in usage
     assert "species_id" in usage
     assert "apply-team" in usage
+    assert "rrbench-env team" in usage
+    assert "abilities.json" in usage
     assert "This task permits team modifications" in usage
-    assert "This task permits EV updates only" in usage
+    assert "This task permits EV updates" in usage
     assert {path.name for path in (workspace / "data").iterdir()} == {
+        "abilities.json",
         "moves.json",
         "species.json",
+    }
+    abilities = json.loads((workspace / "data" / "abilities.json").read_text())
+    assert abilities[66] == {
+        "name": "Blaze",
+        "description": "Boosts Fire moves by 50% at 1/3 or less HP.",
     }
     species = json.loads((workspace / "data" / "species.json").read_text())
     assert species[1] == {
@@ -59,6 +66,7 @@ def test_prepare_workspace_exposes_only_public_material(tmp_path: Path) -> None:
             "spa": 65,
             "spdef": 65,
         },
+        "abilities": {"normal": [65], "hidden": 34},
     }
 
 

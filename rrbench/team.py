@@ -4,7 +4,7 @@ from pathlib import Path
 
 from rrbench.emulator.memory import (
     PARTY_BASE_ADDR, PARTY_COUNT_ADDR, PARTY_SPECIES_OFFSET, SLOT_SIZE,
-    checksum, SPECIES_NAME,
+    checksum, read_slot, SPECIES_NAME,
 )
 
 species_data = json.loads(
@@ -56,6 +56,13 @@ _NATURE_MODS = [
     (None, None),           # 24 Quirky
 ]
 
+NATURE_NAMES = (
+    "Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed",
+    "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest",
+    "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful",
+    "Quirky",
+)
+
 EV_KEYS = ("HP", "ATK", "DEF", "SPE", "SPA", "SPDEF")
 
 
@@ -68,37 +75,22 @@ def _nature_mult(nature_id: int, stat: str) -> float:
     return 1.0
 
 
-def _calc_all_stats(species_id: int, evs: dict, level: int, nature_id: int) -> dict[str, int]:
-    bs = base_stats[species_id]
-    if bs is None:
-        raise ValueError(f"No base stats for species_id {species_id}")
-
-    def stat(base_stat: int, ev: int, mult: float) -> int:
-        return int(((2 * base_stat + ev // 4) * level // 100 + 5) * mult)
-
-    def hp(base_stat: int, ev: int) -> int:
-        return (2 * base_stat + ev // 4) * level // 100 + level + 10
-
-    return {
-        "MAXHP": hp(bs["hp"], evs.get("HP", 0)),
-        "ATK":   stat(bs["atk"],   evs.get("ATK",   0), _nature_mult(nature_id, "ATK")),
-        "DEF":   stat(bs["def"],   evs.get("DEF",   0), _nature_mult(nature_id, "DEF")),
-        "SPE":   stat(bs["spe"],   evs.get("SPE",   0), _nature_mult(nature_id, "SPE")),
-        "SPA":   stat(bs["spa"],   evs.get("SPA",   0), _nature_mult(nature_id, "SPA")),
-        "SPDEF": stat(bs["spdef"], evs.get("SPDEF", 0), _nature_mult(nature_id, "SPDEF")),
-    }
-
-
 @dataclass
 class PokemonConfig:
     species_id: int
     evs: dict[str, int]  # keys: HP ATK DEF SPE SPA SPDEF
+    level: int | None = None
+    nature_id: int | None = None
+    ability_id: int | None = None
+    held_item: int | None = None
+    move_ids: tuple[int, int, int, int] | None = None
 
     @classmethod
     def from_mem(cls, mem, slot: int) -> "PokemonConfig":
         base = PARTY_BASE_ADDR + slot * SLOT_SIZE
         e0 = mem.u32[base + _E0]
         e1 = mem.u32[base + _E1]
+        party_member = read_slot(mem, slot)
         return cls(
             species_id=mem.u32[base + PARTY_SPECIES_OFFSET] & 0xFFFF,
             evs={
@@ -109,7 +101,66 @@ class PokemonConfig:
                 "SPA":   (e1 >> 0)  & 0xFF,
                 "SPDEF": (e1 >> 8)  & 0xFF,
             },
+            level=mem.u8[base + _LEVEL],
+            nature_id=mem.u32[base + _PID] % 25,
+            ability_id=party_member.ability_id,
+            held_item=party_member.held_item,
+            move_ids=party_member.move_ids,
         )
+
+    def calculated_stats(
+        self,
+        level: int | None = None,
+        nature_id: int | None = None,
+    ) -> dict[str, int]:
+        effective_level = self.level if level is None else level
+        effective_nature_id = self.nature_id if nature_id is None else nature_id
+        if effective_level is None or effective_nature_id is None:
+            raise ValueError("PokemonConfig needs level and nature_id to calculate stats")
+
+        base_stat_values = base_stats[self.species_id]
+        if base_stat_values is None:
+            raise ValueError(f"No base stats for species_id {self.species_id}")
+
+        def stat(base_stat: int, ev: int, multiplier: float) -> int:
+            return int(
+                ((2 * base_stat + ev // 4) * effective_level // 100 + 5) * multiplier
+            )
+
+        return {
+            "MAXHP": (
+                (2 * base_stat_values["hp"] + self.evs.get("HP", 0) // 4)
+                * effective_level
+                // 100
+                + effective_level
+                + 10
+            ),
+            "ATK": stat(
+                base_stat_values["atk"],
+                self.evs.get("ATK", 0),
+                _nature_mult(effective_nature_id, "ATK"),
+            ),
+            "DEF": stat(
+                base_stat_values["def"],
+                self.evs.get("DEF", 0),
+                _nature_mult(effective_nature_id, "DEF"),
+            ),
+            "SPE": stat(
+                base_stat_values["spe"],
+                self.evs.get("SPE", 0),
+                _nature_mult(effective_nature_id, "SPE"),
+            ),
+            "SPA": stat(
+                base_stat_values["spa"],
+                self.evs.get("SPA", 0),
+                _nature_mult(effective_nature_id, "SPA"),
+            ),
+            "SPDEF": stat(
+                base_stat_values["spdef"],
+                self.evs.get("SPDEF", 0),
+                _nature_mult(effective_nature_id, "SPDEF"),
+            ),
+        }
 
     def apply(self, mem, slot: int) -> None:
         base = PARTY_BASE_ADDR + slot * SLOT_SIZE
@@ -143,7 +194,7 @@ class PokemonConfig:
 
         level  = mem.u8[base + _LEVEL]
         nature = mem.u32[base + _PID] % 25
-        stats  = _calc_all_stats(self.species_id, self.evs, level, nature)
+        stats  = self.calculated_stats(level=level, nature_id=nature)
         mem.u16[base + _MAXHP] = stats["MAXHP"]
         mem.u16[base + _CURHP] = stats["MAXHP"]
         mem.u16[base + _ATK]   = stats["ATK"]

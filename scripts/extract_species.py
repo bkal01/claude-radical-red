@@ -27,6 +27,9 @@ _SPECIES_STATS_TABLE = 0x017B98EC
 _SPECIES_STATS_STRIDE = 28
 _TYPE1_OFFSET = 6
 _TYPE2_OFFSET = 7
+_ABILITY1_OFFSET = 22
+_ABILITY2_OFFSET = 23
+_HIDDEN_ABILITY_OFFSET = 26
 GEN3_SPECIES_STATS_TABLE = 0x00254784
 GEN3_MAX = 386
 
@@ -80,6 +83,7 @@ def main():
     for species_id in range(1, 2048):
         name = decode_name(rom, species_id)
         if name:
+            ability_base = _SPECIES_STATS_TABLE + species_id * _SPECIES_STATS_STRIDE
             if species_id <= GEN3_MAX:
                 stats_base = GEN3_SPECIES_STATS_TABLE + species_id * _SPECIES_STATS_STRIDE
             else:
@@ -99,6 +103,17 @@ def main():
                 "name": name,
                 "types": read_types(rom, species_id),
                 "base_stats": base_stats,
+                "abilities": {
+                    "normal": [
+                        ability_id
+                        for ability_id in (
+                            rom[ability_base + _ABILITY1_OFFSET],
+                            rom[ability_base + _ABILITY2_OFFSET],
+                        )
+                        if ability_id
+                    ],
+                    "hidden": rom[ability_base + _HIDDEN_ABILITY_OFFSET] or None,
+                },
             })
         else:
             entries.append(None)

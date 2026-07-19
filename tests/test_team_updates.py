@@ -45,8 +45,24 @@ def make_service(service_module, modifications, session) -> object:
     service.emu = SimpleNamespace(mem=object())
     service.original_team_config = TeamConfig(
         members=[
-            PokemonConfig(species_id=1, evs=dict(EVS)),
-            PokemonConfig(species_id=2, evs=dict(EVS)),
+            PokemonConfig(
+                species_id=1,
+                evs=dict(EVS),
+                level=50,
+                nature_id=0,
+                ability_id=34,
+                held_item=7,
+                move_ids=(1, 2, 0, 0),
+            ),
+            PokemonConfig(
+                species_id=2,
+                evs=dict(EVS),
+                level=50,
+                nature_id=0,
+                ability_id=0,
+                held_item=0,
+                move_ids=(3, 0, 0, 0),
+            ),
         ]
     )
     service.active_team_config = None
@@ -79,9 +95,62 @@ def test_apply_team_accepts_a_live_battle_or_loss_and_member_reordering(
 
     result = service.apply_team(make_payload([(1, 2, 252), (0, 1, 4)]))
 
-    assert result == {"ok": True}
+    assert result["ok"] is True
     assert [member.species_id for member in service.active_team_config.members] == [1, 2]
     assert [member.evs["HP"] for member in service.active_team_config.members] == [4, 252]
+
+
+def test_team_returns_the_active_config_and_calculated_stats(service_module) -> None:
+    service = make_service(
+        service_module,
+        {TeamModification.EVS},
+        SimpleNamespace(ended=False, won=False),
+    )
+    service.active_team_config = TeamConfig(
+        members=[
+            PokemonConfig(
+                species_id=1,
+                evs={**EVS, "HP": 252},
+                level=50,
+                nature_id=0,
+                ability_id=34,
+                held_item=7,
+                move_ids=(1, 2, 0, 0),
+            ),
+            PokemonConfig(
+                species_id=2,
+                evs=dict(EVS),
+                level=50,
+                nature_id=0,
+                ability_id=0,
+                held_item=0,
+                move_ids=(3, 0, 0, 0),
+            ),
+        ]
+    )
+
+    result = service.team()
+
+    assert result["ok"] is True
+    assert result["team"]["members"][0] == {
+        "slot": 0,
+        "species_id": 1,
+        "name": "Bulbasaur",
+        "types": ["Grass", "Poison"],
+        "level": 50,
+        "nature": {"id": 0, "name": "Hardy"},
+        "ability_id": 34,
+        "ability": "Chlorophyll",
+        "held_item_id": 7,
+        "moves": [
+            {"slot": 0, "move_id": 1, "name": "Pound"},
+            {"slot": 1, "move_id": 2, "name": "Karate Chop"},
+            {"slot": 2, "move_id": 0, "name": ""},
+            {"slot": 3, "move_id": 0, "name": ""},
+        ],
+        "evs": {**EVS, "HP": 252},
+        "stats": {"HP": 136, "ATK": 54, "DEF": 54, "SPE": 50, "SPA": 70, "SPDEF": 70},
+    }
 
 
 def test_apply_team_rejects_a_species_mismatch_without_changing_config(service_module) -> None:

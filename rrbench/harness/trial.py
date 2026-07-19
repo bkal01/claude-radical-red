@@ -43,6 +43,8 @@ class Trial:
         verb = request.get("verb")
         if verb == "observe":
             return service.observe()
+        if verb == "team":
+            return service.team()
         if verb == "lead":
             pokemon = request.get("pokemon")
             if not isinstance(pokemon, str):

@@ -343,6 +343,8 @@ class Runner:
             "observation until reset.\n\n"
             "`rrbench-env observe` is legal in every phase and has no side effect. "
             "Calls after trial completion are rejected.\n\n"
+            "`rrbench-env team` is legal in every phase and returns the current team "
+            "configuration and calculated stats without changing state.\n\n"
             "## Episodes and reset\n\n"
             "An episode is one attempt starting from the original battle state. The "
             "trial begins in episode 1, and `rrbench-env lead <pokemon>` starts its "
@@ -355,15 +357,16 @@ class Runner:
             + "\n## Reference data\n\n"
             "The files in `/workspace/data` are JSON arrays indexed by game ID. "
             "An opponent observation's `species_id` is the array index for "
-            "`species.json`, whose entries contain the species name, types, and base "
-            "stats. For example, if `species_id` is `503`, use `species.json[503]`. "
-            "`moves.json` is indexed by move ID and can also be searched by move name.\n"
+            "`species.json`, whose entries contain the species name, types, base stats, "
+            "and normal and hidden ability IDs. For example, if `species_id` is `503`, "
+            "use `species.json[503]`. "
+            "`moves.json` is indexed by move ID and can also be searched by move name. "
+            "`abilities.json` is indexed by ability ID; each entry has a name and description "
+            "and can be searched by name.\n"
         )
 
-        roster_source = Path(__file__).resolve().parents[2] / "data" / "teams" / "default.md"
-        shutil.copyfile(roster_source, workspace / "roster.md")
         public_data = Path(__file__).resolve().parents[2] / "data"
-        for name in ("moves.json", "species.json"):
+        for name in ("abilities.json", "moves.json", "species.json"):
             shutil.copyfile(public_data / name, data_dir / name)
 
         client_source = Path(__file__).resolve().parents[1] / "interface" / "cli.py"

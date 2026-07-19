@@ -43,6 +43,8 @@ _G2       = 0x28  # u32 — G substruct word 2: PP bonus byte (bits 0-7, 2 bits 
 _A0       = 0x2C  # u32 — A substruct word 0: move1 (low 16) | move2 (high 16)
 _A1       = 0x30  # u32 — A substruct word 1: move3 (low 16) | move4 (high 16)
 _A2       = 0x34  # u32 — A substruct word 2: pp1 | pp2<<8 | pp3<<16 | pp4<<24
+_PID      = 0x00  # u32 — low bit selects the first or second normal ability
+_IV       = 0x48  # u32 — bit 31 selects the hidden ability
 _STATUS   = 0x50  # u32
 _LEVEL    = 0x54  # u8
 _CURHP    = 0x56  # u16
@@ -85,14 +87,16 @@ _moves     = json.loads((_DATA_DIR / "moves.json").read_text())
 MOVE_NAME  = {i: m["name"] for i, m in enumerate(_moves) if m}
 MOVE_DATA  = {i: m for i, m in enumerate(_moves) if m}
 
-# Ability ID → name, generated from the ROM by scripts/extract_abilities.py.
+# Ability ID → data, generated from the ROM by scripts/extract_abilities.py.
 _abilities    = json.loads((_DATA_DIR / "abilities.json").read_text())
-ABILITY_NAME  = {i: name for i, name in enumerate(_abilities) if name}
+ABILITY_DATA  = {i: ability for i, ability in enumerate(_abilities) if ability}
+ABILITY_NAME  = {i: ability["name"] for i, ability in ABILITY_DATA.items()}
 
 # Species ID → {name, types}, generated from the ROM by scripts/extract_species.py.
 _species      = json.loads((_DATA_DIR / "species.json").read_text())
 SPECIES_NAME  = {i: e["name"] for i, e in enumerate(_species) if e}
 SPECIES_TYPES = {i: e["types"] for i, e in enumerate(_species) if e}
+SPECIES_ABILITIES = {i: e["abilities"] for i, e in enumerate(_species) if e}
 
 
 @dataclass
@@ -100,6 +104,8 @@ class PartyPokemon:
     name: str
     species_id: int                     # raw national dex number; needed for ROM table lookups
     held_item: int
+    ability_id: int
+    move_ids: tuple[int, int, int, int]
     moves: tuple[str, str, str, str]   # empty string for empty slots
     pp: tuple[int, int, int, int]
     current_hp: int
@@ -129,10 +135,23 @@ def read_slot(mem, slot: int) -> PartyPokemon:
     a2 = mem.u32[base + _A2]
     species_id = g0 & 0xFFFF
     move_ids   = (a0 & 0xFFFF, (a0 >> 16) & 0xFFFF, a1 & 0xFFFF, (a1 >> 16) & 0xFFFF)
+    species_abilities = SPECIES_ABILITIES.get(species_id, {})
+    normal_abilities = species_abilities.get("normal", [])
+    hidden_ability = species_abilities.get("hidden")
+    normal_ability_index = mem.u32[base + _PID] & 1
+    ability_id = (
+        hidden_ability
+        if mem.u32[base + _IV] & 0x80000000
+        else normal_abilities[min(normal_ability_index, len(normal_abilities) - 1)]
+        if normal_abilities
+        else 0
+    )
     return PartyPokemon(
         name=SPECIES_NAME.get(species_id, f"species_{species_id}"),
         species_id=species_id,
         held_item=(g0 >> 16) & 0xFFFF,
+        ability_id=ability_id,
+        move_ids=move_ids,
         moves=tuple(MOVE_NAME.get(mid, "") for mid in move_ids),
         pp=(a2 & 0xFF, (a2 >> 8) & 0xFF, (a2 >> 16) & 0xFF, (a2 >> 24) & 0xFF),
         current_hp=mem.u16[base + _CURHP],

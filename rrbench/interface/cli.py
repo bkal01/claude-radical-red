@@ -14,6 +14,7 @@ def main() -> None:
 
     subparsers = parser.add_subparsers(dest="verb", required=True)
     subparsers.add_parser("observe")
+    subparsers.add_parser("team")
 
     lead = subparsers.add_parser("lead")
     lead.add_argument("pokemon")

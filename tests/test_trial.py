@@ -14,6 +14,9 @@ class FakeService:
     def observe(self) -> dict:
         return {"ok": True, "observation": {"phase": "no_battle"}}
 
+    def team(self) -> dict:
+        return {"ok": True, "team": {"members": []}}
+
     def lead(self, pokemon: str) -> dict:
         return {"ok": True, "ended": False, "won": False}
 
@@ -91,3 +94,14 @@ def test_apply_team_resets_and_advances_the_episode(tmp_path: Path) -> None:
     assert service.applied_team == team
     assert service.reset_calls == 1
     assert trial.episodes == 2
+
+
+def test_team_is_read_only_and_available_before_a_battle(tmp_path: Path) -> None:
+    task = SimpleNamespace(id="test")
+    service = FakeService(task)
+    trial = Trial(task, 1, tmp_path / "trajectory.jsonl", tmp_path / "score.json")
+
+    result = trial.handle({"verb": "team"}, service)
+
+    assert result == {"ok": True, "team": {"members": []}}
+    assert trial.episodes == 1

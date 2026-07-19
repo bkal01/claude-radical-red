@@ -10,6 +10,7 @@ from rrbench.interface.protocol import (
     render_observation,
     render_pre_battle,
     render_messages,
+    render_team,
 )
 from rrbench.tasks import TaskSpec, TeamModification
 from rrbench.team import EV_KEYS, PokemonConfig, TeamConfig
@@ -51,6 +52,10 @@ class BattleService:
         else:
             observation = render_observation(read_battle_state(self.emu.mem, party))
         return {"ok": True, "observation": observation}
+
+    def team(self) -> dict:
+        config = self.active_team_config or self.original_team_config
+        return {"ok": True, "team": render_team(config)}
 
     def lead(self, lead_pokemon: str) -> dict:
         if self.session is not None or in_battle(self.emu.mem):
@@ -215,9 +220,14 @@ class BattleService:
             updated_members[slot] = PokemonConfig(
                 species_id=current_team_config.members[slot].species_id,
                 evs=dict(evs),
+                level=current_team_config.members[slot].level,
+                nature_id=current_team_config.members[slot].nature_id,
+                ability_id=current_team_config.members[slot].ability_id,
+                held_item=current_team_config.members[slot].held_item,
+                move_ids=current_team_config.members[slot].move_ids,
             )
 
         self.active_team_config = TeamConfig(
             members=[updated_members[slot] for slot in range(len(current_team_config.members))]
         )
-        return {"ok": True}
+        return {"ok": True, "team": render_team(self.active_team_config)}
