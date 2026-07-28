@@ -1,0 +1,26 @@
+schema_version = "1.4"
+
+artifacts = [
+  { source = "/var/log/battle/trajectory.jsonl", service = "battle-server" },
+]
+
+[task]
+name = "rrbench/giovanni"
+description = "Beat Giovanni's Silph Co. team in Pokemon Radical Red."
+
+[[environment.mcp_servers]]
+name = "battle-server"
+transport = "streamable-http"
+url = "http://battle-server:8000/mcp"
+
+[environment]
+network_mode = "no-network"
+
+[agent]
+timeout_sec = 3600.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+
+[verifier]
+timeout_sec = 300.0
+environment_mode = "separate"
