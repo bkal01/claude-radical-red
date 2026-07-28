@@ -53,7 +53,11 @@ COPY --from=build /opt/mgba /opt/mgba
 COPY rrbench /app/rrbench
 COPY data /app/data
 
-RUN pip install --no-cache-dir Pillow cached-property cffi imageio imageio-ffmpeg numpy PyYAML
+RUN pip install --no-cache-dir Pillow cached-property cffi fastmcp imageio imageio-ffmpeg numpy PyYAML
 
 ENV PYTHONPATH=/app:/opt/mgba
 WORKDIR /app
+
+EXPOSE 8000
+
+CMD ["python", "-m", "rrbench.interface.mcp_server"]
