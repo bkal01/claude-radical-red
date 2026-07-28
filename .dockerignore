@@ -3,5 +3,8 @@
 !docker/**
 !rrbench/
 !rrbench/**
-!data/
-!data/**
+!tasks/
+!tasks/giovanni/
+!tasks/giovanni/environment/
+!tasks/giovanni/environment/data/
+!tasks/giovanni/environment/data/**
