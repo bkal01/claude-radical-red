@@ -16,6 +16,20 @@ The agent has access to this team:
 
 ![](assets/default_team.png)
 
+<details>
+<summary>Winning EV spreads</summary>
+
+| Pokemon | HP | ATK | DEF | SPE | SPA | SPDEF |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Incineroar | 252 | 236 | 0 | 20 | 0 | 0 |
+| Kingambit | 252 | 252 | 0 | 4 | 0 | 0 |
+| Mawile | 4 | 252 | 0 | 252 | 0 | 0 |
+| Tsareena | 252 | 252 | 0 | 4 | 0 | 0 |
+| Armarouge | 252 | 0 | 4 | 0 | 252 | 0 |
+| Gyarados | 252 | 252 | 0 | 4 | 0 | 0 |
+
+</details>
+
 All Pokemon are max level (57), and some have useful abilities/items. For example, Incineroar and Gyarados have Intimidate to cut the ATK stat of opposing Pokemon, Kingambit has Black Glasses to boost Dark type attacks, and Armarouge has the Weak Armor ability to potentially allow it to sweep with strategic switch-ins.
 
 It took me ~6-8 hours to beat this battle, but a lot of that time was trying different Pokemon, items, moves, and abilities to produce a winning strategy for Giovanni. It's important to note that Giovanni's AI is is predictable. Given the exact same game state, the enemy AI will always perform the same action. The same attacks will crit and miss, and moves will do the exact same damage. This is exploitable: for example, if you know the opponent is going to use a Dragon-type move, you can switch into a Fairy-type Pokemon to avoid taking damage.
@@ -60,29 +74,16 @@ mGBA picks up `radicalred.sav` automatically since it shares the same name as th
 
 ## Evaluation
 
-Evaluations run a coding agent in an isolated Docker sandbox. Build the trusted
-server and allowlisted provider proxy once:
+Evaluations run through Harbor. The episode budget and optional video
+recording are configured through environment variables:
 
 ```bash
-scripts/setup_docker.sh
+RRBENCH_MAX_EPISODES=2 RRBENCH_RECORD=true \
+  harbor run -p tasks/giovanni -a codex -m gpt-5.6-luna --env docker -n 1
 ```
 
-Authenticate your own Codex account once, then run a trial:
-
-```bash
-scripts/setup_codex_auth.sh
-
-uv run rrbench-runner tasks/giovanni --agent codex --model gpt-5.6-luna \
-  --max-episodes 2 --reasoning-effort low \
-  --credential-dir ~/.local/share/rrbench/auth/codex \
-  --egress-network rrbench-egress --egress-proxy http://provider-proxy:3128 \
-  --artifacts-dir logs/codex --record
-```
-
-Use `--agent claude-code` with its own model and credential directory to test
-Claude Code. Each retained trial contains the score, trajectory, agent event
-stream, token usage, and scratch files. With `--record`, it also contains one
-MP4 per started episode in `videos/`.
+Both values are passed to the battle server. When recording is enabled, Harbor
+collects one MP4 per started episode as a `battle-server` artifact.
 
 
 ## Next Steps
