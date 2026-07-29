@@ -1,15 +1,12 @@
 import json
 from dataclasses import dataclass
-from pathlib import Path
 
 from rrbench.emulator.memory import (
     PARTY_BASE_ADDR, PARTY_COUNT_ADDR, PARTY_SPECIES_OFFSET, SLOT_SIZE,
-    checksum, read_slot, SPECIES_NAME,
+    checksum, data_dir, read_slot, SPECIES_NAME,
 )
 
-species_data = json.loads(
-    (Path(__file__).resolve().parents[1] / "data" / "species.json").read_text()
-)
+species_data = json.loads((data_dir / "species.json").read_text())
 base_stats = [entry["base_stats"] if entry else None for entry in species_data]
 
 # EWRAM offsets not already in party.py

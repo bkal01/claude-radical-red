@@ -1,6 +1,4 @@
 **
-!docker/
-!docker/**
 !rrbench/
 !rrbench/**
 !tasks/

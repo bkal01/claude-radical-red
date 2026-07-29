@@ -23,11 +23,7 @@ RRBENCH_RECORD = "${RRBENCH_RECORD:-false}"
 
 [agent]
 timeout_sec = 3600.0
-network_mode = "allowlist"
-allowed_hosts = [
-  "chatgpt.com",
-  "auth.openai.com",
-]
+network_mode = "public"
 
 [verifier]
 timeout_sec = 300.0

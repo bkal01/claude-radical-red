@@ -13,6 +13,7 @@ services:
       dockerfile: tasks/giovanni/environment/battle-server/Dockerfile
     expose: ["8000"]
     environment:
+      RRBENCH_DATA_DIR: /app/data
       RRBENCH_TASK_DIR: /app/task
       RRBENCH_MAX_EPISODES: "${RRBENCH_MAX_EPISODES:-3}"
       RRBENCH_RECORD: "${RRBENCH_RECORD:-false}"

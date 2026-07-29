@@ -1,4 +1,5 @@
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -79,24 +80,29 @@ _MOVE_TABLE = 0x091521D0
 _MOVE_SIZE  = 12
 _MOVE_PP    = 4  # base PP byte offset within a move entry
 
-# Static game data lives at the repo root (memory.py sits two levels down in rrbench/emulator/).
-_DATA_DIR = Path(__file__).resolve().parents[2] / "data"
+# Static game data is bundled with the active Harbor task environment.
+data_dir = Path(
+    os.environ.get(
+        "RRBENCH_DATA_DIR",
+        Path(__file__).resolve().parents[2] / "tasks/giovanni/environment/data",
+    )
+)
 
 # Move ID → data, generated from the ROM by scripts/extract_moves.py.
-_moves     = json.loads((_DATA_DIR / "moves.json").read_text())
-MOVE_NAME  = {i: m["name"] for i, m in enumerate(_moves) if m}
-MOVE_DATA  = {i: m for i, m in enumerate(_moves) if m}
+moves = json.loads((data_dir / "moves.json").read_text())
+MOVE_NAME = {i: move["name"] for i, move in enumerate(moves) if move}
+MOVE_DATA = {i: move for i, move in enumerate(moves) if move}
 
 # Ability ID → data, generated from the ROM by scripts/extract_abilities.py.
-_abilities    = json.loads((_DATA_DIR / "abilities.json").read_text())
-ABILITY_DATA  = {i: ability for i, ability in enumerate(_abilities) if ability}
-ABILITY_NAME  = {i: ability["name"] for i, ability in ABILITY_DATA.items()}
+abilities = json.loads((data_dir / "abilities.json").read_text())
+ABILITY_DATA = {i: ability for i, ability in enumerate(abilities) if ability}
+ABILITY_NAME = {i: ability["name"] for i, ability in ABILITY_DATA.items()}
 
 # Species ID → {name, types}, generated from the ROM by scripts/extract_species.py.
-_species      = json.loads((_DATA_DIR / "species.json").read_text())
-SPECIES_NAME  = {i: e["name"] for i, e in enumerate(_species) if e}
-SPECIES_TYPES = {i: e["types"] for i, e in enumerate(_species) if e}
-SPECIES_ABILITIES = {i: e["abilities"] for i, e in enumerate(_species) if e}
+species = json.loads((data_dir / "species.json").read_text())
+SPECIES_NAME = {i: entry["name"] for i, entry in enumerate(species) if entry}
+SPECIES_TYPES = {i: entry["types"] for i, entry in enumerate(species) if entry}
+SPECIES_ABILITIES = {i: entry["abilities"] for i, entry in enumerate(species) if entry}
 
 
 @dataclass
