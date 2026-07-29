@@ -10,12 +10,17 @@ from rrbench.tasks import load_task
 mcp = FastMCP("rrbench-battle")
 task = load_task(os.environ["RRBENCH_TASK_DIR"])
 service = BattleService(task)
+record_value = os.environ.get("RRBENCH_RECORD", "false")
+record_enabled = record_value.lower() in {"1", "true", "yes", "on"}
 trial = Trial(
     task=task,
     max_episodes=int(os.environ["RRBENCH_MAX_EPISODES"]),
+    record=record_enabled,
     trajectory_path=Path(os.environ.get("RRBENCH_TRAJECTORY_PATH", "/var/log/battle/trajectory.jsonl")),
     score_path=Path(os.environ.get("RRBENCH_SCORE_PATH", "/var/log/battle/score.json")),
+    videos_path=Path(os.environ.get("RRBENCH_VIDEO_DIR", "/var/log/battle/videos")),
 )
+trial.start(service)
 
 
 @mcp.tool()

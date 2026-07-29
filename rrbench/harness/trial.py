@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+from rrbench.harness.recording import TrialRecorder
 from rrbench.tasks import TaskSpec
 
 
@@ -11,6 +12,8 @@ class Trial:
         max_episodes: int,
         trajectory_path: Path,
         score_path: Path,
+        record: bool = False,
+        videos_path: Path | None = None,
     ) -> None:
         if max_episodes < 1:
             raise ValueError("max_episodes must be at least 1")
@@ -22,6 +25,10 @@ class Trial:
         self.score_path = score_path
         self.episode_events: list[dict] = []
         self.finished = False
+        self.record = record
+        self.videos_path = videos_path or trajectory_path.parent / "videos"
+        self.videos_path.mkdir(parents=True, exist_ok=True)
+        self.recorder = TrialRecorder(self.videos_path) if record else None
 
         self.trajectory_path.parent.mkdir(parents=True, exist_ok=True)
         self.score_path.parent.mkdir(parents=True, exist_ok=True)
@@ -31,8 +38,13 @@ class Trial:
                 "type": "trial",
                 "task_id": task.id,
                 "max_episodes": max_episodes,
+                "record": record,
             }
         )
+
+    def start(self, service) -> None:
+        if self.recorder is not None:
+            self.recorder.start(service.emu)
 
     def handle(self, request: object, service) -> dict:
         if self.finished:
@@ -60,7 +72,7 @@ class Trial:
             if not isinstance(team, dict):
                 return {"ok": False, "error": "apply-team requires a team object"}
             if self.episodes >= self.max_episodes:
-                self.finish("no_win", "episode_budget_exhausted")
+                self.finish("no_win", "episode_budget_exhausted", service)
                 return {"ok": False, "error": "episode budget exhausted"}
 
             result = service.apply_team(team)
@@ -68,15 +80,23 @@ class Trial:
                 reset_result = service.reset()
                 if not reset_result["ok"]:
                     return reset_result
+                if self.recorder is not None:
+                    self.recorder.close(service.emu)
+                    self.recorder.next_episode()
+                    self.recorder.start(service.emu)
                 self.episodes += 1
                 self.episode_events = []
                 result["observation"] = reset_result["observation"]
         elif verb == "reset":
             if self.episodes >= self.max_episodes:
-                self.finish("no_win", "episode_budget_exhausted")
+                self.finish("no_win", "episode_budget_exhausted", service)
                 return {"ok": False, "error": "episode budget exhausted"}
             result = service.reset()
             if result["ok"]:
+                if self.recorder is not None:
+                    self.recorder.close(service.emu)
+                    self.recorder.next_episode()
+                    self.recorder.start(service.emu)
                 self.episodes += 1
                 self.episode_events = []
         else:
@@ -96,15 +116,18 @@ class Trial:
 
         if result["ok"] and verb == "action" and result.get("ended"):
             if result.get("won"):
-                self.finish("won", "environment_reported_win")
+                self.finish("won", "environment_reported_win", service)
             elif self.episodes == self.max_episodes:
-                self.finish("no_win", "episode_budget_exhausted")
+                self.finish("no_win", "episode_budget_exhausted", service)
 
         return result
 
-    def finish(self, status: str, reason: str) -> None:
+    def finish(self, status: str, reason: str, service=None) -> None:
         if self.finished:
             return
+
+        if self.recorder is not None and service is not None:
+            self.recorder.close(service.emu)
 
         score = {
             "task_id": self.task.id,

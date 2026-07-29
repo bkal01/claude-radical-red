@@ -2,6 +2,7 @@ schema_version = "1.4"
 
 artifacts = [
   { source = "/var/log/battle/trajectory.jsonl", service = "battle-server" },
+  { source = "/var/log/battle/videos", service = "battle-server" },
 ]
 
 [task]
@@ -14,12 +15,19 @@ transport = "streamable-http"
 url = "http://battle-server:8000/mcp"
 
 [environment]
-network_mode = "no-network"
+network_mode = "public"
+
+[environment.env]
+RRBENCH_MAX_EPISODES = "${RRBENCH_MAX_EPISODES:-3}"
+RRBENCH_RECORD = "${RRBENCH_RECORD:-false}"
 
 [agent]
 timeout_sec = 3600.0
 network_mode = "allowlist"
-allowed_hosts = ["api.anthropic.com"]
+allowed_hosts = [
+  "chatgpt.com",
+  "auth.openai.com",
+]
 
 [verifier]
 timeout_sec = 300.0

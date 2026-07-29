@@ -74,18 +74,58 @@ mGBA picks up `radicalred.sav` automatically since it shares the same name as th
 
 ## Evaluation
 
-Evaluations run through Harbor. The episode budget and optional video
-recording are configured through environment variables:
+Evaluations run through Harbor. Before starting a run, choose one of the
+following Codex authentication methods.
+
+To use an OpenAI API key:
 
 ```bash
-RRBENCH_MAX_EPISODES=2 RRBENCH_RECORD=true \
-  harbor run -p tasks/giovanni -a codex -m gpt-5.6-luna --env docker -n 1
+export OPENAI_API_KEY="your-api-key"
 ```
 
-Both values are passed to the battle server. When recording is enabled, Harbor
-collects one MP4 per started episode as a `battle-server` artifact.
+To use a ChatGPT/Codex subscription instead, authenticate the Codex CLI and
+enable Harbor's subscription-auth path:
 
+```bash
+codex login
+codex login status
+export CODEX_FORCE_AUTH_JSON=1
+```
+
+`CODEX_FORCE_AUTH_JSON=1` tells Harbor to use the subscription credentials in
+`~/.codex/auth.json`. It is not needed when using `OPENAI_API_KEY`.
+
+Configure the episode budget and optional recording with these environment
+flags:
+
+- `RRBENCH_MAX_EPISODES`: maximum number of episodes the battle server will
+  allow. It defaults to `3`.
+- `RRBENCH_RECORD`: set to `true` to record each started episode, or `false` to
+  disable recording. It defaults to `false`.
+
+For example, this runs two episodes with recording enabled:
+
+```bash
+RRBENCH_MAX_EPISODES=2 \
+RRBENCH_RECORD=true \
+harbor run \
+  --path tasks/giovanni \
+  --disable-verification \
+  --agent codex \
+  --model gpt-5.6-luna \
+  --env docker \
+  --n-concurrent 1
+```
+
+Both values are passed through Harbor to the battle server, which enforces the
+episode limit and performs the recording.
+
+When the run finishes, Harbor collects one MP4 per started episode under:
+
+```text
+jobs/<job-name>/<trial-name>/artifacts/var/log/battle/videos/episode-01.mp4
+```
 
 ## Next Steps
 
-In its current state, the benchmark is quite primitive. It would be nice to actually let the agent choose its team, abilities, items, moves, EV spreads, etc., which would expand the search space significantly and make the task a lot harder. Adding more battles would be great as well. Contributions are welcome to make this happen!
+We currently support EV spread modifications by the agent. There are a whole host of other modifications we need to add (changing moves, items, abilities, natures, Pokemon, etc.). We also could use more tasks (specific boss battles in Radical Red). Contributions are welcome!

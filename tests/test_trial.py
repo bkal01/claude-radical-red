@@ -1,4 +1,5 @@
 import json
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -105,3 +106,41 @@ def test_team_is_read_only_and_available_before_a_battle(tmp_path: Path) -> None
 
     assert result == {"ok": True, "team": {"members": []}}
     assert trial.episodes == 1
+
+
+def test_trial_records_and_closes_one_video_per_episode(tmp_path: Path, monkeypatch) -> None:
+    recorders = []
+
+    def create_video_recorder(output_path: str):
+        recorder = SimpleNamespace(output_path=output_path, closed=False)
+
+        def close_recorder() -> None:
+            recorder.closed = True
+
+        recorder.close = close_recorder
+        recorders.append(recorder)
+        return recorder
+
+    monkeypatch.setitem(sys.modules, "rrbench.video", SimpleNamespace(VideoRecorder=create_video_recorder))
+    task = SimpleNamespace(id="test")
+    service = FakeService(task)
+    service.emu = SimpleNamespace(recorder=None)
+
+    def set_recorder(recorder) -> None:
+        service.emu.recorder = recorder
+
+    service.emu.set_recorder = set_recorder
+    trial = Trial(task, 2, tmp_path / "trajectory.jsonl", tmp_path / "score.json", record=True, videos_path=tmp_path / "videos")
+
+    trial.start(service)
+    trial.handle({"verb": "lead", "pokemon": "Mawile"}, service)
+    trial.handle({"verb": "action", "command": "FIGHT Lose"}, service)
+    trial.handle({"verb": "reset"}, service)
+    trial.handle({"verb": "lead", "pokemon": "Mawile"}, service)
+    trial.handle({"verb": "action", "command": "FIGHT Win"}, service)
+
+    assert [Path(item.output_path).name for item in recorders] == [
+        "episode-01.mp4",
+        "episode-02.mp4",
+    ]
+    assert all(item.closed for item in recorders)
