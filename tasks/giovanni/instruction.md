@@ -56,11 +56,8 @@ session, and advances to the next episode. It consumes an episode even when
 called before the current battle ends. A reset is rejected once the episode
 budget is exhausted.
 
-The opponent AI is deterministic: with the same game state and action history,
-it makes the same decisions. Use failed episodes to improve the strategy, and
-replay useful action prefixes exactly when appropriate. Stop after the
-environment reports a win, the episode budget is exhausted, or an
-unrecoverable environment error occurs.
+Stop after the environment reports a win, the episode budget is exhausted, or
+an unrecoverable environment error occurs.
 
 ## Team EV updates
 
