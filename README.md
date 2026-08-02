@@ -78,6 +78,12 @@ Run the test suite through the project’s `uv` environment:
 uv run pytest -q
 ```
 
+To run the fast tests without the real-ROM MCP integration test:
+
+```bash
+uv run pytest -q -m "not integration"
+```
+
 ## Evaluation
 
 Evaluations run through Harbor. Before starting a run, choose one of the
