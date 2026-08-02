@@ -7,6 +7,7 @@ import yaml
 
 class TeamModification(str, Enum):
     EVS = "evs"
+    ABILITIES = "abilities"
 
 
 @dataclass(frozen=True)

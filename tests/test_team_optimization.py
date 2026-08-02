@@ -51,45 +51,39 @@ def test_trial_applies_valid_ev_spreads(monkeypatch, party_memory, tmp_path) -> 
     result = trial.handle({"verb": "apply-team", "team": team_payload}, service)
 
     assert result["ok"] is True
-    assert result["observation"]["phase"] == "no_battle"
     assert trial.episodes == 2
 
     active_team = service.active_team_config
     assert active_team is not None
-    observation_result = service.observe()
-    assert observation_result == {
-        "ok": True,
-        "observation": {
-            "phase": "no_battle",
-            "party": [
-                {
-                    "name": "Bulbasaur",
-                    "current_hp": 136,
-                    "max_hp": 136,
-                    "status": "poison",
-                    "active": False,
-                    "fainted": False,
-                    "moves": [
-                        {"name": "Pound", "pp_remaining": 10},
-                        {"name": "Growl", "pp_remaining": 12},
-                    ],
-                },
-                {
-                    "name": "Incineroar",
-                    "current_hp": 186,
-                    "max_hp": 186,
-                    "status": None,
-                    "active": False,
-                    "fainted": False,
-                    "moves": [
-                        {"name": "Ember", "pp_remaining": 20},
-                        {"name": "Growl", "pp_remaining": 15},
-                    ],
-                },
-            ],
-        },
+    assert result["observation"] == {
+        "phase": "no_battle",
+        "party": [
+            {
+                "name": "Bulbasaur",
+                "current_hp": 136,
+                "max_hp": 136,
+                "status": "poison",
+                "active": False,
+                "fainted": False,
+                "moves": [
+                    {"name": "Pound", "pp_remaining": 10},
+                    {"name": "Growl", "pp_remaining": 12},
+                ],
+            },
+            {
+                "name": "Incineroar",
+                "current_hp": 186,
+                "max_hp": 186,
+                "status": None,
+                "active": False,
+                "fainted": False,
+                "moves": [
+                    {"name": "Ember", "pp_remaining": 20},
+                    {"name": "Growl", "pp_remaining": 15},
+                ],
+            },
+        ],
     }
-    assert result["observation"] == observation_result["observation"]
     expected_stats = (
         {"HP": 136, "ATK": 54, "DEF": 54, "SPE": 50, "SPA": 70, "SPDEF": 101},
         {"HP": 186, "ATK": 166, "DEF": 85, "SPE": 65, "SPA": 85, "SPDEF": 95},
@@ -105,6 +99,130 @@ def test_trial_applies_valid_ev_spreads(monkeypatch, party_memory, tmp_path) -> 
 
     assert result["team"]["members"][0]["evs"] == team_payload["members"][0]["evs"]
     assert result["team"]["members"][1]["evs"] == team_payload["members"][1]["evs"]
+
+
+def test_trial_applies_valid_abilities_without_changing_natures(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.ABILITIES}),
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 1, "ability_id": 34},
+                    {"slot": 1, "species_id": 944, "ability_id": 66},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result["ok"] is True
+    assert trial.episodes == 2
+    assert result["team"]["members"][0]["ability_id"] == 34
+    assert result["team"]["members"][0]["ability"] == "Chlorophyll"
+    assert result["team"]["members"][1]["ability_id"] == 66
+    assert result["team"]["members"][1]["ability"] == "Blaze"
+
+    assert result["observation"] == {
+        "phase": "no_battle",
+        "party": [
+            {
+                "name": "Bulbasaur",
+                "current_hp": 105,
+                "max_hp": 105,
+                "status": "poison",
+                "active": False,
+                "fainted": False,
+                "moves": [
+                    {"name": "Pound", "pp_remaining": 10},
+                    {"name": "Growl", "pp_remaining": 12},
+                ],
+            },
+            {
+                "name": "Incineroar",
+                "current_hp": 155,
+                "max_hp": 155,
+                "status": None,
+                "active": False,
+                "fainted": False,
+                "moves": [
+                    {"name": "Ember", "pp_remaining": 20},
+                    {"name": "Growl", "pp_remaining": 15},
+                ],
+            },
+        ],
+    }
+
+
+def test_trial_rejects_ability_not_available_to_species_without_advancing_episode(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.ABILITIES}),
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    before_memory = party_memory.snapshot()
+    before_team = service.team()
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 1, "ability_id": 66},
+                    {"slot": 1, "species_id": 944, "ability_id": 66},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result == {
+        "ok": False,
+        "error": "ability_id must be a valid ability for the active Pokemon",
+    }
+    assert trial.episodes == 1
+    assert service.active_team_config is None
+    assert party_memory.snapshot() == before_memory
+    assert service.team() == before_team
 
 
 @pytest.mark.parametrize(

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from rrbench.emulator.memory import (
     PARTY_BASE_ADDR, PARTY_COUNT_ADDR, PARTY_SPECIES_OFFSET, SLOT_SIZE,
-    checksum, data_dir, read_slot, SPECIES_NAME,
+    checksum, data_dir, read_slot, SPECIES_ABILITIES, SPECIES_NAME,
 )
 
 species_data = json.loads((data_dir / "species.json").read_text())
@@ -162,6 +162,23 @@ class PokemonConfig:
     def apply(self, mem, slot: int) -> None:
         base = PARTY_BASE_ADDR + slot * SLOT_SIZE
 
+        pid = mem.u32[base + _PID]
+        iv = mem.u32[base + _IV] & 0xC0000000
+        if self.ability_id is not None:
+            species_abilities = SPECIES_ABILITIES.get(self.species_id, {})
+            normal_abilities = species_abilities.get("normal", [])
+            if self.ability_id in normal_abilities:
+                ability_index = normal_abilities.index(self.ability_id)
+                if pid & 1 != ability_index:
+                    pid = pid - 25 if pid >= 25 else pid + 25
+                iv &= 0x40000000
+            elif self.ability_id == species_abilities.get("hidden"):
+                iv = (iv & 0x40000000) | 0x80000000
+            else:
+                raise ValueError(
+                    f"Ability {self.ability_id} is not available for species_id {self.species_id}"
+                )
+
         # Write EVs to E substruct (IV=0; see team.py module docstring)
         e0 = (
             (self.evs.get("HP",    0) & 0xFF)        |
@@ -172,6 +189,8 @@ class PokemonConfig:
         e1 = (mem.u32[base + _E1] & 0xFFFF0000) | (self.evs.get("SPA", 0) & 0xFF) | ((self.evs.get("SPDEF", 0) & 0xFF) << 8)
         mem.u32[base + _E0] = e0
         mem.u32[base + _E1] = e1
+        mem.u32[base + _PID] = pid
+        mem.u32[base + _IV] = iv  # zero IV bits, keep is_egg+ability
 
         # Radical Red's battle-init routine reads the checksum field as a species ID
         # and substitutes that Pokemon if valid. Avoid the collision by nudging the
@@ -186,8 +205,6 @@ class PokemonConfig:
             mem.u32[base + _E2] = (e2 & 0xFFFF0000) | ((low + v) & 0xFFFF)
             cs = checksum(mem, base)
         mem.u16[base + 0x1C] = cs
-
-        mem.u32[base + _IV] = mem.u32[base + _IV] & 0xC0000000  # zero IV bits, keep is_egg+ability
 
         level  = mem.u8[base + _LEVEL]
         nature = mem.u32[base + _PID] % 25

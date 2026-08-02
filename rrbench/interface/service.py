@@ -2,6 +2,7 @@ from rrbench.battle.engine import start_battle, do_action
 from rrbench.battle.state import BattleSession, in_battle, read_battle_state
 from rrbench.emulator.emulator import Emulator
 from rrbench.emulator.memory import (
+    SPECIES_ABILITIES,
     Party,
     PokemonFaintedError,
     PokemonNotInPartyError,
@@ -181,17 +182,31 @@ class BattleService:
         """
         if not self.task.allowed_team_modifications:
             return {"ok": False, "error": "team updates are not allowed for this task"}
-        if TeamModification.EVS not in self.task.allowed_team_modifications:
-            return {"ok": False, "error": "updating EVs is not allowed for this task"}
-        if self.session is None or self.session.won:
-            return {"ok": False, "error": "apply-team is only valid in a live battle or after a lost episode"}
-        if not self.session.ended and not in_battle(self.emu.mem):
-            return {"ok": False, "error": "apply-team is only valid in a live battle or after a lost episode"}
+        if (
+            TeamModification.EVS not in self.task.allowed_team_modifications
+            and TeamModification.ABILITIES not in self.task.allowed_team_modifications
+        ):
+            return {"ok": False, "error": "team updates are not allowed for this task"}
         if not isinstance(team, dict):
             return {"ok": False, "error": "team must be an object"}
         if set(team) != {"members"}:
             return {"ok": False, "error": "team must contain only members"}
-
+        members_value = team.get("members")
+        if isinstance(members_value, list):
+            if TeamModification.EVS not in self.task.allowed_team_modifications and any(
+                isinstance(member, dict) and "evs" in member
+                for member in members_value
+            ):
+                return {"ok": False, "error": "updating EVs is not allowed for this task"}
+            if TeamModification.ABILITIES not in self.task.allowed_team_modifications and any(
+                isinstance(member, dict) and "ability_id" in member
+                for member in members_value
+            ):
+                return {"ok": False, "error": "updating Abilities is not allowed for this task"}
+        if self.session is None or self.session.won:
+            return {"ok": False, "error": "apply-team is only valid in a live battle or after a lost episode"}
+        if not self.session.ended and not in_battle(self.emu.mem):
+            return {"ok": False, "error": "apply-team is only valid in a live battle or after a lost episode"}
         members = team["members"]
         current_team_config = self.active_team_config or self.original_team_config
         if not isinstance(members, list) or len(members) != len(current_team_config.members):
@@ -199,8 +214,14 @@ class BattleService:
 
         updated_members = {}
         for member in members:
-            if not isinstance(member, dict) or set(member) != {"slot", "species_id", "evs"}:
-                return {"ok": False, "error": "each member must contain only slot, species_id, and evs"}
+            expected_fields = {"slot", "species_id"}
+            if TeamModification.EVS in self.task.allowed_team_modifications:
+                expected_fields.add("evs")
+            if TeamModification.ABILITIES in self.task.allowed_team_modifications:
+                expected_fields.add("ability_id")
+            if not isinstance(member, dict) or set(member) != expected_fields:
+                fields = ", ".join(sorted(expected_fields))
+                return {"ok": False, "error": f"each member must contain only {fields}"}
             slot = member["slot"]
             if type(slot) is not int or slot not in range(len(current_team_config.members)):
                 return {"ok": False, "error": "each member must use a valid team slot"}
@@ -209,22 +230,36 @@ class BattleService:
             if type(member["species_id"]) is not int or member["species_id"] != current_team_config.members[slot].species_id:
                 return {"ok": False, "error": "species_id must match the active team member at its slot"}
 
-            evs = member["evs"]
-            if not isinstance(evs, dict) or set(evs) != set(EV_KEYS):
-                return {"ok": False, "error": "each member must specify exactly HP, ATK, DEF, SPE, SPA, and SPDEF EVs"}
-            if any(type(ev) is not int or ev < 0 or ev > 252 or ev % 4 for ev in evs.values()):
-                return {"ok": False, "error": "EVs must be integers from 0 through 252 in multiples of four"}
-            if sum(evs.values()) > 508:
-                return {"ok": False, "error": "each Pokemon may have at most 508 total EVs"}
+            current_member = current_team_config.members[slot]
+            evs = dict(current_member.evs)
+            if "evs" in member:
+                evs = member["evs"]
+                if not isinstance(evs, dict) or set(evs) != set(EV_KEYS):
+                    return {"ok": False, "error": "each member must specify exactly HP, ATK, DEF, SPE, SPA, and SPDEF EVs"}
+                if any(type(ev) is not int or ev < 0 or ev > 252 or ev % 4 for ev in evs.values()):
+                    return {"ok": False, "error": "EVs must be integers from 0 through 252 in multiples of four"}
+                if sum(evs.values()) > 508:
+                    return {"ok": False, "error": "each Pokemon may have at most 508 total EVs"}
+
+            ability_id = current_member.ability_id
+            if "ability_id" in member:
+                ability_id = member["ability_id"]
+                species_abilities = SPECIES_ABILITIES.get(current_member.species_id, {})
+                valid_abilities = set(species_abilities.get("normal", []))
+                hidden_ability = species_abilities.get("hidden")
+                if hidden_ability is not None:
+                    valid_abilities.add(hidden_ability)
+                if type(ability_id) is not int or ability_id not in valid_abilities:
+                    return {"ok": False, "error": "ability_id must be a valid ability for the active Pokemon"}
 
             updated_members[slot] = PokemonConfig(
                 species_id=current_team_config.members[slot].species_id,
                 evs=dict(evs),
-                level=current_team_config.members[slot].level,
-                nature_id=current_team_config.members[slot].nature_id,
-                ability_id=current_team_config.members[slot].ability_id,
-                held_item=current_team_config.members[slot].held_item,
-                move_ids=current_team_config.members[slot].move_ids,
+                level=current_member.level,
+                nature_id=current_member.nature_id,
+                ability_id=ability_id,
+                held_item=current_member.held_item,
+                move_ids=current_member.move_ids,
             )
 
         self.active_team_config = TeamConfig(

@@ -1,0 +1,39 @@
+services:
+  main:
+    build:
+      context: .
+    command: ["sleep", "infinity"]
+    depends_on:
+      battle-server:
+        condition: service_healthy
+
+  battle-server:
+    build:
+      context: ../../..
+      dockerfile: tasks/giovanni-abilities-only/environment/battle-server/Dockerfile
+    expose: ["8000"]
+    environment:
+      RRBENCH_DATA_DIR: /app/data
+      RRBENCH_TASK_DIR: /app/task
+      RRBENCH_MAX_EPISODES: "${RRBENCH_MAX_EPISODES:-3}"
+      RRBENCH_RECORD: "${RRBENCH_RECORD:-false}"
+      RRBENCH_VIDEO_DIR: /var/log/battle/videos
+    volumes:
+      - type: bind
+        source: ../../../radicalred.gba
+        target: /app/radicalred.gba
+        read_only: true
+      - type: bind
+        source: ../task.yaml
+        target: /app/task/task.yaml
+        read_only: true
+      - type: bind
+        source: ../save_state.ss0
+        target: /app/task/save_state.ss0
+        read_only: true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; socket.create_connection(('localhost',8000),2).close()"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+      start_period: 5s
