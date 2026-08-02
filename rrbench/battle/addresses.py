@@ -6,7 +6,8 @@ State-reading (state.py) and message-capture (capture.py) both read raw memory,
 so both import from here rather than from each other.
 """
 
-_EWRAM_BASE = 0x02000000
+EWRAM_BASE = 0x02000000
+EWRAM_SIZE = 0x40000
 
 # --- Battle lifecycle / field state -----------------------------------------
 

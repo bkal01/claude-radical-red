@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from rrbench.emulator.emulator import Emulator, KEY_A, KEY_B
 from rrbench.emulator.memory import Party, SPECIES_NAME
 from rrbench.battle.addresses import (
-    _EWRAM_BASE, MSG_BUFFER, MENU_SENTINEL,
+    EWRAM_BASE, MSG_BUFFER, MENU_SENTINEL,
     BATTLE_TYPE_FLAGS, BATTLE_MONS_BASE, OPP_MON_BASE,
     MON_SPECIES, MON_CUR_HP, MON_MAX_HP,
     INTRO_A_PRESSES, INTRO_SETTLE_FRAMES,
@@ -98,7 +98,7 @@ class TurnRecorder:
         Sample the message buffer + HP of party Pokemon and opposing Pokemon once.
         Returns whether we end up on the battle menu.
         """
-        off = MSG_BUFFER - _EWRAM_BASE
+        off = MSG_BUFFER - EWRAM_BASE
         msg = decode_msg(bytes(emu.mem.wram[off:off + 160]))
         is_menu = MENU_SENTINEL in msg
         party_hp, opp_hp, opp_species = hp_snapshot(emu.mem, active_party)
