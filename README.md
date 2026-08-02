@@ -70,6 +70,14 @@ mgba radicalred.gba
 
 mGBA picks up `radicalred.sav` automatically since it shares the same name as the ROM.
 
+## Tests
+
+Run the test suite through the project’s `uv` environment:
+
+```bash
+uv run pytest -q
+```
+
 ## Evaluation
 
 Evaluations run through Harbor. Before starting a run, choose one of the

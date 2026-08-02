@@ -93,3 +93,49 @@ class FakeEmulator:
 
     def load_state(self) -> None:
         self.mem.restore(self.saved_state)
+
+
+class FakeService:
+    def __init__(self, results: dict[str, dict] | None = None) -> None:
+        self.emu = FakeEmulator(FakeMemory())
+        self.calls: list[tuple] = []
+        self.results = results or {}
+
+    def configured_result(self, operation: str) -> dict:
+        return self.results.get(operation, {"ok": True})
+
+    def observe(self) -> dict:
+        self.calls.append(("observe",))
+        return self.configured_result("observe")
+
+    def team(self) -> dict:
+        self.calls.append(("team",))
+        return self.configured_result("team")
+
+    def lead(self, pokemon: str) -> dict:
+        self.calls.append(("lead", pokemon))
+        return self.configured_result("lead")
+
+    def action(self, command: str) -> dict:
+        self.calls.append(("action", command))
+        return self.configured_result("action")
+
+    def reset(self) -> dict:
+        self.calls.append(("reset",))
+        return self.configured_result("reset")
+
+    def apply_team(self, team: dict) -> dict:
+        self.calls.append(("apply_team", team))
+        return self.configured_result("apply_team")
+
+
+class FakeVideoRecorder:
+    instances: list["FakeVideoRecorder"] = []
+
+    def __init__(self, output_path: str) -> None:
+        self.output_path = output_path
+        self.closed = False
+        self.instances.append(self)
+
+    def close(self) -> None:
+        self.closed = True
