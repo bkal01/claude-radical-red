@@ -1,0 +1,5 @@
+# Battle against Giovanni with ability optimization
+id: giovanni-abilities-only
+save_state: save_state.ss0
+allowed_team_modifications:
+  - abilities
