@@ -3,3 +3,4 @@ id: giovanni
 save_state: save_state.ss0
 allowed_team_modifications:
   - evs
+  - abilities

@@ -17,7 +17,7 @@ The battle-server provides these tools:
 - `team()` returns the current team configuration and calculated stats.
 - `lead(pokemon)` starts an episode with the named Pokemon as the lead.
 - `action(command)` takes one battle action.
-- `apply_team(team)` updates the team's EVs and starts the next episode.
+- `apply_team(team)` updates the team's EVs and Abilities and starts the next episode.
 - `reset()` restores the battle fixture and starts the next episode.
 
 Tool responses contain `ok: true` on success. An unsuccessful response has
@@ -59,15 +59,29 @@ budget is exhausted.
 Stop after the environment reports a win, the episode budget is exhausted, or
 an unrecoverable environment error occurs.
 
-## Team EV updates
+## Team updates
 
-This task permits EV updates. Call `apply_team()` during a live battle or
-after a lost episode, but not after a win. A successful update automatically
-restores the battle fixture, advances to the next episode, and applies the
-accepted configuration. Invalid updates do not change the configuration or
-advance the episode.
+This task permits EV and Ability updates. Call `apply_team()` during a live
+battle or after a lost episode in the place of `reset()`. A successful update
+automatically restores the battle fixture, advances to the next episode, and
+applies the accepted configuration. Invalid updates do not change the
+configuration or advance the episode.
 
-The argument must contain exactly one entry for every current team slot:
+### EV updates
+
+Each EV value must be an integer from 0 through 252, divisible by four, with
+at most 508 total EVs per Pokemon. The `evs` object must contain exactly `HP`,
+`ATK`, `DEF`, `SPE`, `SPA`, and `SPDEF`.
+
+### Ability updates
+
+Each `ability_id` must be a valid normal or hidden Ability for the Pokemon in
+that slot. The available Ability IDs for a species are listed in
+`species.json[species_id]`. Use `abilities.json[ability_id]` to look up an
+Ability's name and description.
+
+The argument must contain exactly one member entry for every current team slot
+and must have this complete shape:
 
 ```json
 {
@@ -75,6 +89,7 @@ The argument must contain exactly one entry for every current team slot:
     {
       "slot": 0,
       "species_id": 123,
+      "ability_id": 65,
       "evs": {
         "HP": 252,
         "ATK": 0,
@@ -89,11 +104,10 @@ The argument must contain exactly one entry for every current team slot:
 ```
 
 Use the active team returned by `team()` to determine the number of members,
-their slots, and their species IDs. Each slot must appear exactly once, and
-its `species_id` must match the current member in that slot. EV values must be
-integers from 0 through 252, divisible by four, with at most 508 total EVs per
-Pokemon. The `evs` object must contain exactly `HP`, `ATK`, `DEF`, `SPE`,
-`SPA`, and `SPDEF`.
+their slots, their species IDs, and their current Abilities. Each slot must
+appear exactly once, and its `species_id` must match the current member in
+that slot. Every member must include both `ability_id` and `evs` exactly as
+shown above.
 
 ## Reference data
 
