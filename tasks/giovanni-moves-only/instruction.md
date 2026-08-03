@@ -17,7 +17,7 @@ The battle-server provides these tools:
 - `team()` returns the current team configuration and calculated stats.
 - `lead(pokemon)` starts an episode with the named Pokemon as the lead.
 - `action(command)` takes one battle action.
-- `apply_team(team)` updates the team's EVs, Abilities, and moves and starts the next episode.
+- `apply_team(team)` updates the team's moves and starts the next episode.
 - `reset()` restores the battle fixture and starts the next episode.
 
 Tool responses contain `ok: true` on success. An unsuccessful response has
@@ -61,24 +61,11 @@ an unrecoverable environment error occurs.
 
 ## Team updates
 
-This task permits EV, Ability, and move updates. Call `apply_team()` during a live
+This task permits move updates. Call `apply_team()` during a live
 battle or after a lost episode in the place of `reset()`. A successful update
 automatically restores the battle fixture, advances to the next episode, and
 applies the accepted configuration. Invalid updates do not change the
 configuration or advance the episode.
-
-### EV updates
-
-Each EV value must be an integer from 0 through 252, divisible by four, with
-at most 508 total EVs per Pokemon. The `evs` object must contain exactly `HP`,
-`ATK`, `DEF`, `SPE`, `SPA`, and `SPDEF`.
-
-### Ability updates
-
-Each `ability_id` must be a valid normal or hidden Ability for the Pokemon in
-that slot. The available Ability IDs for a species are listed in
-`species.json[species_id]`. Use `abilities.json[ability_id]` to look up an
-Ability's name and description.
 
 ### Move updates
 
@@ -98,16 +85,7 @@ and must have this complete shape:
     {
       "slot": 0,
       "species_id": 123,
-      "ability_id": 65,
-      "move_ids": [33, 45, 73, 345],
-      "evs": {
-        "HP": 252,
-        "ATK": 0,
-        "DEF": 4,
-        "SPE": 0,
-        "SPA": 0,
-        "SPDEF": 252
-      }
+      "move_ids": [33, 45, 73, 345]
     }
   ]
 }
@@ -116,8 +94,7 @@ and must have this complete shape:
 Use the active team returned by `team()` to determine the number of members,
 their slots, their species IDs, their current Abilities, and their current
 moves. Each slot must appear exactly once, and its `species_id` must match the
-current member in that slot. Every member must include `ability_id`,
-`move_ids`, and `evs` exactly as shown above.
+current member in that slot. Every member must include `move_ids` exactly as shown above.
 
 ## Reference data
 

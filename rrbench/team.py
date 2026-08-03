@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from rrbench.emulator.memory import (
     PARTY_BASE_ADDR, PARTY_COUNT_ADDR, PARTY_SPECIES_OFFSET, SLOT_SIZE,
-    checksum, data_dir, read_slot, SPECIES_ABILITIES, SPECIES_NAME,
+    checksum, data_dir, read_slot, SPECIES_ABILITIES, SPECIES_NAME, write_slot,
 )
 
 species_data = json.loads((data_dir / "species.json").read_text())
@@ -161,6 +161,14 @@ class PokemonConfig:
 
     def apply(self, mem, slot: int) -> None:
         base = PARTY_BASE_ADDR + slot * SLOT_SIZE
+
+        if self.move_ids is not None and self.move_ids != read_slot(mem, slot).move_ids:
+            write_slot(
+                mem,
+                slot,
+                moves=self.move_ids,
+                held_item=self.held_item or 0,
+            )
 
         pid = mem.u32[base + _PID]
         iv = mem.u32[base + _IV] & 0xC0000000

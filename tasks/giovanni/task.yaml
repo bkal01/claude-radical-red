@@ -1,6 +1,8 @@
 # Battle against Giovanni in Silph Co. Tower
 id: giovanni
 save_state: save_state.ss0
+level_cap: 57
 allowed_team_modifications:
   - evs
   - abilities
+  - moves

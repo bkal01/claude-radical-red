@@ -8,7 +8,7 @@ from rrbench.emulator.memory import Party
 from rrbench.harness.trial import Trial
 from rrbench.interface import service as service_module
 from rrbench.interface.service import BattleService
-from rrbench.tasks import TaskSpec, TeamModification
+from rrbench.tasks import TaskSpec, TeamModification, load_task
 from tests.support.fakes import FakeEmulator
 
 
@@ -19,6 +19,7 @@ def test_trial_applies_valid_ev_spreads(monkeypatch, party_memory, tmp_path) -> 
         rom_path=Path("test.gba"),
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset({TeamModification.EVS}),
+        level_cap=100,
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
 
@@ -112,6 +113,7 @@ def test_trial_applies_valid_abilities_without_changing_natures(
         rom_path=Path("test.gba"),
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset({TeamModification.ABILITIES}),
+        level_cap=100,
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
 
@@ -176,6 +178,118 @@ def test_trial_applies_valid_abilities_without_changing_natures(
     }
 
 
+def test_trial_applies_valid_moves_available_at_level_cap(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.MOVES}),
+        level_cap=57,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    original_team = service.original_team_config
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+    team_payload = {
+        "members": [
+            {"slot": 0, "species_id": 1, "move_ids": [33, 45, 73, 345]},
+            {"slot": 1, "species_id": 944, "move_ids": [365, 53, 126, 434]},
+        ]
+    }
+
+    result = trial.handle({"verb": "apply-team", "team": team_payload}, service)
+
+    assert result["ok"] is True
+    assert trial.episodes == 2
+    active_team = service.active_team_config
+    assert active_team is not None
+    assert active_team.members[0].move_ids == (33, 45, 73, 345)
+    assert active_team.members[1].move_ids == (365, 53, 126, 434)
+    assert Party(emulator.mem).members[0].move_ids == (33, 45, 73, 345)
+    assert Party(emulator.mem).members[1].move_ids == (365, 53, 126, 434)
+    for original_member, active_member in zip(original_team.members, active_team.members):
+        assert active_member.species_id == original_member.species_id
+        assert active_member.evs == original_member.evs
+        assert active_member.ability_id == original_member.ability_id
+        assert active_member.held_item == original_member.held_item
+
+    assert result["team"]["members"][0]["moves"] == [
+        {"slot": 0, "move_id": 33, "name": "Tackle"},
+        {"slot": 1, "move_id": 45, "name": "Growl"},
+        {"slot": 2, "move_id": 73, "name": "Leech Seed"},
+        {"slot": 3, "move_id": 345, "name": "Magical Leaf"},
+    ]
+    assert result["team"]["members"][1]["moves"] == [
+        {"slot": 0, "move_id": 365, "name": "Close Combat"},
+        {"slot": 1, "move_id": 53, "name": "Flamethrower"},
+        {"slot": 2, "move_id": 126, "name": "Fire Blast"},
+        {"slot": 3, "move_id": 434, "name": "Flare Blitz"},
+    ]
+
+
+def test_trial_rejects_moves_above_level_cap_without_advancing_episode(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.MOVES}),
+        level_cap=57,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    before_memory = party_memory.snapshot()
+    before_team = service.team()
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 1, "move_ids": [33, 45, 73, 345]},
+                    {"slot": 1, "species_id": 944, "move_ids": [365, 53, 126, 200]},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result == {
+        "ok": False,
+        "error": "each move_id must be learnable by the active Pokemon at the task level cap",
+    }
+    assert trial.episodes == 1
+    assert service.active_team_config is None
+    assert party_memory.snapshot() == before_memory
+    assert service.team() == before_team
+
+
 def test_trial_rejects_ability_not_available_to_species_without_advancing_episode(
     monkeypatch,
     party_memory,
@@ -187,6 +301,7 @@ def test_trial_rejects_ability_not_available_to_species_without_advancing_episod
         rom_path=Path("test.gba"),
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset({TeamModification.ABILITIES}),
+        level_cap=100,
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
 
@@ -251,6 +366,7 @@ def test_trial_rejects_invalid_ev_spreads_without_advancing_episode(
         rom_path=Path("test.gba"),
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset({TeamModification.EVS}),
+        level_cap=100,
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
 
@@ -296,6 +412,7 @@ def test_trial_rejects_team_optimization_when_task_does_not_allow_it(
         rom_path=Path("test.gba"),
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset(),
+        level_cap=100,
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
     service = BattleService(task)

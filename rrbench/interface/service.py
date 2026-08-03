@@ -1,3 +1,5 @@
+import json
+
 from rrbench.battle.engine import start_battle, do_action
 from rrbench.battle.state import BattleSession, in_battle, read_battle_state
 from rrbench.emulator.emulator import Emulator
@@ -6,6 +8,7 @@ from rrbench.emulator.memory import (
     Party,
     PokemonFaintedError,
     PokemonNotInPartyError,
+    data_dir,
 )
 from rrbench.interface.protocol import (
     render_observation,
@@ -185,6 +188,7 @@ class BattleService:
         if (
             TeamModification.EVS not in self.task.allowed_team_modifications
             and TeamModification.ABILITIES not in self.task.allowed_team_modifications
+            and TeamModification.MOVES not in self.task.allowed_team_modifications
         ):
             return {"ok": False, "error": "team updates are not allowed for this task"}
         if not isinstance(team, dict):
@@ -203,6 +207,11 @@ class BattleService:
                 for member in members_value
             ):
                 return {"ok": False, "error": "updating Abilities is not allowed for this task"}
+            if TeamModification.MOVES not in self.task.allowed_team_modifications and any(
+                isinstance(member, dict) and "move_ids" in member
+                for member in members_value
+            ):
+                return {"ok": False, "error": "updating moves is not allowed for this task"}
         if self.session is None or self.session.won:
             return {"ok": False, "error": "apply-team is only valid in a live battle or after a lost episode"}
         if not self.session.ended and not in_battle(self.emu.mem):
@@ -219,6 +228,8 @@ class BattleService:
                 expected_fields.add("evs")
             if TeamModification.ABILITIES in self.task.allowed_team_modifications:
                 expected_fields.add("ability_id")
+            if TeamModification.MOVES in self.task.allowed_team_modifications:
+                expected_fields.add("move_ids")
             if not isinstance(member, dict) or set(member) != expected_fields:
                 fields = ", ".join(sorted(expected_fields))
                 return {"ok": False, "error": f"each member must contain only {fields}"}
@@ -252,6 +263,28 @@ class BattleService:
                 if type(ability_id) is not int or ability_id not in valid_abilities:
                     return {"ok": False, "error": "ability_id must be a valid ability for the active Pokemon"}
 
+            move_ids = current_member.move_ids
+            if "move_ids" in member:
+                move_ids = member["move_ids"]
+                if not isinstance(move_ids, list) or len(move_ids) != 4 or any(
+                    type(move_id) is not int for move_id in move_ids
+                ):
+                    return {"ok": False, "error": "move_ids must contain exactly four integer move IDs"}
+                learnsets = json.loads((data_dir / "learnsets.json").read_text())
+                learnset = learnsets[current_member.species_id]
+                valid_move_ids = {
+                    entry["move_id"]
+                    for entry in learnset["level_up"]
+                    if entry["level"] <= self.task.level_cap
+                }
+                for source in ("tm_hm", "tutor", "egg", "pre_evolution", "event"):
+                    valid_move_ids.update(learnset[source])
+                if any(move_id not in valid_move_ids for move_id in move_ids):
+                    return {
+                        "ok": False,
+                        "error": "each move_id must be learnable by the active Pokemon at the task level cap",
+                    }
+
             updated_members[slot] = PokemonConfig(
                 species_id=current_team_config.members[slot].species_id,
                 evs=dict(evs),
@@ -259,7 +292,7 @@ class BattleService:
                 nature_id=current_member.nature_id,
                 ability_id=ability_id,
                 held_item=current_member.held_item,
-                move_ids=current_member.move_ids,
+                move_ids=tuple(move_ids) if move_ids is not None else None,
             )
 
         self.active_team_config = TeamConfig(
