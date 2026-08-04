@@ -162,7 +162,11 @@ class PokemonConfig:
     def apply(self, mem, slot: int) -> None:
         base = PARTY_BASE_ADDR + slot * SLOT_SIZE
 
-        if self.move_ids is not None and self.move_ids != read_slot(mem, slot).move_ids:
+        current_member = read_slot(mem, slot)
+        if self.move_ids is not None and (
+            self.move_ids != current_member.move_ids
+            or self.held_item != current_member.held_item
+        ):
             write_slot(
                 mem,
                 slot,

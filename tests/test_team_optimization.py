@@ -240,6 +240,94 @@ def test_trial_applies_valid_moves_available_at_level_cap(
     ]
 
 
+def test_trial_applies_valid_held_items(monkeypatch, party_memory, tmp_path) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.ITEMS}),
+        level_cap=100,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    original_team = service.original_team_config
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+    team_payload = {
+        "members": [
+            {"slot": 0, "species_id": 1, "held_item_id": 0},
+            {"slot": 1, "species_id": 944, "held_item_id": 711},
+        ]
+    }
+
+    result = trial.handle({"verb": "apply-team", "team": team_payload}, service)
+
+    assert result["ok"] is True
+    assert trial.episodes == 2
+    active_team = service.active_team_config
+    assert active_team is not None
+    assert [member.held_item for member in active_team.members] == [0, 711]
+    assert [member.held_item for member in Party(emulator.mem).members] == [0, 711]
+    assert [member["held_item_id"] for member in result["team"]["members"]] == [0, 711]
+    for original_member, active_member in zip(original_team.members, active_team.members):
+        assert active_member.species_id == original_member.species_id
+        assert active_member.evs == original_member.evs
+        assert active_member.ability_id == original_member.ability_id
+        assert active_member.move_ids == original_member.move_ids
+
+
+@pytest.mark.parametrize("held_item_id", [-1, 750, "711"])
+def test_trial_rejects_invalid_held_items_without_advancing_episode(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+    held_item_id,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.ITEMS}),
+        level_cap=100,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    before_memory = party_memory.snapshot()
+    before_team = service.team()
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+    team_payload = {
+        "members": [
+            {"slot": 0, "species_id": 1, "held_item_id": held_item_id},
+            {"slot": 1, "species_id": 944, "held_item_id": 695},
+        ]
+    }
+
+    result = trial.handle({"verb": "apply-team", "team": team_payload}, service)
+
+    assert result == {"ok": False, "error": "held_item_id must be a valid item ID"}
+    assert trial.episodes == 1
+    assert service.active_team_config is None
+    assert party_memory.snapshot() == before_memory
+    assert service.team() == before_team
+
+
 def test_trial_rejects_moves_above_level_cap_without_advancing_episode(
     monkeypatch,
     party_memory,

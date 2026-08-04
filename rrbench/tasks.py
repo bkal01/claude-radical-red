@@ -9,6 +9,7 @@ class TeamModification(str, Enum):
     EVS = "evs"
     ABILITIES = "abilities"
     MOVES = "moves"
+    ITEMS = "items"
 
 
 @dataclass(frozen=True)
