@@ -189,6 +189,7 @@ class BattleService:
             TeamModification.EVS not in self.task.allowed_team_modifications
             and TeamModification.ABILITIES not in self.task.allowed_team_modifications
             and TeamModification.MOVES not in self.task.allowed_team_modifications
+            and TeamModification.ITEMS not in self.task.allowed_team_modifications
         ):
             return {"ok": False, "error": "team updates are not allowed for this task"}
         if not isinstance(team, dict):
@@ -212,6 +213,11 @@ class BattleService:
                 for member in members_value
             ):
                 return {"ok": False, "error": "updating moves is not allowed for this task"}
+            if TeamModification.ITEMS not in self.task.allowed_team_modifications and any(
+                isinstance(member, dict) and "held_item_id" in member
+                for member in members_value
+            ):
+                return {"ok": False, "error": "updating items is not allowed for this task"}
         if self.session is None or self.session.won:
             return {"ok": False, "error": "apply-team is only valid in a live battle or after a lost episode"}
         if not self.session.ended and not in_battle(self.emu.mem):
@@ -220,6 +226,9 @@ class BattleService:
         current_team_config = self.active_team_config or self.original_team_config
         if not isinstance(members, list) or len(members) != len(current_team_config.members):
             return {"ok": False, "error": "team must contain every active team member"}
+        items = []
+        if TeamModification.ITEMS in self.task.allowed_team_modifications:
+            items = json.loads((data_dir / "items.json").read_text())
 
         updated_members = {}
         for member in members:
@@ -230,6 +239,8 @@ class BattleService:
                 expected_fields.add("ability_id")
             if TeamModification.MOVES in self.task.allowed_team_modifications:
                 expected_fields.add("move_ids")
+            if TeamModification.ITEMS in self.task.allowed_team_modifications:
+                expected_fields.add("held_item_id")
             if not isinstance(member, dict) or set(member) != expected_fields:
                 fields = ", ".join(sorted(expected_fields))
                 return {"ok": False, "error": f"each member must contain only {fields}"}
@@ -285,13 +296,24 @@ class BattleService:
                         "error": "each move_id must be learnable by the active Pokemon at the task level cap",
                     }
 
+            held_item = current_member.held_item
+            if "held_item_id" in member:
+                held_item = member["held_item_id"]
+                if (
+                    type(held_item) is not int
+                    or held_item < 0
+                    or held_item >= len(items)
+                    or held_item != 0 and items[held_item] is None
+                ):
+                    return {"ok": False, "error": "held_item_id must be a valid item ID"}
+
             updated_members[slot] = PokemonConfig(
                 species_id=current_team_config.members[slot].species_id,
                 evs=dict(evs),
                 level=current_member.level,
                 nature_id=current_member.nature_id,
                 ability_id=ability_id,
-                held_item=current_member.held_item,
+                held_item=held_item,
                 move_ids=tuple(move_ids) if move_ids is not None else None,
             )
 
