@@ -6,3 +6,4 @@ allowed_team_modifications:
   - evs
   - abilities
   - moves
+  - items
