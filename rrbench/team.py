@@ -162,6 +162,9 @@ class PokemonConfig:
     def apply(self, mem, slot: int) -> None:
         base = PARTY_BASE_ADDR + slot * SLOT_SIZE
 
+        if self.level is not None:
+            mem.u8[base + _LEVEL] = self.level
+
         current_member = read_slot(mem, slot)
         if self.move_ids is not None and (
             self.species_id != current_member.species_id
@@ -178,6 +181,8 @@ class PokemonConfig:
 
         pid = mem.u32[base + _PID]
         iv = mem.u32[base + _IV] & 0xC0000000
+        if self.nature_id is not None:
+            pid = pid - pid % 25 + self.nature_id
         if self.ability_id is not None:
             species_abilities = SPECIES_ABILITIES.get(self.species_id, {})
             normal_abilities = species_abilities.get("normal", [])
@@ -242,6 +247,7 @@ class TeamConfig:
         return cls(members=[PokemonConfig.from_mem(mem, i) for i in range(count)])
 
     def apply(self, mem) -> None:
+        mem.u8[PARTY_COUNT_ADDR] = len(self.members)
         for slot, cfg in enumerate(self.members):
             cfg.apply(mem, slot)
 

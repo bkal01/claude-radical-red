@@ -806,6 +806,9 @@ def test_trial_rejects_team_optimization_when_task_does_not_allow_it(
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
     service = BattleService(task)
+    service.active_team_config = service.original_team_config
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
     before_team = service.team()
     trial = Trial(
         task=task,
@@ -832,5 +835,86 @@ def test_trial_rejects_team_optimization_when_task_does_not_allow_it(
 
     assert result == {"ok": False, "error": "team updates are not allowed for this task"}
     assert trial.episodes == 1
-    assert service.active_team_config is None
+    assert service.active_team_config is service.original_team_config
     assert service.team() == before_team
+
+
+def test_trial_requires_and_applies_initial_team_without_consuming_episode(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset(),
+        level_cap=57,
+        team_size=2,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+    service = BattleService(task)
+    trial = Trial(
+        task=task,
+        max_episodes=1,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+    team_payload = {
+        "members": [
+            {
+                "slot": 0,
+                "species_id": 1,
+                "ability_id": 34,
+                "move_ids": [33, 45, 73, 345],
+                "held_item_id": 0,
+                "evs": {"HP": 252, "ATK": 0, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 252},
+            },
+            {
+                "slot": 1,
+                "species_id": 944,
+                "ability_id": 66,
+                "move_ids": [365, 53, 126, 434],
+                "held_item_id": 711,
+                "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0},
+            },
+        ]
+    }
+
+    assert service.observe() == {
+        "ok": True,
+        "observation": {"phase": "awaiting_team", "level_cap": 57, "team_size": 2},
+    }
+    assert service.team() == {"ok": True, "configured": False, "team_size": 2, "level_cap": 57}
+    assert service.lead("Bulbasaur") == {
+        "ok": False,
+        "error": "apply-team must configure a valid team before lead",
+    }
+
+    invalid_result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    dict(team_payload["members"][0], unexpected=True),
+                    team_payload["members"][1],
+                ]
+            },
+        },
+        service,
+    )
+
+    assert invalid_result["ok"] is False
+    assert service.active_team_config is None
+    assert trial.episodes == 1
+
+    result = trial.handle({"verb": "apply-team", "team": team_payload}, service)
+
+    assert result["ok"] is True
+    assert result["observation"]["phase"] == "no_battle"
+    assert trial.episodes == 1
+    assert service.active_team_config is not None
+    assert [member.level for member in service.active_team_config.members] == [57, 57]
+    assert [member.nature_id for member in service.active_team_config.members] == [0, 0]
+    assert service.team()["configured"] is True
