@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from rrbench.emulator.memory import (
     PARTY_BASE_ADDR, PARTY_COUNT_ADDR, PARTY_SPECIES_OFFSET, SLOT_SIZE,
-    checksum, data_dir, read_slot, SPECIES_ABILITIES, SPECIES_NAME,
+    checksum, data_dir, read_slot, SPECIES_ABILITIES, SPECIES_NAME, write_slot,
 )
 
 species_data = json.loads((data_dir / "species.json").read_text())
@@ -162,9 +162,25 @@ class PokemonConfig:
     def apply(self, mem, slot: int) -> None:
         base = PARTY_BASE_ADDR + slot * SLOT_SIZE
 
+        if self.level is not None:
+            mem.u8[base + _LEVEL] = self.level
+
+        current_member = read_slot(mem, slot)
+        if self.move_ids is not None and (
+            self.species_id != current_member.species_id
+            or self.move_ids != current_member.move_ids
+            or self.held_item != current_member.held_item
+        ):
+            write_slot(
+                mem,
+                slot,
+                species_id=self.species_id,
+                moves=self.move_ids,
+                held_item=self.held_item or 0,
+            )
+
         pid = mem.u32[base + _PID]
         iv = mem.u32[base + _IV] & 0xC0000000
-
         if self.nature_id is not None:
             if (
                 type(self.nature_id) is not int
@@ -179,10 +195,8 @@ class PokemonConfig:
             # changing only the Nature does not accidentally change the Ability.
             original_ability_parity = pid & 1
             pid += self.nature_id - (pid % 25)
-
             if pid & 1 != original_ability_parity:
                 pid = pid - 25 if pid >= 25 else pid + 25
-
         if self.ability_id is not None:
             species_abilities = SPECIES_ABILITIES.get(self.species_id, {})
             normal_abilities = species_abilities.get("normal", [])
@@ -247,6 +261,7 @@ class TeamConfig:
         return cls(members=[PokemonConfig.from_mem(mem, i) for i in range(count)])
 
     def apply(self, mem) -> None:
+        mem.u8[PARTY_COUNT_ADDR] = len(self.members)
         for slot, cfg in enumerate(self.members):
             cfg.apply(mem, slot)
 

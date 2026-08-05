@@ -32,6 +32,7 @@ def live_battle_service(monkeypatch, party_memory):
         rom_path=Path("test.gba"),
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset(),
+        level_cap=100,
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
 
@@ -67,6 +68,7 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
         rom_path=Path("test.gba"),
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset(),
+        level_cap=100,
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
 
@@ -104,6 +106,7 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
 
     monkeypatch.setattr(service_module, "start_battle", scripted_start_battle)
     service = BattleService(task)
+    service.active_team_config = service.original_team_config
 
     result = service.lead("Incineroar")
 
@@ -185,9 +188,11 @@ def test_lead_rejects_absent_pokemon_and_live_battle(monkeypatch, party_memory) 
         rom_path=Path("test.gba"),
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset(),
+        level_cap=100,
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
     service = BattleService(task)
+    service.active_team_config = service.original_team_config
 
     absent_result = service.lead("Pikachu")
 

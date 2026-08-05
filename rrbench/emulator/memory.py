@@ -103,6 +103,10 @@ species = json.loads((data_dir / "species.json").read_text())
 SPECIES_NAME = {i: entry["name"] for i, entry in enumerate(species) if entry}
 SPECIES_TYPES = {i: entry["types"] for i, entry in enumerate(species) if entry}
 SPECIES_ABILITIES = {i: entry["abilities"] for i, entry in enumerate(species) if entry}
+SPECIES_GROWTH_RATE = {i: entry["growth_rate"] for i, entry in enumerate(species) if entry}
+SPECIES_MINIMUM_LEVEL = {
+    i: entry["minimum_level"] for i, entry in enumerate(species) if entry
+}
 
 
 @dataclass
@@ -167,11 +171,76 @@ def read_slot(mem, slot: int) -> PartyPokemon:
     )
 
 
-def write_slot(mem, slot: int, *, moves: tuple[int, int, int, int], held_item: int) -> None:
+def write_slot(
+    mem,
+    slot: int,
+    *,
+    species_id: int,
+    moves: tuple[int, int, int, int],
+    held_item: int,
+) -> None:
     base = PARTY_BASE_ADDR + slot * SLOT_SIZE
 
-    species = mem.u32[base + _G0] & 0xFFFF
-    mem.u32[base + _G0] = species | (held_item << 16)
+    mem.u32[base + _G0] = species_id | (held_item << 16)
+
+    level = mem.u8[base + _LEVEL]
+    growth_rate = SPECIES_GROWTH_RATE[species_id]
+    if growth_rate == "medium_fast":
+        experience = level ** 3
+    elif growth_rate == "erratic":
+        if level < 50:
+            experience = level ** 3 * (100 - level) // 50
+        elif level < 68:
+            experience = level ** 3 * (150 - level) // 100
+        elif level < 98:
+            experience = level ** 3 * ((1911 - 10 * level) // 3) // 500
+        else:
+            experience = level ** 3 * (160 - level) // 100
+    elif growth_rate == "fluctuating":
+        if level < 15:
+            experience = level ** 3 * ((level + 1) // 3 + 24) // 50
+        elif level < 36:
+            experience = level ** 3 * (level + 14) // 50
+        else:
+            experience = level ** 3 * (level // 2 + 32) // 50
+    elif growth_rate == "medium_slow":
+        experience = max(0, 6 * level ** 3 // 5 - 15 * level ** 2 + 100 * level - 140)
+    elif growth_rate == "fast":
+        experience = 4 * level ** 3 // 5
+    else:
+        experience = 5 * level ** 3 // 4
+    mem.u32[base + 0x24] = experience
+
+    encoded_name = bytearray()
+    for character in SPECIES_NAME[species_id]:
+        if "A" <= character <= "Z":
+            encoded_name.append(0xBB + ord(character) - ord("A"))
+        elif "a" <= character <= "z":
+            encoded_name.append(0xD5 + ord(character) - ord("a"))
+        elif "0" <= character <= "9":
+            encoded_name.append(0xA1 + ord(character) - ord("0"))
+        elif character == " ":
+            encoded_name.append(0x00)
+        elif character == ".":
+            encoded_name.append(0xAD)
+        elif character == "-":
+            encoded_name.append(0xAE)
+        elif character == "'":
+            encoded_name.append(0xB4)
+        elif character == "♂":
+            encoded_name.append(0xB5)
+        elif character == "♀":
+            encoded_name.append(0xB6)
+        elif character == "é":
+            encoded_name.append(0x1B)
+        elif character == ":":
+            encoded_name.append(0xF0)
+        else:
+            raise ValueError(f"Cannot encode Pokemon name {SPECIES_NAME[species_id]!r}")
+    for name_offset in range(10):
+        mem.u8[base + 0x08 + name_offset] = (
+            encoded_name[name_offset] if name_offset < len(encoded_name) else 0xFF
+        )
 
     pp_bonus_byte = mem.u32[base + _G2] & 0xFF
     pp_ups = [(pp_bonus_byte >> (i * 2)) & 0x3 for i in range(4)]

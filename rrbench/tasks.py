@@ -9,6 +9,9 @@ class TeamModification(str, Enum):
     EVS = "evs"
     ABILITIES = "abilities"
     NATURES = "natures"
+    MOVES = "moves"
+    ITEMS = "items"
+    POKEMON = "pokemon"
 
 
 @dataclass(frozen=True)
@@ -19,6 +22,8 @@ class TaskSpec:
     rom_path: Path
     save_state_path: Path
     allowed_team_modifications: frozenset[TeamModification]
+    level_cap: int
+    team_size: int = 6
 
 
 def load_task(task_dir: str | Path) -> TaskSpec:
@@ -33,4 +38,6 @@ def load_task(task_dir: str | Path) -> TaskSpec:
             TeamModification(value)
             for value in manifest.get("allowed_team_modifications", [])
         ),
+        level_cap=manifest["level_cap"],
+        team_size=manifest.get("team_size", 6),
     )

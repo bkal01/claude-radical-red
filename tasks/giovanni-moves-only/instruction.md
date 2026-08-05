@@ -1,13 +1,12 @@
 # Giovanni battle task
 
-Defeat the configured Giovanni team in Pokemon Radical Red. You must construct
-your player team before the first battle and have the configured episode budget to win. Use only
+Defeat the configured Giovanni team in Pokemon Radical Red. You construct your
+player team and have the configured episode budget to win. Use only
 the battle-server MCP tools for game interaction; do not try to access the ROM,
 emulator, or battle internals.
 
-Before acting, use the reference data to construct a team and call `apply_team`.
-You receive no player roster or battle information before that call; only this
-task's inclusive level cap of 57 applies. Keep notes,
+Before acting, use the reference data to construct a six-Pokemon team and call `apply_team`.
+You receive no roster or battle information before that call; the inclusive level cap is 57. Keep notes,
 experiments, and learned action sequences in `/workspace/scratch`; that
 directory persists across resets within the trial.
 
@@ -19,7 +18,7 @@ The battle-server provides these tools:
 - `team()` returns the configured team and calculated stats.
 - `lead(pokemon)` starts an episode with the named Pokemon as the lead after setup.
 - `action(command)` takes one battle action.
-- `apply_team(team)` configures the initial team, or updates the team and starts the next episode.
+- `apply_team(team)` configures the initial team, or updates moves and starts the next episode.
 - `reset()` restores the battle fixture and starts the next episode.
 
 Tool responses contain `ok: true` on success. An unsuccessful response has
@@ -66,33 +65,13 @@ an unrecoverable environment error occurs.
 
 ## Team updates
 
-The first `apply_team()` must construct all six Pokemon. After setup, this task
-permits Pokemon, EV, Ability, move, and item updates. Call `apply_team()` during a live
+The first `apply_team()` must construct all six Pokemon at level 57 with the
+neutral Hardy Nature. Each initial member must specify `slot`, `species_id`,
+`ability_id`, `move_ids`, `held_item_id`, and `evs`. After setup, this task permits move updates. Call `apply_team()` during a live
 battle or after a lost episode in the place of `reset()`. A successful update
 automatically restores the battle fixture, advances to the next episode, and
 applies the accepted configuration. Invalid updates do not change the
 configuration or advance the episode.
-
-### Pokemon updates
-
-Each `species_id` must be the ID of a valid Pokemon in `species.json`. Its
-`minimum_level` must not exceed this task's inclusive level cap of 57. Initial
-team members are all level 57 with the neutral Hardy Nature. After setup, a
-chosen Pokemon retains its slot's level and Nature; its Ability
-and moves must be valid for the chosen species.
-
-### EV updates
-
-Each EV value must be an integer from 0 through 252, divisible by four, with
-at most 508 total EVs per Pokemon. The `evs` object must contain exactly `HP`,
-`ATK`, `DEF`, `SPE`, `SPA`, and `SPDEF`.
-
-### Ability updates
-
-Each `ability_id` must be a valid normal or hidden Ability for the Pokemon in
-that slot. The available Ability IDs for a species are listed in
-`species.json[species_id]`. Use `abilities.json[ability_id]` to look up an
-Ability's name and description.
 
 ### Move updates
 
@@ -105,13 +84,7 @@ valid. A Pokemon may also use moves available to any of its recursive
 pre-evolutions; apply the same rules at every entry named by
 `pre_evolution_ids`.
 
-### Item updates
-
-Each `held_item_id` must be a valid item ID. Use `items.json[held_item_id]`
-to look up an item's name and description. An ID of `0` means the Pokemon has
-no held item.
-
-The argument must contain exactly one member entry for every current team slot
+After setup, the argument must contain exactly one member entry for every current team slot
 and must have this complete shape:
 
 ```json
@@ -120,28 +93,16 @@ and must have this complete shape:
     {
       "slot": 0,
       "species_id": 123,
-      "ability_id": 65,
-      "move_ids": [33, 45, 73, 345],
-      "held_item_id": 711,
-      "evs": {
-        "HP": 252,
-        "ATK": 0,
-        "DEF": 4,
-        "SPE": 0,
-        "SPA": 0,
-        "SPDEF": 252
-      }
+      "move_ids": [33, 45, 73, 345]
     }
   ]
 }
 ```
 
-The initial call must contain exactly six members, one for each slot from 0
-through 5. After setup, use the active team returned by `team()` to determine
-the number of members, their
-slots, their current species IDs, Abilities, moves, and held item IDs. Each
-slot must appear exactly once. Every member must include `species_id`,
-`ability_id`, `move_ids`, `held_item_id`, and `evs` exactly as shown above.
+Use the active team returned by `team()` to determine the number of members,
+their slots, their species IDs, their current Abilities, and their current
+moves. Each slot must appear exactly once, and its `species_id` must match the
+current member in that slot. Every member must include `move_ids` exactly as shown above.
 
 ## Reference data
 
@@ -154,14 +115,12 @@ The files in `/workspace/data` are JSON arrays indexed by game ID:
   move name.
 - `abilities.json[ability_id]` contains an ability name and description and
   can also be searched by name.
-- `items.json[held_item_id]` contains an item name and description and can
-  also be searched by name.
 - `learnsets.json[species_id]` contains that species' learnable move IDs. Its
   `level_up` entries contain `move_id` and required `level`; `tm_hm`, `tutor`,
   `egg`, `pre_evolution`, and `event` contain move-ID arrays for their
   respective acquisition methods. `pre_evolution_ids` contains direct prior
   species IDs; follow it recursively when considering inherited moves.
 
-The `team()` response includes species, move, ability, and held-item IDs and
-names. Use the files to look up details when planning the battle, but use the
-MCP tools for all game interaction.
+The `team()` response includes species, move, and ability IDs and names. Use
+the files to look up details when planning the battle, but use the MCP tools
+for all game interaction.

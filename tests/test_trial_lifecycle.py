@@ -19,6 +19,7 @@ def test_winning_action_writes_score_and_closes_active_recorder(monkeypatch, tmp
         rom_path=Path("test.gba"),
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset(),
+        level_cap=100,
     )
     service = FakeService(
         results={
@@ -72,6 +73,7 @@ def test_losing_action_at_episode_limit_writes_no_win_score_and_closes_recorder(
         rom_path=Path("test.gba"),
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset(),
+        level_cap=100,
     )
     service = FakeService(
         results={
