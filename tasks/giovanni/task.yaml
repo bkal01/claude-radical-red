@@ -7,3 +7,4 @@ allowed_team_modifications:
   - abilities
   - moves
   - items
+  - pokemon

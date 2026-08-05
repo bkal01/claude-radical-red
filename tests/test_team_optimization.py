@@ -4,7 +4,7 @@ import pytest
 
 from rrbench.battle.addresses import BATTLE_TYPE_FLAGS
 from rrbench.battle.state import BattleSession
-from rrbench.emulator.memory import Party
+from rrbench.emulator.memory import PARTY_BASE_ADDR, Party
 from rrbench.harness.trial import Trial
 from rrbench.interface import service as service_module
 from rrbench.interface.service import BattleService
@@ -282,6 +282,185 @@ def test_trial_applies_valid_held_items(monkeypatch, party_memory, tmp_path) -> 
         assert active_member.evs == original_member.evs
         assert active_member.ability_id == original_member.ability_id
         assert active_member.move_ids == original_member.move_ids
+
+
+def test_trial_applies_valid_pokemon_replacement(monkeypatch, party_memory, tmp_path) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset(
+            {
+                TeamModification.POKEMON,
+                TeamModification.EVS,
+                TeamModification.ABILITIES,
+                TeamModification.MOVES,
+                TeamModification.ITEMS,
+            }
+        ),
+        level_cap=57,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {
+                        "slot": 0,
+                        "species_id": 25,
+                        "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
+                        "ability_id": 9,
+                        "move_ids": [85, 97, 423, 743],
+                        "held_item_id": 0,
+                    },
+                    {
+                        "slot": 1,
+                        "species_id": 944,
+                        "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
+                        "ability_id": 66,
+                        "move_ids": [365, 53, 126, 434],
+                        "held_item_id": 0,
+                    },
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result["ok"] is True
+    assert trial.episodes == 2
+    assert result["team"]["members"][0]["name"] == "Pikachu"
+    assert result["team"]["members"][0]["stats"] == {
+        "HP": 95,
+        "ATK": 60,
+        "DEF": 35,
+        "SPE": 95,
+        "SPA": 55,
+        "SPDEF": 45,
+    }
+    assert Party(emulator.mem).members[0].species_id == 25
+    assert Party(emulator.mem).members[0].name == "Pikachu"
+    assert Party(emulator.mem).members[0].ability_id == 9
+    assert Party(emulator.mem).members[0].move_ids == (85, 97, 423, 743)
+    assert party_memory.read(PARTY_BASE_ADDR + 0x08, 10) == bytes(
+        [0xCA, 0xDD, 0xDF, 0xD5, 0xD7, 0xDC, 0xE9, 0xFF, 0xFF, 0xFF]
+    )
+    assert party_memory.u32[PARTY_BASE_ADDR + 0x24] == 50 ** 3
+
+    service.reset()
+
+    assert Party(emulator.mem).members[0].species_id == 25
+    assert Party(emulator.mem).members[0].name == "Pikachu"
+
+
+def test_trial_rejects_invalid_pokemon_id_without_advancing_episode(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.POKEMON}),
+        level_cap=57,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    before_memory = party_memory.snapshot()
+    before_team = service.team()
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 0},
+                    {"slot": 1, "species_id": 944},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result == {"ok": False, "error": "species_id must be a valid Pokemon ID"}
+    assert trial.episodes == 1
+    assert service.active_team_config is None
+    assert party_memory.snapshot() == before_memory
+    assert service.team() == before_team
+
+
+def test_trial_validates_abilities_against_replacement_pokemon(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset(
+            {TeamModification.POKEMON, TeamModification.ABILITIES}
+        ),
+        level_cap=57,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    before_memory = party_memory.snapshot()
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 25, "ability_id": 34},
+                    {"slot": 1, "species_id": 944, "ability_id": 66},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result == {
+        "ok": False,
+        "error": "ability_id must be a valid ability for the active Pokemon",
+    }
+    assert trial.episodes == 1
+    assert service.active_team_config is None
+    assert party_memory.snapshot() == before_memory
 
 
 @pytest.mark.parametrize("held_item_id", [-1, 750, "711"])

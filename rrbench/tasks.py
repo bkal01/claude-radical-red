@@ -10,6 +10,7 @@ class TeamModification(str, Enum):
     ABILITIES = "abilities"
     MOVES = "moves"
     ITEMS = "items"
+    POKEMON = "pokemon"
 
 
 @dataclass(frozen=True)
