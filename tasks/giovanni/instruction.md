@@ -61,11 +61,18 @@ an unrecoverable environment error occurs.
 
 ## Team updates
 
-This task permits EV, Ability, move, and item updates. Call `apply_team()` during a live
+This task permits Pokemon, EV, Ability, move, and item updates. Call `apply_team()` during a live
 battle or after a lost episode in the place of `reset()`. A successful update
 automatically restores the battle fixture, advances to the next episode, and
 applies the accepted configuration. Invalid updates do not change the
 configuration or advance the episode.
+
+### Pokemon updates
+
+Each `species_id` must be the ID of a valid Pokemon in `species.json`. You may
+choose a different Pokemon for any team slot. The chosen Pokemon retains that
+slot's level and Nature; its Ability and moves must be valid for the chosen
+species.
 
 ### EV updates
 
@@ -121,17 +128,17 @@ and must have this complete shape:
 ```
 
 Use the active team returned by `team()` to determine the number of members,
-their slots, their species IDs, their current Abilities, moves, and held item
-IDs. Each slot must appear exactly once, and its `species_id` must match the
-current member in that slot. Every member must include `ability_id`,
-`move_ids`, `held_item_id`, and `evs` exactly as shown above.
+their slots, their current species IDs, Abilities, moves, and held item IDs.
+Each slot must appear exactly once. Every member must include `species_id`,
+`ability_id`, `move_ids`, `held_item_id`, and `evs` exactly as shown above.
 
 ## Reference data
 
 The files in `/workspace/data` are JSON arrays indexed by game ID:
 
-- `species.json[species_id]` contains a species name, types, base stats, and
-  normal/hidden ability IDs.
+- `species.json[species_id]` contains a species name, form, source, types,
+  base stats, and normal/hidden ability IDs. `source` is `official` or
+  `radical_red`.
 - `moves.json[move_id]` contains move information and can also be searched by
   move name.
 - `abilities.json[ability_id]` contains an ability name and description and

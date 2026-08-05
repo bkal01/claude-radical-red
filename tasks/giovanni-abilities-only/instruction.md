@@ -98,8 +98,9 @@ shown above.
 
 The files in `/workspace/data` are JSON arrays indexed by game ID:
 
-- `species.json[species_id]` contains a species name, types, base stats, and
-  normal/hidden ability IDs.
+- `species.json[species_id]` contains a species name, form, source, types,
+  base stats, and normal/hidden ability IDs. `source` is `official` or
+  `radical_red`.
 - `abilities.json[ability_id]` contains an ability name and description.
 - `moves.json[move_id]` contains move information and can also be searched by
   move name.

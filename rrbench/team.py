@@ -164,12 +164,14 @@ class PokemonConfig:
 
         current_member = read_slot(mem, slot)
         if self.move_ids is not None and (
-            self.move_ids != current_member.move_ids
+            self.species_id != current_member.species_id
+            or self.move_ids != current_member.move_ids
             or self.held_item != current_member.held_item
         ):
             write_slot(
                 mem,
                 slot,
+                species_id=self.species_id,
                 moves=self.move_ids,
                 held_item=self.held_item or 0,
             )

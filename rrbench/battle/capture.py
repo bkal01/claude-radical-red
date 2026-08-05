@@ -50,9 +50,13 @@ def decode_msg(raw: bytes) -> str:
         elif b == 0xFD:         i += 1
         elif b == 0x5B:         out.append('%')
         elif b == 0xB4:         out.append("'")
+        elif b == 0xB5:         out.append("♂")
+        elif b == 0xB6:         out.append("♀")
         elif b == 0xB8:         out.append(',')
         elif b == 0xAB:         out.append('!')
         elif b == 0xAC:         out.append('?')
+        elif b == 0xF0:         out.append(':')
+        elif b == 0x1B:         out.append('é')
         i += 1
     return ' '.join(''.join(out).split())
 

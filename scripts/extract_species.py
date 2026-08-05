@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Extract species data from the Radical Red ROM and write to data/species.json.
+Extract species data from the Radical Red ROM and write to each task's species.json.
 
 Output is a JSON array where index = species ID. Index 0 is null (the null species);
 each populated entry contains its name, types, and base stats.
@@ -18,7 +18,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 ROM  = ROOT / "radicalred.gba"
-OUT  = ROOT / "data" / "species.json"
+OUTS = [
+    ROOT / "tasks" / "giovanni" / "environment" / "data" / "species.json",
+    ROOT / "tasks" / "giovanni-abilities-only" / "environment" / "data" / "species.json",
+    ROOT / "tasks" / "giovanni-items-only" / "environment" / "data" / "species.json",
+    ROOT / "tasks" / "giovanni-moves-only" / "environment" / "data" / "species.json",
+]
 
 _SPECIES_NAME_TABLE = 0x14042CC
 _SPECIES_NAME_STRIDE = 11
@@ -27,17 +32,98 @@ _SPECIES_STATS_TABLE = 0x017B98EC
 _SPECIES_STATS_STRIDE = 28
 _TYPE1_OFFSET = 6
 _TYPE2_OFFSET = 7
+GROWTH_RATE_OFFSET = 19
 _ABILITY1_OFFSET = 22
 _ABILITY2_OFFSET = 23
 _HIDDEN_ABILITY_OFFSET = 26
 GEN3_SPECIES_STATS_TABLE = 0x00254784
 GEN3_MAX = 386
+NUM_SPECIES = 1376
+EXCLUDED_SPECIES_IDS = {412}
+
+NAME_OVERRIDES = {
+    770: "Fletchinder",
+    777: "Flabébé",
+    923: "Meowscarada",
+    957: "Crabominable",
+    989: "Type: Null",
+    1077: "Blacephalon",
+    1100: "Dudunsparce",
+    1114: "Corvisquire",
+    1115: "Corviknight",
+    1139: "Barraskewda",
+    1143: "Centiskorch",
+    1147: "Polteageist",
+    1166: "Stonjourner",
+    1232: "Iron Valiant",
+    1243: "Brute Bonnet",
+    1244: "Sandy Shocks",
+    1246: "Flutter Mane",
+    1255: "Slither Wing",
+    1256: "Centiskorch",
+    1257: "Roaring Moon",
+    1263: "Iron Jugulis",
+    1268: "Basculegion",
+    1290: "Centiskorch",
+    1291: "Centiskorch",
+    1336: "Kilowattrel",
+    1338: "Squawkabilly",
+    1352: "Brambleghast",
+    1354: "Walking Wake",
+    1355: "Squawkabilly",
+    1361: "Poltchageist",
+    1364: "Fezandipiti",
+    1373: "Iron Boulder",
+    1374: "Gouging Fire",
+}
+FORM_OVERRIDES = {
+    866: "sevii",
+    867: "sevii",
+    1186: "sevii",
+    1200: "sevii",
+    1274: "sevii",
+    1275: "sevii",
+    1276: "sevii",
+    1277: "sevii",
+    1278: "sevii",
+    1279: "sevii",
+    1282: "sevii",
+    1283: "sevii",
+    1284: "sevii",
+    1285: "sevii",
+    1286: "sevii",
+    1287: "sevii",
+    1288: "sevii",
+    1289: "sevii",
+    1290: "sevii",
+    1291: "sevii_mega",
+    1292: "sevii",
+    1293: "sevii_school",
+    1294: "sevii",
+}
+SOURCE_OVERRIDES = {
+    **{species_id: "radical_red" for species_id in FORM_OVERRIDES},
+    1375: "radical_red",
+}
+
+for form_id, form_name in enumerate("BCDEFGHIJKLMNOPQRSTUVWXYZ", start=413):
+    NAME_OVERRIDES[form_id] = "Unown"
+    FORM_OVERRIDES[form_id] = form_name.lower()
 
 _TYPES = {
     0: "Normal", 1: "Fighting", 2: "Flying", 3: "Poison", 4: "Ground",
     5: "Rock",   6: "Bug",      7: "Ghost",  8: "Steel",  9: "???",
     10: "Fire",  11: "Water",   12: "Grass", 13: "Electric", 14: "Psychic",
     15: "Ice",   16: "Dragon",  17: "Dark",  18: "Fairy", 23: "Fairy",
+}
+
+GROWTH_RATES = {
+    0: "medium_fast",
+    1: "erratic",
+    2: "fluctuating",
+    3: "medium_slow",
+    4: "fast",
+    5: "slow",
 }
 
 
@@ -61,8 +147,16 @@ def decode_name(rom: bytes, species_id: int) -> str:
             out.append(str(b - 0xA1))
         elif b == 0xB4:
             out.append("'")
+        elif b == 0xB5:
+            out.append("♂")
+        elif b == 0xB6:
+            out.append("♀")
         elif b == 0xB8:
             out.append(',')
+        elif b == 0xF0:
+            out.append(':')
+        elif b == 0x1B:
+            out.append('é')
         else:
             break
     return ''.join(out).strip()
@@ -78,10 +172,11 @@ def read_types(rom: bytes, species_id: int) -> list[str]:
 def main():
     rom = ROM.read_bytes()
     entries: list = [None]  # index 0 = null species
-    empty_streak = 0
-
-    for species_id in range(1, 2048):
-        name = decode_name(rom, species_id)
+    for species_id in range(1, NUM_SPECIES):
+        name = NAME_OVERRIDES.get(species_id, decode_name(rom, species_id))
+        if species_id in EXCLUDED_SPECIES_IDS:
+            entries.append(None)
+            continue
         if name:
             ability_base = _SPECIES_STATS_TABLE + species_id * _SPECIES_STATS_STRIDE
             if species_id <= GEN3_MAX:
@@ -101,8 +196,11 @@ def main():
                 }
             entries.append({
                 "name": name,
+                "form": FORM_OVERRIDES.get(species_id),
+                "source": SOURCE_OVERRIDES.get(species_id, "official"),
                 "types": read_types(rom, species_id),
                 "base_stats": base_stats,
+                "growth_rate": GROWTH_RATES[rom[ability_base + GROWTH_RATE_OFFSET]],
                 "abilities": {
                     "normal": [
                         ability_id
@@ -117,14 +215,13 @@ def main():
             })
         else:
             entries.append(None)
-        empty_streak = 0 if name else empty_streak + 1
-        if empty_streak >= 32:
-            while entries and not entries[-1]:
-                entries.pop()
-            break
 
-    OUT.write_text(json.dumps(entries, indent=2) + "\n")
-    print(f"Wrote {len(entries)} species entries to {OUT}")
+    while entries and not entries[-1]:
+        entries.pop()
+    serialized_entries = json.dumps(entries, indent=2, ensure_ascii=False) + "\n"
+    for out_path in OUTS:
+        out_path.write_text(serialized_entries)
+    print(f"Wrote {len(entries)} species entries to {len(OUTS)} task files")
 
     for sid, expected_name, expected_types, expected_hp in [
         (1, "Bulbasaur", ["Grass", "Poison"], 45),

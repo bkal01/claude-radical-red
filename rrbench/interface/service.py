@@ -5,6 +5,7 @@ from rrbench.battle.state import BattleSession, in_battle, read_battle_state
 from rrbench.emulator.emulator import Emulator
 from rrbench.emulator.memory import (
     SPECIES_ABILITIES,
+    SPECIES_NAME,
     Party,
     PokemonFaintedError,
     PokemonNotInPartyError,
@@ -190,6 +191,7 @@ class BattleService:
             and TeamModification.ABILITIES not in self.task.allowed_team_modifications
             and TeamModification.MOVES not in self.task.allowed_team_modifications
             and TeamModification.ITEMS not in self.task.allowed_team_modifications
+            and TeamModification.POKEMON not in self.task.allowed_team_modifications
         ):
             return {"ok": False, "error": "team updates are not allowed for this task"}
         if not isinstance(team, dict):
@@ -249,7 +251,13 @@ class BattleService:
                 return {"ok": False, "error": "each member must use a valid team slot"}
             if slot in updated_members:
                 return {"ok": False, "error": "team members must use each team slot once"}
-            if type(member["species_id"]) is not int or member["species_id"] != current_team_config.members[slot].species_id:
+            species_id = member["species_id"]
+            if type(species_id) is not int or species_id not in SPECIES_NAME:
+                return {"ok": False, "error": "species_id must be a valid Pokemon ID"}
+            if (
+                TeamModification.POKEMON not in self.task.allowed_team_modifications
+                and species_id != current_team_config.members[slot].species_id
+            ):
                 return {"ok": False, "error": "species_id must match the active team member at its slot"}
 
             current_member = current_team_config.members[slot]
@@ -266,7 +274,7 @@ class BattleService:
             ability_id = current_member.ability_id
             if "ability_id" in member:
                 ability_id = member["ability_id"]
-                species_abilities = SPECIES_ABILITIES.get(current_member.species_id, {})
+                species_abilities = SPECIES_ABILITIES.get(species_id, {})
                 valid_abilities = set(species_abilities.get("normal", []))
                 hidden_ability = species_abilities.get("hidden")
                 if hidden_ability is not None:
@@ -282,7 +290,7 @@ class BattleService:
                 ):
                     return {"ok": False, "error": "move_ids must contain exactly four integer move IDs"}
                 learnsets = json.loads((data_dir / "learnsets.json").read_text())
-                learnset = learnsets[current_member.species_id]
+                learnset = learnsets[species_id]
                 valid_move_ids = {
                     entry["move_id"]
                     for entry in learnset["level_up"]
@@ -308,7 +316,7 @@ class BattleService:
                     return {"ok": False, "error": "held_item_id must be a valid item ID"}
 
             updated_members[slot] = PokemonConfig(
-                species_id=current_team_config.members[slot].species_id,
+                species_id=species_id,
                 evs=dict(evs),
                 level=current_member.level,
                 nature_id=current_member.nature_id,
