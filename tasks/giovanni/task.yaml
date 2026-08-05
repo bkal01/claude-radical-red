@@ -2,6 +2,7 @@
 id: giovanni
 save_state: save_state.ss0
 level_cap: 57
+team_size: 6
 allowed_team_modifications:
   - evs
   - abilities
