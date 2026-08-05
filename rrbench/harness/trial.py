@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+from rrbench.battle.state import in_battle
 from rrbench.harness.recording import TrialRecorder
 from rrbench.tasks import TaskSpec
 
@@ -71,7 +72,12 @@ class Trial:
             team = request.get("team")
             if not isinstance(team, dict):
                 return {"ok": False, "error": "apply-team requires a team object"}
-            if self.episodes >= self.max_episodes:
+            initial_team = (
+                service.active_team_config is None
+                and service.session is None
+                and not in_battle(service.emu.mem)
+            )
+            if not initial_team and self.episodes >= self.max_episodes:
                 self.finish("no_win", "episode_budget_exhausted", service)
                 return {"ok": False, "error": "episode budget exhausted"}
 
@@ -80,12 +86,13 @@ class Trial:
                 reset_result = service.reset()
                 if not reset_result["ok"]:
                     return reset_result
-                if self.recorder is not None:
+                if self.recorder is not None and not initial_team:
                     self.recorder.close(service.emu)
                     self.recorder.next_episode()
                     self.recorder.start(service.emu)
-                self.episodes += 1
-                self.episode_events = []
+                if not initial_team:
+                    self.episodes += 1
+                    self.episode_events = []
                 result["observation"] = reset_result["observation"]
         elif verb == "reset":
             if self.episodes >= self.max_episodes:

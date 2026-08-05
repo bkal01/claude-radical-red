@@ -43,6 +43,15 @@ class BattleService:
         self.active_team_config: TeamConfig | None = None
 
     def observe(self) -> dict:
+        if self.active_team_config is None:
+            return {
+                "ok": True,
+                "observation": {
+                    "phase": "awaiting_team",
+                    "level_cap": self.task.level_cap,
+                    "team_size": self.task.team_size,
+                },
+            }
         if self.session is not None and self.session.ended:
             return {"ok": True, "observation": self.terminal_observation}
 
@@ -60,10 +69,18 @@ class BattleService:
         return {"ok": True, "observation": observation}
 
     def team(self) -> dict:
-        config = self.active_team_config or self.original_team_config
-        return {"ok": True, "team": render_team(config)}
+        if self.active_team_config is None:
+            return {
+                "ok": True,
+                "configured": False,
+                "team_size": self.task.team_size,
+                "level_cap": self.task.level_cap,
+            }
+        return {"ok": True, "configured": True, "team": render_team(self.active_team_config)}
 
     def lead(self, lead_pokemon: str) -> dict:
+        if self.active_team_config is None:
+            return {"ok": False, "error": "apply-team must configure a valid team before lead"}
         if self.session is not None or in_battle(self.emu.mem):
             return {"ok": False, "error": "lead is only valid in no_battle phase"}
 
@@ -137,9 +154,10 @@ class BattleService:
         }
 
     def reset(self) -> dict:
+        if self.active_team_config is None:
+            return {"ok": False, "error": "apply-team must configure a valid team before reset"}
         self.emu.load_state()
-        if self.active_team_config is not None:
-            self.active_team_config.apply(self.emu.mem)
+        self.active_team_config.apply(self.emu.mem)
         self.session = None
         self.terminal_observation = None
         return self.observe()
@@ -185,14 +203,20 @@ class BattleService:
 
         the TaskSpec determines what team modifications are allowed, and we enforce them accordingly.
         """
-        if not self.task.allowed_team_modifications:
+        initializing = (
+            self.active_team_config is None
+            and self.session is None
+            and not in_battle(self.emu.mem)
+        )
+        modifications = frozenset(TeamModification) if initializing else self.task.allowed_team_modifications
+        if not initializing and not modifications:
             return {"ok": False, "error": "team updates are not allowed for this task"}
         if (
-            TeamModification.EVS not in self.task.allowed_team_modifications
-            and TeamModification.ABILITIES not in self.task.allowed_team_modifications
-            and TeamModification.MOVES not in self.task.allowed_team_modifications
-            and TeamModification.ITEMS not in self.task.allowed_team_modifications
-            and TeamModification.POKEMON not in self.task.allowed_team_modifications
+            TeamModification.EVS not in modifications
+            and TeamModification.ABILITIES not in modifications
+            and TeamModification.MOVES not in modifications
+            and TeamModification.ITEMS not in modifications
+            and TeamModification.POKEMON not in modifications
         ):
             return {"ok": False, "error": "team updates are not allowed for this task"}
         if not isinstance(team, dict):
@@ -201,57 +225,58 @@ class BattleService:
             return {"ok": False, "error": "team must contain only members"}
         members_value = team.get("members")
         if isinstance(members_value, list):
-            if TeamModification.EVS not in self.task.allowed_team_modifications and any(
+            if TeamModification.EVS not in modifications and any(
                 isinstance(member, dict) and "evs" in member
                 for member in members_value
             ):
                 return {"ok": False, "error": "updating EVs is not allowed for this task"}
-            if TeamModification.ABILITIES not in self.task.allowed_team_modifications and any(
+            if TeamModification.ABILITIES not in modifications and any(
                 isinstance(member, dict) and "ability_id" in member
                 for member in members_value
             ):
                 return {"ok": False, "error": "updating Abilities is not allowed for this task"}
-            if TeamModification.MOVES not in self.task.allowed_team_modifications and any(
+            if TeamModification.MOVES not in modifications and any(
                 isinstance(member, dict) and "move_ids" in member
                 for member in members_value
             ):
                 return {"ok": False, "error": "updating moves is not allowed for this task"}
-            if TeamModification.ITEMS not in self.task.allowed_team_modifications and any(
+            if TeamModification.ITEMS not in modifications and any(
                 isinstance(member, dict) and "held_item_id" in member
                 for member in members_value
             ):
                 return {"ok": False, "error": "updating items is not allowed for this task"}
-        if self.session is None or self.session.won:
+        if not initializing and (self.session is None or self.session.won):
             return {"ok": False, "error": "apply-team is only valid in a live battle or after a lost episode"}
-        if not self.session.ended and not in_battle(self.emu.mem):
+        if not initializing and not self.session.ended and not in_battle(self.emu.mem):
             return {"ok": False, "error": "apply-team is only valid in a live battle or after a lost episode"}
         members = team["members"]
         current_team_config = self.active_team_config or self.original_team_config
-        if not isinstance(members, list) or len(members) != len(current_team_config.members):
-            return {"ok": False, "error": "team must contain every active team member"}
+        expected_team_size = self.task.team_size if initializing else len(current_team_config.members)
+        if not isinstance(members, list) or len(members) != expected_team_size:
+            return {"ok": False, "error": "team must contain every required team member"}
         items = []
-        if TeamModification.ITEMS in self.task.allowed_team_modifications:
+        if TeamModification.ITEMS in modifications:
             items = json.loads((data_dir / "items.json").read_text())
         learnsets = []
-        if TeamModification.MOVES in self.task.allowed_team_modifications:
+        if TeamModification.MOVES in modifications:
             learnsets = json.loads((data_dir / "learnsets.json").read_text())
 
         updated_members = {}
         for member in members:
             expected_fields = {"slot", "species_id"}
-            if TeamModification.EVS in self.task.allowed_team_modifications:
+            if TeamModification.EVS in modifications:
                 expected_fields.add("evs")
-            if TeamModification.ABILITIES in self.task.allowed_team_modifications:
+            if TeamModification.ABILITIES in modifications:
                 expected_fields.add("ability_id")
-            if TeamModification.MOVES in self.task.allowed_team_modifications:
+            if TeamModification.MOVES in modifications:
                 expected_fields.add("move_ids")
-            if TeamModification.ITEMS in self.task.allowed_team_modifications:
+            if TeamModification.ITEMS in modifications:
                 expected_fields.add("held_item_id")
             if not isinstance(member, dict) or set(member) != expected_fields:
                 fields = ", ".join(sorted(expected_fields))
                 return {"ok": False, "error": f"each member must contain only {fields}"}
             slot = member["slot"]
-            if type(slot) is not int or slot not in range(len(current_team_config.members)):
+            if type(slot) is not int or slot not in range(expected_team_size):
                 return {"ok": False, "error": "each member must use a valid team slot"}
             if slot in updated_members:
                 return {"ok": False, "error": "team members must use each team slot once"}
@@ -264,12 +289,13 @@ class BattleService:
                     "error": "species_id must be available at the task level cap",
                 }
             if (
-                TeamModification.POKEMON not in self.task.allowed_team_modifications
+                TeamModification.POKEMON not in modifications
                 and species_id != current_team_config.members[slot].species_id
             ):
                 return {"ok": False, "error": "species_id must match the active team member at its slot"}
 
             current_member = current_team_config.members[slot]
+            nature_id = 0 if initializing else current_member.nature_id
             evs = dict(current_member.evs)
             if "evs" in member:
                 evs = member["evs"]
@@ -335,14 +361,14 @@ class BattleService:
             updated_members[slot] = PokemonConfig(
                 species_id=species_id,
                 evs=dict(evs),
-                level=current_member.level,
-                nature_id=current_member.nature_id,
+                level=self.task.level_cap if initializing else current_member.level,
+                nature_id=nature_id,
                 ability_id=ability_id,
                 held_item=held_item,
                 move_ids=tuple(move_ids) if move_ids is not None else None,
             )
 
         self.active_team_config = TeamConfig(
-            members=[updated_members[slot] for slot in range(len(current_team_config.members))]
+            members=[updated_members[slot] for slot in range(expected_team_size)]
         )
         return {"ok": True, "team": render_team(self.active_team_config)}
