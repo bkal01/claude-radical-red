@@ -39,11 +39,13 @@ def test_trial_applies_valid_ev_spreads(monkeypatch, party_memory, tmp_path) -> 
             {
                 "slot": 0,
                 "species_id": 1,
+                "level": 50,
                 "evs": {"HP": 252, "ATK": 0, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 252},
             },
             {
                 "slot": 1,
                 "species_id": 944,
+                "level": 50,
                 "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0},
             },
         ]
@@ -132,8 +134,8 @@ def test_trial_applies_valid_abilities_without_changing_natures(
             "verb": "apply-team",
             "team": {
                 "members": [
-                    {"slot": 0, "species_id": 1, "ability_id": 34},
-                    {"slot": 1, "species_id": 944, "ability_id": 66},
+                    {"slot": 0, "species_id": 1, "level": 50, "ability_id": 34},
+                    {"slot": 1, "species_id": 944, "level": 50, "ability_id": 66},
                 ]
             },
         },
@@ -205,8 +207,8 @@ def test_trial_applies_valid_moves_available_at_level_cap(
     )
     team_payload = {
         "members": [
-            {"slot": 0, "species_id": 1, "move_ids": [33, 45, 73, 345]},
-            {"slot": 1, "species_id": 944, "move_ids": [365, 53, 126, 434]},
+            {"slot": 0, "species_id": 1, "level": 50, "move_ids": [33, 45, 73, 345]},
+            {"slot": 1, "species_id": 944, "level": 50, "move_ids": [365, 53, 126, 434]},
         ]
     }
 
@@ -263,8 +265,8 @@ def test_trial_applies_valid_held_items(monkeypatch, party_memory, tmp_path) -> 
     )
     team_payload = {
         "members": [
-            {"slot": 0, "species_id": 1, "held_item_id": 0},
-            {"slot": 1, "species_id": 944, "held_item_id": 711},
+            {"slot": 0, "species_id": 1, "level": 50, "held_item_id": 0},
+            {"slot": 1, "species_id": 944, "level": 50, "held_item_id": 711},
         ]
     }
 
@@ -325,6 +327,7 @@ def test_trial_applies_pre_evolution_move_at_level_cap(
                     {
                         "slot": 0,
                         "species_id": 307,
+                        "level": 50,
                         "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
                         "ability_id": 27,
                         "move_ids": [147, 71, 33, 78],
@@ -333,6 +336,7 @@ def test_trial_applies_pre_evolution_move_at_level_cap(
                     {
                         "slot": 1,
                         "species_id": 944,
+                        "level": 50,
                         "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
                         "ability_id": 66,
                         "move_ids": [365, 53, 126, 434],
@@ -394,6 +398,7 @@ def test_trial_applies_valid_pokemon_replacement(monkeypatch, party_memory, tmp_
                     {
                         "slot": 0,
                         "species_id": 25,
+                        "level": 50,
                         "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
                         "ability_id": 9,
                         "move_ids": [85, 97, 423, 743],
@@ -402,6 +407,7 @@ def test_trial_applies_valid_pokemon_replacement(monkeypatch, party_memory, tmp_
                     {
                         "slot": 1,
                         "species_id": 944,
+                        "level": 50,
                         "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
                         "ability_id": 66,
                         "move_ids": [365, 53, 126, 434],
@@ -471,8 +477,8 @@ def test_trial_rejects_invalid_pokemon_id_without_advancing_episode(
             "verb": "apply-team",
             "team": {
                 "members": [
-                    {"slot": 0, "species_id": 0},
-                    {"slot": 1, "species_id": 944},
+                    {"slot": 0, "species_id": 0, "level": 50},
+                    {"slot": 1, "species_id": 944, "level": 50},
                 ]
             },
         },
@@ -518,8 +524,8 @@ def test_trial_rejects_incineroar_above_level_cap_without_advancing_episode(
             "verb": "apply-team",
             "team": {
                 "members": [
-                    {"slot": 0, "species_id": 1},
-                    {"slot": 1, "species_id": 944},
+                    {"slot": 0, "species_id": 1, "level": 30},
+                    {"slot": 1, "species_id": 944, "level": 30},
                 ]
             },
         },
@@ -529,6 +535,58 @@ def test_trial_rejects_incineroar_above_level_cap_without_advancing_episode(
     assert result == {
         "ok": False,
         "error": "species_id must be available at the task level cap",
+    }
+    assert trial.episodes == 1
+    assert service.active_team_config is None
+    assert party_memory.snapshot() == before_memory
+    assert service.team() == before_team
+
+
+@pytest.mark.parametrize("level", [0, 58])
+def test_trial_rejects_level_outside_task_cap_without_advancing_episode(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+    level,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.POKEMON}),
+        level_cap=57,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    before_memory = party_memory.snapshot()
+    before_team = service.team()
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 1, "level": level},
+                    {"slot": 1, "species_id": 944, "level": 50},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result == {
+        "ok": False,
+        "error": "level must be an integer from 1 through the task level cap",
     }
     assert trial.episodes == 1
     assert service.active_team_config is None
@@ -569,8 +627,8 @@ def test_trial_validates_abilities_against_replacement_pokemon(
             "verb": "apply-team",
             "team": {
                 "members": [
-                    {"slot": 0, "species_id": 25, "ability_id": 34},
-                    {"slot": 1, "species_id": 944, "ability_id": 66},
+                    {"slot": 0, "species_id": 25, "level": 50, "ability_id": 34},
+                    {"slot": 1, "species_id": 944, "level": 50, "ability_id": 66},
                 ]
             },
         },
@@ -616,8 +674,8 @@ def test_trial_rejects_invalid_held_items_without_advancing_episode(
     )
     team_payload = {
         "members": [
-            {"slot": 0, "species_id": 1, "held_item_id": held_item_id},
-            {"slot": 1, "species_id": 944, "held_item_id": 695},
+            {"slot": 0, "species_id": 1, "level": 50, "held_item_id": held_item_id},
+            {"slot": 1, "species_id": 944, "level": 50, "held_item_id": 695},
         ]
     }
 
@@ -662,8 +720,8 @@ def test_trial_rejects_moves_above_level_cap_without_advancing_episode(
             "verb": "apply-team",
             "team": {
                 "members": [
-                    {"slot": 0, "species_id": 1, "move_ids": [33, 45, 73, 345]},
-                    {"slot": 1, "species_id": 944, "move_ids": [365, 53, 126, 147]},
+                    {"slot": 0, "species_id": 1, "level": 50, "move_ids": [33, 45, 73, 345]},
+                    {"slot": 1, "species_id": 944, "level": 50, "move_ids": [365, 53, 126, 147]},
                 ]
             },
         },
@@ -858,8 +916,8 @@ def test_trial_rejects_ability_not_available_to_species_without_advancing_episod
             "verb": "apply-team",
             "team": {
                 "members": [
-                    {"slot": 0, "species_id": 1, "ability_id": 66},
-                    {"slot": 1, "species_id": 944, "ability_id": 66},
+                    {"slot": 0, "species_id": 1, "level": 50, "ability_id": 66},
+                    {"slot": 1, "species_id": 944, "level": 50, "ability_id": 66},
                 ]
             },
         },
@@ -919,10 +977,11 @@ def test_trial_rejects_invalid_ev_spreads_without_advancing_episode(
     )
     team_payload = {
         "members": [
-            {"slot": 0, "species_id": 1, "evs": invalid_evs},
+            {"slot": 0, "species_id": 1, "level": 50, "evs": invalid_evs},
             {
                 "slot": 1,
                 "species_id": 944,
+                "level": 50,
                 "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0},
             },
         ]
@@ -967,11 +1026,13 @@ def test_trial_rejects_team_optimization_when_task_does_not_allow_it(
             {
                 "slot": 0,
                 "species_id": 1,
+                "level": 50,
                 "evs": {"HP": 252, "ATK": 0, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 252},
             },
             {
                 "slot": 1,
                 "species_id": 944,
+                "level": 50,
                 "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0},
             },
         ]
@@ -1012,6 +1073,7 @@ def test_trial_requires_and_applies_initial_team_without_consuming_episode(
             {
                 "slot": 0,
                 "species_id": 1,
+                "level": 42,
                 "ability_id": 34,
                 "move_ids": [33, 45, 73, 345],
                 "held_item_id": 0,
@@ -1020,6 +1082,7 @@ def test_trial_requires_and_applies_initial_team_without_consuming_episode(
             {
                 "slot": 1,
                 "species_id": 944,
+                "level": 42,
                 "ability_id": 66,
                 "move_ids": [365, 53, 126, 434],
                 "held_item_id": 711,
@@ -1061,6 +1124,6 @@ def test_trial_requires_and_applies_initial_team_without_consuming_episode(
     assert result["observation"]["phase"] == "no_battle"
     assert trial.episodes == 1
     assert service.active_team_config is not None
-    assert [member.level for member in service.active_team_config.members] == [57, 57]
+    assert [member.level for member in service.active_team_config.members] == [42, 42]
     assert [member.nature_id for member in service.active_team_config.members] == [0, 0]
     assert service.team()["configured"] is True

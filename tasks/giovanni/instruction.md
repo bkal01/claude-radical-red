@@ -77,9 +77,9 @@ configuration or advance the episode.
 
 Each `species_id` must be the ID of a valid Pokemon in `species.json`. Its
 `minimum_level` must not exceed this task's inclusive level cap of 57. Initial
-team members are all level 57 with the neutral Hardy Nature. After setup, a
-chosen Pokemon retains its slot's level and Nature; its Ability
-and moves must be valid for the chosen species.
+team members must each specify an integer `level` from 1 through 57. The level
+can be lower than the cap. Initial team members use the neutral Hardy Nature;
+their Ability and moves must be valid for the chosen species.
 
 ### EV updates
 
@@ -120,6 +120,7 @@ and must have this complete shape:
     {
       "slot": 0,
       "species_id": 123,
+      "level": 57,
       "ability_id": 65,
       "move_ids": [33, 45, 73, 345],
       "held_item_id": 711,
@@ -140,7 +141,7 @@ The initial call must contain exactly six members, one for each slot from 0
 through 5. After setup, use the active team returned by `team()` to determine
 the number of members, their
 slots, their current species IDs, Abilities, moves, and held item IDs. Each
-slot must appear exactly once. Every member must include `species_id`,
+slot must appear exactly once. Every member must include `species_id`, `level`,
 `ability_id`, `move_ids`, `held_item_id`, and `evs` exactly as shown above.
 
 ## Reference data
