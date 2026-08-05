@@ -69,7 +69,8 @@ configuration or advance the episode.
 
 ### Pokemon updates
 
-Each `species_id` must be the ID of a valid Pokemon in `species.json`. You may
+Each `species_id` must be the ID of a valid Pokemon in `species.json`. Its
+`minimum_level` must not exceed this task's inclusive level cap of 57. You may
 choose a different Pokemon for any team slot. The chosen Pokemon retains that
 slot's level and Nature; its Ability and moves must be valid for the chosen
 species.

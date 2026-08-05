@@ -5,6 +5,7 @@ from rrbench.battle.state import BattleSession, in_battle, read_battle_state
 from rrbench.emulator.emulator import Emulator
 from rrbench.emulator.memory import (
     SPECIES_ABILITIES,
+    SPECIES_MINIMUM_LEVEL,
     SPECIES_NAME,
     Party,
     PokemonFaintedError,
@@ -257,6 +258,11 @@ class BattleService:
             species_id = member["species_id"]
             if type(species_id) is not int or species_id not in SPECIES_NAME:
                 return {"ok": False, "error": "species_id must be a valid Pokemon ID"}
+            if SPECIES_MINIMUM_LEVEL[species_id] > self.task.level_cap:
+                return {
+                    "ok": False,
+                    "error": "species_id must be available at the task level cap",
+                }
             if (
                 TeamModification.POKEMON not in self.task.allowed_team_modifications
                 and species_id != current_team_config.members[slot].species_id
