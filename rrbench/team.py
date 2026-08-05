@@ -182,21 +182,7 @@ class PokemonConfig:
         pid = mem.u32[base + _PID]
         iv = mem.u32[base + _IV] & 0xC0000000
         if self.nature_id is not None:
-            if (
-                type(self.nature_id) is not int
-                or not 0 <= self.nature_id < len(NATURE_NAMES)
-            ):
-                raise ValueError(
-                    f"Invalid nature_id {self.nature_id}; "
-                    f"expected 0-{len(NATURE_NAMES) - 1}"
-                )
-
-            # Nature is determined by PID % 25. Preserve PID parity so that
-            # changing only the Nature does not accidentally change the Ability.
-            original_ability_parity = pid & 1
-            pid += self.nature_id - (pid % 25)
-            if pid & 1 != original_ability_parity:
-                pid = pid - 25 if pid >= 25 else pid + 25
+            pid = pid - pid % 25 + self.nature_id
         if self.ability_id is not None:
             species_abilities = SPECIES_ABILITIES.get(self.species_id, {})
             normal_abilities = species_abilities.get("normal", [])
