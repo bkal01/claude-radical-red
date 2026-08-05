@@ -263,7 +263,7 @@ class BattleService:
 
         updated_members = {}
         for member in members:
-            expected_fields = {"slot", "species_id"}
+            expected_fields = {"slot", "species_id", "level"}
             if TeamModification.EVS in modifications:
                 expected_fields.add("evs")
             if TeamModification.ABILITIES in modifications:
@@ -287,6 +287,12 @@ class BattleService:
                 return {
                     "ok": False,
                     "error": "species_id must be available at the task level cap",
+                }
+            level = member["level"]
+            if type(level) is not int or not 1 <= level <= self.task.level_cap:
+                return {
+                    "ok": False,
+                    "error": "level must be an integer from 1 through the task level cap",
                 }
             if (
                 TeamModification.POKEMON not in modifications
@@ -361,7 +367,7 @@ class BattleService:
             updated_members[slot] = PokemonConfig(
                 species_id=species_id,
                 evs=dict(evs),
-                level=self.task.level_cap if initializing else current_member.level,
+                level=level,
                 nature_id=nature_id,
                 ability_id=ability_id,
                 held_item=held_item,
