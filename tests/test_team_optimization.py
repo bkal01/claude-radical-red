@@ -176,6 +176,178 @@ def test_trial_applies_valid_abilities_without_changing_natures(
     }
 
 
+def test_trial_applies_valid_natures_without_changing_abilities(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.NATURES}),
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    original_team = service.original_team_config
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 1, "nature_id": 3},
+                    {"slot": 1, "species_id": 944, "nature_id": 15},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result["ok"] is True
+    assert trial.episodes == 2
+    assert result["team"]["members"][0]["nature"] == {
+        "id": 3,
+        "name": "Adamant",
+    }
+    assert result["team"]["members"][1]["nature"] == {
+        "id": 15,
+        "name": "Modest",
+    }
+    assert result["team"]["members"][0]["stats"] == {
+        "HP": 105,
+        "ATK": 59,
+        "DEF": 54,
+        "SPE": 50,
+        "SPA": 63,
+        "SPDEF": 70,
+    }
+    assert result["team"]["members"][1]["stats"] == {
+        "HP": 155,
+        "ATK": 108,
+        "DEF": 95,
+        "SPE": 65,
+        "SPA": 93,
+        "SPDEF": 95,
+    }
+
+    active_team = service.active_team_config
+    assert active_team is not None
+    for original_member, active_member in zip(
+        original_team.members, active_team.members
+    ):
+        assert active_member.ability_id == original_member.ability_id
+        assert active_member.evs == original_member.evs
+        assert active_member.move_ids == original_member.move_ids
+        assert active_member.held_item == original_member.held_item
+
+
+@pytest.mark.parametrize("invalid_nature_id", [-1, 25, True, "3"])
+def test_trial_rejects_invalid_natures_without_advancing_episode(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+    invalid_nature_id,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.NATURES}),
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    before_memory = party_memory.snapshot()
+    before_team = service.team()
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 1, "nature_id": invalid_nature_id},
+                    {"slot": 1, "species_id": 944, "nature_id": 15},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result == {
+        "ok": False,
+        "error": "nature_id must be an integer from 0 through 24",
+    }
+    assert trial.episodes == 1
+    assert service.active_team_config is None
+    assert party_memory.snapshot() == before_memory
+    assert service.team() == before_team
+
+
+def test_trial_rejects_natures_when_only_abilities_are_allowed(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.ABILITIES}),
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 1, "nature_id": 3},
+                    {"slot": 1, "species_id": 944, "nature_id": 15},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result == {
+        "ok": False,
+        "error": "updating Natures is not allowed for this task",
+    }
+    assert trial.episodes == 1
+    assert service.active_team_config is None
+
+
 def test_trial_rejects_ability_not_available_to_species_without_advancing_episode(
     monkeypatch,
     party_memory,

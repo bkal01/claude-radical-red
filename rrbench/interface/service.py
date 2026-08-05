@@ -14,7 +14,7 @@ from rrbench.interface.protocol import (
     render_team,
 )
 from rrbench.tasks import TaskSpec, TeamModification
-from rrbench.team import EV_KEYS, PokemonConfig, TeamConfig
+from rrbench.team import EV_KEYS, NATURE_NAMES, PokemonConfig, TeamConfig
 
 
 def create_emulator(task: TaskSpec) -> Emulator:
@@ -185,6 +185,7 @@ class BattleService:
         if (
             TeamModification.EVS not in self.task.allowed_team_modifications
             and TeamModification.ABILITIES not in self.task.allowed_team_modifications
+            and TeamModification.NATURES not in self.task.allowed_team_modifications
         ):
             return {"ok": False, "error": "team updates are not allowed for this task"}
         if not isinstance(team, dict):
@@ -203,6 +204,11 @@ class BattleService:
                 for member in members_value
             ):
                 return {"ok": False, "error": "updating Abilities is not allowed for this task"}
+            if TeamModification.NATURES not in self.task.allowed_team_modifications and any(
+                isinstance(member, dict) and "nature_id" in member
+                for member in members_value
+            ):
+                return {"ok": False, "error": "updating Natures is not allowed for this task"}
         if self.session is None or self.session.won:
             return {"ok": False, "error": "apply-team is only valid in a live battle or after a lost episode"}
         if not self.session.ended and not in_battle(self.emu.mem):
@@ -219,6 +225,8 @@ class BattleService:
                 expected_fields.add("evs")
             if TeamModification.ABILITIES in self.task.allowed_team_modifications:
                 expected_fields.add("ability_id")
+            if TeamModification.NATURES in self.task.allowed_team_modifications:
+                expected_fields.add("nature_id")
             if not isinstance(member, dict) or set(member) != expected_fields:
                 fields = ", ".join(sorted(expected_fields))
                 return {"ok": False, "error": f"each member must contain only {fields}"}
@@ -241,6 +249,19 @@ class BattleService:
                 if sum(evs.values()) > 508:
                     return {"ok": False, "error": "each Pokemon may have at most 508 total EVs"}
 
+            nature_id = current_member.nature_id
+            if "nature_id" in member:
+                nature_id = member["nature_id"]
+                if type(nature_id) is not int or nature_id not in range(
+                    len(NATURE_NAMES)
+                ):
+                    return {
+                        "ok": False,
+                        "error": (
+                            "nature_id must be an integer from 0 through "
+                            f"{len(NATURE_NAMES) - 1}"
+                        ),
+                    }
             ability_id = current_member.ability_id
             if "ability_id" in member:
                 ability_id = member["ability_id"]
@@ -256,7 +277,7 @@ class BattleService:
                 species_id=current_team_config.members[slot].species_id,
                 evs=dict(evs),
                 level=current_member.level,
-                nature_id=current_member.nature_id,
+                nature_id=nature_id,
                 ability_id=ability_id,
                 held_item=current_member.held_item,
                 move_ids=current_member.move_ids,
