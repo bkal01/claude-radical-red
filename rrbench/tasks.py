@@ -8,7 +8,6 @@ import yaml
 class TeamModification(str, Enum):
     EVS = "evs"
     ABILITIES = "abilities"
-    NATURES = "natures"
     MOVES = "moves"
     ITEMS = "items"
     POKEMON = "pokemon"
