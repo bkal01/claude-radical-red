@@ -104,6 +104,9 @@ SPECIES_NAME = {i: entry["name"] for i, entry in enumerate(species) if entry}
 SPECIES_TYPES = {i: entry["types"] for i, entry in enumerate(species) if entry}
 SPECIES_ABILITIES = {i: entry["abilities"] for i, entry in enumerate(species) if entry}
 SPECIES_GROWTH_RATE = {i: entry["growth_rate"] for i, entry in enumerate(species) if entry}
+SPECIES_MINIMUM_LEVEL = {
+    i: entry["minimum_level"] for i, entry in enumerate(species) if entry
+}
 
 
 @dataclass

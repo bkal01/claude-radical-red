@@ -486,6 +486,56 @@ def test_trial_rejects_invalid_pokemon_id_without_advancing_episode(
     assert service.team() == before_team
 
 
+def test_trial_rejects_incineroar_above_level_cap_without_advancing_episode(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.POKEMON}),
+        level_cap=30,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    before_memory = party_memory.snapshot()
+    before_team = service.team()
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 1},
+                    {"slot": 1, "species_id": 944},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result == {
+        "ok": False,
+        "error": "species_id must be available at the task level cap",
+    }
+    assert trial.episodes == 1
+    assert service.active_team_config is None
+    assert party_memory.snapshot() == before_memory
+    assert service.team() == before_team
+
+
 def test_trial_validates_abilities_against_replacement_pokemon(
     monkeypatch,
     party_memory,

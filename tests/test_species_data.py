@@ -29,9 +29,49 @@ def test_task_species_data_is_clean_and_categorized(species_path) -> None:
     assert species[989]["name"] == "Type: Null"
     assert all(
         entry is None or {
-            "name", "form", "source", "types", "base_stats", "growth_rate", "abilities"
+            "name",
+            "form",
+            "source",
+            "types",
+            "base_stats",
+            "growth_rate",
+            "abilities",
+            "minimum_level",
         } <= set(entry)
+        for entry in species
+    )
+    assert all(
+        entry is None
+        or type(entry["minimum_level"]) is int
+        and entry["minimum_level"] >= 1
         for entry in species
     )
     assert species[404]["growth_rate"] == "slow"
     assert species[935]["growth_rate"] == "medium_fast"
+    assert species[942]["minimum_level"] == 1
+    assert species[943]["minimum_level"] == 16
+    assert species[944]["minimum_level"] == 36
+    legendary_names = {
+        "Mewtwo",
+        "Lugia",
+        "Ho-Oh",
+        "Dialga",
+        "Palkia",
+        "Giratina",
+        "Reshiram",
+        "Zekrom",
+        "Kyurem",
+        "Xerneas",
+        "Yveltal",
+        "Zacian",
+        "Zamazenta",
+        "Eternatus",
+        "Koraidon",
+        "Miraidon",
+    }
+    assert all(
+        entry is None
+        or entry["name"] not in legendary_names
+        or entry["minimum_level"] == 1
+        for entry in species
+    )
