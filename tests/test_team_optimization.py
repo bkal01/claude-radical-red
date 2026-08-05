@@ -284,6 +284,79 @@ def test_trial_applies_valid_held_items(monkeypatch, party_memory, tmp_path) -> 
         assert active_member.move_ids == original_member.move_ids
 
 
+def test_trial_applies_pre_evolution_move_at_level_cap(
+    monkeypatch,
+    party_memory,
+    tmp_path,
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset(
+            {
+                TeamModification.POKEMON,
+                TeamModification.EVS,
+                TeamModification.ABILITIES,
+                TeamModification.MOVES,
+                TeamModification.ITEMS,
+            }
+        ),
+        level_cap=57,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {
+                        "slot": 0,
+                        "species_id": 307,
+                        "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
+                        "ability_id": 27,
+                        "move_ids": [147, 71, 33, 78],
+                        "held_item_id": 0,
+                    },
+                    {
+                        "slot": 1,
+                        "species_id": 944,
+                        "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
+                        "ability_id": 66,
+                        "move_ids": [365, 53, 126, 434],
+                        "held_item_id": 0,
+                    },
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result["ok"] is True
+    assert trial.episodes == 2
+    assert result["team"]["members"][0]["name"] == "Breloom"
+    assert result["team"]["members"][0]["moves"] == [
+        {"slot": 0, "move_id": 147, "name": "Spore"},
+        {"slot": 1, "move_id": 71, "name": "Absorb"},
+        {"slot": 2, "move_id": 33, "name": "Tackle"},
+        {"slot": 3, "move_id": 78, "name": "Stun Spore"},
+    ]
+    assert Party(emulator.mem).members[0].species_id == 307
+    assert Party(emulator.mem).members[0].move_ids == (147, 71, 33, 78)
+
+
 def test_trial_applies_valid_pokemon_replacement(monkeypatch, party_memory, tmp_path) -> None:
     emulator = FakeEmulator(party_memory)
     task = TaskSpec(
@@ -540,7 +613,7 @@ def test_trial_rejects_moves_above_level_cap_without_advancing_episode(
             "team": {
                 "members": [
                     {"slot": 0, "species_id": 1, "move_ids": [33, 45, 73, 345]},
-                    {"slot": 1, "species_id": 944, "move_ids": [365, 53, 126, 200]},
+                    {"slot": 1, "species_id": 944, "move_ids": [365, 53, 126, 147]},
                 ]
             },
         },

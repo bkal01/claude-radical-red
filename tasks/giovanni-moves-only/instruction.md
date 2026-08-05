@@ -74,7 +74,9 @@ move must be learnable by the Pokemon in that slot according to
 `learnsets.json[species_id]`. This task has an inclusive level cap of 57:
 level-up moves are valid only when their required level is 57 or lower. Moves
 listed under `tm_hm`, `tutor`, `egg`, `pre_evolution`, or `event` are also
-valid.
+valid. A Pokemon may also use moves available to any of its recursive
+pre-evolutions; apply the same rules at every entry named by
+`pre_evolution_ids`.
 
 The argument must contain exactly one member entry for every current team slot
 and must have this complete shape:
@@ -110,7 +112,8 @@ The files in `/workspace/data` are JSON arrays indexed by game ID:
 - `learnsets.json[species_id]` contains that species' learnable move IDs. Its
   `level_up` entries contain `move_id` and required `level`; `tm_hm`, `tutor`,
   `egg`, `pre_evolution`, and `event` contain move-ID arrays for their
-  respective acquisition methods.
+  respective acquisition methods. `pre_evolution_ids` contains direct prior
+  species IDs; follow it recursively when considering inherited moves.
 
 The `team()` response includes species, move, and ability IDs and names. Use
 the files to look up details when planning the battle, but use the MCP tools
