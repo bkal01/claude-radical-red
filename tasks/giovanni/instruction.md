@@ -1,11 +1,13 @@
 # Giovanni battle task
 
-Defeat the configured Giovanni team in Pokemon Radical Red. You control the
-supplied player team and have the configured episode budget to win. Use only
+Defeat the configured Giovanni team in Pokemon Radical Red. You must construct
+your player team before the first battle and have the configured episode budget to win. Use only
 the battle-server MCP tools for game interaction; do not try to access the ROM,
 emulator, or battle internals.
 
-Before acting, call `team` to inspect your current roster. Keep notes,
+Before acting, use the reference data to construct a team and call `apply_team`.
+You receive no player roster or battle information before that call; only this
+task's inclusive level cap of 57 applies. Keep notes,
 experiments, and learned action sequences in `/workspace/scratch`; that
 directory persists across resets within the trial.
 
@@ -14,10 +16,10 @@ directory persists across resets within the trial.
 The battle-server provides these tools:
 
 - `observe()` returns the current observation and is read-only.
-- `team()` returns the current team configuration and calculated stats.
-- `lead(pokemon)` starts an episode with the named Pokemon as the lead.
+- `team()` returns the configured team and calculated stats.
+- `lead(pokemon)` starts an episode with the named Pokemon as the lead after setup.
 - `action(command)` takes one battle action.
-- `apply_team(team)` updates the team's EVs, Abilities, moves, and items and starts the next episode.
+- `apply_team(team)` configures the initial team, or updates the team and starts the next episode.
 - `reset()` restores the battle fixture and starts the next episode.
 
 Tool responses contain `ok: true` on success. An unsuccessful response has
@@ -28,6 +30,8 @@ Calls are rejected after the trial is complete.
 
 The observation's `phase` is one of the following:
 
+- `awaiting_team`: call `apply_team()` with a valid complete team. `lead()`,
+  `action()`, and `reset()` are not legal.
 - `no_battle`: call `lead(pokemon)` to begin an episode. `team()` and
   `observe()` are also legal.
 - `in_battle`: call `action()` with one of:
@@ -48,8 +52,9 @@ weather, hazards, and stat stages.
 
 ## Episodes and reset
 
-An episode is one attempt from the original battle fixture. The trial starts
-in episode 1. Calling `lead()` starts the battle for the current episode.
+An episode is one attempt from the original battle fixture. A valid initial
+`apply_team()` prepares episode 1 without consuming it. Calling `lead()` starts
+the battle for the current episode.
 
 `reset()` restores the original battle state, clears the current battle
 session, and advances to the next episode. It consumes an episode even when
@@ -61,7 +66,8 @@ an unrecoverable environment error occurs.
 
 ## Team updates
 
-This task permits Pokemon, EV, Ability, move, and item updates. Call `apply_team()` during a live
+The first `apply_team()` must construct all six Pokemon. After setup, this task
+permits Pokemon, EV, Ability, move, and item updates. Call `apply_team()` during a live
 battle or after a lost episode in the place of `reset()`. A successful update
 automatically restores the battle fixture, advances to the next episode, and
 applies the accepted configuration. Invalid updates do not change the
@@ -70,10 +76,10 @@ configuration or advance the episode.
 ### Pokemon updates
 
 Each `species_id` must be the ID of a valid Pokemon in `species.json`. Its
-`minimum_level` must not exceed this task's inclusive level cap of 57. You may
-choose a different Pokemon for any team slot. The chosen Pokemon retains that
-slot's level and Nature; its Ability and moves must be valid for the chosen
-species.
+`minimum_level` must not exceed this task's inclusive level cap of 57. Initial
+team members are all level 57 with the neutral Hardy Nature. After setup, a
+chosen Pokemon retains its slot's level and Nature; its Ability
+and moves must be valid for the chosen species.
 
 ### EV updates
 
@@ -130,9 +136,11 @@ and must have this complete shape:
 }
 ```
 
-Use the active team returned by `team()` to determine the number of members,
-their slots, their current species IDs, Abilities, moves, and held item IDs.
-Each slot must appear exactly once. Every member must include `species_id`,
+The initial call must contain exactly six members, one for each slot from 0
+through 5. After setup, use the active team returned by `team()` to determine
+the number of members, their
+slots, their current species IDs, Abilities, moves, and held item IDs. Each
+slot must appear exactly once. Every member must include `species_id`,
 `ability_id`, `move_ids`, `held_item_id`, and `evs` exactly as shown above.
 
 ## Reference data
