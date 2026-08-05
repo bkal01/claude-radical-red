@@ -231,6 +231,9 @@ class BattleService:
         items = []
         if TeamModification.ITEMS in self.task.allowed_team_modifications:
             items = json.loads((data_dir / "items.json").read_text())
+        learnsets = []
+        if TeamModification.MOVES in self.task.allowed_team_modifications:
+            learnsets = json.loads((data_dir / "learnsets.json").read_text())
 
         updated_members = {}
         for member in members:
@@ -289,15 +292,23 @@ class BattleService:
                     type(move_id) is not int for move_id in move_ids
                 ):
                     return {"ok": False, "error": "move_ids must contain exactly four integer move IDs"}
-                learnsets = json.loads((data_dir / "learnsets.json").read_text())
-                learnset = learnsets[species_id]
-                valid_move_ids = {
-                    entry["move_id"]
-                    for entry in learnset["level_up"]
-                    if entry["level"] <= self.task.level_cap
-                }
-                for source in ("tm_hm", "tutor", "egg", "pre_evolution", "event"):
-                    valid_move_ids.update(learnset[source])
+                valid_move_ids = set()
+                seen_species_ids = set()
+                pending_species_ids = [species_id]
+                while pending_species_ids:
+                    current_species_id = pending_species_ids.pop()
+                    if current_species_id in seen_species_ids:
+                        continue
+                    seen_species_ids.add(current_species_id)
+                    learnset = learnsets[current_species_id]
+                    valid_move_ids.update(
+                        entry["move_id"]
+                        for entry in learnset["level_up"]
+                        if entry["level"] <= self.task.level_cap
+                    )
+                    for source in ("tm_hm", "tutor", "egg", "pre_evolution", "event"):
+                        valid_move_ids.update(learnset[source])
+                    pending_species_ids.extend(learnset.get("pre_evolution_ids", []))
                 if any(move_id not in valid_move_ids for move_id in move_ids):
                     return {
                         "ok": False,
