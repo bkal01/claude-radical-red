@@ -1,6 +1,6 @@
-# Giovanni item optimization task
+# Pokemon Item Optimization task
 
-Defeat the configured Giovanni team in Pokemon Radical Red. You construct your
+Defeat the configured opposing Pokemon team in a Singles battle. You construct your
 player team, then control its items and have the configured episode budget to win. Use only
 the battle-server MCP tools for game interaction; do not try to access the ROM,
 emulator, or battle internals.

@@ -1,6 +1,6 @@
-# Giovanni ability optimization task
+# Pokemon Ability Optimization task
 
-Defeat the configured Giovanni team in Pokemon Radical Red. You construct your
+Defeat the configured opposing Pokemon team in a Singles battle. You construct your
 player team, then control its abilities and have the configured episode budget to win.
 Use only the battle-server MCP tools for game interaction; do not try to access
 the ROM, emulator, or battle internals.
@@ -107,8 +107,7 @@ shown above.
 The files in `/workspace/data` are JSON arrays indexed by game ID:
 
 - `species.json[species_id]` contains a species name, form, source, types,
-  base stats, and normal/hidden ability IDs. `source` is `official` or
-  `radical_red`.
+  base stats, and normal/hidden ability IDs.
 - `abilities.json[ability_id]` contains an ability name and description.
 - `moves.json[move_id]` contains move information and can also be searched by
   move name.
