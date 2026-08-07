@@ -66,8 +66,9 @@ an unrecoverable environment error occurs.
 ## Team updates
 
 The first `apply_team()` must construct all six Pokemon at level 57 with the
-neutral Hardy Nature. Each initial member must specify `slot`, `species_id`,
-`ability_id`, `move_ids`, `held_item_id`, and `evs`. After setup, this task permits item updates. Call `apply_team()` during a live
+neutral Hardy Nature (`nature_id` 0). Each initial member must specify `slot`,
+`species_id`, `nature_id`, `ability_id`, `move_ids`, `held_item_id`, and `evs`.
+After setup, this task permits item updates. Call `apply_team()` during a live
 battle or after a lost episode in the place of `reset()`. A successful update
 automatically restores the battle fixture, advances to the next episode, and
 applies the accepted configuration. Invalid updates do not change the

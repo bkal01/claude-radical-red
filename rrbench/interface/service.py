@@ -209,11 +209,7 @@ class BattleService:
             and not in_battle(self.emu.mem)
         )
         modifications = (
-            frozenset(
-                modification
-                for modification in TeamModification
-                if modification is not TeamModification.NATURES
-            )
+            frozenset(TeamModification)
             if initializing
             else self.task.allowed_team_modifications
         )
