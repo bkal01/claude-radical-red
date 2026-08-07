@@ -1080,6 +1080,7 @@ def test_trial_requires_and_applies_initial_team_without_consuming_episode(
                 "slot": 0,
                 "species_id": 1,
                 "level": 42,
+                "nature_id": 3,
                 "ability_id": 34,
                 "move_ids": [33, 45, 73, 345],
                 "held_item_id": 0,
@@ -1089,6 +1090,7 @@ def test_trial_requires_and_applies_initial_team_without_consuming_episode(
                 "slot": 1,
                 "species_id": 944,
                 "level": 42,
+                "nature_id": 15,
                 "ability_id": 66,
                 "move_ids": [365, 53, 126, 434],
                 "held_item_id": 711,
@@ -1131,5 +1133,5 @@ def test_trial_requires_and_applies_initial_team_without_consuming_episode(
     assert trial.episodes == 1
     assert service.active_team_config is not None
     assert [member.level for member in service.active_team_config.members] == [42, 42]
-    assert [member.nature_id for member in service.active_team_config.members] == [0, 0]
+    assert [member.nature_id for member in service.active_team_config.members] == [3, 15]
     assert service.team()["configured"] is True

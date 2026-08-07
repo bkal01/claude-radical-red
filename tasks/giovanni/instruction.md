@@ -67,7 +67,7 @@ an unrecoverable environment error occurs.
 ## Team updates
 
 The first `apply_team()` must construct all six Pokemon. After setup, this task
-permits Pokemon, EV, Ability, move, and item updates. Call `apply_team()` during a live
+permits Pokemon, EV, Ability, Nature, move, and item updates. Call `apply_team()` during a live
 battle or after a lost episode in the place of `reset()`. A successful update
 automatically restores the battle fixture, advances to the next episode, and
 applies the accepted configuration. Invalid updates do not change the
@@ -78,8 +78,9 @@ configuration or advance the episode.
 Each `species_id` must be the ID of a valid Pokemon in `species.json`. Its
 `minimum_level` must not exceed this task's inclusive level cap of 57. Initial
 team members must each specify an integer `level` from 1 through 57. The level
-can be lower than the cap. Initial team members use the neutral Hardy Nature;
-their Ability and moves must be valid for the chosen species.
+can be lower than the cap. Initial team members must specify a valid Nature;
+their Ability and moves must be valid for the chosen species. After setup, a
+chosen Pokemon retains its slot's level and Nature.
 
 ### EV updates
 
@@ -93,6 +94,11 @@ Each `ability_id` must be a valid normal or hidden Ability for the Pokemon in
 that slot. The available Ability IDs for a species are listed in
 `species.json[species_id]`. Use `abilities.json[ability_id]` to look up an
 Ability's name and description.
+
+### Nature updates
+
+Each `nature_id` must be an integer from 0 through 24. Changing a Nature does
+not change the Pokemon's Ability.
 
 ### Move updates
 
@@ -121,6 +127,7 @@ and must have this complete shape:
       "slot": 0,
       "species_id": 123,
       "level": 57,
+      "nature_id": 3,
       "ability_id": 65,
       "move_ids": [33, 45, 73, 345],
       "held_item_id": 711,
@@ -142,7 +149,8 @@ through 5. After setup, use the active team returned by `team()` to determine
 the number of members, their
 slots, their current species IDs, Abilities, moves, and held item IDs. Each
 slot must appear exactly once. Every member must include `species_id`, `level`,
-`ability_id`, `move_ids`, `held_item_id`, and `evs` exactly as shown above.
+`nature_id`, `ability_id`, `move_ids`, `held_item_id`, and `evs` exactly as
+shown above.
 
 ## Reference data
 
