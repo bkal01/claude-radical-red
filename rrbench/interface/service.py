@@ -19,7 +19,7 @@ from rrbench.interface.protocol import (
     render_team,
 )
 from rrbench.tasks import TaskSpec, TeamModification
-from rrbench.team import EV_KEYS, PokemonConfig, TeamConfig
+from rrbench.team import EV_KEYS, NATURE_NAMES, PokemonConfig, TeamConfig
 
 
 def create_emulator(task: TaskSpec) -> Emulator:
@@ -208,12 +208,17 @@ class BattleService:
             and self.session is None
             and not in_battle(self.emu.mem)
         )
-        modifications = frozenset(TeamModification) if initializing else self.task.allowed_team_modifications
+        modifications = (
+            frozenset(TeamModification)
+            if initializing
+            else self.task.allowed_team_modifications
+        )
         if not initializing and not modifications:
             return {"ok": False, "error": "team updates are not allowed for this task"}
         if (
             TeamModification.EVS not in modifications
             and TeamModification.ABILITIES not in modifications
+            and TeamModification.NATURES not in modifications
             and TeamModification.MOVES not in modifications
             and TeamModification.ITEMS not in modifications
             and TeamModification.POKEMON not in modifications
@@ -235,6 +240,11 @@ class BattleService:
                 for member in members_value
             ):
                 return {"ok": False, "error": "updating Abilities is not allowed for this task"}
+            if TeamModification.NATURES not in modifications and any(
+                isinstance(member, dict) and "nature_id" in member
+                for member in members_value
+            ):
+                return {"ok": False, "error": "updating Natures is not allowed for this task"}
             if TeamModification.MOVES not in modifications and any(
                 isinstance(member, dict) and "move_ids" in member
                 for member in members_value
@@ -268,6 +278,8 @@ class BattleService:
                 expected_fields.add("evs")
             if TeamModification.ABILITIES in modifications:
                 expected_fields.add("ability_id")
+            if TeamModification.NATURES in modifications:
+                expected_fields.add("nature_id")
             if TeamModification.MOVES in modifications:
                 expected_fields.add("move_ids")
             if TeamModification.ITEMS in modifications:
@@ -302,6 +314,18 @@ class BattleService:
 
             current_member = current_team_config.members[slot]
             nature_id = 0 if initializing else current_member.nature_id
+            if "nature_id" in member:
+                nature_id = member["nature_id"]
+                if type(nature_id) is not int or nature_id not in range(
+                    len(NATURE_NAMES)
+                ):
+                    return {
+                        "ok": False,
+                        "error": (
+                            "nature_id must be an integer from 0 through "
+                            f"{len(NATURE_NAMES) - 1}"
+                        ),
+                    }
             evs = dict(current_member.evs)
             if "evs" in member:
                 evs = member["evs"]

@@ -6,6 +6,7 @@ team_size: 6
 allowed_team_modifications:
   - evs
   - abilities
+  - natures
   - moves
   - items
   - pokemon
