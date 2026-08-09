@@ -1,7 +1,8 @@
 services:
   main:
     build:
-      context: .
+      context: ..
+      dockerfile: environment/Dockerfile
     command: ["sleep", "infinity"]
     depends_on:
       battle-server:
@@ -15,6 +16,7 @@ services:
     environment:
       RRBENCH_DATA_DIR: /app/data
       RRBENCH_TASK_DIR: /app/task
+      RRBENCH_TASK_DATA_DIR: /app/task-data
       RRBENCH_MAX_EPISODES: "${RRBENCH_MAX_EPISODES:-3}"
       RRBENCH_RECORD: "${RRBENCH_RECORD:-false}"
       RRBENCH_VIDEO_DIR: /var/log/battle/videos
@@ -30,6 +32,10 @@ services:
       - type: bind
         source: ../save_state.ss0
         target: /app/task/save_state.ss0
+        read_only: true
+      - type: bind
+        source: ../data/validation
+        target: /app/task-data
         read_only: true
     healthcheck:
       test: ["CMD", "python", "-c", "import socket; socket.create_connection(('localhost',8000),2).close()"]

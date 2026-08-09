@@ -1,0 +1,8 @@
+{
+  "game_data_version": "v4.1",
+  "task_id": "giovanni",
+  "allowed_species_count": 845,
+  "excluded_species_categories": [
+    "mega"
+  ]
+}
