@@ -18,12 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 ROM  = ROOT / "radicalred.gba"
-OUTS = [
-    ROOT / "tasks" / "giovanni" / "environment" / "data" / "species.json",
-    ROOT / "tasks" / "giovanni-abilities-only" / "environment" / "data" / "species.json",
-    ROOT / "tasks" / "giovanni-items-only" / "environment" / "data" / "species.json",
-    ROOT / "tasks" / "giovanni-moves-only" / "environment" / "data" / "species.json",
-]
+OUTS = [ROOT / "data" / "radical_red" / "v4.1" / "species.json"]
 
 _SPECIES_NAME_TABLE = 0x14042CC
 _SPECIES_NAME_STRIDE = 11
@@ -77,8 +72,21 @@ NAME_OVERRIDES = {
     1374: "Gouging Fire",
 }
 FORM_OVERRIDES = {
+    713: "heat",
+    714: "wash",
+    715: "frost",
+    716: "fan",
+    717: "mow",
     866: "sevii",
     867: "sevii",
+    1085: "surfing",
+    1086: "flying",
+    1087: "cosplay",
+    1088: "libre",
+    1089: "popstar",
+    1090: "rockstar",
+    1091: "belle",
+    1092: "phd",
     1186: "sevii",
     1200: "sevii",
     1274: "sevii",
@@ -221,7 +229,7 @@ def main():
     serialized_entries = json.dumps(entries, indent=2, ensure_ascii=False) + "\n"
     for out_path in OUTS:
         out_path.write_text(serialized_entries)
-    print(f"Wrote {len(entries)} species entries to {len(OUTS)} task files")
+    print(f"Wrote {len(entries)} species entries to {OUTS[0]}")
 
     for sid, expected_name, expected_types, expected_hp in [
         (1, "Bulbasaur", ["Grass", "Poison"], 45),

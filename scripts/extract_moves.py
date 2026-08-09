@@ -16,7 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 ROM  = ROOT / "radicalred.gba"
-OUT  = ROOT / "data" / "moves.json"
+OUT  = ROOT / "data" / "radical_red" / "v4.1" / "moves.json"
 
 _MOVE_NAME_TABLE  = 0x010EEEDC  # ROM file offset, not GBA address
 _MOVE_NAME_STRIDE = 17

@@ -75,10 +75,13 @@ configuration or advance the episode.
 
 ### Pokemon updates
 
-Each `species_id` must be the ID of a valid Pokemon in `species.json`. Its
+Each `species_id` must be an available Pokemon in `species.json`; the task
+provides entries only for Pokemon obtainable from its permitted locations and
+their level-cap-eligible evolutions; Mega forms are excluded. Its
 `minimum_level` must not exceed this task's inclusive level cap of 57. Initial
-team members must each specify an integer `level` from 1 through 57. The level
-can be lower than the cap. Initial team members must specify a valid Nature;
+team members must each specify an
+integer `level` from 1 through 57. The level can be lower than the cap. Initial
+team members must specify a valid Nature;
 their Ability and moves must be valid for the chosen species. After setup, a
 chosen Pokemon retains its slot's level and Nature.
 
@@ -154,7 +157,10 @@ shown above.
 
 ## Reference data
 
-The files in `/workspace/data` are JSON arrays indexed by game ID:
+The files in `/workspace/data` are JSON arrays indexed by game ID. `species.json`
+and `learnsets.json` contain entries only for the Pokemon available to this
+task; the other reference files contain the complete game data needed to build
+their legal teams.
 
 - `species.json[species_id]` contains a species name, form, source, types,
   base stats, and normal/hidden ability IDs.

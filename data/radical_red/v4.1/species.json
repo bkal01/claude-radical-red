@@ -17229,7 +17229,7 @@
   },
   {
     "name": "Rotom",
-    "form": null,
+    "form": "heat",
     "source": "official",
     "types": [
       "Electric",
@@ -17254,7 +17254,7 @@
   },
   {
     "name": "Rotom",
-    "form": null,
+    "form": "wash",
     "source": "official",
     "types": [
       "Electric",
@@ -17279,7 +17279,7 @@
   },
   {
     "name": "Rotom",
-    "form": null,
+    "form": "frost",
     "source": "official",
     "types": [
       "Electric",
@@ -17304,7 +17304,7 @@
   },
   {
     "name": "Rotom",
-    "form": null,
+    "form": "fan",
     "source": "official",
     "types": [
       "Electric",
@@ -17329,7 +17329,7 @@
   },
   {
     "name": "Rotom",
-    "form": null,
+    "form": "mow",
     "source": "official",
     "types": [
       "Electric",
@@ -26519,7 +26519,7 @@
   },
   {
     "name": "Pikachu",
-    "form": null,
+    "form": "surfing",
     "source": "official",
     "types": [
       "Electric",
@@ -26544,7 +26544,7 @@
   },
   {
     "name": "Pikachu",
-    "form": null,
+    "form": "flying",
     "source": "official",
     "types": [
       "Electric",
@@ -26569,7 +26569,7 @@
   },
   {
     "name": "Pikachu",
-    "form": null,
+    "form": "cosplay",
     "source": "official",
     "types": [
       "Electric"
@@ -26593,7 +26593,7 @@
   },
   {
     "name": "Pikachu",
-    "form": null,
+    "form": "libre",
     "source": "official",
     "types": [
       "Electric",
@@ -26618,7 +26618,7 @@
   },
   {
     "name": "Pikachu",
-    "form": null,
+    "form": "popstar",
     "source": "official",
     "types": [
       "Electric",
@@ -26643,7 +26643,7 @@
   },
   {
     "name": "Pikachu",
-    "form": null,
+    "form": "rockstar",
     "source": "official",
     "types": [
       "Electric",
@@ -26668,7 +26668,7 @@
   },
   {
     "name": "Pikachu",
-    "form": null,
+    "form": "belle",
     "source": "official",
     "types": [
       "Electric",
@@ -26693,7 +26693,7 @@
   },
   {
     "name": "Pikachu",
-    "form": null,
+    "form": "phd",
     "source": "official",
     "types": [
       "Electric",

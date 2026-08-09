@@ -295,6 +295,14 @@ class BattleService:
             species_id = member["species_id"]
             if type(species_id) is not int or species_id not in SPECIES_NAME:
                 return {"ok": False, "error": "species_id must be a valid Pokemon ID"}
+            if (
+                self.task.allowed_species_ids is not None
+                and species_id not in self.task.allowed_species_ids
+            ):
+                return {
+                    "ok": False,
+                    "error": "species_id is not available for this task",
+                }
             if SPECIES_MINIMUM_LEVEL[species_id] > self.task.level_cap:
                 return {
                     "ok": False,

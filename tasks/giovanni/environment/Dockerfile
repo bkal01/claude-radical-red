@@ -7,4 +7,4 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
 
 WORKDIR /workspace
 
-COPY data /workspace/data
+COPY data/agent /workspace/data

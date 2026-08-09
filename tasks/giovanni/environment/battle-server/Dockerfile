@@ -51,7 +51,7 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
 COPY --from=build /src/mgba/build /src/mgba/build
 COPY --from=build /opt/mgba /opt/mgba
 COPY rrbench /app/rrbench
-COPY tasks/giovanni/environment/data /app/data
+COPY data/radical_red/v4.1 /app/data
 
 RUN pip install --no-cache-dir Pillow cached-property cffi fastmcp imageio imageio-ffmpeg numpy PyYAML
 

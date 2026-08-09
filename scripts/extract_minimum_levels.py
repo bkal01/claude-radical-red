@@ -8,12 +8,7 @@ from urllib.request import urlopen
 ROOT = Path(__file__).parent.parent
 SOURCE_COMMIT = "488a0918194d567b5f7b02c396118d51fb9c81ce"
 SOURCE_URL = f"https://raw.githubusercontent.com/JwowSquared/Radical-Red-Pokedex/{SOURCE_COMMIT}/data.js"
-OUTPUT_PATHS = [
-    ROOT / "tasks" / "giovanni" / "environment" / "data" / "species.json",
-    ROOT / "tasks" / "giovanni-abilities-only" / "environment" / "data" / "species.json",
-    ROOT / "tasks" / "giovanni-items-only" / "environment" / "data" / "species.json",
-    ROOT / "tasks" / "giovanni-moves-only" / "environment" / "data" / "species.json",
-]
+OUTPUT_PATHS = [ROOT / "data" / "radical_red" / "v4.1" / "species.json"]
 LEVEL_REQUIREMENT_METHODS = {
     4,
     8,
