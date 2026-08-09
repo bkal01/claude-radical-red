@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import yaml
+
 from rrbench.interface import service as service_module
 from rrbench.interface.service import BattleService
 from rrbench.tasks import TaskSpec, load_task
@@ -36,6 +38,54 @@ def test_giovanni_agent_data_matches_the_validator_allowlist(monkeypatch) -> Non
         (repository / "data" / "radical_red" / "v4.1" / "species_categories.json").read_text()
     )["mega"]
     assert all(species[species_id] is None for species_id in mega_species_ids)
+
+
+def test_giovanni_agent_tm_hm_moves_match_allowed_locations():
+    repository = Path(__file__).resolve().parents[1]
+    task_directory = repository / "tasks" / "giovanni"
+    data_directory = repository / "data" / "radical_red" / "v4.1"
+    route_move_map = json.loads((data_directory / "route_move_map.json").read_text())
+    moves = json.loads((data_directory / "moves.json").read_text())
+    learnsets = json.loads((task_directory / "data" / "agent" / "learnsets.json").read_text())
+    manifest = yaml.safe_load((task_directory / "task.yaml").read_text())
+    move_name_aliases = {
+        "Draining Kiss": "Drain Kiss",
+        "Supercell Slam": "Soupercell Slam",
+        "U-Turn": "U-turn",
+    }
+    move_ids_by_name = {
+        move["name"]: move_id for move_id, move in enumerate(moves) if move
+    }
+    available_tm_hm_move_ids = {
+        move_ids_by_name[move_name_aliases.get(move_name, move_name)]
+        for location in manifest["allowed_locations"]
+        for move_type in ("tms", "hms")
+        for move_name in route_move_map.get(location, {}).get(move_type, [])
+    }
+    available_tutor_move_ids = {
+        move_ids_by_name[move_name_aliases.get(move_name, move_name)]
+        for location in manifest["allowed_locations"]
+        for move_name in route_move_map.get(location, {}).get("tutors", [])
+    }
+
+    assert all(
+        set(learnset["tm_hm"]) <= available_tm_hm_move_ids
+        for learnset in learnsets
+        if learnset
+    )
+    assert all(
+        set(learnset["tutor"]) <= available_tutor_move_ids
+        for learnset in learnsets
+        if learnset
+    )
+    assert all(not learnset["egg"] for learnset in learnsets if learnset)
+    assert len(available_tutor_move_ids) == 12
+    assert move_ids_by_name["U-turn"] in {
+        move_id for learnset in learnsets if learnset for move_id in learnset["tm_hm"]
+    }
+    assert move_ids_by_name["Soupercell Slam"] not in {
+        move_id for learnset in learnsets if learnset for move_id in learnset["tm_hm"]
+    }
 
 
 def test_battle_service_rejects_species_outside_the_task_allowlist(

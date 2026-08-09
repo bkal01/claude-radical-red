@@ -1,0 +1,533 @@
+{
+  "berry_forest": {
+    "tms": [
+      "Cosmic Power"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "celadon_city": {
+    "tms": [
+      "Toxic",
+      "Taunt",
+      "Ice Beam",
+      "Giga Drain",
+      "Light Screen",
+      "Protect",
+      "Hyper Voice",
+      "Thunderbolt",
+      "Reflect",
+      "Flamethrower",
+      "Leech Life",
+      "Energy Ball",
+      "Air Slash",
+      "Explosion",
+      "Shadow Claw",
+      "Gyro Ball",
+      "Knock Off",
+      "Dark Pulse",
+      "Sleep Talk",
+      "Scald",
+      "Poison Jab",
+      "Grass Knot",
+      "Flash Cannon",
+      "Dragon Tail",
+      "Dazzling Gleam",
+      "Psychic Noise",
+      "Scorching Sands",
+      "Play Rough",
+      "Brave Bird"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "cerulean_cave_2f": {
+    "tms": [
+      "Close Combat"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "cerulean_city": {
+    "tms": [
+      "Flip Turn",
+      "Dig",
+      "Icy Wind",
+      "Steel Wing",
+      "Aerial Ace",
+      "Pluck",
+      "Snarl",
+      "Vacuum Wave"
+    ],
+    "hms": [],
+    "tutors": [
+      "Fire Fang",
+      "Ice Fang",
+      "Thunder Fang"
+    ]
+  },
+  "cinnabar_island": {
+    "tms": [
+      "Fire Blast"
+    ],
+    "hms": [],
+    "tutors": [
+      "Sunny Day",
+      "Rain Dance",
+      "Snowscape",
+      "Sandstorm",
+      "Power Whip",
+      "Bug Buzz",
+      "Phantom Force",
+      "Flare Blitz",
+      "Stored Power",
+      "Tailwind",
+      "Megahorn",
+      "Stealth Rock",
+      "Spikes",
+      "Toxic Spikes",
+      "Solar Beam",
+      "Solar Blade"
+    ]
+  },
+  "cape_brink": {
+    "tms": [],
+    "hms": [],
+    "tutors": [
+      "Dark Hole"
+    ]
+  },
+  "diglett_cave": {
+    "tms": [
+      "Rest",
+      "Thief"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "fuchsia_city": {
+    "tms": [
+      "Sludge Bomb"
+    ],
+    "hms": [
+      "Strength",
+      "Rock Smash"
+    ],
+    "tutors": [
+      "Swords Dance",
+      "Nasty Plot",
+      "Bulk Up",
+      "Calm Mind",
+      "Meteor Beam",
+      "Iron Defense",
+      "Substitute"
+    ]
+  },
+  "indigo_plateau": {
+    "tms": [
+      "Supercell Slam"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "lavender_town": {
+    "tms": [
+      "Shadow Ball"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "mansion_1f": {
+    "tms": [
+      "Gunk Shot"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "mansion_3f": {
+    "tms": [
+      "Heat Wave"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "mansion_b1f": {
+    "tms": [
+      "Blizzard",
+      "Weather Ball"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "mt_ember_exterior": {
+    "tms": [
+      "Scale Shot",
+      "Misty Explosion"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "mt_moon_1f": {
+    "tms": [
+      "Bullet Seed"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "mt_moon_b2f": {
+    "tms": [
+      "Low Sweep"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "one_island": {
+    "tms": [],
+    "hms": [
+      "Waterfall"
+    ],
+    "tutors": []
+  },
+  "pallet_town": {
+    "tms": [],
+    "hms": [],
+    "tutors": [
+      "Celebrate"
+    ]
+  },
+  "pewter_city": {
+    "tms": [
+      "Rock Tomb",
+      "Roost",
+      "Stone Edge"
+    ],
+    "hms": [],
+    "tutors": [
+      "Rock Polish"
+    ]
+  },
+  "pkmn_tower_6f": {
+    "tms": [
+      "Will-O-Wisp"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "power_plant": {
+    "tms": [
+      "Thunder",
+      "Superpower"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "rock_tunnel_1f": {
+    "tms": [
+      "Iron Head"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "rock_tunnel_b1f": {
+    "tms": [
+      "Rock Slide"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "rock_tunnel_secret": {
+    "tms": [
+      "Sludge Wave"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_2": {
+    "tms": [
+      "Temper Flare"
+    ],
+    "hms": [
+      "Flash"
+    ],
+    "tutors": []
+  },
+  "route_3": {
+    "tms": [
+      "Teleport"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_4": {
+    "tms": [
+      "Roar",
+      "Low Kick"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_5": {
+    "tms": [
+      "Bulldoze"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_6": {
+    "tms": [
+      "Venoshock"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_7": {
+    "tms": [
+      "Iron Tail"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_7_8_underground_path": {
+    "tms": [
+      "Psyshock"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_8": {
+    "tms": [
+      "Acrobatics"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_9": {
+    "tms": [
+      "Ice Punch"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_10": {
+    "tms": [
+      "Facade",
+      "Wild Charge"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_11": {
+    "tms": [
+      "Fire Punch"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_12": {
+    "tms": [
+      "Seed Bomb",
+      "Return",
+      "Hurricane"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_13": {
+    "tms": [
+      "Future Sight"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_14": {
+    "tms": [
+      "Dragon Claw"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_15": {
+    "tms": [
+      "Hydro Pump"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_16": {
+    "tms": [
+      "Dual Wingbeat"
+    ],
+    "hms": [
+      "Fly"
+    ],
+    "tutors": []
+  },
+  "route_17": {
+    "tms": [
+      "Heat Crash"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_20": {
+    "tms": [
+      "Focus Blast"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_24": {
+    "tms": [
+      "Draining Kiss",
+      "Thunder Punch"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "route_25": {
+    "tms": [
+      "Defog",
+      "U-Turn"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "s_s_anne": {
+    "tms": [
+      "Brick Break",
+      "Stomping Tantrum"
+    ],
+    "hms": [
+      "Cut"
+    ],
+    "tutors": []
+  },
+  "saffron_city": {
+    "tms": [
+      "Zen Headbutt",
+      "Hidden Power",
+      "Earthquake",
+      "Psychic",
+      "Liquidation",
+      "Drain Punch",
+      "Dual Chop",
+      "Thunder Wave",
+      "Body Press",
+      "Trick Room"
+    ],
+    "hms": [],
+    "tutors": [
+      "Drill Run",
+      "Blaze Kick",
+      "Pain Split",
+      "Hex",
+      "Mystical Fire",
+      "Leaf Blade",
+      "Power Gem",
+      "Rock Blast",
+      "Pin Missile",
+      "Icicle Spear",
+      "Tail Slap",
+      "Body Slam",
+      "Foul Play",
+      "Alluring Voice",
+      "Focus Punch",
+      "Psychic Fangs"
+    ]
+  },
+  "safari_zone": {
+    "tms": [
+      "Aura Sphere",
+      "Grassy Glide",
+      "Expanding Force",
+      "Rising Voltage",
+      "Dragon Pulse",
+      "Earth Power"
+    ],
+    "hms": [
+      "Surf"
+    ],
+    "tutors": []
+  },
+  "seafoam_b1f": {
+    "tms": [
+      "Triple Axel"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "seafoam_b3f_b4f": {
+    "tms": [
+      "Frost Breath"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "two_island": {
+    "tms": [
+      "Steel Beam"
+    ],
+    "hms": [],
+    "tutors": [
+      "Frenzy Plant",
+      "Hydro Cannon",
+      "Blast Burn"
+    ]
+  },
+  "vermillion_city": {
+    "tms": [
+      "Volt Switch"
+    ],
+    "hms": [],
+    "tutors": [
+      "Flame Charge",
+      "Trailblaze",
+      "Power-Up Punch",
+      "Charge Beam",
+      "Work Up",
+      "Hone Claws"
+    ]
+  },
+  "victory_road_1f": {
+    "tms": [
+      "Poltergeist"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "victory_road_2f": {
+    "tms": [
+      "High Horsepower"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "victory_road_3f": {
+    "tms": [
+      "Overheat"
+    ],
+    "hms": [],
+    "tutors": [
+      "Dragon Dance"
+    ]
+  },
+  "viridian_city": {
+    "tms": [
+      "Draco Barrage",
+      "Ice Spinner",
+      "Draco Meteor"
+    ],
+    "hms": [],
+    "tutors": []
+  },
+  "viridian_forest": {
+    "tms": [
+      "Electroweb",
+      "X-Scissor"
+    ],
+    "hms": [],
+    "tutors": [
+      "Bug Bite"
+    ]
+  }
+}

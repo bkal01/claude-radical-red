@@ -42,7 +42,11 @@ def main() -> None:
     route_pokemon_species_ids = json.loads(
         (master_data_dir / "route_pokemon_species_ids.json").read_text()
     )
+    route_move_map = json.loads(
+        (master_data_dir / "route_move_map.json").read_text()
+    )
     species = json.loads((master_data_dir / "species.json").read_text())
+    moves = json.loads((master_data_dir / "moves.json").read_text())
     learnsets = json.loads((master_data_dir / "learnsets.json").read_text())
     species_categories = json.loads(
         (master_data_dir / "species_categories.json").read_text()
@@ -68,6 +72,31 @@ def main() -> None:
             for pokemon_name in fishing_surfing.get(method, []):
                 direct_species_ids.add(route_pokemon_species_ids[pokemon_name])
     direct_species_ids.difference_update(excluded_species_ids)
+
+    move_name_aliases = {
+        "Draining Kiss": "Drain Kiss",
+        "Supercell Slam": "Soupercell Slam",
+        "U-Turn": "U-turn",
+    }
+    move_ids_by_name = {
+        move["name"]: move_id for move_id, move in enumerate(moves) if move
+    }
+    available_move_ids = {"tm_hm": set(), "tutor": set()}
+    for location in allowed_locations:
+        for route_source, learnset_source in (
+            ("tms", "tm_hm"),
+            ("hms", "tm_hm"),
+            ("tutors", "tutor"),
+        ):
+            for move_name in route_move_map.get(location, {}).get(route_source, []):
+                resolved_move_name = move_name_aliases.get(move_name, move_name)
+                if resolved_move_name not in move_ids_by_name:
+                    raise ValueError(
+                        f"unknown {route_source[:-1]} move at {location}: {move_name}"
+                    )
+                available_move_ids[learnset_source].add(
+                    move_ids_by_name[resolved_move_name]
+                )
 
     rotom_is_directly_available = any(
         species[species_id] and species[species_id]["name"] == "Rotom"
@@ -114,16 +143,24 @@ def main() -> None:
         entry if species_id in allowed_species_ids else None
         for species_id, entry in enumerate(species)
     ]
-    agent_learnsets = [
-        entry if species_id in allowed_species_ids else None
-        for species_id, entry in enumerate(learnsets)
-    ]
+    agent_learnsets = []
+    for species_id, entry in enumerate(learnsets):
+        if species_id not in allowed_species_ids:
+            agent_learnsets.append(None)
+            continue
+        agent_learnset = dict(entry)
+        for source, allowed_move_ids in available_move_ids.items():
+            agent_learnset[source] = [
+                move_id for move_id in entry[source] if move_id in allowed_move_ids
+            ]
+        if "fuchsia_city" not in allowed_locations:
+            agent_learnset["egg"] = []
+        agent_learnsets.append(agent_learnset)
     (agent_data_dir / "species.json").write_text(
         json.dumps(agent_species, indent=2, ensure_ascii=False) + "\n"
     )
-    (agent_data_dir / "learnsets.json").write_text(
-        json.dumps(agent_learnsets, indent=2, ensure_ascii=False) + "\n"
-    )
+    serialized_agent_learnsets = json.dumps(agent_learnsets, indent=2, ensure_ascii=False) + "\n"
+    (agent_data_dir / "learnsets.json").write_text(serialized_agent_learnsets)
     for filename in ("abilities.json", "moves.json", "items.json"):
         (agent_data_dir / filename).write_text((master_data_dir / filename).read_text())
     (agent_data_dir / "metadata.json").write_text(
@@ -132,6 +169,9 @@ def main() -> None:
                 "game_data_version": game_data_version,
                 "task_id": manifest["id"],
                 "allowed_species_count": len(allowed_species_id_list),
+                "available_tm_hm_move_count": len(available_move_ids["tm_hm"]),
+                "available_tutor_move_count": len(available_move_ids["tutor"]),
+                "egg_move_tutor_available": "fuchsia_city" in allowed_locations,
                 "excluded_species_categories": excluded_species_categories,
             },
             indent=2,

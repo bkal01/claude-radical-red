@@ -26,6 +26,14 @@
         "Fishing & Surfing"
       ]
     },
+    "route_move_map": {
+      "source": "Item, TM, and Move Tutor Locations v4.1 - Radical Red.xlsx",
+      "sheets": [
+        "TMs & HMs",
+        "Move Tutors"
+      ],
+      "purpose": "Maps each location to its obtainable TM, HM, and tutor moves"
+    },
     "route_pokemon_species_ids": {
       "source": "https://github.com/JwowSquared/Radical-Red-Pokedex",
       "commit": "488a0918194d567b5f7b02c396118d51fb9c81ce",
