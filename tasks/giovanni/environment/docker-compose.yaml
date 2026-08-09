@@ -37,6 +37,10 @@ services:
         source: ../data/validation
         target: /app/task-data
         read_only: true
+      - type: bind
+        source: ../data/agent/learnsets.json
+        target: /app/data/learnsets.json
+        read_only: true
     healthcheck:
       test: ["CMD", "python", "-c", "import socket; socket.create_connection(('localhost',8000),2).close()"]
       interval: 2s
