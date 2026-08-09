@@ -8,13 +8,9 @@ from urllib.request import urlopen
 root = Path(__file__).parent.parent
 source_commit = "488a0918194d567b5f7b02c396118d51fb9c81ce"
 source_url = f"https://raw.githubusercontent.com/JwowSquared/Radical-Red-Pokedex/{source_commit}/data.js"
-output_paths = [
-    root / "tasks/giovanni/environment/data/learnsets.json",
-    root / "tasks/giovanni-items-only/environment/data/learnsets.json",
-    root / "tasks/giovanni-moves-only/environment/data/learnsets.json",
-]
-moves_path = root / "tasks/giovanni/environment/data/moves.json"
-species_path = root / "tasks/giovanni/environment/data/species.json"
+output_paths = [root / "data/radical_red/v4.1/learnsets.json"]
+moves_path = root / "data/radical_red/v4.1/moves.json"
+species_path = root / "data/radical_red/v4.1/species.json"
 
 with urlopen(source_url, timeout=30) as response:
     source_text = response.read().decode()

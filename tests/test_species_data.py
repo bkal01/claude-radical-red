@@ -7,7 +7,7 @@ import pytest
 @pytest.mark.parametrize(
     "species_path",
     [
-        "tasks/giovanni/environment/data/species.json",
+        "data/radical_red/v4.1/species.json",
         "tasks/giovanni-abilities-only/environment/data/species.json",
         "tasks/giovanni-items-only/environment/data/species.json",
         "tasks/giovanni-moves-only/environment/data/species.json",

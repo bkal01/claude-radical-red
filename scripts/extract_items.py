@@ -20,7 +20,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "data" / "items.json",
+        default=ROOT / "data" / "radical_red" / "v4.1" / "items.json",
     )
     arguments = parser.parse_args()
     rom = ROM.read_bytes()

@@ -80,11 +80,11 @@ _MOVE_TABLE = 0x091521D0
 _MOVE_SIZE  = 12
 _MOVE_PP    = 4  # base PP byte offset within a move entry
 
-# Static game data is bundled with the active Harbor task environment.
+# Static game data is authoritative server-side data for Radical Red v4.1.
 data_dir = Path(
     os.environ.get(
         "RRBENCH_DATA_DIR",
-        Path(__file__).resolve().parents[2] / "tasks/giovanni/environment/data",
+        Path(__file__).resolve().parents[2] / "data/radical_red/v4.1",
     )
 )
 

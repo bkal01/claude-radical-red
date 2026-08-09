@@ -16,7 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 ROM  = ROOT / "radicalred.gba"
-OUT  = ROOT / "data" / "abilities.json"
+OUT  = ROOT / "data" / "radical_red" / "v4.1" / "abilities.json"
 
 _NAME_TABLE_OFFSET = 0x010E32D1
 _NAME_TABLE_STRIDE = 17

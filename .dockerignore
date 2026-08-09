@@ -1,6 +1,10 @@
 **
 !rrbench/
 !rrbench/**
+!data/
+!data/radical_red/
+!data/radical_red/v4.1/
+!data/radical_red/v4.1/**
 !tasks/
 !tasks/giovanni/
 !tasks/giovanni/environment/

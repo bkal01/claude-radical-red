@@ -1,0 +1,40 @@
+{
+  "game": "Pokemon Radical Red",
+  "version": "4.1",
+  "rom_sha256": "679d112cdfe699c2793d82c7e7999ac9dfca9e222ad5a85d4f8f1e457cd0283f",
+  "data": {
+    "abilities": {
+      "source": "radicalred.gba"
+    },
+    "items": {
+      "source": "radicalred.gba"
+    },
+    "moves": {
+      "source": "radicalred.gba"
+    },
+    "species": {
+      "source": "radicalred.gba"
+    },
+    "learnsets": {
+      "source": "https://github.com/JwowSquared/Radical-Red-Pokedex",
+      "commit": "488a0918194d567b5f7b02c396118d51fb9c81ce"
+    },
+    "route_pokemon_map": {
+      "source": "Pokémon Locations & Raid Dens v4.1 - Radical Red.xlsx",
+      "sheets": [
+        "Grass & Caves",
+        "Fishing & Surfing"
+      ]
+    },
+    "route_pokemon_species_ids": {
+      "source": "https://github.com/JwowSquared/Radical-Red-Pokedex",
+      "commit": "488a0918194d567b5f7b02c396118d51fb9c81ce",
+      "purpose": "Resolves the spreadsheet's display names to Radical Red species IDs"
+    },
+    "species_categories": {
+      "source": "https://github.com/JwowSquared/Radical-Red-Pokedex",
+      "commit": "488a0918194d567b5f7b02c396118d51fb9c81ce",
+      "purpose": "Classifies special forms used by task-specific availability policies"
+    }
+  }
+}

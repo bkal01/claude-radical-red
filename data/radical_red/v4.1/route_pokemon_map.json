@@ -1,0 +1,1766 @@
+{
+    "route_1": {
+        "grass_caves": [
+            "Bidoof",
+            "Zigzagoon",
+            "Rattata",
+            "Mienfoo",
+            "Meowth",
+            "Yungoos",
+            "Pidgey",
+            "Smoliv",
+            "Pansear",
+            "Poochyena",
+            "Zigzagoon-Galar",
+            "Rattata-Alola",
+            "Scraggy",
+            "Meowth-Galar",
+            "Hoothoot",
+            "Seedot"
+        ]
+    },
+    "viridian_city": {
+        "grass_caves": [
+            "Shinx",
+            "Wooloo",
+            "Poochyena",
+            "Spearow",
+            "Patrat",
+            "Cubchoo",
+            "Deerling-Summer",
+            "Greavard",
+            "Pikipek",
+            "Snover",
+            "Pawmi",
+            "Mareep",
+            "Deerling-Autumn",
+            "Shuppet",
+            "Wattrel",
+            "Swinub"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Marill",
+                "Clamperl"
+            ],
+            "good_rod": [
+                "Clauncher",
+                "Remoraid",
+                "Corsola"
+            ],
+            "super_rod": [
+                "Luvdisc",
+                "Bruxish",
+                "Clawitzer"
+            ],
+            "surfing": [
+                "Lanturn"
+            ]
+        }
+    },
+    "route_22": {
+        "grass_caves": [
+            "Starly",
+            "Budew",
+            "Mankey",
+            "Morelull",
+            "Snubbull",
+            "Lillipup",
+            "Oddish",
+            "Sandygast",
+            "Bellsprout",
+            "Rockruff",
+            "Panpour",
+            "Sandshrew-Alola",
+            "Flabébé",
+            "Skwovet",
+            "Applin",
+            "Paras"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Psyduck",
+                "Corphish"
+            ],
+            "good_rod": [
+                "Clobbopus",
+                "Mantyke",
+                "Mareanie"
+            ],
+            "super_rod": [
+                "Luvdisc",
+                "Basculin-Blue",
+                "Wailord"
+            ],
+            "surfing": [
+                "Psyduck",
+                "Slowpoke",
+                "Poliwhirl"
+            ]
+        }
+    },
+    "route_21a": {
+        "grass_caves": [
+            "Wooper",
+            "Lechonk",
+            "Wiglett",
+            "Dwebble",
+            "Snubbull",
+            "Wingull",
+            "Fidough",
+            "Capsakid",
+            "Wooper-Paldea",
+            "Maschiff",
+            "Lotad"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp",
+                "Shellder"
+            ],
+            "good_rod": [
+                "Krabby",
+                "Qwilfish",
+                "Corsola-Galar"
+            ],
+            "super_rod": [
+                "Octillery",
+                "Lumineon",
+                "Kingler",
+                "Relicanth"
+            ],
+            "surfing": [
+                "Tentacruel",
+                "Barraskewda",
+                "Lumineon",
+                "Cramorant"
+            ]
+        }
+    },
+    "route_2": {
+        "grass_caves": [
+            "Bidoof",
+            "Sentret",
+            "Ponyta",
+            "Phanpy",
+            "Meditite",
+            "Shinx",
+            "Mareep",
+            "Litleo",
+            "Zigzagoon",
+            "Abra",
+            "Pansage",
+            "Poochyena",
+            "Ponyta-Galar",
+            "Houndour",
+            "Zigzagoon-Galar"
+        ]
+    },
+    "viridian_forest": {
+        "grass_caves": [
+            "Caterpie",
+            "Weedle",
+            "Pikachu",
+            "Burmy-Sandy",
+            "Sewaddle",
+            "Scatterbug",
+            "Ledyba",
+            "Surskit",
+            "Shroomish",
+            "Joltik",
+            "Spinarak",
+            "Wurmple",
+            "Burmy-Trash",
+            "Nincada",
+            "Kricketot",
+            "Rellor",
+            "Toedscool",
+            "Snom"
+        ]
+    },
+    "forest_expansion": {
+        "grass_caves": [
+            "Caterpie",
+            "Weedle",
+            "Natu",
+            "Burmy",
+            "Combee",
+            "Kricketot",
+            "Slakoth",
+            "Grubbin",
+            "Bramblin",
+            "Pumpkaboo-Su",
+            "Nymble",
+            "Tarountula",
+            "Blipbug",
+            "Chingling",
+            "Burmy-Trash",
+            "Nincada",
+            "Rellor",
+            "Phantump"
+        ]
+    },
+    "diglett_cave": {
+        "grass_caves": [
+            "Diglett",
+            "Nacli",
+            "Numel",
+            "Yamask",
+            "Sandshrew",
+            "Geodude",
+            "Trapinch",
+            "Silicobra",
+            "Bronzor",
+            "Machop",
+            "Noibat",
+            "Diglett-Alola",
+            "Yamask-Galar",
+            "Geodude-Alola",
+            "Sandile",
+            "Pancham"
+        ]
+    },
+    "pewter_city": {
+        "grass_caves": [
+            "Grimer",
+            "Starly",
+            "Exeggcute",
+            "Spoink",
+            "Hoppip",
+            "Numel",
+            "Cutiefly",
+            "Sinistea",
+            "Ekans",
+            "Phanpy",
+            "Axew",
+            "Bonsly",
+            "Grimer-Alola",
+            "Espurr",
+            "Skiddo",
+            "Gastly",
+            "Poltchageist"
+        ]
+    },
+    "route_3": {
+        "grass_caves": [
+            "Fletchling",
+            "Ekans",
+            "Spearow",
+            "Nidoran-M",
+            "Nickit",
+            "Shroomish",
+            "Buneary",
+            "Litleo",
+            "Stunky",
+            "Jigglypuff",
+            "Meowth-Alola",
+            "Nidoran-F",
+            "Skiddo",
+            "Shroodle",
+            "Glameow"
+        ]
+    },
+    "mt_moon_1f": {
+        "grass_caves": [
+            "Geodude",
+            "Zubat",
+            "Rockruff",
+            "Timburr",
+            "Woobat",
+            "Chewtle",
+            "Makuhita",
+            "Tyrogue",
+            "Clefairy",
+            "Elgyem",
+            "Throh",
+            "Geodude-Alola",
+            "Machop",
+            "Noibat",
+            "Tympole",
+            "Dunsparce",
+            "Sawk"
+        ]
+    },
+    "mt_moon_b1f": {
+        "grass_caves": [
+            "Paras",
+            "Nacli",
+            "Rolycoly",
+            "Slugma",
+            "Torkoal",
+            "Teddiursa",
+            "Tinkatink",
+            "Baltoy",
+            "Shuppet",
+            "Riolu",
+            "Roggenrola",
+            "Sandile",
+            "Misdreavus"
+        ]
+    },
+    "mt_moon_b2f": {
+        "grass_caves": [
+            "Varoom",
+            "Zubat",
+            "Pawniard",
+            "Numel",
+            "Cranidos",
+            "Drilbur",
+            "Mudbray",
+            "Smoochum",
+            "Solrock",
+            "Onix",
+            "Mawile",
+            "Rolycoly",
+            "Shieldon",
+            "Munna",
+            "Lunatone"
+        ]
+    },
+    "route_4": {
+        "grass_caves": [
+            "Pidove",
+            "Bellsprout",
+            "Shinx",
+            "Pachirisu",
+            "Glameow",
+            "Tandemaus",
+            "Pumpkaboo",
+            "Flabébé",
+            "Pumpkaboo-Sm",
+            "Yanma",
+            "Rookidee",
+            "Oddish",
+            "Mareep",
+            "Stunky",
+            "Phantump",
+            "Pumpkaboo-La"
+        ]
+    },
+    "route_24": {
+        "grass_caves": [
+            "Snubbull",
+            "Petilil",
+            "Yamper",
+            "Charcadet",
+            "Elekid",
+            "Volbeat",
+            "Marill",
+            "Farfetch'd",
+            "Ralts",
+            "Abra",
+            "Klawf",
+            "Cottonee",
+            "Magby",
+            "Illumise",
+            "Buizel",
+            "Murkrow"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Carvanha",
+                "Lotad"
+            ],
+            "good_rod": [
+                "Wailmer",
+                "Wishiwashi",
+                "Clobbopus"
+            ],
+            "super_rod": [
+                "Luvdisc",
+                "Sharpedo",
+                "Octillery"
+            ],
+            "surfing": [
+                "Golduck"
+            ]
+        }
+    },
+    "route_25": {
+        "grass_caves": [
+            "Swablu",
+            "Taillow",
+            "Pineco",
+            "Tadbulb",
+            "Karrablast",
+            "Doduo",
+            "Aipom",
+            "Whismur",
+            "Squawkabilly-G",
+            "Audino",
+            "Zangoose",
+            "Venonat",
+            "Purrloin",
+            "Squawkabilly-W",
+            "Seviper"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp",
+                "Chinchou"
+            ],
+            "good_rod": [
+                "Dewpider",
+                "Mantyke",
+                "Goldeen"
+            ],
+            "super_rod": [
+                "Poliwag",
+                "Poliwhirl",
+                "Gyarados",
+                "Psyduck"
+            ],
+            "surfing": [
+                "Psyduck"
+            ]
+        }
+    },
+    "route_5": {
+        "grass_caves": [
+            "Meowth",
+            "Hatenna",
+            "Solosis",
+            "Growlithe",
+            "Swirlix",
+            "Morelull",
+            "Vulpix",
+            "Grimer",
+            "Drifloon",
+            "Meowth-Galar",
+            "Gothita",
+            "Vulpix-Alola",
+            "Spritzee",
+            "Growlithe-Hisui",
+            "Grimer-Alola"
+        ]
+    },
+    "route_6": {
+        "grass_caves": [
+            "Sunkern",
+            "Cherubi",
+            "Gulpin",
+            "Furfrou",
+            "Sizzlipede",
+            "Dedenne",
+            "Lickitung",
+            "Flittle",
+            "Togepi",
+            "Bounsweet",
+            "Gossifleur",
+            "Trubbish",
+            "Komala",
+            "Meditite"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Chinchou",
+                "Shellder"
+            ],
+            "good_rod": [
+                "Slowpoke-Galar",
+                "Skrelp",
+                "Basculin"
+            ],
+            "super_rod": [
+                "Slowbro-Galar",
+                "Lanturn",
+                "Gyarados",
+                "Psyduck",
+                "Golduck"
+            ],
+            "surfing": [
+                "Psyduck"
+            ]
+        }
+    },
+    "route_11": {
+        "grass_caves": [
+            "Stufful",
+            "Ducklett",
+            "Drowzee",
+            "Baltoy",
+            "Maractus",
+            "Bunnelby",
+            "Crabrawler",
+            "Flamigo",
+            "Sigilyph",
+            "Pancham",
+            "Cacnea",
+            "Scraggy",
+            "Bombirdier"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Krabby",
+                "Horsea"
+            ],
+            "good_rod": [
+                "Bruxish",
+                "Frillish",
+                "Relicanth"
+            ],
+            "super_rod": [
+                "Luvdisc",
+                "Alomomola",
+                "Seadra",
+                "Gyarados"
+            ],
+            "surfing": [
+                "Tentacool"
+            ]
+        }
+    },
+    "diglett_cave_b1f": {
+        "grass_caves": [
+            "Diglett",
+            "Stunfisk",
+            "Silicobra",
+            "Golett",
+            "Sandile",
+            "Drilbur",
+            "Gligar",
+            "Dugtrio",
+            "Hippopotas",
+            "Diglett-Alola",
+            "Stunfisk-Galar",
+            "Shellos",
+            "Sandygast",
+            "Dugtrio-Alola"
+        ]
+    },
+    "route_9": {
+        "grass_caves": [
+            "Shelmet",
+            "Exeggcute",
+            "Darumaka",
+            "Dewpider",
+            "Indeedee",
+            "Rufflet",
+            "Mime Jr.",
+            "Tropius",
+            "Skorupi",
+            "Salandit",
+            "Indeedee-F",
+            "Espurr"
+        ]
+    },
+    "route_10": {
+        "grass_caves": [
+            "Voltorb",
+            "Helioptile",
+            "Blitzle",
+            "Pincurchin",
+            "Plusle",
+            "Skitty",
+            "Tadbulb",
+            "Magnemite",
+            "Sneasel-Hisui",
+            "Voltorb-Hisui",
+            "Electrike",
+            "Minun",
+            "Emolga",
+            "Croagunk"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Wooper",
+                "Tynamo"
+            ],
+            "good_rod": [
+                "Barboach",
+                "Shellos-East",
+                "Corsola-Galar"
+            ],
+            "super_rod": [
+                "Whiscash",
+                "Basculin-Blue",
+                "Seadra"
+            ],
+            "surfing": [
+                "Tentacool",
+                "Wingull"
+            ]
+        }
+    },
+    "rock_tunnel_1f": {
+        "grass_caves": [
+            "Graveler",
+            "Aron",
+            "Shuckle",
+            "Solrock",
+            "Carkol",
+            "Carbink",
+            "Minior",
+            "Ferroseed",
+            "Stonjourner",
+            "Heatmor",
+            "Durant",
+            "Graveler-Alola",
+            "Dwebble",
+            "Lunatone",
+            "Onix"
+        ]
+    },
+    "rock_tunnel_b1f": {
+        "grass_caves": [
+            "Sandslash",
+            "Boldore",
+            "Swinub",
+            "Snorunt",
+            "Bronzor",
+            "Bonsly",
+            "Cetoddle",
+            "Cubchoo",
+            "Glimmet",
+            "Bergmite",
+            "Rhyhorn",
+            "Cubone",
+            "Nosepass",
+            "Cryogonal",
+            "Sneasel"
+        ]
+    },
+    "route_7": {
+        "grass_caves": [
+            "Deerling",
+            "Inkay",
+            "Rufflet",
+            "Cutiefly",
+            "Applin",
+            "Passimian",
+            "Mienfoo",
+            "Porygon",
+            "Deerling-Winter",
+            "Vullaby",
+            "Oranguru"
+        ]
+    },
+    "route_8": {
+        "grass_caves": [
+            "Fomantis",
+            "Minccino",
+            "Vanillite",
+            "Bouffalant",
+            "Venipede",
+            "Comfey",
+            "Girafarig",
+            "Miltank",
+            "Foongus",
+            "Absol",
+            "Morgrem",
+            "Stantler",
+            "Drampa"
+        ]
+    },
+    "pkmn_tower_3_5f": {
+        "grass_caves": [
+            "Haunter",
+            "Cofagrigus",
+            "Dusclops",
+            "Mismagius",
+            "Cubone",
+            "Spiritomb",
+            "Sableye",
+            "Polteageist",
+            "Lampent",
+            "Runerigus"
+        ]
+    },
+    "pkmn_tower_4f": {
+        "grass_caves": [
+            "Haunter",
+            "Cofagrigus",
+            "Dusclops",
+            "Mismagius",
+            "Cubone",
+            "Spiritomb",
+            "Sableye",
+            "Houndstone",
+            "Lampent",
+            "Runerigus"
+        ]
+    },
+    "pkmn_tower_6f": {
+        "grass_caves": [
+            "Haunter",
+            "Cofagrigus",
+            "Dusclops",
+            "Annihilape",
+            "Cubone",
+            "Spiritomb",
+            "Sableye",
+            "Polteageist",
+            "Lampent",
+            "Runerigus"
+        ]
+    },
+    "pkmn_tower_7f": {
+        "grass_caves": [
+            "Haunter",
+            "Cofagrigus",
+            "Dusclops",
+            "Mismagius",
+            "Cubone",
+            "Spiritomb",
+            "Sableye",
+            "Polteageist",
+            "Rotom",
+            "Runerigus"
+        ]
+    },
+    "route_16": {
+        "grass_caves": [
+            "Heracross",
+            "Yanma",
+            "Rhyhorn",
+            "Skorupi",
+            "Cufant",
+            "Durant",
+            "Togedemaru",
+            "Skarmory",
+            "Orthworm",
+            "Escavalier",
+            "Scyther",
+            "Forretress",
+            "Falinks"
+        ],
+        "static": [
+            "Snorlax"
+        ]
+    },
+    "route_17": {
+        "grass_caves": [
+            "Weezing",
+            "Cyclizar",
+            "Muk",
+            "Zebstrika",
+            "Grumpig",
+            "Torkoal",
+            "Skarmory",
+            "Drampa",
+            "Dracozolt",
+            "Weezing-Galar",
+            "Muk-Alola",
+            "Turtonator"
+        ]
+    },
+    "route_18": {
+        "grass_caves": [
+            "Xatu",
+            "Vikavolt",
+            "Poliwrath",
+            "Abomasnow",
+            "Altaria",
+            "Parasect",
+            "Toxicroak",
+            "Kabutops",
+            "Arctovish",
+            "Dracovish",
+            "Politoed",
+            "Jynx",
+            "Heliolisk",
+            "Omastar"
+        ]
+    },
+    "route_12": {
+        "grass_caves": [
+            "Sneasel",
+            "Dewgong",
+            "Walrein",
+            "Glalie",
+            "Throh",
+            "Cetitan",
+            "Avalugg",
+            "Mr. Mime-Galar",
+            "Arctovish",
+            "Arctozolt",
+            "Froslass",
+            "Sawk",
+            "Avalugg-Hisui"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Spheal",
+                "Seel"
+            ],
+            "good_rod": [
+                "Shellder",
+                "Sealeo",
+                "Veluza"
+            ],
+            "super_rod": [
+                "Dondozo",
+                "Dewgong",
+                "Bruxish",
+                "Drednaw"
+            ],
+            "surfing": [
+                "Tentacool",
+                "Tentacruel",
+                "Finneon"
+            ]
+        },
+        "static": [
+            "Snorlax"
+        ]
+    },
+    "route_13": {
+        "grass_caves": [
+            "Tangrowth",
+            "Exeggutor",
+            "Roselia",
+            "Lurantis",
+            "Simisage",
+            "Jumpluff",
+            "Bulbasaur",
+            "Exeggutor-Alola",
+            "Duraludon",
+            "Charmander",
+            "Talonflame",
+            "Pyroar",
+            "Arcanine",
+            "Magmar",
+            "Simisear",
+            "Oricorio",
+            "Turtonator",
+            "Centiskorch"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Skrelp",
+                "Tatsugiri"
+            ],
+            "good_rod": [
+                "Qwilfish-Hisui",
+                "Dewpider",
+                "Skrelp"
+            ],
+            "super_rod": [
+                "Dragalge",
+                "Veluza",
+                "Toxapex",
+                "Mantine"
+            ],
+            "surfing": [
+                "Tentacool",
+                "Buizel"
+            ]
+        }
+    },
+    "route_14": {
+        "grass_caves": [
+            "Pelipper",
+            "Swadloon",
+            "Torkoal",
+            "Whirlipede",
+            "Charjabug",
+            "Durant",
+            "Golisopod",
+            "Palossand"
+        ]
+    },
+    "route_15": {
+        "grass_caves": [
+            "Amoonguss",
+            "Ambipom",
+            "Tsareena",
+            "Galvantula",
+            "Simipour",
+            "Oricorio",
+            "Sigilyph",
+            "Ferrothorn",
+            "Ditto"
+        ]
+    },
+    "route_23": {
+        "grass_caves": [
+            "Primeape",
+            "Fearow",
+            "Simisage",
+            "Simisear",
+            "Simipour",
+            "Seviper",
+            "Golbat",
+            "Staraptor"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp"
+            ],
+            "good_rod": [
+                "Poliwag",
+                "Goldeen",
+                "Magikarp"
+            ],
+            "super_rod": [
+                "Poliwag",
+                "Psyduck",
+                "Poliwhirl",
+                "Gyarados"
+            ],
+            "surfing": [
+                "Psyduck"
+            ]
+        }
+    },
+    "seafoam_1f": {
+        "grass_caves": [
+            "Piloswine",
+            "Snorunt",
+            "Beartic",
+            "Slowbro",
+            "Golbat",
+            "Avalugg",
+            "Jynx",
+            "Sandslash-Alola",
+            "Walrein"
+        ]
+    },
+    "seafoam_b1f": {
+        "grass_caves": [
+            "Piloswine",
+            "Darmanitan-Galar",
+            "Vanilluxe",
+            "Slowking",
+            "Golbat",
+            "Cryogonal",
+            "Delibird",
+            "Sandslash-Alola",
+            "Golduck"
+        ]
+    },
+    "seafoam_b2f": {
+        "grass_caves": [
+            "Abomasnow",
+            "Snover",
+            "Ninetales-Alola",
+            "Crawdaunt",
+            "Golbat",
+            "Sneasel",
+            "Delibird",
+            "Snorunt",
+            "Kingler"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp",
+                "Goldeen"
+            ],
+            "good_rod": [
+                "Spheal",
+                "Mareanie",
+                "Krabby"
+            ],
+            "super_rod": [
+                "Seadra",
+                "Gyarados",
+                "Crawdaunt"
+            ],
+            "surfing": [
+                "Dewgong",
+                "Walrein",
+                "Crawdaunt"
+            ]
+        }
+    },
+    "seafoam_b3f": {
+        "grass_caves": [
+            "Piloswine",
+            "Darmanitan-Galar",
+            "Ninetales-Alola",
+            "Dewgong",
+            "Golbat",
+            "Frosmoth",
+            "Jynx",
+            "Sandslash-Alola",
+            "Golduck"
+        ]
+    },
+    "seafoam_b4f": {
+        "grass_caves": [
+            "Piloswine",
+            "Abomasnow",
+            "Ninetales-Alola",
+            "Dewgong",
+            "Crawdaunt",
+            "Golbat",
+            "Jynx"
+        ]
+    },
+    "mansion_1f": {
+        "grass_caves": [
+            "Raticate",
+            "Audino",
+            "Muk",
+            "Weezing",
+            "Liepard",
+            "Arcanine",
+            "Sableye",
+            "Chimecho",
+            "Raticate-Alola",
+            "Muk-Alola",
+            "Weezing-Galar",
+            "Ninetales"
+        ]
+    },
+    "mansion_2f": {
+        "grass_caves": [
+            "Gumshoos",
+            "Garbodor",
+            "Weezing",
+            "Swalot",
+            "Heatmor",
+            "Salazzle",
+            "Houndoom",
+            "Banette",
+            "Chimecho",
+            "Obstagoon",
+            "Weezing-Galar",
+            "Ninetales"
+        ]
+    },
+    "mansion_3f": {
+        "grass_caves": [
+            "Bewear",
+            "Seviper",
+            "Ariados",
+            "Rapidash",
+            "Skuntank",
+            "Armarouge",
+            "Krookodile",
+            "Chimecho",
+            "Komala",
+            "Rapidash-Galar",
+            "Ceruledge"
+        ]
+    },
+    "mansion_b1f": {
+        "grass_caves": [
+            "Raticate",
+            "Garbodor",
+            "Ariados",
+            "Magmar",
+            "Mightyena",
+            "Arcanine",
+            "Banette",
+            "Chimecho",
+            "Raticate-Alola",
+            "Ninetales"
+        ]
+    },
+    "power_plant": {
+        "grass_caves": [
+            "Magneton",
+            "Electrode",
+            "Zebstrika",
+            "Eelektross",
+            "Ampharos",
+            "Dedenne",
+            "Electabuzz",
+            "Manectric",
+            "Vikavolt",
+            "Togedemaru"
+        ]
+    },
+    "cerulean_cave_1f": {
+        "grass_caves": [
+            "Parasect",
+            "Golbat",
+            "Machamp",
+            "Magneton",
+            "Seismitoad",
+            "Duraludon",
+            "Type: Null",
+            "Conkeldurr"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp",
+                "Staryu"
+            ],
+            "good_rod": [
+                "Carvanha",
+                "Pyukumuku",
+                "Krabby"
+            ],
+            "super_rod": [
+                "Seismitoad",
+                "Poliwhirl",
+                "Crawdaunt"
+            ],
+            "surfing": [
+                "Seismitoad",
+                "Golduck",
+                "Crawdaunt",
+                "Kingler"
+            ]
+        }
+    },
+    "cerulean_cave_2f": {
+        "grass_caves": [
+            "Brute Bonnet",
+            "Great Tusk",
+            "Primeape",
+            "Audino",
+            "Alakazam",
+            "Duraludon",
+            "Type: Null",
+            "Iron Treads",
+            "Pangoro",
+            "Reuniclus"
+        ]
+    },
+    "cerulean_cave_b1f": {
+        "grass_caves": [
+            "Iron Treads",
+            "Noivern",
+            "Medicham",
+            "Lopunny",
+            "Gardevoir",
+            "Excadrill",
+            "Type: Null",
+            "Toxicroak"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Feebas",
+                "Mareanie"
+            ],
+            "good_rod": [
+                "Corphish",
+                "Krabby",
+                "Mareanie"
+            ],
+            "super_rod": [
+                "Poliwrath",
+                "Crawdaunt",
+                "Sharpedo",
+                "Gyarados"
+            ],
+            "surfing": [
+                "Sharpedo",
+                "Slowbro",
+                "Toxapex",
+                "Milotic"
+            ]
+        }
+    },
+    "mansion_4f": {
+        "grass_caves": [
+            "Unown",
+            "Meganium",
+            "Quaquaval",
+            "Empoleon",
+            "Mismagius",
+            "Meowscarada",
+            "Froslass"
+        ]
+    },
+    "gougings_room": {
+        "grass_caves": [
+            "Unown",
+            "Cinderace",
+            "Typhlosion",
+            "Blaziken",
+            "Morpeko",
+            "Infernape"
+        ]
+    },
+    "victory_road_1f": {
+        "grass_caves": [
+            "Iron Valiant",
+            "Metagross",
+            "Goodra",
+            "Steelix",
+            "Audino",
+            "Salamence",
+            "Volcarona",
+            "Aegislash",
+            "Marowak",
+            "Flutter Mane",
+            "Goodra-Hisui",
+            "Marowak-Alola"
+        ]
+    },
+    "victory_road_2f": {
+        "grass_caves": [
+            "Baxcalibur",
+            "Garchomp",
+            "Tyranitar",
+            "Machamp",
+            "Medicham",
+            "Lucario",
+            "Kommo-o"
+        ]
+    },
+    "victory_road_3f": {
+        "grass_caves": [
+            "Dragonite",
+            "Iron Bundle",
+            "Dragapult",
+            "Mawile",
+            "Toxtricity",
+            "Scizor",
+            "Aerodactyl",
+            "Roaring Moon"
+        ]
+    },
+    "kindle_road": {
+        "grass_caves": [
+            "Absol",
+            "Smeargle",
+            "Alcremie-Strbrry",
+            "Centiskorch",
+            "Gardevoir",
+            "Seviper",
+            "Centiskorch-Sevii",
+            "Grimmsnarl",
+            "Eelektross"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Feebas",
+                "Remoraid"
+            ],
+            "good_rod": [
+                "Corsola-Galar",
+                "Qwilfish"
+            ],
+            "super_rod": [
+                "Luvdisc",
+                "Gorebyss",
+                "Huntail"
+            ],
+            "surfing": [
+                "Mantyke-Sevii",
+                "Pyukumuku",
+                "Cramorant",
+                "Mantine-Sevii"
+            ]
+        }
+    },
+    "mt_ember_exterior": {
+        "grass_caves": [
+            "Doduo-Sevii",
+            "Coalossal",
+            "Darmanitan",
+            "Pyroar",
+            "Dodrio-Sevii",
+            "Arcanine",
+            "Volcarona",
+            "Houndoom",
+            "Arcanine-Hisui"
+        ]
+    },
+    "mt_ember_1f": {
+        "grass_caves": [
+            "Torkoal",
+            "Magcargo",
+            "Ninetales",
+            "Pyroar",
+            "Darmanitan",
+            "Arcanine-Hisui"
+        ]
+    },
+    "treasure_beach": {
+        "grass_caves": [
+            "Sirfetch'd",
+            "Lilligant",
+            "Flygon",
+            "Klefki",
+            "Kingler",
+            "Meltan",
+            "Lilligant-Hisui",
+            "Sandaconda",
+            "Crawdaunt"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Feebas",
+                "Remoraid"
+            ],
+            "good_rod": [
+                "Corsola-Galar",
+                "Mantyke-Sevii"
+            ],
+            "super_rod": [
+                "Basculin",
+                "Golisopod",
+                "Araquanid"
+            ],
+            "surfing": [
+                "Mantyke-Sevii",
+                "Basculegion",
+                "Basculegion-F",
+                "Mantine-Sevii"
+            ]
+        }
+    },
+    "rock_tunnel_secret": {
+        "grass_caves": [
+            "Ursaluna",
+            "Noibat-Sevii",
+            "Copperajah",
+            "Stunfisk-Galar",
+            "Arcanine-Hisui",
+            "Great Tusk",
+            "Meltan",
+            "Aggron",
+            "Stunfisk",
+            "Iron Treads"
+        ]
+    },
+    "cape_brink": {
+        "grass_caves": [
+            "Electrode-Hisui",
+            "Blitzle-Sevii",
+            "Lilligant-Hisui",
+            "Slowbro-Galar",
+            "Morpeko",
+            "Grapploct",
+            "Scyther",
+            "Shiftry",
+            "Slowbro"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Feebas",
+                "Remoraid"
+            ],
+            "good_rod": [
+                "Corsola-Galar",
+                "Barraskewda"
+            ],
+            "super_rod": [
+                "Luvdisc",
+                "Wishiwashi",
+                "Kingler"
+            ],
+            "surfing": [
+                "Araquanid",
+                "Slowbro",
+                "Cramorant",
+                "Barbaracle"
+            ]
+        }
+    },
+    "bond_bridge": {
+        "grass_caves": [
+            "Decidueye-Hisui",
+            "Sneasel-Hisui",
+            "Hatterene",
+            "Crustle",
+            "Braviary-Hisui",
+            "Gliscor",
+            "Hawlucha"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Feebas",
+                "Remoraid"
+            ],
+            "good_rod": [
+                "Clawitzer",
+                "Sharpedo"
+            ],
+            "super_rod": [
+                "Alomomola",
+                "Dhelmise-Sevii"
+            ],
+            "surfing": [
+                "Palafin",
+                "Slowking",
+                "Mantine-Sevii",
+                "Milotic-Sevii"
+            ]
+        }
+    },
+    "berry_forest": {
+        "grass_caves": [
+            "Carnivine-Sevii",
+            "Nymble-Sevii",
+            "Decidueye-Hisui",
+            "Pinsir",
+            "Indeedee",
+            "Roserade",
+            "Durant",
+            "Indeedee-F",
+            "Tsareena"
+        ],
+        "fishing_surfing": {
+            "old_rod": [
+                "Staryu",
+                "Clauncher-Sevii"
+            ],
+            "good_rod": [
+                "Corsola-Galar",
+                "Feebas-Sevii"
+            ],
+            "super_rod": [
+                "Sharpedo",
+                "Luvdisc",
+                "Crawdaunt"
+            ],
+            "surfing": [
+                "Araquanid",
+                "Golisopod",
+                "Masquerain",
+                "Tentacruel"
+            ]
+        }
+    },
+    "pkmn_tower_8f": {
+        "grass_caves": [
+            "Teddiursa-Sevii",
+            "Zoroark-Hisui",
+            "Ursaluna-BM",
+            "Mimikyu",
+            "Flutter Mane",
+            "Polteageist",
+            "Sinistcha",
+            "Gengar"
+        ]
+    },
+    "pkmn_tower_9f": {
+        "grass_caves": [
+            "Wishiwashi-Sevii",
+            "Typhlosion-Hisui",
+            "Flutter Mane",
+            "Spiritomb",
+            "Dragapult",
+            "Cursola"
+        ]
+    },
+    "three_island": {
+        "grass_caves": [
+            "Dunsparce",
+            "Clauncher-Sevii",
+            "Goodra-Hisui",
+            "Samurott-Hisui",
+            "Sandaconda",
+            "Smeargle",
+            "Corviknight"
+        ]
+    },
+    "pallet_town": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Tentacool",
+                "Binacle"
+            ],
+            "good_rod": [
+                "Barboach",
+                "Carvanha",
+                "Qwilfish"
+            ],
+            "super_rod": [
+                "Luvdisc",
+                "Clamperl",
+                "Whiscash"
+            ],
+            "surfing": [
+                "Tentacool",
+                "Tentacruel"
+            ]
+        }
+    },
+    "cerulean_city": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Chewtle",
+                "Clauncher"
+            ],
+            "good_rod": [
+                "Wishiwashi",
+                "Tatsugiri",
+                "Remoraid"
+            ],
+            "super_rod": [
+                "Luvdisc",
+                "Sharpedo",
+                "Octillery"
+            ],
+            "surfing": [
+                "Golduck",
+                "Dondozo"
+            ]
+        }
+    },
+    "vermillion_city": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Arrokuda",
+                "Finneon"
+            ],
+            "good_rod": [
+                "Frillish",
+                "Staryu",
+                "Wimpod"
+            ],
+            "super_rod": [
+                "Luvdisc",
+                "Alomomola",
+                "Seadra",
+                "Gyarados"
+            ],
+            "surfing": [
+                "Tentacool",
+                "Pelipper",
+                "Cramorant"
+            ]
+        },
+        "fossil": [
+            "Lileep",
+            "Archen",
+            "Omanyte",
+            "Kabuto",
+            "Tirtouga",
+            "Cranidos",
+            "Tyrunt",
+            "Anorith",
+            "Shieldon",
+            "Amaura",
+            "Aerodactyl"
+        ]
+    },
+    "s_s_anne": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Wimpod",
+                "Finneon"
+            ],
+            "good_rod": [
+                "Veluza",
+                "Staryu",
+                "Krabby"
+            ],
+            "super_rod": [
+                "Luvdisc",
+                "Alomomola",
+                "Seadra",
+                "Gyarados"
+            ],
+            "surfing": [
+                "Tentacool",
+                "Tentacruel",
+                "Barraskewda"
+            ]
+        }
+    },
+    "celadon_city": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp",
+                "Arrokuda"
+            ],
+            "good_rod": [
+                "Poliwag",
+                "Slowpoke-Galar",
+                "Slowpoke"
+            ],
+            "super_rod": [
+                "Psyduck",
+                "Mareanie",
+                "Muk",
+                "Muk-Alola"
+            ],
+            "surfing": [
+                "Poliwhirl"
+            ]
+        },
+        "egg": [
+            "Bulbasaur",
+            "Chikorita",
+            "Treecko",
+            "Turtwig",
+            "Snivy",
+            "Chespin",
+            "Rowlet",
+            "Grookey",
+            "Sprigatito",
+            "Squirtle",
+            "Totodile",
+            "Mudkip",
+            "Piplup",
+            "Oshawott",
+            "Froakie",
+            "Popplio",
+            "Sobble",
+            "Quaxly",
+            "Charmander",
+            "Cyndaquil",
+            "Torchic",
+            "Chimchar",
+            "Tepig",
+            "Fennekin",
+            "Litten",
+            "Scorbunny",
+            "Fuecoco"
+        ],
+        "game_corner": [
+            "Pikachu",
+            "Pikachu-Popstar",
+            "Pikachu-Belle",
+            "Pikachu-Rockstar",
+            "Pikachu-Libre",
+            "Pikachu-PhD",
+            "Pikachu-Flying",
+            "Pikachu-Surfing",
+            "Dratini",
+            "Larvitar",
+            "Beldum",
+            "Bagon",
+            "Riolu",
+            "Rotom",
+            "Gible",
+            "Larvesta",
+            "Deino",
+            "Goomy",
+            "Jangmo-o",
+            "Toxel",
+            "Dreepy",
+            "Honedge",
+            "Frigibax"
+        ]
+    },
+    "fuchsia_city": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp"
+            ],
+            "good_rod": [
+                "Goldeen",
+                "Poliwag"
+            ],
+            "super_rod": [
+                "Goldeen",
+                "Seaking",
+                "Gyarados",
+                "Psyduck"
+            ],
+            "surfing": [
+                "Psyduck"
+            ]
+        }
+    },
+    "route_19": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Clamperl",
+                "Horsea"
+            ],
+            "good_rod": [
+                "Shellder",
+                "Slowpoke"
+            ],
+            "super_rod": [
+                "Seadra",
+                "Huntail",
+                "Gorebyss",
+                "Mantine"
+            ],
+            "surfing": [
+                "Lumineon",
+                "Jellicent",
+                "Basculin-Blue",
+                "Clawitzer"
+            ]
+        }
+    },
+    "route_20": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp",
+                "Chinchou"
+            ],
+            "good_rod": [
+                "Wailmer",
+                "Clauncher",
+                "Corsola-Galar"
+            ],
+            "super_rod": [
+                "Seadra",
+                "Basculin-Blue",
+                "Clawitzer",
+                "Bruxish"
+            ],
+            "surfing": [
+                "Tentacruel",
+                "Sharpedo",
+                "Wailord",
+                "Lanturn"
+            ]
+        }
+    },
+    "route_21b": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp",
+                "Shellder"
+            ],
+            "good_rod": [
+                "Krabby",
+                "Qwilfish",
+                "Corsola"
+            ],
+            "super_rod": [
+                "Octillery",
+                "Lumineon",
+                "Sharpedo",
+                "Relicanth"
+            ],
+            "surfing": [
+                "Tentacruel",
+                "Mantine",
+                "Jellicent"
+            ]
+        }
+    },
+    "seafoam_b3f_b4f": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp",
+                "Remoraid"
+            ],
+            "good_rod": [
+                "Spheal",
+                "Shellder",
+                "Carvanha"
+            ],
+            "super_rod": [
+                "Seadra",
+                "Gyarados",
+                "Grapploct"
+            ],
+            "surfing": [
+                "Golduck",
+                "Slowbro",
+                "Sharpedo"
+            ]
+        }
+    },
+    "cinnabar_island": {
+        "fishing_surfing": {
+            "old_rod": [
+                "Magikarp",
+                "Corsola"
+            ],
+            "good_rod": [
+                "Krabby",
+                "Qwilfish",
+                "Feebas"
+            ],
+            "super_rod": [
+                "Octillery",
+                "Lumineon",
+                "Sharpedo",
+                "Dhelmise"
+            ],
+            "surfing": [
+                "Tentacruel",
+                "Mantine",
+                "Cramorant"
+            ]
+        }
+    }
+}
