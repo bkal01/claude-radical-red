@@ -91,14 +91,42 @@ def test_mcp_server_exposes_public_battle_contract(tmp_path) -> None:
                 } <= tool_names
 
                 observe_result = extract_result(await client.call_tool("observe"))
-                team_result = extract_result(await client.call_tool("team"))
+                assert observe_result["ok"] is True
+                observation = observe_result["observation"]
+                assert observation["phase"] == "awaiting_team"
 
+                members = [
+                    {
+                        "slot": slot,
+                        "species_id": 94,
+                        "level": 57,
+                        "nature_id": 0,
+                        "ability_id": 26,
+                        "move_ids": [325, 95, 122, 180],
+                        "held_item_id": 0,
+                        "evs": {
+                            "HP": 0,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "SPE": 0,
+                            "SPA": 0,
+                            "SPDEF": 0,
+                        },
+                    }
+                    for slot in range(6)
+                ]
+                apply_team_result = extract_result(
+                    await client.call_tool("apply_team", {"team": {"members": members}})
+                )
+                assert apply_team_result["ok"] is True
+
+                observe_result = extract_result(await client.call_tool("observe"))
+                team_result = extract_result(await client.call_tool("team"))
                 assert observe_result["ok"] is True
                 observation = observe_result["observation"]
                 assert observation["phase"] == "no_battle"
                 assert observation["party"]
                 assert all(member["name"] and "moves" in member for member in observation["party"])
-
                 assert team_result["ok"] is True
                 team_members = team_result["team"]["members"]
                 assert team_members
