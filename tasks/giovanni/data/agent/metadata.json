@@ -8,7 +8,7 @@
     "Cut",
     "Flash"
   ],
-  "allowed_item_count": 25,
+  "allowed_item_count": 26,
   "egg_move_tutor_available": false,
   "excluded_species_categories": [
     "mega"

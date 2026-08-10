@@ -188,6 +188,16 @@ def main() -> None:
                 allowed_species_ids.add(evolution_id)
                 pending_species_ids.append(evolution_id)
 
+    has_drifloon_or_drifblim = any(
+        species[species_id]["name"] in {"Drifloon", "Drifblim"}
+        for species_id in allowed_species_ids
+    )
+    if has_drifloon_or_drifblim:
+        air_balloon_ids = item_ids_by_name["Air Balloon"]
+        if len(air_balloon_ids) != 1:
+            raise ValueError("items.json must contain exactly one Air Balloon")
+        item_counts.setdefault(air_balloon_ids[0], 1)
+
     agent_data_dir = task_dir / "data" / "agent"
     validation_data_dir = task_dir / "data" / "validation"
     agent_data_dir.mkdir(parents=True, exist_ok=True)

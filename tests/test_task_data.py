@@ -24,6 +24,8 @@ def test_giovanni_agent_data_matches_the_validator_allowlist(monkeypatch) -> Non
     assert species[92]["name"] == "Gastly"
     assert species[93]["name"] == "Haunter"
     assert species[94]["name"] == "Gengar"
+    assert species[478]["name"] == "Drifloon"
+    assert species[479]["name"] == "Drifblim"
     assert species[29]["name"] == "Nidoran♀"
     assert species[32]["name"] == "Nidoran♂"
     assert species[680]["name"] == "Rufflet"
@@ -58,6 +60,12 @@ def test_giovanni_agent_items_match_the_validator_allowlist(monkeypatch) -> None
     assert items_by_id[675]["name"] == "Wise Glasses"
     assert items_by_id[139]["count"] == 3
     assert items_by_id[142]["count"] == 1
+    assert items_by_id[703] == {
+        "id": 703,
+        "name": "Air Balloon",
+        "description": "An item to be held by a Pokémon. The holder floats in the air until hit. Once hit, this item will burst.",
+        "count": 1,
+    }
     assert 198 not in items_by_id
     assert 677 not in items_by_id
 
