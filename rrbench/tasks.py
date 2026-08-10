@@ -29,6 +29,7 @@ class TaskSpec:
     team_size: int = 6
     allowed_species_ids: frozenset[int] | None = None
     allowed_item_ids: frozenset[int] | None = None
+    allowed_item_counts: dict[int, int] | None = None
 
 
 def load_task(task_dir: str | Path) -> TaskSpec:
@@ -56,6 +57,7 @@ def load_task(task_dir: str | Path) -> TaskSpec:
             raise ValueError("allowed_species_ids.json does not match task.yaml")
         allowed_species_ids = frozenset(species_ids)
     allowed_item_ids = None
+    allowed_item_counts = None
     allowed_items_path = task_data_dir / "allowed_item_ids.json"
     if allowed_items_path.is_file():
         allowed_items_data = json.loads(allowed_items_path.read_text())
@@ -70,6 +72,20 @@ def load_task(task_dir: str | Path) -> TaskSpec:
         ).hexdigest():
             raise ValueError("allowed_item_ids.json does not match task.yaml")
         allowed_item_ids = frozenset(item_ids)
+        item_counts = allowed_items_data.get("item_counts")
+        if item_counts is not None:
+            expected_item_count_ids = {str(item_id) for item_id in item_ids}
+            if (
+                not isinstance(item_counts, dict)
+                or set(item_counts) != expected_item_count_ids
+                or any(type(count) is not int or count < 1 for count in item_counts.values())
+            ):
+                raise ValueError(
+                    "allowed_item_ids.json must contain positive integer item_counts for every item_id"
+                )
+            allowed_item_counts = {
+                int(item_id): count for item_id, count in item_counts.items()
+            }
     return TaskSpec(
         id=manifest["id"],
         rom_path=Path(__file__).resolve().parents[1] / "radicalred.gba",
@@ -82,4 +98,5 @@ def load_task(task_dir: str | Path) -> TaskSpec:
         team_size=manifest.get("team_size", 6),
         allowed_species_ids=allowed_species_ids,
         allowed_item_ids=allowed_item_ids,
+        allowed_item_counts=allowed_item_counts,
     )

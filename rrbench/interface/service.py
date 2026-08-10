@@ -415,6 +415,20 @@ class BattleService:
                 move_ids=tuple(move_ids) if move_ids is not None else None,
             )
 
+        if self.task.allowed_item_counts is not None:
+            held_item_counts = {}
+            for member in updated_members.values():
+                if member.held_item:
+                    held_item_counts[member.held_item] = (
+                        held_item_counts.get(member.held_item, 0) + 1
+                    )
+            for item_id, used_count in held_item_counts.items():
+                if used_count > self.task.allowed_item_counts[item_id]:
+                    return {
+                        "ok": False,
+                        "error": "held_item_id exceeds the available item count",
+                    }
+
         self.active_team_config = TeamConfig(
             members=[updated_members[slot] for slot in range(expected_team_size)]
         )

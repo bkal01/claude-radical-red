@@ -116,7 +116,7 @@ def main() -> None:
     item_ids_by_name = defaultdict(list)
     for item in items:
         item_ids_by_name[item["name"]].append(item["id"])
-    available_item_ids = set()
+    item_counts = defaultdict(int)
     for location in allowed_locations:
         item_data = route_item_map.get(location, {})
         if not isinstance(item_data, dict):
@@ -135,7 +135,7 @@ def main() -> None:
                         raise ValueError(
                             f"ambiguous or unknown item at {location}: {item_entry}"
                         )
-                    available_item_ids.add(matching_item_ids[0])
+                    item_counts[matching_item_ids[0]] += 1
                     continue
                 if (
                     not isinstance(item_entry, dict)
@@ -151,7 +151,7 @@ def main() -> None:
                     or items_by_id[item_id]["name"] != item_name
                 ):
                     raise ValueError(f"invalid item entry at {location}: {item_entry}")
-                available_item_ids.add(item_id)
+                item_counts[item_id] += 1
 
     rotom_is_directly_available = any(
         species[species_id] and species[species_id]["name"] == "Rotom"
@@ -188,12 +188,22 @@ def main() -> None:
                 allowed_species_ids.add(evolution_id)
                 pending_species_ids.append(evolution_id)
 
+    has_drifloon_or_drifblim = any(
+        species[species_id]["name"] in {"Drifloon", "Drifblim"}
+        for species_id in allowed_species_ids
+    )
+    if has_drifloon_or_drifblim:
+        air_balloon_ids = item_ids_by_name["Air Balloon"]
+        if len(air_balloon_ids) != 1:
+            raise ValueError("items.json must contain exactly one Air Balloon")
+        item_counts.setdefault(air_balloon_ids[0], 1)
+
     agent_data_dir = task_dir / "data" / "agent"
     validation_data_dir = task_dir / "data" / "validation"
     agent_data_dir.mkdir(parents=True, exist_ok=True)
     validation_data_dir.mkdir(parents=True, exist_ok=True)
     allowed_species_id_list = sorted(allowed_species_ids)
-    allowed_item_id_list = sorted(available_item_ids)
+    allowed_item_id_list = sorted(item_counts)
 
     agent_species = [
         entry if species_id in allowed_species_ids else None
@@ -212,7 +222,11 @@ def main() -> None:
         if "fuchsia_city" not in allowed_locations:
             agent_learnset["egg"] = []
         agent_learnsets.append(agent_learnset)
-    agent_items = [item for item in items if item["id"] in available_item_ids]
+    agent_items = [
+        {**item, "count": item_counts[item["id"]]}
+        for item in items
+        if item["id"] in item_counts
+    ]
     (agent_data_dir / "species.json").write_text(
         json.dumps(agent_species, indent=2, ensure_ascii=False) + "\n"
     )
@@ -261,6 +275,10 @@ def main() -> None:
                 "game_data_version": game_data_version,
                 "task_yaml_sha256": hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
                 "item_ids": allowed_item_id_list,
+                "item_counts": {
+                    str(item_id): item_counts[item_id]
+                    for item_id in allowed_item_id_list
+                },
             },
             indent=2,
         )

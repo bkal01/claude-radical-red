@@ -117,7 +117,8 @@ pre-evolutions; apply the same rules at every entry named by
 ### Item updates
 
 Each `held_item_id` must be `0` or match the `id` field of an entry in
-`items.json`. Use the matching entry to look up an item's name and description.
+`items.json`. No item may be assigned to more Pokemon than its `count` in that
+file. Use the matching entry to look up an item's name and description.
 An ID of `0` means the Pokemon has no held item.
 
 The argument must contain exactly one member entry for every current team slot
@@ -169,8 +170,8 @@ each item record instead includes its explicit `id`.
   move name.
 - `abilities.json[ability_id]` contains an ability name and description and
   can also be searched by name.
-- `items.json` contains an `id`, name, and description for each item available
-  to this task.
+- `items.json` contains an `id`, name, description, and available `count` for
+  each item available to this task.
 - `learnsets.json[species_id]` contains that species' learnable move IDs. Its
   `level_up` entries contain `move_id` and required `level`; `tm_hm`, `tutor`,
   `egg`, `pre_evolution`, and `event` contain move-ID arrays for their
