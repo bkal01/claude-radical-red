@@ -3,6 +3,7 @@ import pytest
 from rrbench.battle.addresses import (
     BATTLE_MONS_BASE,
     BATTLE_MON_SIZE,
+    BATTLE_MENU_READY,
     BATTLE_TYPE_FLAGS,
     BATTLE_WEATHER,
     MON_ABILITY,
@@ -205,6 +206,7 @@ def test_capture_turn_collects_messages_in_order_and_waits_for_menu(party_memory
     this tests whether we correctly capture all that text into MessageEvents
     """
     party_memory.load_u32(BATTLE_TYPE_FLAGS, 0xC)
+    party_memory.load_u8(BATTLE_MENU_READY, 1)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_SPECIES, 1)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 100)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_MAX_HP, 120)
@@ -250,17 +252,17 @@ def test_capture_turn_collects_messages_in_order_and_waits_for_menu(party_memory
 
     emulator.step_callback = advance_messages
 
-    events, ended, won = capture_turn(emulator, party, max_polls=5)
+    events, ended, won = capture_turn(emulator, party, max_polls=32)
 
     assert [event.text for event in events] == ["One!", "Two!"]
     assert (ended, won) == (False, False)
-    assert emulator.calls == [
+    assert emulator.calls[:4] == [
         ("press", KEY_B, 1),
         ("step", 4),
         ("press", KEY_B, 1),
         ("step", 4),
-        ("step", 30),
     ]
+    assert emulator.calls[4:] == [("step", 4)] * 29
 
 
 @pytest.mark.parametrize(

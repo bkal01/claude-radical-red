@@ -48,6 +48,10 @@ def fight(emu: Emulator, move_name: str, active_party: Party, active_slot: int) 
     move_slot = active_party.members[active_slot].moves.index(move_name)
     row, col  = divmod(move_slot, 2)   # 2-column move grid: slot 0→(0,0), 1→(0,1), 2→(1,0), 3→(1,1)
 
+    emu.press(KEY_UP)
+    emu.step(8)
+    emu.press(KEY_LEFT)
+    emu.step(8)
     emu.press(KEY_A)      # open Fight submenu
     emu.step(20)          # wait for submenu to fully open
     # cursor persists from prior turn; reset to top-left before navigating
@@ -92,6 +96,10 @@ def switch(emu: Emulator, pokemon_name: str, active_party: Party) -> None:
     # Radical Red caches a display order that diverges from EWRAM (see send() below).
     # Validate before any key press so an invalid target can't desync the menu.
     target = active_party.resolve_switch_target(pokemon_name)
+    emu.press(KEY_UP)
+    emu.step(8)
+    emu.press(KEY_LEFT)
+    emu.step(8)
     emu.press(KEY_DOWN)   # FIGHT → POKÉMON in the 2×2 battle menu
     emu.step(15)
     emu.press(KEY_A)      # open party screen

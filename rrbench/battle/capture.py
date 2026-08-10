@@ -5,6 +5,7 @@ from rrbench.emulator.memory import Party, SPECIES_NAME
 from rrbench.battle.addresses import (
     EWRAM_BASE, MSG_BUFFER, MENU_SENTINEL,
     BATTLE_TYPE_FLAGS, BATTLE_MONS_BASE, OPP_MON_BASE,
+    BATTLE_MENU_READY,
     MON_SPECIES, MON_CUR_HP, MON_MAX_HP,
     INTRO_A_PRESSES, INTRO_SETTLE_FRAMES,
 )
@@ -136,12 +137,20 @@ def capture_turn(
     """
     rec = TurnRecorder()
     faint_flushes = 0
+    menu_ready_frames = 0
     for _ in range(max_polls):
         is_menu = rec.poll(emu, active_party)
 
-        if is_menu and rec.started:
-            emu.step(30)   # let the menu become input-ready before the caller acts
-            return rec.events, False, False
+        if is_menu:
+            if emu.mem.u8[BATTLE_MENU_READY] == 1:
+                menu_ready_frames += step_frames
+                if menu_ready_frames >= 120:
+                    return rec.events, False, False
+            else:
+                menu_ready_frames = 0
+            emu.step(step_frames)
+            continue
+        menu_ready_frames = 0
 
         if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
             won = emu.mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] > 0

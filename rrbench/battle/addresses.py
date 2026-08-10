@@ -57,6 +57,8 @@ MON_MAX_HP      = 0x2C  # u16 — constant across turns (was 0x2A, which read ga
 # Address confirmed empirically by scripts/find_msg_buffer.py.
 MSG_BUFFER    = 0x0202298C
 MENU_SENTINEL = "What will"     # "What will <name> do?" — control returned to the player
+# u8: 1 only when the main FIGHT/BAG/POKéMON/RUN menu accepts input.
+BATTLE_MENU_READY = 0x02022DCF
 
 # --- Frame budgets -----------------------------------------------------------
 INTRO_A_PRESSES     = 30   # A presses after battle flag to advance trainer/send-out dialogue
