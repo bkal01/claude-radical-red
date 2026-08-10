@@ -644,12 +644,21 @@ def test_trial_validates_abilities_against_replacement_pokemon(
     assert party_memory.snapshot() == before_memory
 
 
-@pytest.mark.parametrize("held_item_id", [-1, 750, "711"])
-def test_trial_rejects_invalid_held_items_without_advancing_episode(
+@pytest.mark.parametrize(
+    ("held_item_id", "expected_error"),
+    [
+        (-1, "held_item_id must be a valid item ID"),
+        (750, "held_item_id must be a valid item ID"),
+        ("711", "held_item_id must be a valid item ID"),
+        (695, "held_item_id is not available for this task"),
+    ],
+)
+def test_trial_rejects_invalid_or_unavailable_held_items_without_advancing_episode(
     monkeypatch,
     party_memory,
     tmp_path,
     held_item_id,
+    expected_error,
 ) -> None:
     emulator = FakeEmulator(party_memory)
     task = TaskSpec(
@@ -658,6 +667,7 @@ def test_trial_rejects_invalid_held_items_without_advancing_episode(
         save_state_path=Path("test.ss0"),
         allowed_team_modifications=frozenset({TeamModification.ITEMS}),
         level_cap=100,
+        allowed_item_ids=frozenset({711}),
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
 
@@ -681,7 +691,7 @@ def test_trial_rejects_invalid_held_items_without_advancing_episode(
 
     result = trial.handle({"verb": "apply-team", "team": team_payload}, service)
 
-    assert result == {"ok": False, "error": "held_item_id must be a valid item ID"}
+    assert result == {"ok": False, "error": expected_error}
     assert trial.episodes == 1
     assert service.active_team_config is None
     assert party_memory.snapshot() == before_memory

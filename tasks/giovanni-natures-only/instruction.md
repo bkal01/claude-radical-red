@@ -105,7 +105,8 @@ shown above.
 
 ## Reference data
 
-The files in `/workspace/data` are JSON arrays indexed by game ID:
+The files in `/workspace/data` are JSON arrays; species, abilities, and moves
+are indexed by game ID.
 
 - `species.json[species_id]` contains a species name, form, source, types,
   base stats, and normal/hidden ability IDs. `source` is `official` or

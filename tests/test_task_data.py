@@ -40,6 +40,23 @@ def test_giovanni_agent_data_matches_the_validator_allowlist(monkeypatch) -> Non
     assert all(species[species_id] is None for species_id in mega_species_ids)
 
 
+def test_giovanni_agent_items_match_the_validator_allowlist(monkeypatch) -> None:
+    repository = Path(__file__).resolve().parents[1]
+    task_directory = repository / "tasks" / "giovanni"
+    monkeypatch.delenv("RRBENCH_TASK_DATA_DIR", raising=False)
+
+    task = load_task(task_directory)
+    items = json.loads((task_directory / "data" / "agent" / "items.json").read_text())
+
+    assert task.allowed_item_ids is not None
+    items_by_id = {item["id"]: item for item in items}
+    assert set(items_by_id) == task.allowed_item_ids
+    assert len(items_by_id) == len(items) == len(task.allowed_item_ids)
+    assert items_by_id[675]["name"] == "Wise Glasses"
+    assert 198 not in items_by_id
+    assert 677 not in items_by_id
+
+
 def test_giovanni_agent_tm_hm_moves_match_allowed_locations():
     repository = Path(__file__).resolve().parents[1]
     task_directory = repository / "tasks" / "giovanni"
