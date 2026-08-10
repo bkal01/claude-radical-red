@@ -49,10 +49,15 @@ def test_giovanni_agent_items_match_the_validator_allowlist(monkeypatch) -> None
     items = json.loads((task_directory / "data" / "agent" / "items.json").read_text())
 
     assert task.allowed_item_ids is not None
+    assert task.allowed_item_counts is not None
     items_by_id = {item["id"]: item for item in items}
     assert set(items_by_id) == task.allowed_item_ids
     assert len(items_by_id) == len(items) == len(task.allowed_item_ids)
+    assert all(set(item) == {"id", "name", "description", "count"} for item in items)
+    assert {item_id: item["count"] for item_id, item in items_by_id.items()} == task.allowed_item_counts
     assert items_by_id[675]["name"] == "Wise Glasses"
+    assert items_by_id[139]["count"] == 3
+    assert items_by_id[142]["count"] == 1
     assert 198 not in items_by_id
     assert 677 not in items_by_id
 

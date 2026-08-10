@@ -698,6 +698,51 @@ def test_trial_rejects_invalid_or_unavailable_held_items_without_advancing_episo
     assert service.team() == before_team
 
 
+def test_trial_rejects_held_items_above_the_available_count_without_advancing_episode(
+    monkeypatch, party_memory, tmp_path
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.ITEMS}),
+        level_cap=100,
+        allowed_item_ids=frozenset({711}),
+        allowed_item_counts={711: 1},
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    before_memory = party_memory.snapshot()
+    before_team = service.team()
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+    team_payload = {
+        "members": [
+            {"slot": 0, "species_id": 1, "level": 50, "held_item_id": 711},
+            {"slot": 1, "species_id": 944, "level": 50, "held_item_id": 711},
+        ]
+    }
+
+    result = trial.handle({"verb": "apply-team", "team": team_payload}, service)
+
+    assert result == {
+        "ok": False,
+        "error": "held_item_id exceeds the available item count",
+    }
+    assert trial.episodes == 1
+    assert service.active_team_config is None
+    assert party_memory.snapshot() == before_memory
+    assert service.team() == before_team
+
+
 def test_trial_rejects_moves_above_level_cap_without_advancing_episode(
     monkeypatch,
     party_memory,
