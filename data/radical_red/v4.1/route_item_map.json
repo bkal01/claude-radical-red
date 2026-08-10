@@ -1,0 +1,256 @@
+{
+  "berry_forest": {
+    "items": [
+      "Ground Gem"
+    ]
+  },
+  "celadon_city": {
+    "items": [
+      "Amulet Coin",
+      "BlackGlasses",
+      "Loaded Dice",
+      "Wide Lens",
+      "Red Card"
+    ],
+    "Surf": [
+      "Light Clay"
+    ]
+  },
+  "cerulean_cave_b1f": {
+    "items": [
+      "Boost Energy"
+    ]
+  },
+  "cerulean_city": {
+    "items": [
+      "Punch Glove"
+    ]
+  },
+  "cinnabar_island": {
+    "items": [
+      "Choice Band",
+      "Soul Dew",
+      "Choice Specs",
+      "Assault Vest"
+    ]
+  },
+  "fuchsia_city": {
+    "items": [
+      "Life Orb"
+    ]
+  },
+  "kindle_road": {
+    "items": [
+      "Bug Gem"
+    ]
+  },
+  "lavender_town": {
+    "items": [
+      "Soothe Bell",
+      "Shed Shell"
+    ]
+  },
+  "mansion_4f": {
+    "items": [
+      "Hearth. Mask"
+    ]
+  },
+  "mt_moon_1f": {
+    "items": [
+      "Muscle Band"
+    ]
+  },
+  "mt_moon_b2f": {
+    "items": [],
+    "Rock Smash": [
+      "Scope Lens"
+    ]
+  },
+  "pkmn_tower_3_5f": {
+    "items": [
+      "Cleanse Tag"
+    ]
+  },
+  "pkmn_tower_6f": {
+    "items": [
+      "Thick Club"
+    ]
+  },
+  "pkmn_tower_9f": {
+    "items": [
+      "Ghost Gem"
+    ]
+  },
+  "power_plant": {
+    "items": [
+      {
+        "name": "Electirizer",
+        "id": 620
+      },
+      "Corner. Mask",
+      "Eject Button"
+    ]
+  },
+  "rock_tunnel_1f": {
+    "items": [
+      "Safe Goggles"
+    ]
+  },
+  "rock_tunnel_secret": {
+    "items": [],
+    "Strength": [
+      "Steel Gem"
+    ]
+  },
+  "route_10": {
+    "items": [
+      "Cheri Berry",
+      "Persim Berry",
+      "Everstone"
+    ]
+  },
+  "route_11": {
+    "items": [
+      "Soft Sand",
+      "Normal Gem"
+    ]
+  },
+  "route_12": {
+    "items": [
+      "Leftovers"
+    ]
+  },
+  "route_13": {
+    "items": [
+      "Burnt Seed"
+    ]
+  },
+  "route_15": {
+    "items": [
+      "Power Herb",
+      "Toxic Orb",
+      "Flame Orb"
+    ]
+  },
+  "route_16": {
+    "items": [
+      "Leftovers"
+    ]
+  },
+  "route_2": {
+    "items": [
+      "Oran Berry"
+    ]
+  },
+  "route_20": {
+    "items": [
+      "Choice Scarf"
+    ]
+  },
+  "route_23": {
+    "items": [
+      "Aspear Berry",
+      "Leppa Berry",
+      "Lum Berry",
+      "Sitrus Berry"
+    ]
+  },
+  "route_24": {
+    "items": [
+      "Pecha Berry"
+    ]
+  },
+  "route_25": {
+    "items": [
+      "Oran Berry"
+    ]
+  },
+  "route_3": {
+    "items": [
+      "Oran Berry"
+    ]
+  },
+  "route_4": {
+    "items": [
+      "Persim Berry",
+      "Macho Brace"
+    ]
+  },
+  "route_6": {
+    "items": [
+      "Sitrus Berry"
+    ]
+  },
+  "route_8": {
+    "items": [
+      "Rawst Berry",
+      "Leppa Berry",
+      "Lum Berry"
+    ]
+  },
+  "route_9": {
+    "items": [
+      "Chesto Berry"
+    ]
+  },
+  "s_s_anne": {
+    "items": [
+      "Cheri Berry",
+      "Chesto Berry",
+      "Pecha Berry",
+      "Lucky Egg"
+    ]
+  },
+  "saffron_city": {
+    "items": [
+      {
+        "name": "Upgrade",
+        "id": 619
+      },
+      "Expert Belt",
+      "Focus Sash",
+      "Metronome",
+      "Protect Pads"
+    ]
+  },
+  "safari_zone": {
+    "items": [],
+    "Surf": [
+      {
+        "name": "Magmarizer",
+        "id": 626
+      }
+    ]
+  },
+  "seafoam_1f": {
+    "items": [
+      "Well. Mask"
+    ]
+  },
+  "seafoam_b3f": {
+    "items": [
+      "Blue Orb"
+    ]
+  },
+  "three_island": {
+    "items": [],
+    "Cut": [
+      "Grass Gem"
+    ]
+  },
+  "treasure_beach": {
+    "items": [
+      "Rock Gem"
+    ]
+  },
+  "victory_road_2f": {
+    "items": [
+      "HeavyDBoots"
+    ]
+  },
+  "viridian_city": {
+    "items": [
+      "Wise Glasses"
+    ]
+  }
+}
