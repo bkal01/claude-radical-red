@@ -116,9 +116,9 @@ pre-evolutions; apply the same rules at every entry named by
 
 ### Item updates
 
-Each `held_item_id` must be a valid item ID. Use `items.json[held_item_id]`
-to look up an item's name and description. An ID of `0` means the Pokemon has
-no held item.
+Each `held_item_id` must be `0` or match the `id` field of an entry in
+`items.json`. Use the matching entry to look up an item's name and description.
+An ID of `0` means the Pokemon has no held item.
 
 The argument must contain exactly one member entry for every current team slot
 and must have this complete shape:
@@ -157,10 +157,11 @@ shown above.
 
 ## Reference data
 
-The files in `/workspace/data` are JSON arrays indexed by game ID. `species.json`
-and `learnsets.json` contain entries only for the Pokemon available to this
-task; the other reference files contain the complete game data needed to build
-their legal teams.
+The files in `/workspace/data` are JSON arrays. `species.json`, `learnsets.json`,
+and `items.json` contain entries only for data available to this task;
+`moves.json` and `abilities.json` contain complete game data needed to build
+legal teams. Species, moves, abilities, and learnsets are indexed by game ID;
+each item record instead includes its explicit `id`.
 
 - `species.json[species_id]` contains a species name, form, source, types,
   base stats, and normal/hidden ability IDs.
@@ -168,8 +169,8 @@ their legal teams.
   move name.
 - `abilities.json[ability_id]` contains an ability name and description and
   can also be searched by name.
-- `items.json[held_item_id]` contains an item name and description and can
-  also be searched by name.
+- `items.json` contains an `id`, name, and description for each item available
+  to this task.
 - `learnsets.json[species_id]` contains that species' learnable move IDs. Its
   `level_up` entries contain `move_id` and required `level`; `tm_hm`, `tutor`,
   `egg`, `pre_evolution`, and `event` contain move-ID arrays for their

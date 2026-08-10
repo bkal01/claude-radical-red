@@ -28,6 +28,7 @@ class TaskSpec:
     level_cap: int
     team_size: int = 6
     allowed_species_ids: frozenset[int] | None = None
+    allowed_item_ids: frozenset[int] | None = None
 
 
 def load_task(task_dir: str | Path) -> TaskSpec:
@@ -54,6 +55,21 @@ def load_task(task_dir: str | Path) -> TaskSpec:
         ).hexdigest():
             raise ValueError("allowed_species_ids.json does not match task.yaml")
         allowed_species_ids = frozenset(species_ids)
+    allowed_item_ids = None
+    allowed_items_path = task_data_dir / "allowed_item_ids.json"
+    if allowed_items_path.is_file():
+        allowed_items_data = json.loads(allowed_items_path.read_text())
+        item_ids = allowed_items_data.get("item_ids")
+        if not isinstance(item_ids, list) or not all(
+            type(item_id) is int for item_id in item_ids
+        ):
+            raise ValueError("allowed_item_ids.json must contain integer item_ids")
+        task_yaml_sha256 = allowed_items_data.get("task_yaml_sha256")
+        if task_yaml_sha256 is not None and task_yaml_sha256 != hashlib.sha256(
+            manifest_text.encode()
+        ).hexdigest():
+            raise ValueError("allowed_item_ids.json does not match task.yaml")
+        allowed_item_ids = frozenset(item_ids)
     return TaskSpec(
         id=manifest["id"],
         rom_path=Path(__file__).resolve().parents[1] / "radicalred.gba",
@@ -65,4 +81,5 @@ def load_task(task_dir: str | Path) -> TaskSpec:
         level_cap=manifest["level_cap"],
         team_size=manifest.get("team_size", 6),
         allowed_species_ids=allowed_species_ids,
+        allowed_item_ids=allowed_item_ids,
     )

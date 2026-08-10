@@ -395,6 +395,15 @@ class BattleService:
                     or held_item != 0 and held_item not in items_by_id
                 ):
                     return {"ok": False, "error": "held_item_id must be a valid item ID"}
+                if (
+                    self.task.allowed_item_ids is not None
+                    and held_item != 0
+                    and held_item not in self.task.allowed_item_ids
+                ):
+                    return {
+                        "ok": False,
+                        "error": "held_item_id is not available for this task",
+                    }
 
             updated_members[slot] = PokemonConfig(
                 species_id=species_id,

@@ -45,9 +45,13 @@ def main() -> None:
     route_move_map = json.loads(
         (master_data_dir / "route_move_map.json").read_text()
     )
+    route_item_map = json.loads(
+        (master_data_dir / "route_item_map.json").read_text()
+    )
     species = json.loads((master_data_dir / "species.json").read_text())
     moves = json.loads((master_data_dir / "moves.json").read_text())
     learnsets = json.loads((master_data_dir / "learnsets.json").read_text())
+    items = json.loads((master_data_dir / "items.json").read_text())
     species_categories = json.loads(
         (master_data_dir / "species_categories.json").read_text()
     )
@@ -82,6 +86,12 @@ def main() -> None:
         move["name"]: move_id for move_id, move in enumerate(moves) if move
     }
     available_move_ids = {"tm_hm": set(), "tutor": set()}
+    available_hm_names = set()
+    known_hm_names = {
+        move_name
+        for location_data in route_move_map.values()
+        for move_name in location_data["hms"]
+    }
     for location in allowed_locations:
         for route_source, learnset_source in (
             ("tms", "tm_hm"),
@@ -97,6 +107,51 @@ def main() -> None:
                 available_move_ids[learnset_source].add(
                     move_ids_by_name[resolved_move_name]
                 )
+                if route_source == "hms":
+                    available_hm_names.add(resolved_move_name)
+
+    items_by_id = {item["id"]: item for item in items}
+    if len(items_by_id) != len(items):
+        raise ValueError("items.json must contain unique item IDs")
+    item_ids_by_name = defaultdict(list)
+    for item in items:
+        item_ids_by_name[item["name"]].append(item["id"])
+    available_item_ids = set()
+    for location in allowed_locations:
+        item_data = route_item_map.get(location, {})
+        if not isinstance(item_data, dict):
+            raise ValueError(f"invalid item data at {location}")
+        for requirement, item_entries in item_data.items():
+            if requirement != "items" and requirement not in known_hm_names:
+                raise ValueError(f"unknown item requirement at {location}: {requirement}")
+            if requirement != "items" and requirement not in available_hm_names:
+                continue
+            if not isinstance(item_entries, list):
+                raise ValueError(f"invalid item list at {location}: {requirement}")
+            for item_entry in item_entries:
+                if isinstance(item_entry, str):
+                    matching_item_ids = item_ids_by_name.get(item_entry, [])
+                    if len(matching_item_ids) != 1:
+                        raise ValueError(
+                            f"ambiguous or unknown item at {location}: {item_entry}"
+                        )
+                    available_item_ids.add(matching_item_ids[0])
+                    continue
+                if (
+                    not isinstance(item_entry, dict)
+                    or set(item_entry) != {"name", "id"}
+                ):
+                    raise ValueError(f"invalid item entry at {location}: {item_entry}")
+                item_id = item_entry["id"]
+                item_name = item_entry["name"]
+                if (
+                    type(item_id) is not int
+                    or not isinstance(item_name, str)
+                    or item_id not in items_by_id
+                    or items_by_id[item_id]["name"] != item_name
+                ):
+                    raise ValueError(f"invalid item entry at {location}: {item_entry}")
+                available_item_ids.add(item_id)
 
     rotom_is_directly_available = any(
         species[species_id] and species[species_id]["name"] == "Rotom"
@@ -138,6 +193,7 @@ def main() -> None:
     agent_data_dir.mkdir(parents=True, exist_ok=True)
     validation_data_dir.mkdir(parents=True, exist_ok=True)
     allowed_species_id_list = sorted(allowed_species_ids)
+    allowed_item_id_list = sorted(available_item_ids)
 
     agent_species = [
         entry if species_id in allowed_species_ids else None
@@ -156,13 +212,21 @@ def main() -> None:
         if "fuchsia_city" not in allowed_locations:
             agent_learnset["egg"] = []
         agent_learnsets.append(agent_learnset)
+    agent_items = [item for item in items if item["id"] in available_item_ids]
     (agent_data_dir / "species.json").write_text(
         json.dumps(agent_species, indent=2, ensure_ascii=False) + "\n"
     )
-    serialized_agent_learnsets = json.dumps(agent_learnsets, indent=2, ensure_ascii=False) + "\n"
+    serialized_agent_learnsets = (
+        json.dumps(agent_learnsets, indent=2, ensure_ascii=False) + "\n"
+    )
     (agent_data_dir / "learnsets.json").write_text(serialized_agent_learnsets)
-    for filename in ("abilities.json", "moves.json", "items.json"):
-        (agent_data_dir / filename).write_text((master_data_dir / filename).read_text())
+    (agent_data_dir / "items.json").write_text(
+        json.dumps(agent_items, indent=2, ensure_ascii=False) + "\n"
+    )
+    for filename in ("abilities.json", "moves.json"):
+        (agent_data_dir / filename).write_text(
+            (master_data_dir / filename).read_text()
+        )
     (agent_data_dir / "metadata.json").write_text(
         json.dumps(
             {
@@ -171,6 +235,8 @@ def main() -> None:
                 "allowed_species_count": len(allowed_species_id_list),
                 "available_tm_hm_move_count": len(available_move_ids["tm_hm"]),
                 "available_tutor_move_count": len(available_move_ids["tutor"]),
+                "available_hms": sorted(available_hm_names),
+                "allowed_item_count": len(allowed_item_id_list),
                 "egg_move_tutor_available": "fuchsia_city" in allowed_locations,
                 "excluded_species_categories": excluded_species_categories,
             },
@@ -189,10 +255,22 @@ def main() -> None:
         )
         + "\n"
     )
+    (validation_data_dir / "allowed_item_ids.json").write_text(
+        json.dumps(
+            {
+                "game_data_version": game_data_version,
+                "task_yaml_sha256": hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+                "item_ids": allowed_item_id_list,
+            },
+            indent=2,
+        )
+        + "\n"
+    )
 
     print(
         f"Built {len(allowed_species_id_list)} allowed species "
-        f"for {manifest['id']} from {len(direct_species_ids)} direct encounters"
+        f"and {len(allowed_item_id_list)} allowed items for {manifest['id']} "
+        f"from {len(direct_species_ids)} direct encounters"
     )
 
 
