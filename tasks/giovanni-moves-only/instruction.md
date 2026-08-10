@@ -109,7 +109,8 @@ current member in that slot. Every member must include `level` and `move_ids` ex
 
 ## Reference data
 
-The files in `/workspace/data` are JSON arrays indexed by game ID:
+The files in `/workspace/data` are JSON arrays; species, abilities, moves, and
+learnsets are indexed by game ID.
 
 - `species.json[species_id]` contains a species name, form, source, types,
   base stats, and normal/hidden ability IDs.

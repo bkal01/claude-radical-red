@@ -264,9 +264,10 @@ class BattleService:
         expected_team_size = self.task.team_size if initializing else len(current_team_config.members)
         if not isinstance(members, list) or len(members) != expected_team_size:
             return {"ok": False, "error": "team must contain every required team member"}
-        items = []
+        items_by_id = {}
         if TeamModification.ITEMS in modifications:
-            items = json.loads((data_dir / "items.json").read_text())
+            item_data = json.loads((data_dir / "items.json").read_text())
+            items_by_id = {item["id"]: item for item in item_data}
         learnsets = []
         if TeamModification.MOVES in modifications:
             learnsets = json.loads((data_dir / "learnsets.json").read_text())
@@ -391,8 +392,7 @@ class BattleService:
                 if (
                     type(held_item) is not int
                     or held_item < 0
-                    or held_item >= len(items)
-                    or held_item != 0 and items[held_item] is None
+                    or held_item != 0 and held_item not in items_by_id
                 ):
                     return {"ok": False, "error": "held_item_id must be a valid item ID"}
 

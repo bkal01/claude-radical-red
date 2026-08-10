@@ -24,7 +24,7 @@ def main() -> None:
     )
     arguments = parser.parse_args()
     rom = ROM.read_bytes()
-    items = [None]
+    items = []
     for item_id in range(1, ITEM_COUNT):
         entry_offset = ITEM_TABLE_OFFSET + item_id * ITEM_TABLE_ENTRY_SIZE
         description_address = struct.unpack_from(
@@ -78,6 +78,7 @@ def main() -> None:
             text.append(" ".join("".join(characters).split()))
         items.append(
             {
+                "id": item_id,
                 "name": text[0],
                 "description": DESCRIPTION_OVERRIDES.get(
                     item_id, text[1]

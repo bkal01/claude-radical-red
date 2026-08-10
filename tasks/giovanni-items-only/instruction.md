@@ -77,9 +77,9 @@ configuration or advance the episode.
 
 ### Item updates
 
-Each `held_item_id` must be a valid item ID. Use `items.json[held_item_id]`
-to look up an item's name and description. An ID of `0` means the Pokemon has
-no held item.
+Each `held_item_id` must be a valid item ID. Find the entry with the matching
+`id` in `items.json` to look up an item's name and description. An ID of `0`
+means the Pokemon has no held item.
 
 After setup, the argument must contain exactly one member entry for every current team slot
 and must have this complete shape:
@@ -104,10 +104,11 @@ that slot. Every member must include `level` and `held_item_id` exactly as shown
 
 ## Reference data
 
-The files in `/workspace/data` are JSON arrays indexed by game ID:
+The `/workspace/data/items.json` file is a JSON array of item records with
+explicit IDs:
 
-- `items.json[held_item_id]` contains an item name and description and can
-  also be searched by name.
+- `items.json` contains an ID, item name, and description and can also be
+  searched by name.
 
 The `team()` response includes held-item IDs. Use the file to look up details
 when planning the battle, but use the MCP tools for all game interaction.

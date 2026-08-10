@@ -21,3 +21,11 @@ def test_route_move_map_contains_obtainable_tms_and_hms():
     assert sum(len(entry["tutors"]) for entry in route_move_map.values()) == 56
     assert route_move_map["one_island"]["hms"] == ["Waterfall"]
     assert "one_island" in route_map
+
+
+def test_items_have_explicit_unique_ids():
+    data_dir = Path(__file__).resolve().parents[1] / "data" / "radical_red" / "v4.1"
+    items = json.loads((data_dir / "items.json").read_text())
+
+    assert all(set(item) == {"id", "name", "description"} for item in items)
+    assert [item["id"] for item in items] == list(range(1, 750))
