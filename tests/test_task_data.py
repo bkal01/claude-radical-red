@@ -1,4 +1,5 @@
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import yaml
@@ -40,6 +41,47 @@ def test_giovanni_agent_data_matches_the_validator_allowlist(monkeypatch) -> Non
         (repository / "data" / "radical_red" / "v4.1" / "species_categories.json").read_text()
     )["mega"]
     assert all(species[species_id] is None for species_id in mega_species_ids)
+
+
+def test_battle_service_ignores_unavailable_pre_evolution_learnsets(
+    monkeypatch, party_memory
+) -> None:
+    repository = Path(__file__).resolve().parents[1]
+    task_directory = repository / "tasks" / "giovanni"
+    task = replace(load_task(task_directory), team_size=2)
+    emulator = FakeEmulator(party_memory)
+    monkeypatch.setattr(service_module, "create_emulator", lambda current_task: emulator)
+    monkeypatch.setattr(service_module, "data_dir", task_directory / "data" / "agent")
+    service = BattleService(task)
+    members = [
+        {
+            "slot": slot,
+            "species_id": 1,
+            "level": 57,
+            "nature_id": 0,
+            "ability_id": 65,
+            "move_ids": [33, 45, 73, 345],
+            "held_item_id": 0,
+            "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
+        }
+        for slot in range(2)
+    ]
+    members[0] = {
+        "slot": 0,
+        "species_id": 184,
+        "level": 57,
+        "nature_id": 3,
+        "ability_id": 37,
+        "move_ids": [358, 463, 357, 276],
+        "held_item_id": 0,
+        "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0},
+    }
+
+    result = service.apply_team({"members": members})
+
+    assert result["ok"] is True
+    assert service.active_team_config is not None
+    assert service.active_team_config.members[0].species_id == 184
 
 
 def test_giovanni_agent_items_match_the_validator_allowlist(monkeypatch) -> None:

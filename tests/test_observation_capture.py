@@ -15,7 +15,7 @@ from rrbench.battle.addresses import (
     SIDE_STATUS_OPP,
     SIDE_STATUS_PLAYER,
 )
-from rrbench.battle.capture import TurnRecorder, capture_turn, decode_msg
+from rrbench.battle.capture import TurnRecorder, capture_intro, capture_turn, decode_msg
 from rrbench.battle.state import read_battle_state
 from rrbench.emulator.emulator import KEY_B
 from rrbench.emulator.memory import PARTY_BASE_ADDR, Party, SLOT_SIZE
@@ -263,6 +263,22 @@ def test_capture_turn_collects_messages_in_order_and_waits_for_menu(party_memory
         ("step", 4),
     ]
     assert emulator.calls[4:] == [("step", 4)] * 29
+
+
+def test_capture_intro_uses_b_to_advance_text(party_memory) -> None:
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 0xC)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_SPECIES, 1)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 100)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_MAX_HP, 120)
+    party_memory.load_bytes(MSG_BUFFER, bytes((0xC9, 0xE2, 0xD9, 0xAB, 0xFF)))
+    emulator = FakeEmulator(party_memory)
+
+    events = capture_intro(emulator, Party(party_memory))
+
+    assert [event.text for event in events] == ["One!"]
+    assert [call for call in emulator.calls if call[0] == "press"] == [
+        ("press", KEY_B, 3)
+    ] * 30
 
 
 @pytest.mark.parametrize(

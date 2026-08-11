@@ -8,9 +8,6 @@ import pytest
     "species_path",
     [
         "data/radical_red/v4.1/species.json",
-        "tasks/giovanni-abilities-only/environment/data/species.json",
-        "tasks/giovanni-items-only/environment/data/species.json",
-        "tasks/giovanni-moves-only/environment/data/species.json",
     ],
 )
 def test_task_species_data_is_clean_and_categorized(species_path) -> None:

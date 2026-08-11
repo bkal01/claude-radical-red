@@ -7,7 +7,7 @@ from rrbench.battle.addresses import (
     BATTLE_TYPE_FLAGS, BATTLE_MONS_BASE, OPP_MON_BASE,
     BATTLE_MENU_READY,
     MON_SPECIES, MON_CUR_HP, MON_MAX_HP,
-    INTRO_A_PRESSES, INTRO_SETTLE_FRAMES,
+    INTRO_TEXT_ADVANCE_PRESSES, INTRO_SETTLE_FRAMES,
 )
 
 @dataclass
@@ -182,8 +182,8 @@ def capture_intro(emu: Emulator, active_party: Party) -> list[MessageEvent]:
     settle sequence, polling for messages throughout. Returns the captured events.
     """
     rec = TurnRecorder()
-    for _ in range(INTRO_A_PRESSES):
-        emu.press(KEY_A, hold_frames=3)
+    for _ in range(INTRO_TEXT_ADVANCE_PRESSES):
+        emu.press(KEY_B, hold_frames=3)
         for _ in range(5):
             emu.step(8)
             rec.poll(emu, active_party)

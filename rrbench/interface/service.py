@@ -372,6 +372,8 @@ class BattleService:
                         continue
                     seen_species_ids.add(current_species_id)
                     learnset = learnsets[current_species_id]
+                    if learnset is None:
+                        continue
                     valid_move_ids.update(
                         entry["move_id"]
                         for entry in learnset["level_up"]

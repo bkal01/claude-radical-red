@@ -61,6 +61,6 @@ MENU_SENTINEL = "What will"     # "What will <name> do?" — control returned to
 BATTLE_MENU_READY = 0x02022DCF
 
 # --- Frame budgets -----------------------------------------------------------
-INTRO_A_PRESSES     = 30   # A presses after battle flag to advance trainer/send-out dialogue
+INTRO_TEXT_ADVANCE_PRESSES = 30   # B presses after battle flag to advance trainer/send-out dialogue
 INTRO_SETTLE_FRAMES = 500  # additional wait for auto-advancing messages (Intimidate, weather)
 TURN_WAIT_B_PRESSES = 30   # B presses per turn: advances text boxes; safe on battle menu
