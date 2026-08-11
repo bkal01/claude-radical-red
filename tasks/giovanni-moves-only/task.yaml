@@ -1,7 +1,0 @@
-# Battle against Giovanni with move optimization
-id: giovanni-moves-only
-save_state: save_state.ss0
-level_cap: 57
-team_size: 6
-allowed_team_modifications:
-  - moves
