@@ -101,6 +101,7 @@ ABILITY_NAME = {i: ability["name"] for i, ability in ABILITY_DATA.items()}
 # Species ID → {name, types}, generated from the ROM by scripts/extract_species.py.
 species = json.loads((data_dir / "species.json").read_text())
 SPECIES_NAME = {i: entry["name"] for i, entry in enumerate(species) if entry}
+SPECIES_FORM = {i: entry["form"] for i, entry in enumerate(species) if entry}
 SPECIES_TYPES = {i: entry["types"] for i, entry in enumerate(species) if entry}
 SPECIES_ABILITIES = {i: entry["abilities"] for i, entry in enumerate(species) if entry}
 SPECIES_GROWTH_RATE = {i: entry["growth_rate"] for i, entry in enumerate(species) if entry}
@@ -112,6 +113,7 @@ SPECIES_MINIMUM_LEVEL = {
 @dataclass
 class PartyPokemon:
     name: str
+    form: str | None
     species_id: int                     # raw national dex number; needed for ROM table lookups
     held_item: int
     ability_id: int
@@ -158,6 +160,7 @@ def read_slot(mem, slot: int) -> PartyPokemon:
     )
     return PartyPokemon(
         name=SPECIES_NAME.get(species_id, f"species_{species_id}"),
+        form=SPECIES_FORM.get(species_id),
         species_id=species_id,
         held_item=(g0 >> 16) & 0xFFFF,
         ability_id=ability_id,

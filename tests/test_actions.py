@@ -116,10 +116,11 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
         "observation": {
             "phase": "in_battle",
             "needs_replacement": False,
-            "active": {"name": "Incineroar", "slot": 0},
+            "active": {"name": "Incineroar", "form": None, "slot": 0},
             "party": [
                 {
                     "name": "Incineroar",
+                    "form": None,
                     "current_hp": 88,
                     "max_hp": 150,
                     "status": None,
@@ -132,6 +133,7 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
                 },
                 {
                     "name": "Bulbasaur",
+                    "form": None,
                     "current_hp": 100,
                     "max_hp": 120,
                     "status": "poison",
@@ -145,6 +147,7 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
             ],
             "opponent": {
                 "species": "Ivysaur",
+                "form": None,
                 "species_id": 2,
                 "ability": "Chlorophyll",
                 "current_hp": 71,
@@ -239,7 +242,11 @@ def test_fight_accepts_move_known_by_active_pokemon(monkeypatch, live_battle_ser
     assert result["ok"] is True
     assert result["messages"] == ["Pound landed!"]
     assert result["observation"]["phase"] == "in_battle"
-    assert result["observation"]["active"] == {"name": "Bulbasaur", "slot": 0}
+    assert result["observation"]["active"] == {
+        "name": "Bulbasaur",
+        "form": None,
+        "slot": 0,
+    }
     assert result["observation"]["party"][0]["moves"] == [
         {"name": "Pound", "pp_remaining": 10},
         {"name": "Growl", "pp_remaining": 12},

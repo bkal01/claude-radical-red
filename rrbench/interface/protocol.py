@@ -1,6 +1,12 @@
 from rrbench.battle.capture import MessageEvent
 from rrbench.battle.state import BattleState, SideHazards
-from rrbench.emulator.memory import ABILITY_NAME, MOVE_NAME, SPECIES_NAME, SPECIES_TYPES
+from rrbench.emulator.memory import (
+    ABILITY_NAME,
+    MOVE_NAME,
+    SPECIES_FORM,
+    SPECIES_NAME,
+    SPECIES_TYPES,
+)
 from rrbench.team import NATURE_NAMES, TeamConfig
 
 STAT_LABELS = ("ATK", "DEF", "SPE", "SPA", "SPD", "ACC", "EVA")
@@ -30,6 +36,7 @@ def render_weather(state: BattleState) -> dict:
 def render_pokemon(p, active: bool) -> dict:
     return {
         "name": p.name,
+        "form": p.form,
         "current_hp": p.current_hp,
         "max_hp": p.max_hp,
         "status": p.status,
@@ -58,6 +65,7 @@ def render_team(config: TeamConfig) -> dict:
                 "slot": slot,
                 "species_id": member.species_id,
                 "name": SPECIES_NAME.get(member.species_id, f"species_{member.species_id}"),
+                "form": SPECIES_FORM.get(member.species_id),
                 "types": SPECIES_TYPES.get(member.species_id, []),
                 "level": member.level,
                 "nature": {
@@ -103,6 +111,7 @@ def render_observation(state: BattleState) -> dict:
         "needs_replacement": state.needs_replacement,
         "active": {
             "name": members[state.active_slot].name,
+            "form": members[state.active_slot].form,
             "slot": state.active_slot,
         },
         "party": [
@@ -110,6 +119,7 @@ def render_observation(state: BattleState) -> dict:
         ],
         "opponent": {
             "species": state.opp_species,
+            "form": SPECIES_FORM.get(state.opp_species_id),
             "species_id": state.opp_species_id,
             "ability": state.opp_ability,
             "current_hp": state.opp_current_hp,
