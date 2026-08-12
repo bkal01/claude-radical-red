@@ -37,6 +37,7 @@ def test_pre_battle_observation_reads_party_memory(party_memory) -> None:
         "party": [
             {
                 "name": "Bulbasaur",
+                "form": None,
                 "current_hp": 100,
                 "max_hp": 120,
                 "status": "poison",
@@ -49,6 +50,7 @@ def test_pre_battle_observation_reads_party_memory(party_memory) -> None:
             },
             {
                 "name": "Incineroar",
+                "form": None,
                 "current_hp": 88,
                 "max_hp": 150,
                 "status": None,
@@ -61,6 +63,21 @@ def test_pre_battle_observation_reads_party_memory(party_memory) -> None:
             },
         ],
     }
+
+
+def test_pre_battle_observation_renders_each_rotom_form(party_memory) -> None:
+    party_memory.load_u16(PARTY_BASE_ADDR + 0x20, 714)
+    party_memory.load_u16(PARTY_BASE_ADDR + SLOT_SIZE + 0x20, 715)
+
+    observation = render_pre_battle(Party(party_memory))
+
+    assert [
+        (pokemon["name"], pokemon["form"])
+        for pokemon in observation["party"]
+    ] == [
+        ("Rotom", "wash"),
+        ("Rotom", "frost"),
+    ]
 
 
 def test_battle_observation_reads_field_state_and_replacement(party_memory) -> None:
@@ -97,10 +114,11 @@ def test_battle_observation_reads_field_state_and_replacement(party_memory) -> N
 
     assert observation["phase"] == "in_battle"
     assert observation["needs_replacement"] is True
-    assert observation["active"] == {"name": "Incineroar", "slot": 1}
+    assert observation["active"] == {"name": "Incineroar", "form": None, "slot": 1}
     assert observation["party"][1]["fainted"] is True
     assert observation["opponent"] == {
         "species": "Ivysaur",
+        "form": None,
         "species_id": 2,
         "ability": "Chlorophyll",
         "current_hp": 71,

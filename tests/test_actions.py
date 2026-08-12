@@ -116,10 +116,11 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
         "observation": {
             "phase": "in_battle",
             "needs_replacement": False,
-            "active": {"name": "Incineroar", "slot": 0},
+            "active": {"name": "Incineroar", "form": None, "slot": 0},
             "party": [
                 {
                     "name": "Incineroar",
+                    "form": None,
                     "current_hp": 88,
                     "max_hp": 150,
                     "status": None,
@@ -132,6 +133,7 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
                 },
                 {
                     "name": "Bulbasaur",
+                    "form": None,
                     "current_hp": 100,
                     "max_hp": 120,
                     "status": "poison",
@@ -145,6 +147,7 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
             ],
             "opponent": {
                 "species": "Ivysaur",
+                "form": None,
                 "species_id": 2,
                 "ability": "Chlorophyll",
                 "current_hp": 71,
@@ -239,7 +242,11 @@ def test_fight_accepts_move_known_by_active_pokemon(monkeypatch, live_battle_ser
     assert result["ok"] is True
     assert result["messages"] == ["Pound landed!"]
     assert result["observation"]["phase"] == "in_battle"
-    assert result["observation"]["active"] == {"name": "Bulbasaur", "slot": 0}
+    assert result["observation"]["active"] == {
+        "name": "Bulbasaur",
+        "form": None,
+        "slot": 0,
+    }
     assert result["observation"]["party"][0]["moves"] == [
         {"name": "Pound", "pp_remaining": 10},
         {"name": "Growl", "pp_remaining": 12},
@@ -301,6 +308,58 @@ def test_switch_accepts_healthy_party_member(monkeypatch, live_battle_service) -
     assert result["observation"]["phase"] == "in_battle"
     assert result["ended"] is False
     assert result["won"] is False
+
+
+@pytest.mark.parametrize(
+    ("action_type", "needs_replacement"),
+    [("SWITCH", False), ("SEND", True)],
+)
+def test_switch_and_send_target_the_requested_rotom_form(
+    monkeypatch,
+    live_battle_service,
+    action_type,
+    needs_replacement,
+) -> None:
+    service, emulator = live_battle_service
+    emulator.mem.load_u16(PARTY_BASE_ADDR + 0x20, 714)
+    emulator.mem.load_u16(PARTY_BASE_ADDR + SLOT_SIZE + 0x20, 715)
+    emulator.mem.load_u16(BATTLE_MONS_BASE + MON_SPECIES, 714)
+    emulator.mem.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0 if needs_replacement else 100)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    action_calls = []
+
+    def scripted_do_action(current_emulator, party, session, actual_action_type, action_arg):
+        action_calls.append((actual_action_type, action_arg))
+        state = read_battle_state(current_emulator.mem, party)
+        step_log = StepLog(
+            step=1,
+            action=f"{actual_action_type} {action_arg}",
+            opponent_move=0,
+            hp_snapshot=tuple((p.current_hp, p.max_hp) for p in party.members),
+            messages=[],
+        )
+        return session, state, step_log
+
+    monkeypatch.setattr(service_module, "do_action", scripted_do_action)
+
+    result = service.action(f"{action_type} Rotom-frost")
+
+    assert [pokemon.label for pokemon in service.session.party.members] == [
+        "Rotom-wash",
+        "Rotom-frost",
+    ]
+    assert action_calls == [(action_type, "Rotom-frost")]
+    assert result["ok"] is True
+
+    ambiguous_result = service.action(f"{action_type} Rotom")
+
+    assert ambiguous_result == {
+        "ok": False,
+        "error": (
+            "'Rotom' is not in your party. Available Pokemon: Rotom-wash, "
+            "Rotom-frost. Choose one of these, or change your team."
+        ),
+    }
 
 
 def test_switch_rejects_fainted_target(live_battle_service, party_memory) -> None:

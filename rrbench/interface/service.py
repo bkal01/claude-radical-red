@@ -121,12 +121,12 @@ class BattleService:
         if action_type == "FIGHT":
             active = party.members[state.active_slot]
             if action_arg not in active.moves:
-                return {"ok": False, "error": f"{active.name} does not know {action_arg!r}"}
+                return {"ok": False, "error": f"{active.label} does not know {action_arg!r}"}
             move_slot = active.moves.index(action_arg)
             if active.pp[move_slot] == 0:
-                return {"ok": False, "error": f"{active.name} has no PP remaining for {action_arg!r}"}
+                return {"ok": False, "error": f"{active.label} has no PP remaining for {action_arg!r}"}
         else:
-            if action_type == "SWITCH" and action_arg == party.members[state.active_slot].name:
+            if action_type == "SWITCH" and action_arg == party.members[state.active_slot].label:
                 return {"ok": False, "error": "cannot switch to the active Pokemon"}
             try:
                 party.resolve_switch_target(action_arg)

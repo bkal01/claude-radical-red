@@ -79,8 +79,7 @@ def read_battle_state(mem, party: Party) -> BattleState:
     opp_species_id = mem.u16[opp_base + MON_SPECIES]
 
     species_id = mem.u16[BATTLE_MONS_BASE + MON_SPECIES]
-    name = SPECIES_NAME.get(species_id, f"species_{species_id}")
-    active_slot = party.get_slot_number(name)
+    active_slot = party.get_slot_number(species_id)
 
     return BattleState(
         party=party,

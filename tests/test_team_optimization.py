@@ -63,6 +63,7 @@ def test_trial_applies_valid_ev_spreads(monkeypatch, party_memory, tmp_path) -> 
         "party": [
             {
                 "name": "Bulbasaur",
+                "form": None,
                 "current_hp": 136,
                 "max_hp": 136,
                 "status": "poison",
@@ -75,6 +76,7 @@ def test_trial_applies_valid_ev_spreads(monkeypatch, party_memory, tmp_path) -> 
             },
             {
                 "name": "Incineroar",
+                "form": None,
                 "current_hp": 186,
                 "max_hp": 186,
                 "status": None,
@@ -154,6 +156,7 @@ def test_trial_applies_valid_abilities_without_changing_natures(
         "party": [
             {
                 "name": "Bulbasaur",
+                "form": None,
                 "current_hp": 105,
                 "max_hp": 105,
                 "status": "poison",
@@ -166,6 +169,7 @@ def test_trial_applies_valid_abilities_without_changing_natures(
             },
             {
                 "name": "Incineroar",
+                "form": None,
                 "current_hp": 155,
                 "max_hp": 155,
                 "status": None,
