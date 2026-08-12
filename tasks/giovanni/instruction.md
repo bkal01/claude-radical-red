@@ -45,6 +45,10 @@ The observation's `phase` is one of the following:
   `won`, messages, and the terminal observation. A lost episode can be
   followed by `reset()` or `apply_team()` if another episode remains.
 
+For Pokemon with a non-null `form`, use `<name>-<form>` as the Pokemon argument
+to `SWITCH` and `SEND`; for example, `SWITCH Rotom-wash`. For Pokemon whose
+`form` is null, use its name alone.
+
 `observe()` is read-only and may be called in any phase while the trial is
 still active. `team()` may also be called in any phase. The current observation
 includes the active Pokemon, party HP/status/moves, opponent species and HP,

@@ -114,6 +114,7 @@ SPECIES_MINIMUM_LEVEL = {
 class PartyPokemon:
     name: str
     form: str | None
+    label: str
     species_id: int                     # raw national dex number; needed for ROM table lookups
     held_item: int
     ability_id: int
@@ -146,6 +147,8 @@ def read_slot(mem, slot: int) -> PartyPokemon:
     a1 = mem.u32[base + _A1]
     a2 = mem.u32[base + _A2]
     species_id = g0 & 0xFFFF
+    name = SPECIES_NAME.get(species_id, f"species_{species_id}")
+    form = SPECIES_FORM.get(species_id)
     move_ids   = (a0 & 0xFFFF, (a0 >> 16) & 0xFFFF, a1 & 0xFFFF, (a1 >> 16) & 0xFFFF)
     species_abilities = SPECIES_ABILITIES.get(species_id, {})
     normal_abilities = species_abilities.get("normal", [])
@@ -159,8 +162,9 @@ def read_slot(mem, slot: int) -> PartyPokemon:
         else 0
     )
     return PartyPokemon(
-        name=SPECIES_NAME.get(species_id, f"species_{species_id}"),
-        form=SPECIES_FORM.get(species_id),
+        name=name,
+        form=form,
+        label=f"{name}-{form}" if form is not None else name,
         species_id=species_id,
         held_item=(g0 >> 16) & 0xFFFF,
         ability_id=ability_id,
@@ -276,46 +280,50 @@ class Party:
 
     def refresh(self) -> None:
         self.members = read_party(self._mem)
-        self._slot_map = {p.name: i for i, p in enumerate(self.members)}
+        self._slot_map = {p.label: i for i, p in enumerate(self.members)}
         # Does NOT reset display_pos — it tracks the visual UI order independently.
 
     def _sync_display_to_ewram(self) -> None:
         # Reset visual display order to match current EWRAM slot order.
         # Call this when a faint causes Radical Red to reorder EWRAM to match
         # the party screen display, before navigating the forced-replacement screen.
-        self.display_pos: dict[str, int] = {p.name: i for i, p in enumerate(self.members)}
+        self.display_pos: dict[str, int] = {p.label: i for i, p in enumerate(self.members)}
 
-    def update_display_after_send(self, sent_name: str) -> None:
+    def update_display_after_send(self, sent_label: str) -> None:
         # After the player selects a replacement at display slot S, Radical Red
         # swaps the display order: the sent-in Pokemon takes display slot 0 and
         # whoever was at slot 0 moves to slot S. This persists for future
         # voluntary-switch party screens (EWRAM itself is restored separately).
         slot0_name = next(k for k, v in self.display_pos.items() if v == 0)
-        old_slot = self.display_pos[sent_name]
-        self.display_pos[sent_name] = 0
+        old_slot = self.display_pos[sent_label]
+        self.display_pos[sent_label] = 0
         self.display_pos[slot0_name] = old_slot
 
     @property
     def names(self) -> list[str]:
         return [p.name for p in self.members]
 
-    def get_slot_number(self, name: str) -> int:
-        return self._slot_map[name]
+    @property
+    def labels(self) -> list[str]:
+        return [p.label for p in self.members]
 
-    def get_display_slot(self, name: str) -> int:
+    def get_slot_number(self, species_id: int) -> int:
+        return next(i for i, pokemon in enumerate(self.members) if pokemon.species_id == species_id)
+
+    def get_display_slot(self, label: str) -> int:
         """Visual party screen position for this Pokemon (may differ from EWRAM slot)."""
-        return self.display_pos[name]
+        return self.display_pos[label]
 
-    def resolve_switch_target(self, name: str) -> int:
+    def resolve_switch_target(self, label: str) -> int:
         """Display slot for a legal switch/send target. Raises PokemonNotInPartyError
         if `name` isn't in the party, or PokemonFaintedError if it has already fainted.
         Call before touching the emulator so an invalid target never desyncs menu state."""
-        if name not in self._slot_map:
-            raise PokemonNotInPartyError(name, self.names)
-        if self.members[self._slot_map[name]].current_hp == 0:
-            alive = [p.name for p in self.members if p.current_hp > 0]
-            raise PokemonFaintedError(name, alive)
-        return self.get_display_slot(name)
+        if label not in self._slot_map:
+            raise PokemonNotInPartyError(label, self.labels)
+        if self.members[self._slot_map[label]].current_hp == 0:
+            alive = [p.label for p in self.members if p.current_hp > 0]
+            raise PokemonFaintedError(label, alive)
+        return self.get_display_slot(label)
 
     def set_lead(self, name: str) -> None:
         if self.members[0].name == name:

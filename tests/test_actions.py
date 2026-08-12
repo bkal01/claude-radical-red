@@ -310,6 +310,58 @@ def test_switch_accepts_healthy_party_member(monkeypatch, live_battle_service) -
     assert result["won"] is False
 
 
+@pytest.mark.parametrize(
+    ("action_type", "needs_replacement"),
+    [("SWITCH", False), ("SEND", True)],
+)
+def test_switch_and_send_target_the_requested_rotom_form(
+    monkeypatch,
+    live_battle_service,
+    action_type,
+    needs_replacement,
+) -> None:
+    service, emulator = live_battle_service
+    emulator.mem.load_u16(PARTY_BASE_ADDR + 0x20, 714)
+    emulator.mem.load_u16(PARTY_BASE_ADDR + SLOT_SIZE + 0x20, 715)
+    emulator.mem.load_u16(BATTLE_MONS_BASE + MON_SPECIES, 714)
+    emulator.mem.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0 if needs_replacement else 100)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    action_calls = []
+
+    def scripted_do_action(current_emulator, party, session, actual_action_type, action_arg):
+        action_calls.append((actual_action_type, action_arg))
+        state = read_battle_state(current_emulator.mem, party)
+        step_log = StepLog(
+            step=1,
+            action=f"{actual_action_type} {action_arg}",
+            opponent_move=0,
+            hp_snapshot=tuple((p.current_hp, p.max_hp) for p in party.members),
+            messages=[],
+        )
+        return session, state, step_log
+
+    monkeypatch.setattr(service_module, "do_action", scripted_do_action)
+
+    result = service.action(f"{action_type} Rotom-frost")
+
+    assert [pokemon.label for pokemon in service.session.party.members] == [
+        "Rotom-wash",
+        "Rotom-frost",
+    ]
+    assert action_calls == [(action_type, "Rotom-frost")]
+    assert result["ok"] is True
+
+    ambiguous_result = service.action(f"{action_type} Rotom")
+
+    assert ambiguous_result == {
+        "ok": False,
+        "error": (
+            "'Rotom' is not in your party. Available Pokemon: Rotom-wash, "
+            "Rotom-frost. Choose one of these, or change your team."
+        ),
+    }
+
+
 def test_switch_rejects_fainted_target(live_battle_service, party_memory) -> None:
     service, emulator = live_battle_service
     party_memory.load_u16(PARTY_BASE_ADDR + SLOT_SIZE + 0x56, 0)
