@@ -16,7 +16,7 @@ def test_fight_after_switch_to_corviknight_uses_selected_move() -> None:
                 "nature_id": 3,
                 "ability_id": 67,
                 "move_ids": [330, 89, 58, 157],
-                "held_item_id": 195,
+                "held_item_id": 0,
                 "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0},
             },
             {
@@ -26,7 +26,7 @@ def test_fight_after_switch_to_corviknight_uses_selected_move() -> None:
                 "nature_id": 13,
                 "ability_id": 22,
                 "move_ids": [358, 432, 242, 269],
-                "held_item_id": 195,
+                "held_item_id": 0,
                 "evs": {"HP": 4, "ATK": 252, "DEF": 0, "SPE": 252, "SPA": 0, "SPDEF": 0},
             },
             {
@@ -36,7 +36,7 @@ def test_fight_after_switch_to_corviknight_uses_selected_move() -> None:
                 "nature_id": 10,
                 "ability_id": 36,
                 "move_ids": [817, 466, 85, 373],
-                "held_item_id": 195,
+                "held_item_id": 0,
                 "evs": {"HP": 4, "ATK": 0, "DEF": 0, "SPE": 252, "SPA": 252, "SPDEF": 0},
             },
             {
@@ -46,7 +46,7 @@ def test_fight_after_switch_to_corviknight_uses_selected_move() -> None:
                 "nature_id": 3,
                 "ability_id": 8,
                 "move_ids": [337, 89, 429, 424],
-                "held_item_id": 195,
+                "held_item_id": 0,
                 "evs": {"HP": 4, "ATK": 252, "DEF": 0, "SPE": 252, "SPA": 0, "SPDEF": 0},
             },
             {
@@ -56,7 +56,7 @@ def test_fight_after_switch_to_corviknight_uses_selected_move() -> None:
                 "nature_id": 8,
                 "ability_id": 192,
                 "move_ids": [361, 382, 395, 442],
-                "held_item_id": 195,
+                "held_item_id": 0,
                 "evs": {"HP": 252, "ATK": 0, "DEF": 252, "SPE": 0, "SPA": 0, "SPDEF": 4},
             },
             {
@@ -66,7 +66,7 @@ def test_fight_after_switch_to_corviknight_uses_selected_move() -> None:
                 "nature_id": 3,
                 "ability_id": 45,
                 "move_ids": [242, 429, 89, 432],
-                "held_item_id": 195,
+                "held_item_id": 0,
                 "evs": {"HP": 4, "ATK": 252, "DEF": 0, "SPE": 252, "SPA": 0, "SPDEF": 0},
             },
         ]
