@@ -38,6 +38,9 @@ def load_task(task_dir: str | Path) -> TaskSpec:
     manifest_path = task_dir / "task.yaml"
     manifest_text = manifest_path.read_text()
     manifest = yaml.safe_load(manifest_text)
+    team_size = manifest.get("team_size", 6)
+    if type(team_size) is not int or team_size not in range(1, 7):
+        raise ValueError("team_size must be an integer from 1 through 6")
     task_data_dir = Path(
         os.environ.get("RRBENCH_TASK_DATA_DIR", task_dir / "data" / "validation")
     )
@@ -95,7 +98,7 @@ def load_task(task_dir: str | Path) -> TaskSpec:
             for value in manifest.get("allowed_team_modifications", [])
         ),
         level_cap=manifest["level_cap"],
-        team_size=manifest.get("team_size", 6),
+        team_size=team_size,
         allowed_species_ids=allowed_species_ids,
         allowed_item_ids=allowed_item_ids,
         allowed_item_counts=allowed_item_counts,

@@ -70,8 +70,8 @@ an unrecoverable environment error occurs.
 
 ## Team updates
 
-The first `apply_team()` must construct all six Pokemon. After setup, this task
-permits Pokemon, EV, Ability, Nature, move, and item updates. Call `apply_team()` during a live
+The first `apply_team()` must construct all six Pokemon. This task uses all six party slots.
+After setup, this task permits Pokemon, EV, Ability, Nature, move, and item updates. Call `apply_team()` during a live
 battle or after a lost episode in the place of `reset()`. A successful update
 automatically restores the battle fixture, advances to the next episode, and
 applies the accepted configuration. Invalid updates do not change the
