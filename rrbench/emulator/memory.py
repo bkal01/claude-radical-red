@@ -325,14 +325,14 @@ class Party:
             raise PokemonFaintedError(label, alive)
         return self.get_display_slot(label)
 
-    def set_lead(self, name: str) -> None:
-        if self.members[0].name == name:
+    def set_lead(self, label: str) -> None:
+        if self.members[0].label == label:
             return
 
         # swap the two pokemon in game memory
-        slot = next((i for i, p in enumerate(self.members) if p.name == name), None)
+        slot = next((i for i, p in enumerate(self.members) if p.label == label), None)
         if slot is None:
-            raise PokemonNotInPartyError(name, self.names)
+            raise PokemonNotInPartyError(label, self.labels)
         base_a = PARTY_BASE_ADDR
         base_b = PARTY_BASE_ADDR + slot * SLOT_SIZE
         for i in range(0, SLOT_SIZE, 4):

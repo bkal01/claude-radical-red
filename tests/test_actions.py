@@ -216,6 +216,23 @@ def test_lead_rejects_absent_pokemon_and_live_battle(monkeypatch, party_memory) 
     assert service.session is None
 
 
+def test_set_lead_targets_the_requested_pokemon_form(party_memory) -> None:
+    party_memory.load_u16(PARTY_BASE_ADDR + 0x20, 714)
+    party_memory.load_u16(PARTY_BASE_ADDR + SLOT_SIZE + 0x20, 715)
+    party = Party(party_memory)
+
+    party.set_lead("Rotom-frost")
+
+    assert [pokemon.label for pokemon in party.members] == [
+        "Rotom-frost",
+        "Rotom-wash",
+    ]
+    assert [
+        party_memory.u16[PARTY_BASE_ADDR + slot * SLOT_SIZE + 0x20]
+        for slot in range(2)
+    ] == [715, 714]
+
+
 def test_fight_accepts_move_known_by_active_pokemon(monkeypatch, live_battle_service) -> None:
     service, emulator = live_battle_service
     action_calls = []
