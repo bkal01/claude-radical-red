@@ -89,6 +89,22 @@ def test_giovanni_agent_data_matches_the_validator_allowlist(monkeypatch) -> Non
     assert all(species[species_id] is None for species_id in mega_species_ids)
 
 
+def test_rival_route_22_excludes_item_evolutions_without_celadon(monkeypatch) -> None:
+    repository = Path(__file__).resolve().parents[1]
+    task_directory = repository / "tasks" / "rival-route-22"
+    monkeypatch.delenv("RRBENCH_TASK_DATA_DIR", raising=False)
+
+    task = load_task(task_directory)
+    species = json.loads((task_directory / "data" / "agent" / "species.json").read_text())
+
+    assert task.allowed_species_ids is not None
+    assert len(task.allowed_species_ids) == 54
+    assert species[568]["name"] == "Panpour"
+    assert species[569] is None
+    assert species[1023]["name"] == "Sandshrew"
+    assert species[1024] is None
+
+
 def test_battle_service_ignores_unavailable_pre_evolution_learnsets(
     monkeypatch, party_memory
 ) -> None:
