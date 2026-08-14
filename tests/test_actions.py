@@ -4,6 +4,7 @@ import pytest
 
 from rrbench.battle.addresses import (
     BATTLE_MONS_BASE,
+    BATTLE_TERRAIN,
     BATTLE_TYPE_FLAGS,
     BATTLE_WEATHER,
     MON_ABILITY,
@@ -14,6 +15,7 @@ from rrbench.battle.addresses import (
     OPP_MON_BASE,
     SIDE_STATUS_OPP,
     SIDE_STATUS_PLAYER,
+    TERRAIN_TIMER,
 )
 from rrbench.battle.capture import MessageEvent
 from rrbench.battle.state import BattleSession, StepLog, read_battle_state
@@ -53,6 +55,8 @@ def live_battle_service(monkeypatch, party_memory):
         bytes((6, 6, 6, 6, 6, 6, 6)),
     )
     party_memory.load_u32(BATTLE_WEATHER, 0)
+    party_memory.load_u8(BATTLE_TERRAIN, 0)
+    party_memory.load_u8(TERRAIN_TIMER, 0)
     party_memory.load_u8(SIDE_STATUS_PLAYER, 0)
     party_memory.load_u8(SIDE_STATUS_OPP, 0)
 
@@ -96,6 +100,8 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
             bytes((6, 6, 6, 6, 6, 6, 6)),
         )
         current_emulator.mem.load_u32(BATTLE_WEATHER, 0)
+        current_emulator.mem.load_u8(BATTLE_TERRAIN, 0)
+        current_emulator.mem.load_u8(TERRAIN_TIMER, 0)
         current_emulator.mem.load_u8(SIDE_STATUS_PLAYER, 0)
         current_emulator.mem.load_u8(SIDE_STATUS_OPP, 0)
 
@@ -154,6 +160,7 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
                 "max_hp": 100,
             },
             "weather": {"kind": "none", "turns_left": "inf"},
+            "terrain": {"kind": "none", "turns_left": 0},
             "hazards": {
                 "player": {"stealth_rock": False, "spikes": 0, "toxic_spikes": 0},
                 "opponent": {"stealth_rock": False, "spikes": 0, "toxic_spikes": 0},

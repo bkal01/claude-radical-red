@@ -24,6 +24,11 @@ BATTLE_WEATHER = 0x02022B50  # u32 bitmask: 0x08 = WEATHER_SANDSTORM_PERMANENT (
 WEATHER_TIMER  = 0x02022883  # u8 countdown; decrements each turn (observed 32->31->30)
 WEATHER_SANDSTORM_PERMANENT = 0x08
 
+# Terrain — BATTLE_TERRAIN is 0 for none, then Electric, Grassy, Misty, Psychic.
+# TERRAIN_TIMER starts at 5 and decrements at each turn end.
+BATTLE_TERRAIN = 0x0203E028
+TERRAIN_TIMER = 0x020179BC
+
 # gBattlerByTurnOrder — u8: which battler (0=player, 1=opponent) acts first this turn.
 # Verified: reads 0 after Fake Out (player priority), 1 when Hippowdon is faster.
 BATTLER_TURN_ORDER = 0x02023D6D

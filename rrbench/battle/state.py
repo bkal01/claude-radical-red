@@ -1,10 +1,10 @@
 from dataclasses import dataclass, field
 
 from rrbench.battle.addresses import (
-    BATTLE_MONS_BASE, BATTLE_MON_SIZE, BATTLE_TYPE_FLAGS, BATTLE_WEATHER,
+    BATTLE_MONS_BASE, BATTLE_MON_SIZE, BATTLE_TERRAIN, BATTLE_TYPE_FLAGS, BATTLE_WEATHER,
     MON_ABILITY, MON_CUR_HP, MON_MAX_HP, MON_SPECIES, MON_STAT_STAGES,
     SIDE_STATUS_PLAYER, SIDE_STATUS_OPP,
-    WEATHER_TIMER,
+    TERRAIN_TIMER, WEATHER_TIMER,
 )
 from rrbench.battle.capture import MessageEvent
 from rrbench.emulator.emulator import Emulator
@@ -49,6 +49,8 @@ class BattleState:
     needs_replacement: bool            # True when active Pokemon fainted; agent must name a replacement
     weather: int                       # BATTLE_WEATHER bitmask (0x08 = permanent sandstorm)
     weather_turns_left: int | None     # None when weather is permanent (ability-induced); WEATHER_TIMER countdown otherwise
+    terrain: int                       # BATTLE_TERRAIN enum: none, Electric, Grassy, Misty, Psychic
+    terrain_turns_left: int            # TERRAIN_TIMER countdown; 0 when there is no terrain
     stat_stages: tuple[int, ...]       # player active: (ATK,DEF,SPE,SPA,SPD,ACC,EVA) neutral=6
     opp_stat_stages: tuple[int, ...]   # opponent active: same layout
     hazards_player: SideHazards        # entry hazards on the player's side
@@ -72,6 +74,8 @@ def read_battle_state(mem, party: Party) -> BattleState:
     # bit 0x08 = WEATHER_SANDSTORM_PERMANENT (Sand Stream); timer is irrelevant for permanent weather
     # TODO: support other kinds of (permanent) weather
     weather_turns_left = None if (weather_val & 0x08) else mem.u8[WEATHER_TIMER]
+    terrain = mem.u8[BATTLE_TERRAIN]
+    terrain_turns_left = mem.u8[TERRAIN_TIMER]
     stat_stages     = tuple(mem.u8[BATTLE_MONS_BASE + MON_STAT_STAGES + i] for i in range(7))
     opp_stat_stages = tuple(mem.u8[opp_base + MON_STAT_STAGES + i] for i in range(7))
     opp_cur = mem.u16[opp_base + MON_CUR_HP]
@@ -87,6 +91,8 @@ def read_battle_state(mem, party: Party) -> BattleState:
         needs_replacement=mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] == 0,
         weather=weather_val,
         weather_turns_left=weather_turns_left,
+        terrain=terrain,
+        terrain_turns_left=terrain_turns_left,
         stat_stages=stat_stages,
         opp_stat_stages=opp_stat_stages,
         hazards_player=SideHazards(
