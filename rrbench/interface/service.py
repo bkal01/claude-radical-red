@@ -321,8 +321,8 @@ class BattleService:
             ):
                 return {"ok": False, "error": "species_id must match the active team member at its slot"}
 
-            current_member = current_team_config.members[slot]
-            nature_id = 0 if initializing else current_member.nature_id
+            current_member = None if initializing else current_team_config.members[slot]
+            nature_id = 0 if current_member is None else current_member.nature_id
             if "nature_id" in member:
                 nature_id = member["nature_id"]
                 if type(nature_id) is not int or nature_id not in range(
@@ -335,7 +335,7 @@ class BattleService:
                             f"{len(NATURE_NAMES) - 1}"
                         ),
                     }
-            evs = dict(current_member.evs)
+            evs = {} if current_member is None else dict(current_member.evs)
             if "evs" in member:
                 evs = member["evs"]
                 if not isinstance(evs, dict) or set(evs) != set(EV_KEYS):
@@ -345,7 +345,7 @@ class BattleService:
                 if sum(evs.values()) > 508:
                     return {"ok": False, "error": "each Pokemon may have at most 508 total EVs"}
 
-            ability_id = current_member.ability_id
+            ability_id = None if current_member is None else current_member.ability_id
             if "ability_id" in member:
                 ability_id = member["ability_id"]
                 species_abilities = SPECIES_ABILITIES.get(species_id, {})
@@ -356,7 +356,7 @@ class BattleService:
                 if type(ability_id) is not int or ability_id not in valid_abilities:
                     return {"ok": False, "error": "ability_id must be a valid ability for the active Pokemon"}
 
-            move_ids = current_member.move_ids
+            move_ids = None if current_member is None else current_member.move_ids
             if "move_ids" in member:
                 move_ids = member["move_ids"]
                 if not isinstance(move_ids, list) or len(move_ids) != 4 or any(
@@ -388,7 +388,7 @@ class BattleService:
                         "error": "each move_id must be learnable by the active Pokemon at the task level cap",
                     }
 
-            held_item = current_member.held_item
+            held_item = 0 if current_member is None else current_member.held_item
             if "held_item_id" in member:
                 held_item = member["held_item_id"]
                 if (

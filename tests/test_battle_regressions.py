@@ -6,7 +6,7 @@ from rrbench.tasks import load_task
 
 @pytest.mark.integration
 def test_fight_after_switch_to_corviknight_uses_selected_move() -> None:
-    service = BattleService(load_task("tasks/giovanni"))
+    service = BattleService(load_task("tasks/giovanni-silph-co-easy"))
     team = {
         "members": [
             {

@@ -1,0 +1,53 @@
+# Battle against Giovanni in Silph Co. Tower
+id: giovanni_silph_co_medium
+game_data_version: v4.1
+save_state: save_state.ss0
+level_cap: 57
+team_size: 5
+allowed_team_modifications:
+  - evs
+  - abilities
+  - natures
+  - moves
+  - items
+  - pokemon
+allowed_locations:
+  - pallet_town
+  - route_1
+  - viridian_city
+  - route_22
+  - route_2
+  - viridian_forest
+  - forest_expansion
+  - diglett_cave
+  - pewter_city
+  - route_3
+  - mt_moon_1f
+  - mt_moon_b1f
+  - mt_moon_b2f
+  - route_4
+  - cerulean_city
+  - route_24
+  - route_25
+  - route_5
+  - route_6
+  - vermillion_city
+  - s_s_anne
+  - route_11
+  - diglett_cave_b1f
+  - route_9
+  - route_10
+  - rock_tunnel_1f
+  - rock_tunnel_b1f
+  - route_7
+  - celadon_city
+  - route_8
+  - pkmn_tower_3_5f
+  - pkmn_tower_4f
+  - pkmn_tower_6f
+  - pkmn_tower_7f
+available_water_methods:
+  - old_rod
+  - super_rod
+excluded_species_categories:
+  - mega

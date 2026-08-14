@@ -3,16 +3,37 @@ from dataclasses import replace
 from pathlib import Path
 
 import yaml
+import pytest
 
+from rrbench.emulator.memory import PARTY_COUNT_ADDR
 from rrbench.interface import service as service_module
 from rrbench.interface.service import BattleService
 from rrbench.tasks import TaskSpec, load_task
 from tests.support.fakes import FakeEmulator
 
 
+@pytest.mark.parametrize("team_size", [0, 7, True, "6"])
+def test_load_task_rejects_invalid_team_size(tmp_path, team_size) -> None:
+    task_directory = tmp_path / "task"
+    task_directory.mkdir()
+    (task_directory / "task.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "id": "test",
+                "save_state": "save_state.ss0",
+                "level_cap": 57,
+                "team_size": team_size,
+            }
+        )
+    )
+
+    with pytest.raises(ValueError, match="team_size must be an integer from 1 through 6"):
+        load_task(task_directory)
+
+
 def test_giovanni_agent_data_matches_the_validator_allowlist(monkeypatch) -> None:
     repository = Path(__file__).resolve().parents[1]
-    task_directory = repository / "tasks" / "giovanni"
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
     monkeypatch.delenv("RRBENCH_TASK_DATA_DIR", raising=False)
 
     task = load_task(task_directory)
@@ -47,7 +68,7 @@ def test_battle_service_ignores_unavailable_pre_evolution_learnsets(
     monkeypatch, party_memory
 ) -> None:
     repository = Path(__file__).resolve().parents[1]
-    task_directory = repository / "tasks" / "giovanni"
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
     task = replace(load_task(task_directory), team_size=2)
     emulator = FakeEmulator(party_memory)
     monkeypatch.setattr(service_module, "create_emulator", lambda current_task: emulator)
@@ -84,9 +105,41 @@ def test_battle_service_ignores_unavailable_pre_evolution_learnsets(
     assert service.active_team_config.members[0].species_id == 184
 
 
+def test_initial_team_configuration_does_not_require_fixture_members(
+    monkeypatch, party_memory
+) -> None:
+    repository = Path(__file__).resolve().parents[1]
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
+    task = replace(load_task(task_directory), team_size=2)
+    party_memory.load_u8(PARTY_COUNT_ADDR, 1)
+    emulator = FakeEmulator(party_memory)
+    monkeypatch.setattr(service_module, "create_emulator", lambda current_task: emulator)
+    monkeypatch.setattr(service_module, "data_dir", task_directory / "data" / "agent")
+    service = BattleService(task)
+    members = [
+        {
+            "slot": slot,
+            "species_id": 944,
+            "level": 57,
+            "nature_id": 8,
+            "ability_id": 22,
+            "move_ids": [434, 269, 585, 252],
+            "held_item_id": 139,
+            "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
+        }
+        for slot in range(2)
+    ]
+
+    result = service.apply_team({"members": members})
+
+    assert result["ok"] is True
+    assert service.active_team_config is not None
+    assert len(service.active_team_config.members) == 2
+
+
 def test_giovanni_agent_items_match_the_validator_allowlist(monkeypatch) -> None:
     repository = Path(__file__).resolve().parents[1]
-    task_directory = repository / "tasks" / "giovanni"
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
     monkeypatch.delenv("RRBENCH_TASK_DATA_DIR", raising=False)
 
     task = load_task(task_directory)
@@ -114,7 +167,7 @@ def test_giovanni_agent_items_match_the_validator_allowlist(monkeypatch) -> None
 
 def test_giovanni_agent_tm_hm_moves_match_allowed_locations():
     repository = Path(__file__).resolve().parents[1]
-    task_directory = repository / "tasks" / "giovanni"
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
     data_directory = repository / "data" / "radical_red" / "v4.1"
     route_move_map = json.loads((data_directory / "route_move_map.json").read_text())
     moves = json.loads((data_directory / "moves.json").read_text())
