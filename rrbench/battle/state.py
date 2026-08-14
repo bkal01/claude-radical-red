@@ -3,7 +3,9 @@ from dataclasses import dataclass, field
 from rrbench.battle.addresses import (
     BATTLE_MONS_BASE, BATTLE_MON_SIZE, BATTLE_TERRAIN, BATTLE_TYPE_FLAGS, BATTLE_WEATHER,
     MON_ABILITY, MON_CUR_HP, MON_MAX_HP, MON_SPECIES, MON_STAT_STAGES,
-    SIDE_STATUS_PLAYER, SIDE_STATUS_OPP,
+    SIDE_HAZARDS_OPP, SIDE_HAZARDS_PLAYER,
+    SIDE_HAZARDS_SPIKES_MASK, SIDE_HAZARDS_STEALTH_ROCK,
+    SIDE_HAZARDS_STICKY_WEB, SIDE_HAZARDS_TOXIC_SPIKES_MASK,
     TERRAIN_TIMER, WEATHER_TIMER,
 )
 from rrbench.battle.capture import MessageEvent
@@ -39,8 +41,9 @@ class StepLog:
 @dataclass
 class SideHazards:
     stealth_rock: bool
-    spikes: int       # 0–3 layers (address TBD)
-    toxic_spikes: int # 0–2 layers (address TBD)
+    spikes: int
+    toxic_spikes: int
+    sticky_web: bool
 
 @dataclass
 class BattleState:
@@ -81,6 +84,8 @@ def read_battle_state(mem, party: Party) -> BattleState:
     opp_cur = mem.u16[opp_base + MON_CUR_HP]
     opp_max = mem.u16[opp_base + MON_MAX_HP]
     opp_species_id = mem.u16[opp_base + MON_SPECIES]
+    hazards_player = mem.u8[SIDE_HAZARDS_PLAYER]
+    hazards_opp = mem.u8[SIDE_HAZARDS_OPP]
 
     species_id = mem.u16[BATTLE_MONS_BASE + MON_SPECIES]
     active_slot = party.get_slot_number(species_id)
@@ -96,14 +101,16 @@ def read_battle_state(mem, party: Party) -> BattleState:
         stat_stages=stat_stages,
         opp_stat_stages=opp_stat_stages,
         hazards_player=SideHazards(
-            stealth_rock=bool(mem.u8[SIDE_STATUS_PLAYER] & 0x10),
-            spikes=0,
-            toxic_spikes=0,
+            stealth_rock=bool(hazards_player & SIDE_HAZARDS_STEALTH_ROCK),
+            spikes=hazards_player & SIDE_HAZARDS_SPIKES_MASK,
+            toxic_spikes=(hazards_player & SIDE_HAZARDS_TOXIC_SPIKES_MASK) >> 2,
+            sticky_web=bool(hazards_player & SIDE_HAZARDS_STICKY_WEB),
         ),
         hazards_opp=SideHazards(
-            stealth_rock=bool(mem.u8[SIDE_STATUS_OPP] & 0x10),
-            spikes=0,
-            toxic_spikes=0,
+            stealth_rock=bool(hazards_opp & SIDE_HAZARDS_STEALTH_ROCK),
+            spikes=hazards_opp & SIDE_HAZARDS_SPIKES_MASK,
+            toxic_spikes=(hazards_opp & SIDE_HAZARDS_TOXIC_SPIKES_MASK) >> 2,
+            sticky_web=bool(hazards_opp & SIDE_HAZARDS_STICKY_WEB),
         ),
         opp_species=SPECIES_NAME.get(opp_species_id, f"species_{opp_species_id}"),
         opp_species_id=opp_species_id,

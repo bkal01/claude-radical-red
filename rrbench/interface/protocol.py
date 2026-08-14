@@ -23,6 +23,7 @@ def render_hazards(h: SideHazards) -> dict:
         "stealth_rock": h.stealth_rock,
         "spikes": h.spikes,
         "toxic_spikes": h.toxic_spikes,
+        "sticky_web": h.sticky_web,
     }
 
 
