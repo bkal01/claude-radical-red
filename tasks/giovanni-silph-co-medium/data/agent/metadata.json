@@ -1,0 +1,16 @@
+{
+  "game_data_version": "v4.1",
+  "task_id": "giovanni_silph_co_medium",
+  "allowed_species_count": 845,
+  "available_tm_hm_move_count": 73,
+  "available_tutor_move_count": 12,
+  "available_hms": [
+    "Cut",
+    "Flash"
+  ],
+  "allowed_item_count": 26,
+  "egg_move_tutor_available": false,
+  "excluded_species_categories": [
+    "mega"
+  ]
+}

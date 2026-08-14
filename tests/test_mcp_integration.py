@@ -27,7 +27,7 @@ def test_mcp_server_exposes_public_battle_contract(tmp_path) -> None:
     pytest.importorskip("mgba.core", reason="mGBA Python bindings are required for the MCP integration test")
 
     repository = Path(__file__).resolve().parents[1]
-    task_directory = repository / "tasks" / "giovanni"
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
     rom_path = repository / "radicalred.gba"
     save_state_path = task_directory / "save_state.ss0"
     if not rom_path.is_file() or not save_state_path.is_file():

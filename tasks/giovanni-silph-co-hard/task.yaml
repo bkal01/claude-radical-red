@@ -1,9 +1,9 @@
 # Battle against Giovanni in Silph Co. Tower
-id: giovanni
+id: giovanni_silph_co_hard
 game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 57
-team_size: 6
+team_size: 4
 allowed_team_modifications:
   - evs
   - abilities

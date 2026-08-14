@@ -33,7 +33,7 @@ def test_load_task_rejects_invalid_team_size(tmp_path, team_size) -> None:
 
 def test_giovanni_agent_data_matches_the_validator_allowlist(monkeypatch) -> None:
     repository = Path(__file__).resolve().parents[1]
-    task_directory = repository / "tasks" / "giovanni"
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
     monkeypatch.delenv("RRBENCH_TASK_DATA_DIR", raising=False)
 
     task = load_task(task_directory)
@@ -68,7 +68,7 @@ def test_battle_service_ignores_unavailable_pre_evolution_learnsets(
     monkeypatch, party_memory
 ) -> None:
     repository = Path(__file__).resolve().parents[1]
-    task_directory = repository / "tasks" / "giovanni"
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
     task = replace(load_task(task_directory), team_size=2)
     emulator = FakeEmulator(party_memory)
     monkeypatch.setattr(service_module, "create_emulator", lambda current_task: emulator)
@@ -109,7 +109,7 @@ def test_initial_team_configuration_does_not_require_fixture_members(
     monkeypatch, party_memory
 ) -> None:
     repository = Path(__file__).resolve().parents[1]
-    task_directory = repository / "tasks" / "giovanni"
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
     task = replace(load_task(task_directory), team_size=2)
     party_memory.load_u8(PARTY_COUNT_ADDR, 1)
     emulator = FakeEmulator(party_memory)
@@ -139,7 +139,7 @@ def test_initial_team_configuration_does_not_require_fixture_members(
 
 def test_giovanni_agent_items_match_the_validator_allowlist(monkeypatch) -> None:
     repository = Path(__file__).resolve().parents[1]
-    task_directory = repository / "tasks" / "giovanni"
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
     monkeypatch.delenv("RRBENCH_TASK_DATA_DIR", raising=False)
 
     task = load_task(task_directory)
@@ -167,7 +167,7 @@ def test_giovanni_agent_items_match_the_validator_allowlist(monkeypatch) -> None
 
 def test_giovanni_agent_tm_hm_moves_match_allowed_locations():
     repository = Path(__file__).resolve().parents[1]
-    task_directory = repository / "tasks" / "giovanni"
+    task_directory = repository / "tasks" / "giovanni-silph-co-easy"
     data_directory = repository / "data" / "radical_red" / "v4.1"
     route_move_map = json.loads((data_directory / "route_move_map.json").read_text())
     moves = json.loads((data_directory / "moves.json").read_text())
