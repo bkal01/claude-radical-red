@@ -18,6 +18,12 @@ class TeamModification(str, Enum):
 
 
 @dataclass(frozen=True)
+class BattleTriggerStep:
+    key: str | None
+    frames: int
+
+
+@dataclass(frozen=True)
 class TaskSpec:
     """The runtime assets needed to start one task."""
 
@@ -27,6 +33,7 @@ class TaskSpec:
     allowed_team_modifications: frozenset[TeamModification]
     level_cap: int
     team_size: int = 6
+    battle_trigger: tuple[BattleTriggerStep, ...] = ()
     allowed_species_ids: frozenset[int] | None = None
     allowed_item_ids: frozenset[int] | None = None
     allowed_item_counts: dict[int, int] | None = None
@@ -41,6 +48,28 @@ def load_task(task_dir: str | Path) -> TaskSpec:
     team_size = manifest.get("team_size", 6)
     if type(team_size) is not int or team_size not in range(1, 7):
         raise ValueError("team_size must be an integer from 1 through 6")
+    battle_trigger_value = manifest.get("battle_trigger", [])
+    if not isinstance(battle_trigger_value, list):
+        raise ValueError("battle_trigger must be a list")
+    battle_trigger = []
+    trigger_keys = {"A", "B", "UP", "DOWN", "LEFT", "RIGHT"}
+    for trigger_index, trigger_value in enumerate(battle_trigger_value):
+        if not isinstance(trigger_value, dict) or set(trigger_value) != {"key", "frames"}:
+            raise ValueError(
+                f"battle_trigger[{trigger_index}] must contain only key and frames"
+            )
+        key = trigger_value["key"]
+        frames = trigger_value["frames"]
+        if key is not None and (not isinstance(key, str) or key not in trigger_keys):
+            raise ValueError(
+                f"battle_trigger[{trigger_index}].key must be one of "
+                f"{', '.join(sorted(trigger_keys))}, or null"
+            )
+        if type(frames) is not int or frames < 1:
+            raise ValueError(
+                f"battle_trigger[{trigger_index}].frames must be a positive integer"
+            )
+        battle_trigger.append(BattleTriggerStep(key=key, frames=frames))
     task_data_dir = Path(
         os.environ.get("RRBENCH_TASK_DATA_DIR", task_dir / "data" / "validation")
     )
@@ -99,6 +128,7 @@ def load_task(task_dir: str | Path) -> TaskSpec:
         ),
         level_cap=manifest["level_cap"],
         team_size=team_size,
+        battle_trigger=tuple(battle_trigger),
         allowed_species_ids=allowed_species_ids,
         allowed_item_ids=allowed_item_ids,
         allowed_item_counts=allowed_item_counts,

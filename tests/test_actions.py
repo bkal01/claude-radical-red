@@ -76,10 +76,11 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
 
-    def scripted_start_battle(current_emulator, party, lead):
+    def scripted_start_battle(current_emulator, party, lead, battle_trigger):
         assert current_emulator is emulator
         assert party.names == ["Bulbasaur", "Incineroar"]
         assert lead == "Incineroar"
+        assert battle_trigger == ()
 
         party.set_lead(lead)
         party.refresh()

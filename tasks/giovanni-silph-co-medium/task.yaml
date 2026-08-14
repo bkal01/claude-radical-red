@@ -4,6 +4,9 @@ game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 57
 team_size: 5
+battle_trigger:
+  - key: UP
+    frames: 60
 allowed_team_modifications:
   - evs
   - abilities
