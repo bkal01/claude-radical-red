@@ -33,13 +33,15 @@ TERRAIN_TIMER = 0x020179BC
 # Verified: reads 0 after Fake Out (player priority), 1 when Hippowdon is faster.
 BATTLER_TURN_ORDER = 0x02023D6D
 
-# Side status — bit 0x10 = SIDE_STATUS_STEALTH_ROCK; set when SR is placed on that side.
-# Hippowdon setting rocks flips 0x02023DDE; a player-set Stealth Rock flips
-# 0x02023DE0. 0x02023DEE changes with the player-side effect too, but is not
-# the opponent-side status field.
-SIDE_STATUS_PLAYER = 0x02023DDE  # u8/u32 bitmask, player's field side
-SIDE_STATUS_OPP    = 0x02023DE0  # u8/u32 bitmask, opponent's field side
-SIDE_STATUS_STEALTH_ROCK = 0x10
+# Entry hazards — one u8 per side. Spikes and Toxic Spikes use two-bit layer
+# counts; Stealth Rock and Sticky Web use single bits. These addresses were
+# verified by setting each hazard individually and in combination.
+SIDE_HAZARDS_PLAYER = 0x02023DF8
+SIDE_HAZARDS_OPP = 0x02023DF9
+SIDE_HAZARDS_SPIKES_MASK = 0x03
+SIDE_HAZARDS_TOXIC_SPIKES_MASK = 0x0C
+SIDE_HAZARDS_STEALTH_ROCK = 0x10
+SIDE_HAZARDS_STICKY_WEB = 0x20
 
 # --- gBattleMons — active battler structs (0x58 bytes each, 4 slots) ---------
 # Slot 0 = player's active Pokemon; slot 1 = opponent's active Pokemon.

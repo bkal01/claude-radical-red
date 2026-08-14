@@ -13,8 +13,8 @@ from rrbench.battle.addresses import (
     MON_SPECIES,
     MON_STAT_STAGES,
     OPP_MON_BASE,
-    SIDE_STATUS_OPP,
-    SIDE_STATUS_PLAYER,
+    SIDE_HAZARDS_OPP,
+    SIDE_HAZARDS_PLAYER,
     TERRAIN_TIMER,
 )
 from rrbench.battle.capture import MessageEvent
@@ -57,8 +57,8 @@ def live_battle_service(monkeypatch, party_memory):
     party_memory.load_u32(BATTLE_WEATHER, 0)
     party_memory.load_u8(BATTLE_TERRAIN, 0)
     party_memory.load_u8(TERRAIN_TIMER, 0)
-    party_memory.load_u8(SIDE_STATUS_PLAYER, 0)
-    party_memory.load_u8(SIDE_STATUS_OPP, 0)
+    party_memory.load_u8(SIDE_HAZARDS_PLAYER, 0)
+    party_memory.load_u8(SIDE_HAZARDS_OPP, 0)
 
     service = BattleService(task)
     service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
@@ -102,8 +102,8 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
         current_emulator.mem.load_u32(BATTLE_WEATHER, 0)
         current_emulator.mem.load_u8(BATTLE_TERRAIN, 0)
         current_emulator.mem.load_u8(TERRAIN_TIMER, 0)
-        current_emulator.mem.load_u8(SIDE_STATUS_PLAYER, 0)
-        current_emulator.mem.load_u8(SIDE_STATUS_OPP, 0)
+        current_emulator.mem.load_u8(SIDE_HAZARDS_PLAYER, 0)
+        current_emulator.mem.load_u8(SIDE_HAZARDS_OPP, 0)
 
         state = read_battle_state(current_emulator.mem, party)
         session = BattleSession(emu=current_emulator, party=party)
@@ -162,8 +162,18 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
             "weather": {"kind": "none", "turns_left": "inf"},
             "terrain": {"kind": "none", "turns_left": 0},
             "hazards": {
-                "player": {"stealth_rock": False, "spikes": 0, "toxic_spikes": 0},
-                "opponent": {"stealth_rock": False, "spikes": 0, "toxic_spikes": 0},
+                "player": {
+                    "stealth_rock": False,
+                    "spikes": 0,
+                    "toxic_spikes": 0,
+                    "sticky_web": False,
+                },
+                "opponent": {
+                    "stealth_rock": False,
+                    "spikes": 0,
+                    "toxic_spikes": 0,
+                    "sticky_web": False,
+                },
             },
             "stat_stages": {
                 "player": {

@@ -13,8 +13,8 @@ from rrbench.battle.addresses import (
     MON_SPECIES,
     MON_STAT_STAGES,
     MSG_BUFFER,
-    SIDE_STATUS_OPP,
-    SIDE_STATUS_PLAYER,
+    SIDE_HAZARDS_OPP,
+    SIDE_HAZARDS_PLAYER,
     TERRAIN_TIMER,
 )
 from rrbench.battle.capture import TurnRecorder, capture_intro, capture_turn, decode_msg
@@ -110,8 +110,8 @@ def test_battle_observation_reads_field_state_and_replacement(party_memory) -> N
     party_memory.load_u32(BATTLE_WEATHER, 0x08)
     party_memory.load_u8(BATTLE_TERRAIN, 2)
     party_memory.load_u8(TERRAIN_TIMER, 3)
-    party_memory.load_u8(SIDE_STATUS_PLAYER, 0x10)
-    party_memory.load_u8(SIDE_STATUS_OPP, 0)
+    party_memory.load_u8(SIDE_HAZARDS_PLAYER, 0x3B)
+    party_memory.load_u8(SIDE_HAZARDS_OPP, 0x15)
     party = Party(party_memory)
 
     observation = render_observation(read_battle_state(party_memory, party))
@@ -131,8 +131,18 @@ def test_battle_observation_reads_field_state_and_replacement(party_memory) -> N
     assert observation["weather"] == {"kind": "sandstorm", "turns_left": "inf"}
     assert observation["terrain"] == {"kind": "grassy", "turns_left": 3}
     assert observation["hazards"] == {
-        "player": {"stealth_rock": True, "spikes": 0, "toxic_spikes": 0},
-        "opponent": {"stealth_rock": False, "spikes": 0, "toxic_spikes": 0},
+        "player": {
+            "stealth_rock": True,
+            "spikes": 3,
+            "toxic_spikes": 2,
+            "sticky_web": True,
+        },
+        "opponent": {
+            "stealth_rock": True,
+            "spikes": 1,
+            "toxic_spikes": 1,
+            "sticky_web": False,
+        },
     }
     assert observation["stat_stages"] == {
         "player": {
