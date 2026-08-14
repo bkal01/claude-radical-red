@@ -1,27 +1,46 @@
 from rrbench.emulator.emulator import (
     Emulator,
-    KEY_A, KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT,
+    KEY_A, KEY_B, KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT,
 )
 from rrbench.emulator.memory import Party
 from rrbench.battle.addresses import LAST_MOVES
 from rrbench.battle.capture import MessageEvent, capture_intro, capture_turn
 from rrbench.battle.state import BattleSession, BattleState, StepLog, in_battle, read_battle_state
+from rrbench.tasks import BattleTriggerStep
 
 
-def start_battle(emu: Emulator, party: Party, lead: str) -> tuple[BattleSession, BattleState, list[MessageEvent]]:
+TRIGGER_KEY_CODES = {
+    "A": KEY_A,
+    "B": KEY_B,
+    "UP": KEY_UP,
+    "DOWN": KEY_DOWN,
+    "LEFT": KEY_LEFT,
+    "RIGHT": KEY_RIGHT,
+}
+
+
+def start_battle(
+    emu: Emulator,
+    party: Party,
+    lead: str,
+    battle_trigger: tuple[BattleTriggerStep, ...],
+) -> tuple[BattleSession, BattleState, list[MessageEvent]]:
     """
     Put `lead` at the front of the party, trigger the encounter, and advance through all
     pre-battle dialogue. Returns the ready-to-act session plus the intro messages
     (send-outs, Intimidate, weather) captured while the battle opened.
     """
-    # TODO: Generalize past Giovanni — the walk + dialogue script is battle-specific.
     party.set_lead(lead)
 
-    # Walk up into the room to trigger the encounter script.
-    for _ in range(60):
-        emu._core.set_keys(KEY_UP)
-        emu.step()
-        emu._core.set_keys()
+    for trigger_step in battle_trigger:
+        if trigger_step.key is None:
+            emu.step(trigger_step.frames)
+            continue
+        key_code = TRIGGER_KEY_CODES[trigger_step.key]
+        for _ in range(trigger_step.frames):
+            emu._core.set_keys(key_code)
+            emu.step()
+            emu._core.set_keys()
 
     # Advance dialogue until the battle actually starts. Hold A for 3 frames (registers
     # the press + speeds text scroll), then release for 20 so the game processes the edge.

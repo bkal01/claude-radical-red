@@ -1,0 +1,13 @@
+{
+  "game_data_version": "v4.1",
+  "task_id": "rival_route_22",
+  "allowed_species_count": 61,
+  "available_tm_hm_move_count": 3,
+  "available_tutor_move_count": 1,
+  "available_hms": [],
+  "allowed_item_count": 1,
+  "egg_move_tutor_available": false,
+  "excluded_species_categories": [
+    "mega"
+  ]
+}

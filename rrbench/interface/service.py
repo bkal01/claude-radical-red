@@ -86,7 +86,12 @@ class BattleService:
 
         party = Party(self.emu.mem)
         try:
-            self.session, state, messages = start_battle(self.emu, party, lead_pokemon)
+            self.session, state, messages = start_battle(
+                self.emu,
+                party,
+                lead_pokemon,
+                self.task.battle_trigger,
+            )
         except PokemonNotInPartyError as e:
             return {"ok": False, "error": str(e)}
         return {

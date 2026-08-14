@@ -8,7 +8,7 @@ import pytest
 from rrbench.emulator.memory import PARTY_COUNT_ADDR
 from rrbench.interface import service as service_module
 from rrbench.interface.service import BattleService
-from rrbench.tasks import TaskSpec, load_task
+from rrbench.tasks import BattleTriggerStep, TaskSpec, load_task
 from tests.support.fakes import FakeEmulator
 
 
@@ -29,6 +29,31 @@ def test_load_task_rejects_invalid_team_size(tmp_path, team_size) -> None:
 
     with pytest.raises(ValueError, match="team_size must be an integer from 1 through 6"):
         load_task(task_directory)
+
+
+def test_load_task_parses_battle_trigger(tmp_path) -> None:
+    task_directory = tmp_path / "task"
+    task_directory.mkdir()
+    (task_directory / "task.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "id": "test",
+                "save_state": "save_state.ss0",
+                "level_cap": 57,
+                "battle_trigger": [
+                    {"key": "UP", "frames": 60},
+                    {"key": None, "frames": 20},
+                ],
+            }
+        )
+    )
+
+    task = load_task(task_directory)
+
+    assert task.battle_trigger == (
+        BattleTriggerStep(key="UP", frames=60),
+        BattleTriggerStep(key=None, frames=20),
+    )
 
 
 def test_giovanni_agent_data_matches_the_validator_allowlist(monkeypatch) -> None:
