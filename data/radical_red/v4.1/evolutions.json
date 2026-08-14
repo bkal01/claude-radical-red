@@ -1,0 +1,5498 @@
+[
+  {
+    "source_species_id": 1,
+    "target_species_id": 2,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 2,
+    "target_species_id": 3,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 3,
+    "target_species_id": 869,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 533,
+    "condition": 0
+  },
+  {
+    "source_species_id": 4,
+    "target_species_id": 5,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 5,
+    "target_species_id": 6,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 6,
+    "target_species_id": 870,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 534,
+    "condition": 0
+  },
+  {
+    "source_species_id": 6,
+    "target_species_id": 871,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 535,
+    "condition": 0
+  },
+  {
+    "source_species_id": 7,
+    "target_species_id": 8,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 8,
+    "target_species_id": 9,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 9,
+    "target_species_id": 872,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 536,
+    "condition": 0
+  },
+  {
+    "source_species_id": 10,
+    "target_species_id": 11,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 7,
+    "condition": 0
+  },
+  {
+    "source_species_id": 11,
+    "target_species_id": 12,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 10,
+    "condition": 0
+  },
+  {
+    "source_species_id": 12,
+    "target_species_id": 1233,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 730,
+    "condition": 0
+  },
+  {
+    "source_species_id": 13,
+    "target_species_id": 14,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 7,
+    "condition": 0
+  },
+  {
+    "source_species_id": 14,
+    "target_species_id": 15,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 10,
+    "condition": 0
+  },
+  {
+    "source_species_id": 15,
+    "target_species_id": 873,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 537,
+    "condition": 0
+  },
+  {
+    "source_species_id": 16,
+    "target_species_id": 17,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 17,
+    "target_species_id": 18,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 18,
+    "target_species_id": 874,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 538,
+    "condition": 0
+  },
+  {
+    "source_species_id": 19,
+    "target_species_id": 20,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 21,
+    "target_species_id": 22,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 23,
+    "target_species_id": 24,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 25,
+    "target_species_id": 26,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 96,
+    "condition": 0
+  },
+  {
+    "source_species_id": 25,
+    "target_species_id": 1022,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 99,
+    "condition": 0
+  },
+  {
+    "source_species_id": 27,
+    "target_species_id": 28,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 29,
+    "target_species_id": 30,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 30,
+    "target_species_id": 31,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 94,
+    "condition": 0
+  },
+  {
+    "source_species_id": 32,
+    "target_species_id": 33,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 33,
+    "target_species_id": 34,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 94,
+    "condition": 0
+  },
+  {
+    "source_species_id": 35,
+    "target_species_id": 36,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 94,
+    "condition": 0
+  },
+  {
+    "source_species_id": 37,
+    "target_species_id": 38,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 95,
+    "condition": 0
+  },
+  {
+    "source_species_id": 39,
+    "target_species_id": 40,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 94,
+    "condition": 0
+  },
+  {
+    "source_species_id": 41,
+    "target_species_id": 42,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 42,
+    "target_species_id": 169,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 43,
+    "target_species_id": 44,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 44,
+    "target_species_id": 45,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 98,
+    "condition": 0
+  },
+  {
+    "source_species_id": 44,
+    "target_species_id": 182,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 93,
+    "condition": 0
+  },
+  {
+    "source_species_id": 46,
+    "target_species_id": 47,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 48,
+    "target_species_id": 49,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 50,
+    "target_species_id": 51,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 52,
+    "target_species_id": 53,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 54,
+    "target_species_id": 55,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 56,
+    "target_species_id": 57,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 57,
+    "target_species_id": 937,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 57,
+    "target_species_id": 937,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 325,
+    "condition": 0
+  },
+  {
+    "source_species_id": 58,
+    "target_species_id": 59,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 95,
+    "condition": 0
+  },
+  {
+    "source_species_id": 60,
+    "target_species_id": 61,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 61,
+    "target_species_id": 62,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 97,
+    "condition": 0
+  },
+  {
+    "source_species_id": 61,
+    "target_species_id": 186,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 187,
+    "condition": 0
+  },
+  {
+    "source_species_id": 63,
+    "target_species_id": 64,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 64,
+    "target_species_id": 65,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 65,
+    "target_species_id": 875,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 539,
+    "condition": 0
+  },
+  {
+    "source_species_id": 66,
+    "target_species_id": 67,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 67,
+    "target_species_id": 68,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 68,
+    "target_species_id": 1236,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 728,
+    "condition": 0
+  },
+  {
+    "source_species_id": 69,
+    "target_species_id": 70,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 21,
+    "condition": 0
+  },
+  {
+    "source_species_id": 70,
+    "target_species_id": 71,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 98,
+    "condition": 0
+  },
+  {
+    "source_species_id": 72,
+    "target_species_id": 73,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 74,
+    "target_species_id": 75,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 75,
+    "target_species_id": 76,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 77,
+    "target_species_id": 78,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 79,
+    "target_species_id": 80,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 37,
+    "condition": 0
+  },
+  {
+    "source_species_id": 79,
+    "target_species_id": 199,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 187,
+    "condition": 0
+  },
+  {
+    "source_species_id": 80,
+    "target_species_id": 876,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 540,
+    "condition": 0
+  },
+  {
+    "source_species_id": 81,
+    "target_species_id": 82,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 82,
+    "target_species_id": 515,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 96,
+    "condition": 0
+  },
+  {
+    "source_species_id": 84,
+    "target_species_id": 85,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 31,
+    "condition": 0
+  },
+  {
+    "source_species_id": 86,
+    "target_species_id": 87,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 88,
+    "target_species_id": 89,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 40,
+    "condition": 0
+  },
+  {
+    "source_species_id": 90,
+    "target_species_id": 91,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 97,
+    "condition": 0
+  },
+  {
+    "source_species_id": 92,
+    "target_species_id": 93,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 93,
+    "target_species_id": 94,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 94,
+    "target_species_id": 877,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 541,
+    "condition": 0
+  },
+  {
+    "source_species_id": 95,
+    "target_species_id": 208,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 199,
+    "condition": 0
+  },
+  {
+    "source_species_id": 96,
+    "target_species_id": 97,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 26,
+    "condition": 0
+  },
+  {
+    "source_species_id": 98,
+    "target_species_id": 99,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 99,
+    "target_species_id": 1238,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 733,
+    "condition": 0
+  },
+  {
+    "source_species_id": 100,
+    "target_species_id": 101,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 102,
+    "target_species_id": 103,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 98,
+    "condition": 0
+  },
+  {
+    "source_species_id": 102,
+    "target_species_id": 1037,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 93,
+    "condition": 0
+  },
+  {
+    "source_species_id": 104,
+    "target_species_id": 105,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 104,
+    "target_species_id": 1039,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 108,
+    "target_species_id": 516,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 108,
+    "target_species_id": 516,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 205,
+    "condition": 0
+  },
+  {
+    "source_species_id": 109,
+    "target_species_id": 110,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 109,
+    "target_species_id": 1215,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 111,
+    "target_species_id": 112,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 42,
+    "condition": 0
+  },
+  {
+    "source_species_id": 112,
+    "target_species_id": 517,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 113,
+    "target_species_id": 242,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 114,
+    "target_species_id": 518,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 114,
+    "target_species_id": 518,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 246,
+    "condition": 0
+  },
+  {
+    "source_species_id": 115,
+    "target_species_id": 878,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 542,
+    "condition": 0
+  },
+  {
+    "source_species_id": 116,
+    "target_species_id": 117,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 32,
+    "condition": 0
+  },
+  {
+    "source_species_id": 117,
+    "target_species_id": 230,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 176,
+    "condition": 0
+  },
+  {
+    "source_species_id": 118,
+    "target_species_id": 119,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 33,
+    "condition": 0
+  },
+  {
+    "source_species_id": 120,
+    "target_species_id": 121,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 97,
+    "condition": 0
+  },
+  {
+    "source_species_id": 123,
+    "target_species_id": 212,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 199,
+    "condition": 0
+  },
+  {
+    "source_species_id": 123,
+    "target_species_id": 1273,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 187,
+    "condition": 0
+  },
+  {
+    "source_species_id": 125,
+    "target_species_id": 519,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 126,
+    "target_species_id": 520,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 127,
+    "target_species_id": 879,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 543,
+    "condition": 0
+  },
+  {
+    "source_species_id": 129,
+    "target_species_id": 130,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 130,
+    "target_species_id": 880,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 544,
+    "condition": 0
+  },
+  {
+    "source_species_id": 131,
+    "target_species_id": 1239,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 729,
+    "condition": 0
+  },
+  {
+    "source_species_id": 133,
+    "target_species_id": 134,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 97,
+    "condition": 0
+  },
+  {
+    "source_species_id": 133,
+    "target_species_id": 135,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 96,
+    "condition": 0
+  },
+  {
+    "source_species_id": 133,
+    "target_species_id": 136,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 95,
+    "condition": 0
+  },
+  {
+    "source_species_id": 133,
+    "target_species_id": 196,
+    "method_code": 2,
+    "method": "friendship_day",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 133,
+    "target_species_id": 197,
+    "method_code": 3,
+    "method": "friendship_night",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 133,
+    "target_species_id": 523,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 98,
+    "condition": 0
+  },
+  {
+    "source_species_id": 133,
+    "target_species_id": 524,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 102,
+    "condition": 0
+  },
+  {
+    "source_species_id": 133,
+    "target_species_id": 808,
+    "method_code": 17,
+    "method": "move_type",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 137,
+    "target_species_id": 233,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 138,
+    "target_species_id": 139,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 140,
+    "target_species_id": 141,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 142,
+    "target_species_id": 881,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 545,
+    "condition": 0
+  },
+  {
+    "source_species_id": 143,
+    "target_species_id": 1241,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 732,
+    "condition": 0
+  },
+  {
+    "source_species_id": 147,
+    "target_species_id": 148,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 148,
+    "target_species_id": 149,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 55,
+    "condition": 0
+  },
+  {
+    "source_species_id": 150,
+    "target_species_id": 882,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 546,
+    "condition": 0
+  },
+  {
+    "source_species_id": 150,
+    "target_species_id": 883,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 547,
+    "condition": 0
+  },
+  {
+    "source_species_id": 152,
+    "target_species_id": 153,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 153,
+    "target_species_id": 154,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 32,
+    "condition": 0
+  },
+  {
+    "source_species_id": 155,
+    "target_species_id": 156,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 156,
+    "target_species_id": 157,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 156,
+    "target_species_id": 1299,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 158,
+    "target_species_id": 159,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 159,
+    "target_species_id": 160,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 161,
+    "target_species_id": 162,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 15,
+    "condition": 0
+  },
+  {
+    "source_species_id": 163,
+    "target_species_id": 164,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 165,
+    "target_species_id": 166,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 167,
+    "target_species_id": 168,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 170,
+    "target_species_id": 171,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 172,
+    "target_species_id": 25,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 173,
+    "target_species_id": 35,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 174,
+    "target_species_id": 39,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 175,
+    "target_species_id": 176,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 176,
+    "target_species_id": 521,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 99,
+    "condition": 0
+  },
+  {
+    "source_species_id": 177,
+    "target_species_id": 178,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 179,
+    "target_species_id": 180,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 15,
+    "condition": 0
+  },
+  {
+    "source_species_id": 180,
+    "target_species_id": 181,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 181,
+    "target_species_id": 884,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 548,
+    "condition": 0
+  },
+  {
+    "source_species_id": 183,
+    "target_species_id": 184,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 18,
+    "condition": 0
+  },
+  {
+    "source_species_id": 187,
+    "target_species_id": 188,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 188,
+    "target_species_id": 189,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 190,
+    "target_species_id": 477,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 190,
+    "target_species_id": 477,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 438,
+    "condition": 0
+  },
+  {
+    "source_species_id": 191,
+    "target_species_id": 192,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 93,
+    "condition": 0
+  },
+  {
+    "source_species_id": 193,
+    "target_species_id": 522,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 193,
+    "target_species_id": 522,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 246,
+    "condition": 0
+  },
+  {
+    "source_species_id": 194,
+    "target_species_id": 195,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 198,
+    "target_species_id": 483,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 100,
+    "condition": 0
+  },
+  {
+    "source_species_id": 200,
+    "target_species_id": 482,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 100,
+    "condition": 0
+  },
+  {
+    "source_species_id": 203,
+    "target_species_id": 868,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 203,
+    "target_species_id": 868,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 783,
+    "condition": 0
+  },
+  {
+    "source_species_id": 204,
+    "target_species_id": 205,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 206,
+    "target_species_id": 1100,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 206,
+    "target_species_id": 1100,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 768,
+    "condition": 0
+  },
+  {
+    "source_species_id": 207,
+    "target_species_id": 525,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 100,
+    "condition": 0
+  },
+  {
+    "source_species_id": 208,
+    "target_species_id": 885,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 549,
+    "condition": 0
+  },
+  {
+    "source_species_id": 209,
+    "target_species_id": 210,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 212,
+    "target_species_id": 886,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 550,
+    "condition": 0
+  },
+  {
+    "source_species_id": 214,
+    "target_species_id": 887,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 551,
+    "condition": 0
+  },
+  {
+    "source_species_id": 215,
+    "target_species_id": 514,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 100,
+    "condition": 0
+  },
+  {
+    "source_species_id": 216,
+    "target_species_id": 217,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 217,
+    "target_species_id": 1302,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 48,
+    "condition": 0
+  },
+  {
+    "source_species_id": 218,
+    "target_species_id": 219,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 220,
+    "target_species_id": 221,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 221,
+    "target_species_id": 526,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 221,
+    "target_species_id": 526,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 246,
+    "condition": 0
+  },
+  {
+    "source_species_id": 223,
+    "target_species_id": 224,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 228,
+    "target_species_id": 229,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 229,
+    "target_species_id": 888,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 552,
+    "condition": 0
+  },
+  {
+    "source_species_id": 231,
+    "target_species_id": 232,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 233,
+    "target_species_id": 527,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 100,
+    "condition": 0
+  },
+  {
+    "source_species_id": 234,
+    "target_species_id": 1270,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 236,
+    "target_species_id": 106,
+    "method_code": 8,
+    "method": "level_attack_greater_than_defense",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 236,
+    "target_species_id": 107,
+    "method_code": 10,
+    "method": "level_attack_less_than_defense",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 236,
+    "target_species_id": 237,
+    "method_code": 9,
+    "method": "level_attack_equal_to_defense",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 238,
+    "target_species_id": 124,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 239,
+    "target_species_id": 125,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 240,
+    "target_species_id": 126,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 246,
+    "target_species_id": 247,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 247,
+    "target_species_id": 248,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 55,
+    "condition": 0
+  },
+  {
+    "source_species_id": 248,
+    "target_species_id": 889,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 553,
+    "condition": 0
+  },
+  {
+    "source_species_id": 277,
+    "target_species_id": 278,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 278,
+    "target_species_id": 279,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 279,
+    "target_species_id": 890,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 554,
+    "condition": 0
+  },
+  {
+    "source_species_id": 280,
+    "target_species_id": 281,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 281,
+    "target_species_id": 282,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 282,
+    "target_species_id": 891,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 555,
+    "condition": 0
+  },
+  {
+    "source_species_id": 283,
+    "target_species_id": 284,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 284,
+    "target_species_id": 285,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 285,
+    "target_species_id": 892,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 556,
+    "condition": 0
+  },
+  {
+    "source_species_id": 286,
+    "target_species_id": 287,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 288,
+    "target_species_id": 289,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 290,
+    "target_species_id": 291,
+    "method_code": 11,
+    "method": "level_silcoon",
+    "requirement": 7,
+    "condition": 0
+  },
+  {
+    "source_species_id": 290,
+    "target_species_id": 293,
+    "method_code": 12,
+    "method": "level_cascoon",
+    "requirement": 7,
+    "condition": 0
+  },
+  {
+    "source_species_id": 291,
+    "target_species_id": 292,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 10,
+    "condition": 0
+  },
+  {
+    "source_species_id": 293,
+    "target_species_id": 294,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 10,
+    "condition": 0
+  },
+  {
+    "source_species_id": 295,
+    "target_species_id": 296,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 14,
+    "condition": 0
+  },
+  {
+    "source_species_id": 296,
+    "target_species_id": 297,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 97,
+    "condition": 0
+  },
+  {
+    "source_species_id": 298,
+    "target_species_id": 299,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 14,
+    "condition": 0
+  },
+  {
+    "source_species_id": 299,
+    "target_species_id": 300,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 98,
+    "condition": 0
+  },
+  {
+    "source_species_id": 301,
+    "target_species_id": 302,
+    "method_code": 13,
+    "method": "level_ninjask",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 301,
+    "target_species_id": 303,
+    "method_code": 14,
+    "method": "level_shedinja",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 304,
+    "target_species_id": 305,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 306,
+    "target_species_id": 307,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 309,
+    "target_species_id": 310,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 311,
+    "target_species_id": 312,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 313,
+    "target_species_id": 314,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 40,
+    "condition": 0
+  },
+  {
+    "source_species_id": 315,
+    "target_species_id": 316,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 94,
+    "condition": 0
+  },
+  {
+    "source_species_id": 318,
+    "target_species_id": 319,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 320,
+    "target_species_id": 529,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 199,
+    "condition": 0
+  },
+  {
+    "source_species_id": 322,
+    "target_species_id": 894,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 558,
+    "condition": 0
+  },
+  {
+    "source_species_id": 323,
+    "target_species_id": 324,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 326,
+    "target_species_id": 327,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 328,
+    "target_species_id": 329,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 176,
+    "condition": 0
+  },
+  {
+    "source_species_id": 330,
+    "target_species_id": 331,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 331,
+    "target_species_id": 899,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 563,
+    "condition": 0
+  },
+  {
+    "source_species_id": 332,
+    "target_species_id": 333,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 333,
+    "target_species_id": 334,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 335,
+    "target_species_id": 336,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 24,
+    "condition": 0
+  },
+  {
+    "source_species_id": 337,
+    "target_species_id": 338,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 26,
+    "condition": 0
+  },
+  {
+    "source_species_id": 338,
+    "target_species_id": 898,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 562,
+    "condition": 0
+  },
+  {
+    "source_species_id": 339,
+    "target_species_id": 340,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 33,
+    "condition": 0
+  },
+  {
+    "source_species_id": 340,
+    "target_species_id": 900,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 564,
+    "condition": 0
+  },
+  {
+    "source_species_id": 341,
+    "target_species_id": 342,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 32,
+    "condition": 0
+  },
+  {
+    "source_species_id": 342,
+    "target_species_id": 343,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 344,
+    "target_species_id": 345,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 346,
+    "target_species_id": 347,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 42,
+    "condition": 0
+  },
+  {
+    "source_species_id": 346,
+    "target_species_id": 531,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 101,
+    "condition": 254
+  },
+  {
+    "source_species_id": 347,
+    "target_species_id": 904,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 568,
+    "condition": 0
+  },
+  {
+    "source_species_id": 350,
+    "target_species_id": 183,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 351,
+    "target_species_id": 352,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 32,
+    "condition": 0
+  },
+  {
+    "source_species_id": 355,
+    "target_species_id": 895,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 559,
+    "condition": 0
+  },
+  {
+    "source_species_id": 356,
+    "target_species_id": 357,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 37,
+    "condition": 0
+  },
+  {
+    "source_species_id": 357,
+    "target_species_id": 897,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 561,
+    "condition": 0
+  },
+  {
+    "source_species_id": 358,
+    "target_species_id": 359,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 359,
+    "target_species_id": 901,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 565,
+    "condition": 0
+  },
+  {
+    "source_species_id": 360,
+    "target_species_id": 202,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 15,
+    "condition": 0
+  },
+  {
+    "source_species_id": 361,
+    "target_species_id": 362,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 37,
+    "condition": 0
+  },
+  {
+    "source_species_id": 362,
+    "target_species_id": 530,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 363,
+    "target_species_id": 460,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 99,
+    "condition": 0
+  },
+  {
+    "source_species_id": 364,
+    "target_species_id": 365,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 365,
+    "target_species_id": 366,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 367,
+    "target_species_id": 368,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 26,
+    "condition": 0
+  },
+  {
+    "source_species_id": 370,
+    "target_species_id": 371,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 371,
+    "target_species_id": 372,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 373,
+    "target_species_id": 374,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 97,
+    "condition": 0
+  },
+  {
+    "source_species_id": 373,
+    "target_species_id": 375,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 93,
+    "condition": 0
+  },
+  {
+    "source_species_id": 376,
+    "target_species_id": 903,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 567,
+    "condition": 0
+  },
+  {
+    "source_species_id": 377,
+    "target_species_id": 378,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 378,
+    "target_species_id": 902,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 566,
+    "condition": 0
+  },
+  {
+    "source_species_id": 382,
+    "target_species_id": 383,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 32,
+    "condition": 0
+  },
+  {
+    "source_species_id": 383,
+    "target_species_id": 384,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 42,
+    "condition": 0
+  },
+  {
+    "source_species_id": 384,
+    "target_species_id": 896,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 560,
+    "condition": 0
+  },
+  {
+    "source_species_id": 388,
+    "target_species_id": 389,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 390,
+    "target_species_id": 391,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 392,
+    "target_species_id": 393,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 393,
+    "target_species_id": 394,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 393,
+    "target_species_id": 528,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 101,
+    "condition": 0
+  },
+  {
+    "source_species_id": 394,
+    "target_species_id": 893,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 557,
+    "condition": 0
+  },
+  {
+    "source_species_id": 395,
+    "target_species_id": 396,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 396,
+    "target_species_id": 397,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 50,
+    "condition": 0
+  },
+  {
+    "source_species_id": 397,
+    "target_species_id": 905,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 569,
+    "condition": 0
+  },
+  {
+    "source_species_id": 398,
+    "target_species_id": 399,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 399,
+    "target_species_id": 400,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 400,
+    "target_species_id": 906,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 570,
+    "condition": 0
+  },
+  {
+    "source_species_id": 404,
+    "target_species_id": 910,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 277,
+    "condition": 1
+  },
+  {
+    "source_species_id": 405,
+    "target_species_id": 909,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 276,
+    "condition": 1
+  },
+  {
+    "source_species_id": 406,
+    "target_species_id": 911,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 559,
+    "condition": 2
+  },
+  {
+    "source_species_id": 407,
+    "target_species_id": 907,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 571,
+    "condition": 0
+  },
+  {
+    "source_species_id": 408,
+    "target_species_id": 908,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 572,
+    "condition": 0
+  },
+  {
+    "source_species_id": 440,
+    "target_species_id": 441,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 441,
+    "target_species_id": 442,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 443,
+    "target_species_id": 444,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 444,
+    "target_species_id": 445,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 446,
+    "target_species_id": 447,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 447,
+    "target_species_id": 448,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 449,
+    "target_species_id": 450,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 14,
+    "condition": 0
+  },
+  {
+    "source_species_id": 450,
+    "target_species_id": 451,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 452,
+    "target_species_id": 453,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 15,
+    "condition": 0
+  },
+  {
+    "source_species_id": 454,
+    "target_species_id": 455,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 10,
+    "condition": 0
+  },
+  {
+    "source_species_id": 456,
+    "target_species_id": 457,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 15,
+    "condition": 0
+  },
+  {
+    "source_species_id": 457,
+    "target_species_id": 458,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 459,
+    "target_species_id": 363,
+    "method_code": 2,
+    "method": "friendship_day",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 461,
+    "target_species_id": 462,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 463,
+    "target_species_id": 464,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 465,
+    "target_species_id": 466,
+    "method_code": 21,
+    "method": "level_female",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 465,
+    "target_species_id": 467,
+    "method_code": 20,
+    "method": "level_male",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 468,
+    "target_species_id": 469,
+    "method_code": 21,
+    "method": "level_female",
+    "requirement": 21,
+    "condition": 0
+  },
+  {
+    "source_species_id": 471,
+    "target_species_id": 472,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 26,
+    "condition": 0
+  },
+  {
+    "source_species_id": 473,
+    "target_species_id": 474,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 475,
+    "target_species_id": 476,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 478,
+    "target_species_id": 479,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 480,
+    "target_species_id": 481,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 481,
+    "target_species_id": 912,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 573,
+    "condition": 0
+  },
+  {
+    "source_species_id": 484,
+    "target_species_id": 485,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 486,
+    "target_species_id": 411,
+    "method_code": 3,
+    "method": "friendship_night",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 487,
+    "target_species_id": 488,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 489,
+    "target_species_id": 490,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 33,
+    "condition": 0
+  },
+  {
+    "source_species_id": 491,
+    "target_species_id": 185,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 491,
+    "target_species_id": 185,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 102,
+    "condition": 0
+  },
+  {
+    "source_species_id": 492,
+    "target_species_id": 122,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 492,
+    "target_species_id": 122,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 102,
+    "condition": 0
+  },
+  {
+    "source_species_id": 492,
+    "target_species_id": 1216,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 102,
+    "condition": 0
+  },
+  {
+    "source_species_id": 493,
+    "target_species_id": 113,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 99,
+    "condition": 0
+  },
+  {
+    "source_species_id": 496,
+    "target_species_id": 497,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 24,
+    "condition": 0
+  },
+  {
+    "source_species_id": 497,
+    "target_species_id": 498,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 48,
+    "condition": 0
+  },
+  {
+    "source_species_id": 498,
+    "target_species_id": 913,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 574,
+    "condition": 0
+  },
+  {
+    "source_species_id": 499,
+    "target_species_id": 143,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 500,
+    "target_species_id": 501,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 501,
+    "target_species_id": 914,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 575,
+    "condition": 0
+  },
+  {
+    "source_species_id": 502,
+    "target_species_id": 503,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 504,
+    "target_species_id": 505,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 40,
+    "condition": 0
+  },
+  {
+    "source_species_id": 506,
+    "target_species_id": 507,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 37,
+    "condition": 0
+  },
+  {
+    "source_species_id": 509,
+    "target_species_id": 510,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 511,
+    "target_species_id": 226,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 511,
+    "target_species_id": 226,
+    "method_code": 27,
+    "method": "specific_party_member",
+    "requirement": 223,
+    "condition": 0
+  },
+  {
+    "source_species_id": 512,
+    "target_species_id": 513,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 513,
+    "target_species_id": 915,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 576,
+    "condition": 0
+  },
+  {
+    "source_species_id": 528,
+    "target_species_id": 916,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 577,
+    "condition": 0
+  },
+  {
+    "source_species_id": 536,
+    "target_species_id": 919,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 487,
+    "condition": 1
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 720,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 490,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 720,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 581,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 721,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 491,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 721,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 582,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 722,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 492,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 722,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 583,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 723,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 493,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 723,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 584,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 724,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 494,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 724,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 585,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 725,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 495,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 725,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 586,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 726,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 496,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 726,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 587,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 727,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 497,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 727,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 588,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 728,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 498,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 728,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 589,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 729,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 499,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 729,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 590,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 730,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 500,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 730,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 591,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 731,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 501,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 731,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 592,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 732,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 502,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 732,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 593,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 733,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 503,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 733,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 594,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 734,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 504,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 734,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 595,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 735,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 505,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 735,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 596,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 834,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 506,
+    "condition": 0
+  },
+  {
+    "source_species_id": 546,
+    "target_species_id": 834,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 597,
+    "condition": 0
+  },
+  {
+    "source_species_id": 548,
+    "target_species_id": 549,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 549,
+    "target_species_id": 550,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 551,
+    "target_species_id": 552,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 552,
+    "target_species_id": 553,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 554,
+    "target_species_id": 555,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 555,
+    "target_species_id": 556,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 555,
+    "target_species_id": 1300,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 557,
+    "target_species_id": 558,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 559,
+    "target_species_id": 560,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 560,
+    "target_species_id": 561,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 32,
+    "condition": 0
+  },
+  {
+    "source_species_id": 562,
+    "target_species_id": 563,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 564,
+    "target_species_id": 565,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 98,
+    "condition": 0
+  },
+  {
+    "source_species_id": 566,
+    "target_species_id": 567,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 95,
+    "condition": 0
+  },
+  {
+    "source_species_id": 568,
+    "target_species_id": 569,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 97,
+    "condition": 0
+  },
+  {
+    "source_species_id": 570,
+    "target_species_id": 571,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 94,
+    "condition": 0
+  },
+  {
+    "source_species_id": 572,
+    "target_species_id": 573,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 573,
+    "target_species_id": 574,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 575,
+    "target_species_id": 576,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 577,
+    "target_species_id": 578,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 578,
+    "target_species_id": 579,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 580,
+    "target_species_id": 581,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 582,
+    "target_species_id": 583,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 31,
+    "condition": 0
+  },
+  {
+    "source_species_id": 584,
+    "target_species_id": 917,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 578,
+    "condition": 0
+  },
+  {
+    "source_species_id": 585,
+    "target_species_id": 586,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 586,
+    "target_species_id": 587,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 588,
+    "target_species_id": 589,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 589,
+    "target_species_id": 590,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 593,
+    "target_species_id": 594,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 594,
+    "target_species_id": 595,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 596,
+    "target_species_id": 597,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 597,
+    "target_species_id": 598,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 599,
+    "target_species_id": 600,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 93,
+    "condition": 0
+  },
+  {
+    "source_species_id": 601,
+    "target_species_id": 602,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 93,
+    "condition": 0
+  },
+  {
+    "source_species_id": 601,
+    "target_species_id": 1303,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 98,
+    "condition": 0
+  },
+  {
+    "source_species_id": 603,
+    "target_species_id": 1268,
+    "method_code": 20,
+    "method": "level_male",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 603,
+    "target_species_id": 1306,
+    "method_code": 21,
+    "method": "level_female",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 604,
+    "target_species_id": 605,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 605,
+    "target_species_id": 606,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 40,
+    "condition": 0
+  },
+  {
+    "source_species_id": 607,
+    "target_species_id": 608,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 610,
+    "target_species_id": 611,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 612,
+    "target_species_id": 613,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 615,
+    "target_species_id": 616,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 617,
+    "target_species_id": 618,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 619,
+    "target_species_id": 620,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 621,
+    "target_species_id": 622,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 622,
+    "target_species_id": 1242,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 731,
+    "condition": 0
+  },
+  {
+    "source_species_id": 623,
+    "target_species_id": 624,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 625,
+    "target_species_id": 626,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 99,
+    "condition": 0
+  },
+  {
+    "source_species_id": 627,
+    "target_species_id": 628,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 628,
+    "target_species_id": 629,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 630,
+    "target_species_id": 631,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 631,
+    "target_species_id": 632,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 41,
+    "condition": 0
+  },
+  {
+    "source_species_id": 633,
+    "target_species_id": 634,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 635,
+    "target_species_id": 636,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 636,
+    "target_species_id": 637,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 638,
+    "target_species_id": 639,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 641,
+    "target_species_id": 642,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 643,
+    "target_species_id": 644,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 645,
+    "target_species_id": 646,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 40,
+    "condition": 0
+  },
+  {
+    "source_species_id": 648,
+    "target_species_id": 649,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 32,
+    "condition": 0
+  },
+  {
+    "source_species_id": 650,
+    "target_species_id": 651,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 40,
+    "condition": 0
+  },
+  {
+    "source_species_id": 652,
+    "target_species_id": 653,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 38,
+    "condition": 0
+  },
+  {
+    "source_species_id": 653,
+    "target_species_id": 654,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 49,
+    "condition": 0
+  },
+  {
+    "source_species_id": 655,
+    "target_species_id": 656,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 656,
+    "target_species_id": 657,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 96,
+    "condition": 0
+  },
+  {
+    "source_species_id": 658,
+    "target_species_id": 659,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 660,
+    "target_species_id": 661,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 661,
+    "target_species_id": 662,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 100,
+    "condition": 0
+  },
+  {
+    "source_species_id": 663,
+    "target_species_id": 664,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 664,
+    "target_species_id": 665,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 666,
+    "target_species_id": 667,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 669,
+    "target_species_id": 670,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 672,
+    "target_species_id": 673,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 675,
+    "target_species_id": 676,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 677,
+    "target_species_id": 678,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 678,
+    "target_species_id": 936,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 50,
+    "condition": 0
+  },
+  {
+    "source_species_id": 680,
+    "target_species_id": 681,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 680,
+    "target_species_id": 1269,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 682,
+    "target_species_id": 683,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 686,
+    "target_species_id": 687,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 687,
+    "target_species_id": 688,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 59,
+    "condition": 0
+  },
+  {
+    "source_species_id": 689,
+    "target_species_id": 690,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 59,
+    "condition": 0
+  },
+  {
+    "source_species_id": 704,
+    "target_species_id": 705,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 40,
+    "condition": 0
+  },
+  {
+    "source_species_id": 707,
+    "target_species_id": 467,
+    "method_code": 20,
+    "method": "level_male",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 707,
+    "target_species_id": 709,
+    "method_code": 21,
+    "method": "level_female",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 708,
+    "target_species_id": 467,
+    "method_code": 20,
+    "method": "level_male",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 708,
+    "target_species_id": 710,
+    "method_code": 21,
+    "method": "level_female",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 711,
+    "target_species_id": 712,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 32,
+    "condition": 0
+  },
+  {
+    "source_species_id": 736,
+    "target_species_id": 1268,
+    "method_code": 20,
+    "method": "level_male",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 736,
+    "target_species_id": 1306,
+    "method_code": 21,
+    "method": "level_female",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 738,
+    "target_species_id": 741,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 739,
+    "target_species_id": 742,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 740,
+    "target_species_id": 743,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 744,
+    "target_species_id": 745,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 758,
+    "target_species_id": 759,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 759,
+    "target_species_id": 760,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 761,
+    "target_species_id": 762,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 762,
+    "target_species_id": 763,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 764,
+    "target_species_id": 765,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 765,
+    "target_species_id": 766,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 767,
+    "target_species_id": 768,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 769,
+    "target_species_id": 770,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 17,
+    "condition": 0
+  },
+  {
+    "source_species_id": 770,
+    "target_species_id": 771,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 772,
+    "target_species_id": 773,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 9,
+    "condition": 0
+  },
+  {
+    "source_species_id": 773,
+    "target_species_id": 774,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 12,
+    "condition": 0
+  },
+  {
+    "source_species_id": 775,
+    "target_species_id": 776,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 777,
+    "target_species_id": 778,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 778,
+    "target_species_id": 779,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 99,
+    "condition": 0
+  },
+  {
+    "source_species_id": 780,
+    "target_species_id": 781,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 782,
+    "target_species_id": 783,
+    "method_code": 18,
+    "method": "level_dark_type_party_member",
+    "requirement": 32,
+    "condition": 17
+  },
+  {
+    "source_species_id": 785,
+    "target_species_id": 786,
+    "method_code": 20,
+    "method": "level_male",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 785,
+    "target_species_id": 832,
+    "method_code": 21,
+    "method": "level_female",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 787,
+    "target_species_id": 788,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 788,
+    "target_species_id": 789,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 100,
+    "condition": 0
+  },
+  {
+    "source_species_id": 790,
+    "target_species_id": 791,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 99,
+    "condition": 0
+  },
+  {
+    "source_species_id": 792,
+    "target_species_id": 793,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 99,
+    "condition": 0
+  },
+  {
+    "source_species_id": 794,
+    "target_species_id": 795,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 796,
+    "target_species_id": 797,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 798,
+    "target_species_id": 799,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 44,
+    "condition": 0
+  },
+  {
+    "source_species_id": 800,
+    "target_species_id": 801,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 802,
+    "target_species_id": 803,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 93,
+    "condition": 0
+  },
+  {
+    "source_species_id": 804,
+    "target_species_id": 805,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 39,
+    "condition": 0
+  },
+  {
+    "source_species_id": 806,
+    "target_species_id": 807,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 39,
+    "condition": 0
+  },
+  {
+    "source_species_id": 812,
+    "target_species_id": 813,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 40,
+    "condition": 0
+  },
+  {
+    "source_species_id": 812,
+    "target_species_id": 1297,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 199,
+    "condition": 0
+  },
+  {
+    "source_species_id": 813,
+    "target_species_id": 814,
+    "method_code": 16,
+    "method": "level_rain",
+    "requirement": 50,
+    "condition": 0
+  },
+  {
+    "source_species_id": 816,
+    "target_species_id": 817,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 818,
+    "target_species_id": 819,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 820,
+    "target_species_id": 821,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 820,
+    "target_species_id": 1309,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 102,
+    "condition": 0
+  },
+  {
+    "source_species_id": 822,
+    "target_species_id": 823,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 827,
+    "target_species_id": 918,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 579,
+    "condition": 0
+  },
+  {
+    "source_species_id": 835,
+    "target_species_id": 836,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 840,
+    "target_species_id": 841,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 841,
+    "target_species_id": 842,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 843,
+    "target_species_id": 844,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 844,
+    "target_species_id": 845,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 32,
+    "condition": 0
+  },
+  {
+    "source_species_id": 846,
+    "target_species_id": 847,
+    "method_code": 20,
+    "method": "level_male",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 846,
+    "target_species_id": 849,
+    "method_code": 21,
+    "method": "level_female",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 850,
+    "target_species_id": 852,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 851,
+    "target_species_id": 852,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 853,
+    "target_species_id": 856,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 854,
+    "target_species_id": 857,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 855,
+    "target_species_id": 858,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 859,
+    "target_species_id": 860,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 861,
+    "target_species_id": 862,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 96,
+    "condition": 0
+  },
+  {
+    "source_species_id": 863,
+    "target_species_id": 864,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 38,
+    "condition": 0
+  },
+  {
+    "source_species_id": 866,
+    "target_species_id": 867,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 921,
+    "target_species_id": 922,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 922,
+    "target_species_id": 923,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 924,
+    "target_species_id": 925,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 925,
+    "target_species_id": 926,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 927,
+    "target_species_id": 928,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 928,
+    "target_species_id": 929,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 930,
+    "target_species_id": 931,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 932,
+    "target_species_id": 933,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 938,
+    "target_species_id": 934,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 94,
+    "condition": 0
+  },
+  {
+    "source_species_id": 938,
+    "target_species_id": 935,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 93,
+    "condition": 0
+  },
+  {
+    "source_species_id": 939,
+    "target_species_id": 940,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 940,
+    "target_species_id": 941,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 940,
+    "target_species_id": 1301,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 942,
+    "target_species_id": 943,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 943,
+    "target_species_id": 944,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 945,
+    "target_species_id": 946,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 946,
+    "target_species_id": 947,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 948,
+    "target_species_id": 949,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 14,
+    "condition": 0
+  },
+  {
+    "source_species_id": 949,
+    "target_species_id": 950,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 951,
+    "target_species_id": 952,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 953,
+    "target_species_id": 954,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 954,
+    "target_species_id": 955,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 96,
+    "condition": 0
+  },
+  {
+    "source_species_id": 956,
+    "target_species_id": 957,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 959,
+    "target_species_id": 960,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 961,
+    "target_species_id": 962,
+    "method_code": 28,
+    "method": "rockruff_special",
+    "requirement": 25,
+    "condition": 1041
+  },
+  {
+    "source_species_id": 961,
+    "target_species_id": 1046,
+    "method_code": 28,
+    "method": "rockruff_special",
+    "requirement": 25,
+    "condition": 5144
+  },
+  {
+    "source_species_id": 961,
+    "target_species_id": 1082,
+    "method_code": 28,
+    "method": "rockruff_special",
+    "requirement": 25,
+    "condition": 4372
+  },
+  {
+    "source_species_id": 964,
+    "target_species_id": 965,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 38,
+    "condition": 0
+  },
+  {
+    "source_species_id": 966,
+    "target_species_id": 967,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 968,
+    "target_species_id": 969,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 970,
+    "target_species_id": 971,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 972,
+    "target_species_id": 973,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 24,
+    "condition": 0
+  },
+  {
+    "source_species_id": 974,
+    "target_species_id": 975,
+    "method_code": 21,
+    "method": "level_female",
+    "requirement": 33,
+    "condition": 0
+  },
+  {
+    "source_species_id": 976,
+    "target_species_id": 977,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 978,
+    "target_species_id": 979,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 18,
+    "condition": 0
+  },
+  {
+    "source_species_id": 979,
+    "target_species_id": 980,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 979,
+    "target_species_id": 980,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 984,
+    "target_species_id": 985,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 986,
+    "target_species_id": 987,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 42,
+    "condition": 0
+  },
+  {
+    "source_species_id": 989,
+    "target_species_id": 990,
+    "method_code": 1,
+    "method": "friendship",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1048,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 507,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1049,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 508,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1050,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 509,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1051,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 510,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1052,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 511,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1053,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 512,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1054,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 513,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1055,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 514,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1056,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 515,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1057,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 516,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1058,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 517,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1059,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 518,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1060,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 519,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1061,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 520,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1062,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 521,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1063,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 522,
+    "condition": 0
+  },
+  {
+    "source_species_id": 990,
+    "target_species_id": 1064,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 523,
+    "condition": 0
+  },
+  {
+    "source_species_id": 999,
+    "target_species_id": 1000,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1000,
+    "target_species_id": 1001,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 45,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1006,
+    "target_species_id": 1007,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 43,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1007,
+    "target_species_id": 1008,
+    "method_code": 23,
+    "method": "level_day",
+    "requirement": 64,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1007,
+    "target_species_id": 1009,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 64,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1020,
+    "target_species_id": 1021,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1023,
+    "target_species_id": 1024,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 102,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1025,
+    "target_species_id": 1026,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 102,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1027,
+    "target_species_id": 1028,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1029,
+    "target_species_id": 1030,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1031,
+    "target_species_id": 1032,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1032,
+    "target_species_id": 1033,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 87,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1034,
+    "target_species_id": 1035,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 40,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1074,
+    "target_species_id": 1075,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 370,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1079,
+    "target_species_id": 1081,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 532,
+    "condition": 3
+  },
+  {
+    "source_species_id": 1080,
+    "target_species_id": 1081,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 532,
+    "condition": 3
+  },
+  {
+    "source_species_id": 1083,
+    "target_species_id": 1084,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 199,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1102,
+    "target_species_id": 1103,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1103,
+    "target_species_id": 1104,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1105,
+    "target_species_id": 1106,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1106,
+    "target_species_id": 1107,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1108,
+    "target_species_id": 1109,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1109,
+    "target_species_id": 1110,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1111,
+    "target_species_id": 1112,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1113,
+    "target_species_id": 1114,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1114,
+    "target_species_id": 1115,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 38,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1116,
+    "target_species_id": 1117,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 10,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1117,
+    "target_species_id": 1118,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1118,
+    "target_species_id": 1248,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 740,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1119,
+    "target_species_id": 1120,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 18,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1121,
+    "target_species_id": 1122,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 20,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1123,
+    "target_species_id": 1124,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 24,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1125,
+    "target_species_id": 1126,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 22,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1126,
+    "target_species_id": 1249,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 737,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1127,
+    "target_species_id": 1128,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1129,
+    "target_species_id": 1130,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1130,
+    "target_species_id": 1131,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1131,
+    "target_species_id": 1250,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 735,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1132,
+    "target_species_id": 1133,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 98,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1132,
+    "target_species_id": 1134,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 93,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1132,
+    "target_species_id": 1363,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1133,
+    "target_species_id": 1251,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 739,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1134,
+    "target_species_id": 1252,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 739,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1135,
+    "target_species_id": 1136,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1136,
+    "target_species_id": 1253,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 744,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1138,
+    "target_species_id": 1139,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 26,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1140,
+    "target_species_id": 1141,
+    "method_code": 30,
+    "method": "toxel_amped",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1140,
+    "target_species_id": 1192,
+    "method_code": 31,
+    "method": "toxel_low_key",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1141,
+    "target_species_id": 1254,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 734,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1142,
+    "target_species_id": 1143,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1143,
+    "target_species_id": 1256,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 743,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1144,
+    "target_species_id": 1145,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1144,
+    "target_species_id": 1145,
+    "method_code": 26,
+    "method": "move",
+    "requirement": 269,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1146,
+    "target_species_id": 1147,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 94,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1148,
+    "target_species_id": 1149,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1149,
+    "target_species_id": 1150,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 42,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1151,
+    "target_species_id": 1152,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1152,
+    "target_species_id": 1153,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1160,
+    "target_species_id": 1161,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 99,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1161,
+    "target_species_id": 1259,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 745,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1164,
+    "target_species_id": 1165,
+    "method_code": 3,
+    "method": "friendship_night",
+    "requirement": 0,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1170,
+    "target_species_id": 1171,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1171,
+    "target_species_id": 1260,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 738,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1176,
+    "target_species_id": 1369,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 50,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1177,
+    "target_species_id": 1178,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 50,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1178,
+    "target_species_id": 1179,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 60,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1180,
+    "target_species_id": 1204,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 485,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1181,
+    "target_species_id": 1205,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 486,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1182,
+    "target_species_id": 1206,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 746,
+    "condition": 1
+  },
+  {
+    "source_species_id": 1183,
+    "target_species_id": 1184,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 100,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1183,
+    "target_species_id": 1207,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 97,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1192,
+    "target_species_id": 1254,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 734,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1195,
+    "target_species_id": 1196,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1196,
+    "target_species_id": 1197,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 54,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1198,
+    "target_species_id": 1199,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1200,
+    "target_species_id": 1186,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1208,
+    "target_species_id": 1155,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1209,
+    "target_species_id": 1210,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1211,
+    "target_species_id": 1212,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 37,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1211,
+    "target_species_id": 1220,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 187,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1213,
+    "target_species_id": 1157,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1216,
+    "target_species_id": 1158,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 42,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1221,
+    "target_species_id": 1156,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 38,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1222,
+    "target_species_id": 1223,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1223,
+    "target_species_id": 1154,
+    "method_code": 22,
+    "method": "level_night",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1225,
+    "target_species_id": 1226,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 102,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1228,
+    "target_species_id": 1159,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1271,
+    "target_species_id": 1272,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 95,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1274,
+    "target_species_id": 1275,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1276,
+    "target_species_id": 1277,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 31,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1278,
+    "target_species_id": 1279,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1280,
+    "target_species_id": 1281,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1283,
+    "target_species_id": 1284,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 30,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1283,
+    "target_species_id": 1284,
+    "method_code": 27,
+    "method": "specific_party_member",
+    "requirement": 223,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1285,
+    "target_species_id": 1286,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 176,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1287,
+    "target_species_id": 1288,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1289,
+    "target_species_id": 1290,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 28,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1290,
+    "target_species_id": 1291,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 743,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1295,
+    "target_species_id": 1296,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 98,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1297,
+    "target_species_id": 1298,
+    "method_code": 16,
+    "method": "level_rain",
+    "requirement": 50,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1304,
+    "target_species_id": 1305,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 47,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1307,
+    "target_species_id": 1308,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 36,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1314,
+    "target_species_id": 1315,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 15,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1316,
+    "target_species_id": 1317,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1318,
+    "target_species_id": 1319,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 16,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1320,
+    "target_species_id": 1321,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 34,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1324,
+    "target_species_id": 1325,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1325,
+    "target_species_id": 1326,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1327,
+    "target_species_id": 1328,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 95,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1330,
+    "target_species_id": 1331,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1332,
+    "target_species_id": 1333,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 102,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1335,
+    "target_species_id": 1336,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 25,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1340,
+    "target_species_id": 1341,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1341,
+    "target_species_id": 1342,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 38,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1343,
+    "target_species_id": 1344,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 35,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1345,
+    "target_species_id": 1346,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1347,
+    "target_species_id": 1348,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 26,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1349,
+    "target_species_id": 1350,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 23,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1351,
+    "target_species_id": 1352,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 27,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1357,
+    "target_species_id": 1358,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 623,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1357,
+    "target_species_id": 1359,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 622,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1357,
+    "target_species_id": 1360,
+    "method_code": 254,
+    "method": "mega_evolution",
+    "requirement": 621,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1361,
+    "target_species_id": 1362,
+    "method_code": 7,
+    "method": "item",
+    "requirement": 98,
+    "condition": 0
+  },
+  {
+    "source_species_id": 1363,
+    "target_species_id": 1371,
+    "method_code": 4,
+    "method": "level",
+    "requirement": 44,
+    "condition": 0
+  }
+]
