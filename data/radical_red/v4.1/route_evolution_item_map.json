@@ -1,0 +1,60 @@
+{
+  "celadon_city": [
+    {
+      "id": 87,
+      "name": "Link Cable"
+    },
+    {
+      "id": 93,
+      "name": "Sun Stone"
+    },
+    {
+      "id": 94,
+      "name": "Moon Stone"
+    },
+    {
+      "id": 95,
+      "name": "Fire Stone"
+    },
+    {
+      "id": 96,
+      "name": "ThunderStone"
+    },
+    {
+      "id": 97,
+      "name": "Water Stone"
+    },
+    {
+      "id": 98,
+      "name": "Leaf Stone"
+    },
+    {
+      "id": 99,
+      "name": "Shiny Stone"
+    },
+    {
+      "id": 100,
+      "name": "Dusk Stone"
+    },
+    {
+      "id": 101,
+      "name": "Dawn Stone"
+    },
+    {
+      "id": 102,
+      "name": "Ice Stone"
+    },
+    {
+      "id": 176,
+      "name": "Prism Scale"
+    },
+    {
+      "id": 187,
+      "name": "King's Rock"
+    },
+    {
+      "id": 199,
+      "name": "Metal Coat"
+    }
+  ]
+}

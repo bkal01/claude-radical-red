@@ -24,6 +24,13 @@
       "commit": "488a0918194d567b5f7b02c396118d51fb9c81ce",
       "purpose": "Retains evolution methods, requirements, and conditions for task availability"
     },
+    "route_evolution_item_map": {
+      "source": "Item, TM, and Move Tutor Locations v4.1 - Radical Red.xlsx",
+      "sheets": [
+        "Shops"
+      ],
+      "purpose": "Maps locations to shop-purchasable items required for item evolutions"
+    },
     "route_pokemon_map": {
       "source": "Pokémon Locations & Raid Dens v4.1 - Radical Red.xlsx",
       "sheets": [
