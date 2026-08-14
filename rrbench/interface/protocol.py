@@ -33,6 +33,16 @@ def render_weather(state: BattleState) -> dict:
     return {"kind": kind, "turns_left": turns_left}
 
 
+def render_terrain(state: BattleState) -> dict:
+    kind = {
+        1: "electric",
+        2: "grassy",
+        3: "misty",
+        4: "psychic",
+    }.get(state.terrain, "none")
+    return {"kind": kind, "turns_left": state.terrain_turns_left}
+
+
 def render_pokemon(p, active: bool) -> dict:
     return {
         "name": p.name,
@@ -126,6 +136,7 @@ def render_observation(state: BattleState) -> dict:
             "max_hp": state.opp_max_hp,
         },
         "weather": render_weather(state),
+        "terrain": render_terrain(state),
         "hazards": {
             "player": render_hazards(state.hazards_player),
             "opponent": render_hazards(state.hazards_opp),
