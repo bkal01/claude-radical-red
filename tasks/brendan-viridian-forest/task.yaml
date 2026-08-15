@@ -1,0 +1,25 @@
+# Battle against Brendan in Viridian Forest
+id: brendan_viridian_forest
+game_data_version: v4.1
+save_state: save_state.ss0
+level_cap: 15
+team_size: 2
+battle_trigger:
+  - key: UP
+    frames: 60
+allowed_team_modifications:
+  - abilities
+  - natures
+  - moves
+  - items
+  - pokemon
+allowed_locations:
+  - pallet_town
+  - route_1
+  - viridian_city
+  - route_2
+  - viridian_forest
+available_water_methods:
+  - old_rod
+excluded_species_categories:
+  - mega
