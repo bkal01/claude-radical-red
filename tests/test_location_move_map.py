@@ -59,3 +59,52 @@ def test_items_have_explicit_unique_ids():
 
     assert all(set(item) == {"id", "name", "description"} for item in items)
     assert [item["id"] for item in items] == list(range(1, 750))
+
+
+def test_evolution_item_map_contains_all_item_evolution_requirements():
+    data_dir = Path(__file__).resolve().parents[1] / "data" / "radical_red" / "v4.1"
+    route_map = json.loads((data_dir / "route_pokemon_map.json").read_text())
+    evolution_item_map = json.loads(
+        (data_dir / "route_evolution_item_map.json").read_text()
+    )
+    evolutions = json.loads((data_dir / "evolutions.json").read_text())
+    items = json.loads((data_dir / "items.json").read_text())
+    items_by_id = {item["id"]: item for item in items}
+
+    assert set(evolution_item_map) <= set(route_map)
+    assert all(
+        isinstance(item_entries, list)
+        and all(
+            set(item_entry) == {"id", "name"}
+            and item_entry["id"] in items_by_id
+            and items_by_id[item_entry["id"]]["name"] == item_entry["name"]
+            for item_entry in item_entries
+        )
+        for item_entries in evolution_item_map.values()
+    )
+    item_ids = {
+        item_entry["id"]
+        for item_entries in evolution_item_map.values()
+        for item_entry in item_entries
+    }
+    assert item_ids == {
+        evolution["requirement"]
+        for evolution in evolutions
+        if evolution["method_code"] == 7
+    }
+    assert evolution_item_map["celadon_city"] == [
+        {"id": 87, "name": "Link Cable"},
+        {"id": 93, "name": "Sun Stone"},
+        {"id": 94, "name": "Moon Stone"},
+        {"id": 95, "name": "Fire Stone"},
+        {"id": 96, "name": "ThunderStone"},
+        {"id": 97, "name": "Water Stone"},
+        {"id": 98, "name": "Leaf Stone"},
+        {"id": 99, "name": "Shiny Stone"},
+        {"id": 100, "name": "Dusk Stone"},
+        {"id": 101, "name": "Dawn Stone"},
+        {"id": 102, "name": "Ice Stone"},
+        {"id": 176, "name": "Prism Scale"},
+        {"id": 187, "name": "King's Rock"},
+        {"id": 199, "name": "Metal Coat"},
+    ]

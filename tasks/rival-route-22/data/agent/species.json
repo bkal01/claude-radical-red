@@ -711,32 +711,7 @@
     },
     "minimum_level": 14
   },
-  {
-    "name": "Shiftry",
-    "form": null,
-    "source": "official",
-    "types": [
-      "Grass",
-      "Dark"
-    ],
-    "base_stats": {
-      "hp": 90,
-      "atk": 100,
-      "def": 60,
-      "spe": 80,
-      "spa": 90,
-      "spdef": 60
-    },
-    "growth_rate": "medium_slow",
-    "abilities": {
-      "normal": [
-        34,
-        16
-      ],
-      "hidden": 102
-    },
-    "minimum_level": 14
-  },
+  null,
   null,
   null,
   null,
@@ -1115,32 +1090,7 @@
     },
     "minimum_level": 1
   },
-  {
-    "name": "Roserade",
-    "form": null,
-    "source": "official",
-    "types": [
-      "Grass",
-      "Poison"
-    ],
-    "base_stats": {
-      "hp": 60,
-      "atk": 70,
-      "def": 65,
-      "spe": 90,
-      "spa": 125,
-      "spdef": 105
-    },
-    "growth_rate": "medium_slow",
-    "abilities": {
-      "normal": [
-        30,
-        209
-      ],
-      "hidden": 82
-    },
-    "minimum_level": 2
-  },
+  null,
   null,
   null,
   null,
@@ -1342,30 +1292,7 @@
     },
     "minimum_level": 1
   },
-  {
-    "name": "Simisear",
-    "form": null,
-    "source": "official",
-    "types": [
-      "Fire"
-    ],
-    "base_stats": {
-      "hp": 75,
-      "atk": 98,
-      "def": 63,
-      "spe": 101,
-      "spa": 98,
-      "spdef": 63
-    },
-    "growth_rate": "medium_fast",
-    "abilities": {
-      "normal": [
-        222
-      ],
-      "hidden": 255
-    },
-    "minimum_level": 1
-  },
+  null,
   {
     "name": "Panpour",
     "form": null,
@@ -1390,30 +1317,7 @@
     },
     "minimum_level": 1
   },
-  {
-    "name": "Simipour",
-    "form": null,
-    "source": "official",
-    "types": [
-      "Water"
-    ],
-    "base_stats": {
-      "hp": 75,
-      "atk": 98,
-      "def": 63,
-      "spe": 101,
-      "spa": 98,
-      "spdef": 63
-    },
-    "growth_rate": "medium_fast",
-    "abilities": {
-      "normal": [
-        222
-      ],
-      "hidden": 255
-    },
-    "minimum_level": 1
-  },
+  null,
   null,
   null,
   null,
@@ -2257,31 +2161,7 @@
     },
     "minimum_level": 1
   },
-  {
-    "name": "Sandslash",
-    "form": null,
-    "source": "official",
-    "types": [
-      "Ice",
-      "Steel"
-    ],
-    "base_stats": {
-      "hp": 75,
-      "atk": 110,
-      "def": 120,
-      "spe": 65,
-      "spa": 25,
-      "spdef": 65
-    },
-    "growth_rate": "medium_fast",
-    "abilities": {
-      "normal": [
-        171
-      ],
-      "hidden": 248
-    },
-    "minimum_level": 1
-  },
+  null,
   null,
   null,
   null,
@@ -2462,58 +2342,8 @@
     },
     "minimum_level": 1
   },
-  {
-    "name": "Flapple",
-    "form": null,
-    "source": "official",
-    "types": [
-      "Grass",
-      "Dragon"
-    ],
-    "base_stats": {
-      "hp": 70,
-      "atk": 110,
-      "def": 80,
-      "spe": 70,
-      "spa": 95,
-      "spdef": 60
-    },
-    "growth_rate": "erratic",
-    "abilities": {
-      "normal": [
-        249,
-        222
-      ],
-      "hidden": 55
-    },
-    "minimum_level": 1
-  },
-  {
-    "name": "Appletun",
-    "form": null,
-    "source": "official",
-    "types": [
-      "Grass",
-      "Dragon"
-    ],
-    "base_stats": {
-      "hp": 110,
-      "atk": 85,
-      "def": 80,
-      "spe": 30,
-      "spa": 100,
-      "spdef": 80
-    },
-    "growth_rate": "erratic",
-    "abilities": {
-      "normal": [
-        249,
-        222
-      ],
-      "hidden": 47
-    },
-    "minimum_level": 1
-  },
+  null,
+  null,
   null,
   null,
   null,

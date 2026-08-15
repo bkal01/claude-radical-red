@@ -48,9 +48,13 @@ def main() -> None:
     route_item_map = json.loads(
         (master_data_dir / "route_item_map.json").read_text()
     )
+    route_evolution_item_map = json.loads(
+        (master_data_dir / "route_evolution_item_map.json").read_text()
+    )
     species = json.loads((master_data_dir / "species.json").read_text())
     moves = json.loads((master_data_dir / "moves.json").read_text())
     learnsets = json.loads((master_data_dir / "learnsets.json").read_text())
+    evolution_edges = json.loads((master_data_dir / "evolutions.json").read_text())
     items = json.loads((master_data_dir / "items.json").read_text())
     species_categories = json.loads(
         (master_data_dir / "species_categories.json").read_text()
@@ -116,6 +120,31 @@ def main() -> None:
     item_ids_by_name = defaultdict(list)
     for item in items:
         item_ids_by_name[item["name"]].append(item["id"])
+    available_evolution_item_ids = set()
+    for location in allowed_locations:
+        evolution_item_entries = route_evolution_item_map.get(location, [])
+        if not isinstance(evolution_item_entries, list):
+            raise ValueError(f"invalid evolution item data at {location}")
+        for evolution_item_entry in evolution_item_entries:
+            if (
+                not isinstance(evolution_item_entry, dict)
+                or set(evolution_item_entry) != {"id", "name"}
+            ):
+                raise ValueError(
+                    f"invalid evolution item entry at {location}: {evolution_item_entry}"
+                )
+            item_id = evolution_item_entry["id"]
+            item_name = evolution_item_entry["name"]
+            if (
+                type(item_id) is not int
+                or not isinstance(item_name, str)
+                or item_id not in items_by_id
+                or items_by_id[item_id]["name"] != item_name
+            ):
+                raise ValueError(
+                    f"invalid evolution item entry at {location}: {evolution_item_entry}"
+                )
+            available_evolution_item_ids.add(item_id)
     item_counts = defaultdict(int)
     for location in allowed_locations:
         item_data = route_item_map.get(location, {})
@@ -167,18 +196,51 @@ def main() -> None:
             and entry["minimum_level"] <= manifest["level_cap"]
         )
 
-    evolutions = defaultdict(set)
-    for species_id, learnset in enumerate(learnsets):
-        if not learnset:
-            continue
-        for pre_evolution_id in learnset["pre_evolution_ids"]:
-            evolutions[pre_evolution_id].add(species_id)
+    evolutions = defaultdict(list)
+    for evolution_edge in evolution_edges:
+        if (
+            not isinstance(evolution_edge, dict)
+            or set(evolution_edge)
+            != {
+                "source_species_id",
+                "target_species_id",
+                "method_code",
+                "method",
+                "requirement",
+                "condition",
+            }
+            or type(evolution_edge["source_species_id"]) is not int
+            or type(evolution_edge["target_species_id"]) is not int
+            or type(evolution_edge["method_code"]) is not int
+            or not isinstance(evolution_edge["method"], str)
+            or type(evolution_edge["requirement"]) is not int
+            or type(evolution_edge["condition"]) is not int
+        ):
+            raise ValueError(f"invalid evolution edge: {evolution_edge}")
+        source_species_id = evolution_edge["source_species_id"]
+        target_species_id = evolution_edge["target_species_id"]
+        if (
+            source_species_id >= len(species)
+            or target_species_id >= len(species)
+            or not species[source_species_id]
+            or not species[target_species_id]
+        ):
+            raise ValueError(f"invalid evolution edge: {evolution_edge}")
+        evolutions[source_species_id].append(evolution_edge)
 
     allowed_species_ids = set(direct_species_ids)
     pending_species_ids = list(direct_species_ids)
     while pending_species_ids:
         species_id = pending_species_ids.pop()
-        for evolution_id in evolutions[species_id]:
+        for evolution_edge in evolutions[species_id]:
+            if evolution_edge["method_code"] == 254:
+                continue
+            if (
+                evolution_edge["method_code"] == 7
+                and evolution_edge["requirement"] not in available_evolution_item_ids
+            ):
+                continue
+            evolution_id = evolution_edge["target_species_id"]
             evolution = species[evolution_id]
             if (
                 evolution_id not in allowed_species_ids
