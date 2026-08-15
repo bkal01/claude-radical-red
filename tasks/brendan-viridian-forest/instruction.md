@@ -81,8 +81,9 @@ configuration or advance the episode.
 
 Each `species_id` must be an available Pokemon in `species.json`; the task
 provides entries only for Pokemon obtainable from its permitted locations and
-their level-cap-eligible evolutions; Mega forms are excluded. Its
-`minimum_level` must not exceed this task's inclusive level cap of 15. Initial
+their level-cap-eligible evolutions. Additionally, you may put up to one Pokemon
+from any starter evolutionary line on your team. Mega forms are excluded.
+Its `minimum_level` must not exceed this task's inclusive level cap of 15. Initial
 team members must each specify an
 integer `level` from 1 through 15. The level can be lower than the cap. Initial
 team modifiers are optional. Omitted EVs, Natures, items, Abilities, and moves

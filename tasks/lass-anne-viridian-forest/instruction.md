@@ -70,7 +70,7 @@ an unrecoverable environment error occurs.
 
 ## Team updates
 
-The first `apply_team()` must construct all three Pokemon. This task uses three party slots.
+The first `apply_team()` must construct all two Pokemon. This task uses two party slots.
 After setup, this task permits Pokemon, Ability, Nature, move, and item updates. Call `apply_team()` during a live
 battle or after a lost episode in the place of `reset()`. A successful update
 automatically restores the battle fixture, advances to the next episode, and
@@ -81,8 +81,9 @@ configuration or advance the episode.
 
 Each `species_id` must be an available Pokemon in `species.json`; the task
 provides entries only for Pokemon obtainable from its permitted locations and
-their level-cap-eligible evolutions; Mega forms are excluded. Its
-`minimum_level` must not exceed this task's inclusive level cap of 15. Initial
+their level-cap-eligible evolutions. Additionally, you may put up to one Pokemon
+from any starter evolutionary line on your team. Mega forms are excluded.
+Its `minimum_level` must not exceed this task's inclusive level cap of 15. Initial
 team members must each specify an
 integer `level` from 1 through 15. The level can be lower than the cap. Initial
 team modifiers are optional. Omitted EVs, Natures, items, Abilities, and moves
@@ -139,8 +140,8 @@ The following is an example with every optional modifier:
 }
 ```
 
-The initial call must contain exactly three members, one for each slot from 0
-through 2. After setup, use the active team returned by `team()` to determine
+The initial call must contain exactly two members, one for each slot from 0
+through 1. After setup, use the active team returned by `team()` to determine
 the number of members, their
 slots, their current species IDs, Abilities, moves, and held item IDs. Each
 slot must appear exactly once. Every member must include `species_id` and
