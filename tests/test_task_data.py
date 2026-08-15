@@ -1,3 +1,4 @@
+import hashlib
 import json
 from dataclasses import replace
 from pathlib import Path
@@ -54,6 +55,32 @@ def test_load_task_parses_battle_trigger(tmp_path) -> None:
         BattleTriggerStep(key="UP", frames=60),
         BattleTriggerStep(key=None, frames=20),
     )
+
+
+def test_load_task_parses_starter_line_species_ids(tmp_path) -> None:
+    task_directory = tmp_path / "task"
+    validation_directory = task_directory / "data" / "validation"
+    validation_directory.mkdir(parents=True)
+    manifest = {
+        "id": "test",
+        "save_state": "save_state.ss0",
+        "level_cap": 15,
+    }
+    manifest_text = yaml.safe_dump(manifest)
+    (task_directory / "task.yaml").write_text(manifest_text)
+    (validation_directory / "allowed_species_ids.json").write_text(
+        json.dumps(
+            {
+                "species_ids": [1, 4, 25],
+                "task_yaml_sha256": hashlib.sha256(manifest_text.encode()).hexdigest(),
+                "starter_line_species_ids": [1, 4],
+            }
+        )
+    )
+
+    task = load_task(task_directory)
+
+    assert task.starter_line_species_ids == frozenset({1, 4})
 
 
 def test_giovanni_agent_data_matches_the_validator_allowlist(monkeypatch) -> None:
@@ -251,6 +278,94 @@ def test_giovanni_agent_tm_hm_moves_match_allowed_locations():
     }
     assert move_ids_by_name["Soupercell Slam"] not in {
         move_id for learnset in learnsets if learnset for move_id in learnset["tm_hm"]
+    }
+
+
+def test_battle_service_allows_at_most_one_starter(monkeypatch, party_memory) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset(),
+        level_cap=15,
+        team_size=2,
+        allowed_species_ids=frozenset({1, 4}),
+        starter_line_species_ids=frozenset({1, 4}),
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda current_task: emulator)
+    service = BattleService(task)
+
+    result = service.apply_team(
+        {
+            "members": [
+                {"slot": 0, "species_id": 1, "level": 15},
+                {"slot": 1, "species_id": 4, "level": 15},
+            ]
+        }
+    )
+
+    assert result == {
+        "ok": False,
+        "error": "a team may contain at most one starter Pokemon",
+    }
+    assert service.active_team_config is None
+
+
+def test_battle_service_allows_one_starter(monkeypatch, party_memory) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset(),
+        level_cap=15,
+        team_size=2,
+        allowed_species_ids=frozenset({1, 25}),
+        starter_line_species_ids=frozenset({1}),
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda current_task: emulator)
+    service = BattleService(task)
+
+    result = service.apply_team(
+        {
+            "members": [
+                {"slot": 0, "species_id": 1, "level": 15},
+                {"slot": 1, "species_id": 25, "level": 15},
+            ]
+        }
+    )
+
+    assert result["ok"] is True
+
+
+def test_battle_service_counts_starter_evolutions(monkeypatch, party_memory) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset(),
+        level_cap=16,
+        team_size=2,
+        allowed_species_ids=frozenset({1, 2}),
+        starter_line_species_ids=frozenset({1, 2}),
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda current_task: emulator)
+    service = BattleService(task)
+
+    result = service.apply_team(
+        {
+            "members": [
+                {"slot": 0, "species_id": 1, "level": 16},
+                {"slot": 1, "species_id": 2, "level": 16},
+            ]
+        }
+    )
+
+    assert result == {
+        "ok": False,
+        "error": "a team may contain at most one starter Pokemon",
     }
 
 
