@@ -449,6 +449,88 @@ def test_trial_applies_valid_pokemon_replacement(monkeypatch, party_memory, tmp_
     assert Party(emulator.mem).members[0].name == "Pikachu"
 
 
+def test_initial_team_allows_one_move_and_defaults_one_move_species(
+    monkeypatch, party_memory
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.MOVES}),
+        level_cap=57,
+        team_size=2,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+    service = BattleService(task)
+
+    result = service.apply_team(
+        {
+            "members": [
+                {"slot": 0, "species_id": 398, "level": 57, "move_ids": [36]},
+                {"slot": 1, "species_id": 1, "level": 57},
+            ]
+        }
+    )
+
+    assert result["ok"] is True
+    assert service.active_team_config is not None
+    assert service.active_team_config.members[0].move_ids == (36,)
+    assert result["team"]["members"][0]["moves"] == [
+        {"slot": 0, "move_id": 36, "name": "Take Down"},
+    ]
+    assert service.reset()["ok"] is True
+    assert Party(emulator.mem).members[0].move_ids == (36, 0, 0, 0)
+
+
+def test_trial_defaults_incompatible_omitted_modifiers_for_pokemon_replacement(
+    monkeypatch, party_memory, tmp_path
+) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset({TeamModification.POKEMON}),
+        level_cap=57,
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda task: emulator)
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 1)
+    service = BattleService(task)
+    service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
+    trial = Trial(
+        task=task,
+        max_episodes=2,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    {"slot": 0, "species_id": 77, "level": 50},
+                    {"slot": 1, "species_id": 944, "level": 50},
+                ]
+            },
+        },
+        service,
+    )
+
+    assert result["ok"] is True
+    assert result["team"]["members"][0]["ability_id"] == 50
+    assert result["team"]["members"][0]["moves"] == [
+        {"slot": 0, "move_id": 45, "name": "Growl"},
+        {"slot": 1, "move_id": 98, "name": "Quick Attack"},
+        {"slot": 2, "move_id": 23, "name": "Stomp"},
+        {"slot": 3, "move_id": 39, "name": "Tail Whip"},
+    ]
+    assert Party(emulator.mem).members[0].species_id == 77
+    assert Party(emulator.mem).members[0].ability_id == 50
+    assert Party(emulator.mem).members[0].move_ids == (45, 98, 23, 39)
+
+
 def test_trial_rejects_invalid_pokemon_id_without_advancing_episode(
     monkeypatch,
     party_memory,
@@ -1135,26 +1217,8 @@ def test_trial_requires_and_applies_initial_team_without_consuming_episode(
     )
     team_payload = {
         "members": [
-            {
-                "slot": 0,
-                "species_id": 1,
-                "level": 42,
-                "nature_id": 3,
-                "ability_id": 34,
-                "move_ids": [33, 45, 73, 345],
-                "held_item_id": 0,
-                "evs": {"HP": 252, "ATK": 0, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 252},
-            },
-            {
-                "slot": 1,
-                "species_id": 944,
-                "level": 42,
-                "nature_id": 15,
-                "ability_id": 66,
-                "move_ids": [365, 53, 126, 434],
-                "held_item_id": 711,
-                "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0},
-            },
+            {"slot": 0, "species_id": 1, "level": 42},
+            {"slot": 1, "species_id": 944, "level": 42},
         ]
     }
 
@@ -1185,6 +1249,23 @@ def test_trial_requires_and_applies_initial_team_without_consuming_episode(
     assert service.active_team_config is None
     assert trial.episodes == 1
 
+    unavailable_modifier_result = trial.handle(
+        {
+            "verb": "apply-team",
+            "team": {
+                "members": [
+                    dict(team_payload["members"][0], evs={"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0}),
+                    team_payload["members"][1],
+                ]
+            },
+        },
+        service,
+    )
+    assert unavailable_modifier_result == {
+        "ok": False,
+        "error": "updating EVs is not allowed for this task",
+    }
+
     result = trial.handle({"verb": "apply-team", "team": team_payload}, service)
 
     assert result["ok"] is True
@@ -1192,5 +1273,15 @@ def test_trial_requires_and_applies_initial_team_without_consuming_episode(
     assert trial.episodes == 1
     assert service.active_team_config is not None
     assert [member.level for member in service.active_team_config.members] == [42, 42]
-    assert [member.nature_id for member in service.active_team_config.members] == [3, 15]
+    assert [member.nature_id for member in service.active_team_config.members] == [0, 0]
+    assert [member.evs for member in service.active_team_config.members] == [
+        {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
+        {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
+    ]
+    assert [member.held_item for member in service.active_team_config.members] == [0, 0]
+    assert [member.ability_id for member in service.active_team_config.members] == [65, 66]
+    assert [member.move_ids for member in service.active_team_config.members] == [
+        (33, 45, 73, 345),
+        (585, 339, 621, 10),
+    ]
     assert service.team()["configured"] is True

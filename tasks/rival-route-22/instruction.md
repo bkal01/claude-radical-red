@@ -85,9 +85,10 @@ their level-cap-eligible evolutions; Mega forms are excluded. Its
 `minimum_level` must not exceed this task's inclusive level cap of 15. Initial
 team members must each specify an
 integer `level` from 1 through 15. The level can be lower than the cap. Initial
-team members must specify a valid Nature;
-their Ability and moves must be valid for the chosen species. After setup, a
-chosen Pokemon retains its slot's level and Nature.
+team modifiers are optional. Omitted EVs, Natures, items, Abilities, and moves
+use defaults: zero EVs, Hardy, no item, the species' first normal Ability, and
+up to the first four legal level-up moves. After setup, a chosen Pokemon
+retains its slot's level and Nature.
 
 ### Ability updates
 
@@ -103,7 +104,7 @@ not change the Pokemon's Ability.
 
 ### Move updates
 
-Each `move_ids` value must be an array of exactly four integer move IDs. Each
+Each `move_ids` value must be an array of one through four integer move IDs. Each
 move must be learnable by the Pokemon in that slot according to
 `learnsets.json[species_id]`. This task has an inclusive level cap of 15:
 level-up moves are valid only when their required level is 15 or lower. Moves
@@ -119,8 +120,8 @@ Each `held_item_id` must be `0` or match the `id` field of an entry in
 file. Use the matching entry to look up an item's name and description.
 An ID of `0` means the Pokemon has no held item.
 
-The argument must contain exactly one member entry for every current team slot
-and must have this complete shape:
+The argument must contain exactly one member entry for every current team slot.
+The following is an example with every optional modifier:
 
 ```json
 {
@@ -142,9 +143,8 @@ The initial call must contain exactly two members, one for each slot from 0
 through 1. After setup, use the active team returned by `team()` to determine
 the number of members, their
 slots, their current species IDs, Abilities, moves, and held item IDs. Each
-slot must appear exactly once. Every member must include `species_id`, `level`,
-`nature_id`, `ability_id`, `move_ids`, and `held_item_id` exactly as
-shown above.
+slot must appear exactly once. Every member must include `species_id` and
+`level`; task-enabled modifiers may be included as needed.
 
 ## Reference data
 

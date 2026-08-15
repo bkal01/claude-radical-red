@@ -80,7 +80,7 @@ class PokemonConfig:
     nature_id: int | None = None
     ability_id: int | None = None
     held_item: int | None = None
-    move_ids: tuple[int, int, int, int] | None = None
+    move_ids: tuple[int, ...] | None = None
 
     @classmethod
     def from_mem(cls, mem, slot: int) -> "PokemonConfig":

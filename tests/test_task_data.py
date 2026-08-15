@@ -269,16 +269,7 @@ def test_battle_service_rejects_species_outside_the_task_allowlist(
     )
     monkeypatch.setattr(service_module, "create_emulator", lambda current_task: emulator)
     service = BattleService(task)
-    member = {
-        "slot": 0,
-        "species_id": 150,
-        "level": 100,
-        "nature_id": 0,
-        "ability_id": 0,
-        "move_ids": [0, 0, 0, 0],
-        "held_item_id": 0,
-        "evs": {"HP": 0, "ATK": 0, "DEF": 0, "SPE": 0, "SPA": 0, "SPDEF": 0},
-    }
+    member = {"slot": 0, "species_id": 150, "level": 100}
 
     result = service.apply_team({"members": [member, dict(member, slot=1)]})
 
