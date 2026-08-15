@@ -35,6 +35,7 @@ class TaskSpec:
     team_size: int = 6
     battle_trigger: tuple[BattleTriggerStep, ...] = ()
     allowed_species_ids: frozenset[int] | None = None
+    starter_line_species_ids: frozenset[int] = frozenset()
     allowed_item_ids: frozenset[int] | None = None
     allowed_item_counts: dict[int, int] | None = None
 
@@ -88,6 +89,25 @@ def load_task(task_dir: str | Path) -> TaskSpec:
         ).hexdigest():
             raise ValueError("allowed_species_ids.json does not match task.yaml")
         allowed_species_ids = frozenset(species_ids)
+        starter_line_species_ids_data = allowed_species_data.get(
+            "starter_line_species_ids", []
+        )
+        if (
+            not isinstance(starter_line_species_ids_data, list)
+            or not all(
+                type(species_id) is int
+                for species_id in starter_line_species_ids_data
+            )
+            or len(starter_line_species_ids_data)
+            != len(set(starter_line_species_ids_data))
+            or not set(starter_line_species_ids_data) <= allowed_species_ids
+        ):
+            raise ValueError(
+                "starter_line_species_ids must contain unique allowed species IDs"
+            )
+        starter_line_species_ids = frozenset(starter_line_species_ids_data)
+    else:
+        starter_line_species_ids = frozenset()
     allowed_item_ids = None
     allowed_item_counts = None
     allowed_items_path = task_data_dir / "allowed_item_ids.json"
@@ -130,6 +150,7 @@ def load_task(task_dir: str | Path) -> TaskSpec:
         team_size=team_size,
         battle_trigger=tuple(battle_trigger),
         allowed_species_ids=allowed_species_ids,
+        starter_line_species_ids=starter_line_species_ids,
         allowed_item_ids=allowed_item_ids,
         allowed_item_counts=allowed_item_counts,
     )

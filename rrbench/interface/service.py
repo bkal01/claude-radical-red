@@ -445,6 +445,16 @@ class BattleService:
                 move_ids=tuple(move_ids) if move_ids is not None else None,
             )
 
+        starter_count = sum(
+            member.species_id in self.task.starter_line_species_ids
+            for member in updated_members.values()
+        )
+        if starter_count > 1:
+            return {
+                "ok": False,
+                "error": "a team may contain at most one starter Pokemon",
+            }
+
         if self.task.allowed_item_counts is not None:
             held_item_counts = {}
             for member in updated_members.values():

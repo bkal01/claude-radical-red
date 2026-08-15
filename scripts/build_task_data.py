@@ -65,6 +65,16 @@ def main() -> None:
             raise ValueError(f"unknown excluded species category: {category}")
         excluded_species_ids.update(species_categories[category])
 
+    starter_species_ids = set()
+    # Before Celadon, the player has one starter choice; Celadon's eggs make
+    # starters normally obtainable without that one-Pokemon restriction.
+    if "celadon_city" not in allowed_locations:
+        starter_species_id_list = json.loads(
+            (master_data_dir / "starter_species_ids.json").read_text()
+        )
+        starter_species_ids = set(starter_species_id_list)
+        starter_species_ids.difference_update(excluded_species_ids)
+
     direct_species_ids = set()
     for location in allowed_locations:
         if location not in route_map:
@@ -79,6 +89,7 @@ def main() -> None:
                 raise ValueError(f"unknown water method: {method}")
             for pokemon_name in fishing_surfing.get(method, []):
                 direct_species_ids.add(route_pokemon_species_ids[pokemon_name])
+    direct_species_ids.update(starter_species_ids)
     direct_species_ids.difference_update(excluded_species_ids)
 
     move_name_aliases = {
@@ -228,27 +239,32 @@ def main() -> None:
             raise ValueError(f"invalid evolution edge: {evolution_edge}")
         evolutions[source_species_id].append(evolution_edge)
 
-    allowed_species_ids = set(direct_species_ids)
-    pending_species_ids = list(direct_species_ids)
-    while pending_species_ids:
-        species_id = pending_species_ids.pop()
-        for evolution_edge in evolutions[species_id]:
-            if evolution_edge["method_code"] == 254:
-                continue
-            if (
-                evolution_edge["method_code"] == 7
-                and evolution_edge["requirement"] not in available_evolution_item_ids
-            ):
-                continue
-            evolution_id = evolution_edge["target_species_id"]
-            evolution = species[evolution_id]
-            if (
-                evolution_id not in allowed_species_ids
-                and evolution_id not in excluded_species_ids
-                and evolution["minimum_level"] <= manifest["level_cap"]
-            ):
-                allowed_species_ids.add(evolution_id)
-                pending_species_ids.append(evolution_id)
+    def add_eligible_evolutions(seed_species_ids: set[int]) -> set[int]:
+        eligible_species_ids = set(seed_species_ids)
+        pending_species_ids = list(seed_species_ids)
+        while pending_species_ids:
+            species_id = pending_species_ids.pop()
+            for evolution_edge in evolutions[species_id]:
+                if evolution_edge["method_code"] == 254:
+                    continue
+                if (
+                    evolution_edge["method_code"] == 7
+                    and evolution_edge["requirement"] not in available_evolution_item_ids
+                ):
+                    continue
+                evolution_id = evolution_edge["target_species_id"]
+                evolution = species[evolution_id]
+                if (
+                    evolution_id not in eligible_species_ids
+                    and evolution_id not in excluded_species_ids
+                    and evolution["minimum_level"] <= manifest["level_cap"]
+                ):
+                    eligible_species_ids.add(evolution_id)
+                    pending_species_ids.append(evolution_id)
+        return eligible_species_ids
+
+    allowed_species_ids = add_eligible_evolutions(direct_species_ids)
+    starter_line_species_ids = add_eligible_evolutions(starter_species_ids)
 
     has_drifloon_or_drifblim = any(
         species[species_id]["name"] in {"Drifloon", "Drifblim"}
@@ -320,16 +336,17 @@ def main() -> None:
         )
         + "\n"
     )
-    (validation_data_dir / "allowed_species_ids.json").write_text(
-        json.dumps(
-            {
-                "game_data_version": game_data_version,
-                "task_yaml_sha256": hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
-                "species_ids": allowed_species_id_list,
-            },
-            indent=2,
+    allowed_species_data = {
+        "game_data_version": game_data_version,
+        "task_yaml_sha256": hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+        "species_ids": allowed_species_id_list,
+    }
+    if starter_line_species_ids:
+        allowed_species_data["starter_line_species_ids"] = sorted(
+            starter_line_species_ids
         )
-        + "\n"
+    (validation_data_dir / "allowed_species_ids.json").write_text(
+        json.dumps(allowed_species_data, indent=2) + "\n"
     )
     (validation_data_dir / "allowed_item_ids.json").write_text(
         json.dumps(
