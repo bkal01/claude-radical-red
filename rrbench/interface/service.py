@@ -28,6 +28,32 @@ def create_emulator(task: TaskSpec) -> Emulator:
     return emulator
 
 
+def default_ability_id(species_id: int) -> int | None:
+    normal_abilities = SPECIES_ABILITIES.get(species_id, {}).get("normal", [])
+    return normal_abilities[0] if normal_abilities else None
+
+
+def default_move_ids(
+    species_id: int, level_cap: int, learnsets: list
+) -> tuple[int, ...] | None:
+    """Return up to four deterministic level-up moves legal at the task's cap."""
+    learnset = learnsets[species_id]
+    if learnset is None:
+        return None
+    # Species data can repeat a move at levels 0 and 1. Keep the first occurrence
+    # and preserve level-up ordering so the default does not contain duplicates.
+    move_ids = list(
+        dict.fromkeys(
+            entry["move_id"]
+            for entry in learnset["level_up"]
+            if entry["level"] <= level_cap
+        )
+    )
+    if not move_ids:
+        return None
+    return tuple(move_ids[:4])
+
+
 class BattleService:
     """
     Persistent Service that holds the state of a Task, takes in agent actions,
@@ -168,66 +194,20 @@ class BattleService:
         return self.observe()
 
     def apply_team(self, team: dict) -> dict:
-        """
-        we expect `team` to look like this:
+        """Configure every team slot.
 
-        {
-            "members": [
-                {
-                    "slot": 0,
-                    "species_id": 727,
-                    "evs": {"HP": 252, "ATK": 0, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 252}
-                },
-                {
-                    "slot": 1,
-                    "species_id": 983,
-                    "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0}
-                },
-                {
-                    "slot": 2,
-                    "species_id": 303,
-                    "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0}
-                },
-                {
-                    "slot": 3,
-                    "species_id": 763,
-                    "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0}
-                },
-                {
-                    "slot": 4,
-                    "species_id": 936,
-                    "evs": {"HP": 252, "ATK": 0, "DEF": 4, "SPE": 0, "SPA": 252, "SPDEF": 0}
-                },
-                {
-                    "slot": 5,
-                    "species_id": 130,
-                    "evs": {"HP": 252, "ATK": 252, "DEF": 4, "SPE": 0, "SPA": 0, "SPDEF": 0}
-                }
-            ]
-        }
-
-        the TaskSpec determines what team modifications are allowed, and we enforce them accordingly.
+        Each member requires ``slot``, ``species_id``, and ``level``. Task-enabled
+        modifiers (EVs, Ability, Nature, moves, and item) are optional; omitted
+        initial values use deterministic defaults and omitted update values retain
+        the active configuration unless a Pokemon change makes them incompatible.
         """
         initializing = (
             self.active_team_config is None
             and self.session is None
             and not in_battle(self.emu.mem)
         )
-        modifications = (
-            frozenset(TeamModification)
-            if initializing
-            else self.task.allowed_team_modifications
-        )
+        modifications = self.task.allowed_team_modifications
         if not initializing and not modifications:
-            return {"ok": False, "error": "team updates are not allowed for this task"}
-        if (
-            TeamModification.EVS not in modifications
-            and TeamModification.ABILITIES not in modifications
-            and TeamModification.NATURES not in modifications
-            and TeamModification.MOVES not in modifications
-            and TeamModification.ITEMS not in modifications
-            and TeamModification.POKEMON not in modifications
-        ):
             return {"ok": False, "error": "team updates are not allowed for this task"}
         if not isinstance(team, dict):
             return {"ok": False, "error": "team must be an object"}
@@ -273,26 +253,34 @@ class BattleService:
         if TeamModification.ITEMS in modifications:
             item_data = json.loads((data_dir / "items.json").read_text())
             items_by_id = {item["id"]: item for item in item_data}
-        learnsets = []
-        if TeamModification.MOVES in modifications:
-            learnsets = json.loads((data_dir / "learnsets.json").read_text())
+        # Initial teams receive deterministic level-up move defaults even when
+        # this task does not permit the agent to select moves explicitly.
+        learnsets = json.loads((data_dir / "learnsets.json").read_text())
 
         updated_members = {}
         for member in members:
-            expected_fields = {"slot", "species_id", "level"}
+            required_fields = {"slot", "species_id", "level"}
+            allowed_fields = set(required_fields)
             if TeamModification.EVS in modifications:
-                expected_fields.add("evs")
+                allowed_fields.add("evs")
             if TeamModification.ABILITIES in modifications:
-                expected_fields.add("ability_id")
+                allowed_fields.add("ability_id")
             if TeamModification.NATURES in modifications:
-                expected_fields.add("nature_id")
+                allowed_fields.add("nature_id")
             if TeamModification.MOVES in modifications:
-                expected_fields.add("move_ids")
+                allowed_fields.add("move_ids")
             if TeamModification.ITEMS in modifications:
-                expected_fields.add("held_item_id")
-            if not isinstance(member, dict) or set(member) != expected_fields:
-                fields = ", ".join(sorted(expected_fields))
-                return {"ok": False, "error": f"each member must contain only {fields}"}
+                allowed_fields.add("held_item_id")
+            if (
+                not isinstance(member, dict)
+                or not required_fields <= set(member)
+                or not set(member) <= allowed_fields
+            ):
+                fields = ", ".join(sorted(allowed_fields))
+                return {
+                    "ok": False,
+                    "error": f"each member must contain slot, species_id, and level; allowed fields are {fields}",
+                }
             slot = member["slot"]
             if type(slot) is not int or slot not in range(expected_team_size):
                 return {"ok": False, "error": "each member must use a valid team slot"}
@@ -321,28 +309,40 @@ class BattleService:
                     "error": "level must be an integer from 1 through the task level cap",
                 }
             if (
-                TeamModification.POKEMON not in modifications
+                not initializing
+                and TeamModification.POKEMON not in modifications
                 and species_id != current_team_config.members[slot].species_id
             ):
                 return {"ok": False, "error": "species_id must match the active team member at its slot"}
 
             current_member = None if initializing else current_team_config.members[slot]
-            nature_id = 0 if current_member is None else current_member.nature_id
+            if current_member is None:
+                nature_id = 0
+                evs = {key: 0 for key in EV_KEYS}
+                ability_id = default_ability_id(species_id)
+                move_ids = default_move_ids(species_id, self.task.level_cap, learnsets)
+                held_item = 0
+            else:
+                nature_id = current_member.nature_id
+                evs = dict(current_member.evs)
+                ability_id = current_member.ability_id
+                move_ids = current_member.move_ids
+                held_item = current_member.held_item
+
             if "nature_id" in member:
                 nature_id = member["nature_id"]
-                if type(nature_id) is not int or nature_id not in range(
-                    len(NATURE_NAMES)
-                ):
-                    return {
-                        "ok": False,
-                        "error": (
-                            "nature_id must be an integer from 0 through "
-                            f"{len(NATURE_NAMES) - 1}"
-                        ),
-                    }
-            evs = {} if current_member is None else dict(current_member.evs)
+            if type(nature_id) is not int or nature_id not in range(len(NATURE_NAMES)):
+                return {
+                    "ok": False,
+                    "error": (
+                        "nature_id must be an integer from 0 through "
+                        f"{len(NATURE_NAMES) - 1}"
+                    ),
+                }
+
             if "evs" in member:
                 evs = member["evs"]
+            if "evs" in member or current_member is None:
                 if not isinstance(evs, dict) or set(evs) != set(EV_KEYS):
                     return {"ok": False, "error": "each member must specify exactly HP, ATK, DEF, SPE, SPA, and SPDEF EVs"}
                 if any(type(ev) is not int or ev < 0 or ev > 252 or ev % 4 for ev in evs.values()):
@@ -350,50 +350,73 @@ class BattleService:
                 if sum(evs.values()) > 508:
                     return {"ok": False, "error": "each Pokemon may have at most 508 total EVs"}
 
-            ability_id = None if current_member is None else current_member.ability_id
+            species_changed = (
+                current_member is not None
+                and species_id != current_member.species_id
+            )
+            species_abilities = SPECIES_ABILITIES.get(species_id, {})
+            valid_abilities = set(species_abilities.get("normal", []))
+            hidden_ability = species_abilities.get("hidden")
+            if hidden_ability is not None:
+                valid_abilities.add(hidden_ability)
             if "ability_id" in member:
                 ability_id = member["ability_id"]
-                species_abilities = SPECIES_ABILITIES.get(species_id, {})
-                valid_abilities = set(species_abilities.get("normal", []))
-                hidden_ability = species_abilities.get("hidden")
-                if hidden_ability is not None:
-                    valid_abilities.add(hidden_ability)
-                if type(ability_id) is not int or ability_id not in valid_abilities:
-                    return {"ok": False, "error": "ability_id must be a valid ability for the active Pokemon"}
+            elif species_changed and ability_id not in valid_abilities:
+                # A Pokemon change can make the active member's retained ability
+                # illegal. Resolve that dependency before touching emulator memory.
+                ability_id = default_ability_id(species_id)
+            if (
+                "ability_id" in member
+                or current_member is None
+                or species_changed
+            ) and (type(ability_id) is not int or ability_id not in valid_abilities):
+                return {"ok": False, "error": "ability_id must be a valid ability for the active Pokemon"}
 
-            move_ids = None if current_member is None else current_member.move_ids
+            valid_moves = set()
+            seen_species_ids = set()
+            pending_species_ids = [species_id]
+            while pending_species_ids:
+                current_species_id = pending_species_ids.pop()
+                if current_species_id in seen_species_ids:
+                    continue
+                seen_species_ids.add(current_species_id)
+                learnset = learnsets[current_species_id]
+                if learnset is None:
+                    continue
+                valid_moves.update(
+                    entry["move_id"]
+                    for entry in learnset["level_up"]
+                    if entry["level"] <= self.task.level_cap
+                )
+                for source in ("tm_hm", "tutor", "egg", "pre_evolution", "event"):
+                    valid_moves.update(learnset[source])
+                pending_species_ids.extend(learnset.get("pre_evolution_ids", []))
             if "move_ids" in member:
                 move_ids = member["move_ids"]
-                if not isinstance(move_ids, list) or len(move_ids) != 4 or any(
-                    type(move_id) is not int for move_id in move_ids
-                ):
-                    return {"ok": False, "error": "move_ids must contain exactly four integer move IDs"}
-                valid_move_ids = set()
-                seen_species_ids = set()
-                pending_species_ids = [species_id]
-                while pending_species_ids:
-                    current_species_id = pending_species_ids.pop()
-                    if current_species_id in seen_species_ids:
-                        continue
-                    seen_species_ids.add(current_species_id)
-                    learnset = learnsets[current_species_id]
-                    if learnset is None:
-                        continue
-                    valid_move_ids.update(
-                        entry["move_id"]
-                        for entry in learnset["level_up"]
-                        if entry["level"] <= self.task.level_cap
-                    )
-                    for source in ("tm_hm", "tutor", "egg", "pre_evolution", "event"):
-                        valid_move_ids.update(learnset[source])
-                    pending_species_ids.extend(learnset.get("pre_evolution_ids", []))
-                if any(move_id not in valid_move_ids for move_id in move_ids):
-                    return {
-                        "ok": False,
-                        "error": "each move_id must be learnable by the active Pokemon at the task level cap",
-                    }
+            elif species_changed and (
+                not isinstance(move_ids, (list, tuple))
+                or not 1 <= len(move_ids) <= 4
+                or any(move_id not in valid_moves for move_id in move_ids)
+            ):
+                # Like abilities, moves depend on the selected species and must be
+                # resolved before TeamConfig.apply() writes the party slot.
+                move_ids = default_move_ids(species_id, self.task.level_cap, learnsets)
+            if (
+                not isinstance(move_ids, (list, tuple))
+                or not 1 <= len(move_ids) <= 4
+                or any(type(move_id) is not int for move_id in move_ids)
+            ):
+                return {"ok": False, "error": "move_ids must contain from one through four integer move IDs"}
+            if (
+                "move_ids" in member
+                or current_member is None
+                or species_changed
+            ) and any(move_id not in valid_moves for move_id in move_ids):
+                return {
+                    "ok": False,
+                    "error": "each move_id must be learnable by the active Pokemon at the task level cap",
+                }
 
-            held_item = 0 if current_member is None else current_member.held_item
             if "held_item_id" in member:
                 held_item = member["held_item_id"]
                 if (

@@ -183,9 +183,12 @@ def write_slot(
     slot: int,
     *,
     species_id: int,
-    moves: tuple[int, int, int, int],
+    moves: tuple[int, ...],
     held_item: int,
 ) -> None:
+    if not 1 <= len(moves) <= 4:
+        raise ValueError("moves must contain from one through four move IDs")
+    moves = moves + (0,) * (4 - len(moves))
     base = PARTY_BASE_ADDR + slot * SLOT_SIZE
 
     mem.u32[base + _G0] = species_id | (held_item << 16)
