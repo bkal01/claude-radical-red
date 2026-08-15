@@ -1,7 +1,7 @@
 {
   "game_data_version": "v4.1",
   "task_id": "brendan_viridian_forest",
-  "allowed_species_count": 80,
+  "allowed_species_count": 100,
   "available_tm_hm_move_count": 7,
   "available_tutor_move_count": 2,
   "available_hms": [

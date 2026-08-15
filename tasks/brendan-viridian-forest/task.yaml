@@ -17,6 +17,7 @@ allowed_locations:
   - pallet_town
   - route_1
   - viridian_city
+  - route_22
   - route_2
   - viridian_forest
 available_water_methods:
