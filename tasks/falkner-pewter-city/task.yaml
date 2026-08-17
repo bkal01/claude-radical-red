@@ -1,0 +1,29 @@
+# Battle against Falkner in Pewter City
+id: falkner_pewter_city
+game_data_version: v4.1
+save_state: save_state.ss0
+level_cap: 15
+team_size: 3
+battle_trigger:
+  - key: A
+    frames: 10
+allowed_team_modifications:
+  - abilities
+  - natures
+  - moves
+  - items
+  - pokemon
+allowed_locations:
+  - pallet_town
+  - route_1
+  - viridian_city
+  - route_22
+  - route_2
+  - viridian_forest
+  - forest_expansion
+  - diglett_cave
+  - pewter_city
+available_water_methods:
+  - old_rod
+excluded_species_categories:
+  - mega
