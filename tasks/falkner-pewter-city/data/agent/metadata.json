@@ -1,0 +1,15 @@
+{
+  "game_data_version": "v4.1",
+  "task_id": "falkner_pewter_city",
+  "allowed_species_count": 173,
+  "available_tm_hm_move_count": 12,
+  "available_tutor_move_count": 3,
+  "available_hms": [
+    "Flash"
+  ],
+  "allowed_item_count": 2,
+  "egg_move_tutor_available": false,
+  "excluded_species_categories": [
+    "mega"
+  ]
+}
