@@ -2,7 +2,7 @@ import json
 from dataclasses import dataclass
 
 from rrbench.emulator.memory import (
-    PARTY_BASE_ADDR, PARTY_COUNT_ADDR, PARTY_SPECIES_OFFSET, SLOT_SIZE,
+    PARTY_BASE_ADDR, PARTY_COUNT_ADDR, PARTY_MAX_SIZE, PARTY_SPECIES_OFFSET, SLOT_SIZE,
     checksum, data_dir, read_slot, SPECIES_ABILITIES, SPECIES_NAME, write_slot,
 )
 
@@ -255,6 +255,11 @@ class TeamConfig:
         mem.u8[PARTY_COUNT_ADDR] = len(self.members)
         for slot, cfg in enumerate(self.members):
             cfg.apply(mem, slot)
+
+        for slot in range(len(self.members), PARTY_MAX_SIZE):
+            base = PARTY_BASE_ADDR + slot * SLOT_SIZE
+            for offset in range(0, SLOT_SIZE, 4):
+                mem.u32[base + offset] = 0
 
     def ev_summary(self) -> list[tuple[str, dict[str, int]]]:
         """Per-Pokemon (name, EVs) snapshot — the config that varies between episodes."""
