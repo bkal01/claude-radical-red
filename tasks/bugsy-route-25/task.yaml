@@ -1,5 +1,6 @@
 # Battle against Bugsy on Route 25
 id: bugsy_route_25
+task_id: 16
 game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 27

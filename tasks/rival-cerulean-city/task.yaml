@@ -1,5 +1,6 @@
 # Battle against the Rival in Cerulean City
 id: rival_cerulean_city
+task_id: 9
 game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 27
