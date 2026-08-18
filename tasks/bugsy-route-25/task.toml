@@ -1,0 +1,30 @@
+schema_version = "1.4"
+
+artifacts = [
+  { source = "/var/log/battle/trajectory.jsonl", service = "battle-server" },
+  { source = "/var/log/battle/videos", service = "battle-server" },
+]
+
+[task]
+name = "rrbench/bugsy-route-25"
+description = "Beat Bugsy on Route 25 in Pokemon Radical Red."
+
+[[environment.mcp_servers]]
+name = "battle-server"
+transport = "streamable-http"
+url = "http://battle-server:8000/mcp"
+
+[environment]
+network_mode = "public"
+
+[environment.env]
+RRBENCH_MAX_EPISODES = "${RRBENCH_MAX_EPISODES:-3}"
+RRBENCH_RECORD = "${RRBENCH_RECORD:-false}"
+
+[agent]
+timeout_sec = 43200
+network_mode = "public"
+
+[verifier]
+timeout_sec = 300.0
+environment_mode = "separate"

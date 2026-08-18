@@ -1,0 +1,37 @@
+# Battle against Bugsy on Route 25
+id: bugsy_route_25
+game_data_version: v4.1
+save_state: save_state.ss0
+level_cap: 27
+team_size: 4
+battle_trigger:
+  - key: A
+    frames: 10
+allowed_team_modifications:
+  - abilities
+  - natures
+  - moves
+  - items
+  - pokemon
+allowed_locations:
+  - pallet_town
+  - route_1
+  - viridian_city
+  - route_22
+  - route_2
+  - viridian_forest
+  - forest_expansion
+  - diglett_cave
+  - pewter_city
+  - route_3
+  - mt_moon_1f
+  - mt_moon_b1f
+  - mt_moon_b2f
+  - route_4
+  - cerulean_city
+  - route_24
+  - route_25
+available_water_methods:
+  - old_rod
+excluded_species_categories:
+  - mega
