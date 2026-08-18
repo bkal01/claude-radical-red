@@ -33,6 +33,7 @@ class PokemonFaintedError(ValueError):
 PARTY_COUNT_ADDR = 0x02024029
 PARTY_BASE_ADDR  = 0x02024284
 SLOT_SIZE        = 100  # bytes per party slot
+PARTY_MAX_SIZE   = 6
 
 # Empirically verified: EWRAM party data is stored decrypted with fixed GAEM substruct order.
 # The PID^OTID XOR and PID%24 substruct shuffle only apply to SRAM save data, not EWRAM.
