@@ -7,6 +7,20 @@ from rrbench.battle.addresses import (
     BATTLE_TERRAIN,
     BATTLE_TYPE_FLAGS,
     BATTLE_WEATHER,
+    WEATHER_FOG,
+    WEATHER_HAIL_PERMANENT,
+    WEATHER_HAIL_TEMPORARY,
+    WEATHER_PRIMAL_RAIN,
+    WEATHER_PRIMAL_SUN,
+    WEATHER_RAIN_PERMANENT,
+    WEATHER_RAIN_TEMPORARY,
+    WEATHER_SANDSTORM_PERMANENT,
+    WEATHER_SANDSTORM_TEMPORARY,
+    WEATHER_SNOW,
+    WEATHER_SNOW_PERMANENT,
+    WEATHER_STRONG_WINDS,
+    WEATHER_SUN_PERMANENT,
+    WEATHER_SUN_TEMPORARY,
     MON_ABILITY,
     MON_CUR_HP,
     MON_MAX_HP,
@@ -18,7 +32,7 @@ from rrbench.battle.addresses import (
     TERRAIN_TIMER,
 )
 from rrbench.battle.capture import TurnRecorder, capture_intro, capture_turn, decode_msg
-from rrbench.battle.state import read_battle_state
+from rrbench.battle.state import decode_weather, read_battle_state
 from rrbench.emulator.emulator import KEY_B
 from rrbench.emulator.memory import PARTY_BASE_ADDR, Party, SLOT_SIZE
 from rrbench.interface.protocol import render_observation, render_pre_battle
@@ -80,6 +94,30 @@ def test_pre_battle_observation_renders_each_rotom_form(party_memory) -> None:
         ("Rotom", "wash"),
         ("Rotom", "frost"),
     ]
+
+
+@pytest.mark.parametrize(
+    ("weather", "timer", "expected"),
+    [
+        (0, 5, ("none", 0)),
+        (WEATHER_RAIN_TEMPORARY, 5, ("rain", 5)),
+        (WEATHER_RAIN_PERMANENT, 5, ("rain", None)),
+        (WEATHER_SANDSTORM_TEMPORARY, 4, ("sandstorm", 4)),
+        (WEATHER_SANDSTORM_PERMANENT, 4, ("sandstorm", None)),
+        (WEATHER_SUN_TEMPORARY, 3, ("sun", 3)),
+        (WEATHER_SUN_PERMANENT, 3, ("sun", None)),
+        (WEATHER_HAIL_TEMPORARY, 2, ("hail", 2)),
+        (WEATHER_HAIL_PERMANENT, 2, ("hail", None)),
+        (WEATHER_FOG, 2, ("fog", None)),
+        (WEATHER_SNOW, 2, ("snow", 2)),
+        (WEATHER_SNOW_PERMANENT, 2, ("snow", None)),
+        (WEATHER_PRIMAL_RAIN, 2, ("heavy_rain", None)),
+        (WEATHER_PRIMAL_SUN, 2, ("harsh_sunlight", None)),
+        (WEATHER_STRONG_WINDS, 2, ("strong_winds", None)),
+    ],
+)
+def test_decode_weather(weather, timer, expected) -> None:
+    assert decode_weather(weather, timer) == expected
 
 
 def test_battle_observation_reads_field_state_and_replacement(party_memory) -> None:

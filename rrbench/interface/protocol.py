@@ -28,10 +28,8 @@ def render_hazards(h: SideHazards) -> dict:
 
 
 def render_weather(state: BattleState) -> dict:
-    # Only permanent sandstorm (Sand Stream) is modeled today; see read_battle_state.
-    kind = "sandstorm" if (state.weather & 0x08) else "none"
-    turns_left = state.weather_turns_left if state.weather_turns_left else "inf"
-    return {"kind": kind, "turns_left": turns_left}
+    turns_left = "inf" if state.weather_turns_left is None else state.weather_turns_left
+    return {"kind": state.weather_kind, "turns_left": turns_left}
 
 
 def render_terrain(state: BattleState) -> dict:
