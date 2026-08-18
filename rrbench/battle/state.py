@@ -7,6 +7,14 @@ from rrbench.battle.addresses import (
     SIDE_HAZARDS_SPIKES_MASK, SIDE_HAZARDS_STEALTH_ROCK,
     SIDE_HAZARDS_STICKY_WEB, SIDE_HAZARDS_TOXIC_SPIKES_MASK,
     TERRAIN_TIMER, WEATHER_TIMER,
+    WEATHER_FOG,
+    WEATHER_HAIL_PERMANENT, WEATHER_HAIL_TEMPORARY,
+    WEATHER_PRIMAL_RAIN, WEATHER_PRIMAL_SUN,
+    WEATHER_RAIN_PERMANENT, WEATHER_RAIN_TEMPORARY,
+    WEATHER_SANDSTORM_PERMANENT, WEATHER_SANDSTORM_TEMPORARY,
+    WEATHER_SNOW, WEATHER_SNOW_PERMANENT,
+    WEATHER_STRONG_WINDS,
+    WEATHER_SUN_PERMANENT, WEATHER_SUN_TEMPORARY,
 )
 from rrbench.battle.capture import MessageEvent
 from rrbench.emulator.emulator import Emulator
@@ -50,8 +58,9 @@ class BattleState:
     party: Party                       # full Party, `members` is in party-slot order
     active_slot: int                   # which party slot is currently on the field
     needs_replacement: bool            # True when active Pokemon fainted; agent must name a replacement
-    weather: int                       # BATTLE_WEATHER bitmask (0x08 = permanent sandstorm)
-    weather_turns_left: int | None     # None when weather is permanent (ability-induced); WEATHER_TIMER countdown otherwise
+    weather: int                       # raw BATTLE_WEATHER bitmask
+    weather_kind: str                  # protocol weather kind decoded from the raw flags
+    weather_turns_left: int | None     # None for active permanent weather; 0 for no weather
     terrain: int                       # BATTLE_TERRAIN enum: none, Electric, Grassy, Misty, Psychic
     terrain_turns_left: int            # TERRAIN_TIMER countdown; 0 when there is no terrain
     stat_stages: tuple[int, ...]       # player active: (ATK,DEF,SPE,SPA,SPD,ACC,EVA) neutral=6
@@ -65,6 +74,28 @@ class BattleState:
     opp_max_hp: int | None             # Giovanni's active Pokemon max HP (None if offset unverified)
 
 
+WEATHER_FLAGS = (
+    # Check special weather first in case the engine retains an ordinary weather bit.
+    ("heavy_rain", 0, WEATHER_PRIMAL_RAIN),
+    ("harsh_sunlight", 0, WEATHER_PRIMAL_SUN),
+    ("strong_winds", 0, WEATHER_STRONG_WINDS),
+    ("rain", WEATHER_RAIN_TEMPORARY, WEATHER_RAIN_PERMANENT),
+    ("sandstorm", WEATHER_SANDSTORM_TEMPORARY, WEATHER_SANDSTORM_PERMANENT),
+    ("sun", WEATHER_SUN_TEMPORARY, WEATHER_SUN_PERMANENT),
+    ("hail", WEATHER_HAIL_TEMPORARY, WEATHER_HAIL_PERMANENT),
+    ("fog", 0, WEATHER_FOG),
+    ("snow", WEATHER_SNOW, WEATHER_SNOW_PERMANENT),
+)
+
+
+def decode_weather(weather: int, timer: int) -> tuple[str, int | None]:
+    """Decode the ROM weather flags into a protocol-friendly kind and duration."""
+    for kind, temporary_flag, permanent_flag in WEATHER_FLAGS:
+        if weather & (temporary_flag | permanent_flag):
+            return kind, None if weather & permanent_flag else timer
+    return "none", 0
+
+
 def in_battle(mem) -> bool:
     """True while a trainer battle is live. BATTLE_TYPE_FLAGS is non-zero during the
     battle and clears to 0 when it ends."""
@@ -73,10 +104,10 @@ def in_battle(mem) -> bool:
 
 def read_battle_state(mem, party: Party) -> BattleState:
     opp_base    = BATTLE_MONS_BASE + BATTLE_MON_SIZE
-    weather_val = mem.u32[BATTLE_WEATHER] & 0xFF
-    # bit 0x08 = WEATHER_SANDSTORM_PERMANENT (Sand Stream); timer is irrelevant for permanent weather
-    # TODO: support other kinds of (permanent) weather
-    weather_turns_left = None if (weather_val & 0x08) else mem.u8[WEATHER_TIMER]
+    weather_val = mem.u32[BATTLE_WEATHER]
+    weather_kind, weather_turns_left = decode_weather(
+        weather_val, mem.u8[WEATHER_TIMER]
+    )
     terrain = mem.u8[BATTLE_TERRAIN]
     terrain_turns_left = mem.u8[TERRAIN_TIMER]
     stat_stages     = tuple(mem.u8[BATTLE_MONS_BASE + MON_STAT_STAGES + i] for i in range(7))
@@ -95,6 +126,7 @@ def read_battle_state(mem, party: Party) -> BattleState:
         active_slot=active_slot,
         needs_replacement=mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] == 0,
         weather=weather_val,
+        weather_kind=weather_kind,
         weather_turns_left=weather_turns_left,
         terrain=terrain,
         terrain_turns_left=terrain_turns_left,

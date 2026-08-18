@@ -160,7 +160,7 @@ def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -
                 "current_hp": 71,
                 "max_hp": 100,
             },
-            "weather": {"kind": "none", "turns_left": "inf"},
+            "weather": {"kind": "none", "turns_left": 0},
             "terrain": {"kind": "none", "turns_left": 0},
             "hazards": {
                 "player": {
