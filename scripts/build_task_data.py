@@ -323,7 +323,6 @@ def main() -> None:
         json.dumps(
             {
                 "game_data_version": game_data_version,
-                "task_id": manifest["id"],
                 "allowed_species_count": len(allowed_species_id_list),
                 "available_tm_hm_move_count": len(available_move_ids["tm_hm"]),
                 "available_tutor_move_count": len(available_move_ids["tutor"]),
