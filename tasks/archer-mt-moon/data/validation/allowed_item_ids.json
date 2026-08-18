@@ -1,0 +1,14 @@
+{
+  "game_data_version": "v4.1",
+  "task_yaml_sha256": "f267a02ed181fef738b4fe764e22ce4d4ede3b23a3da318392f096a9c12d0d1e",
+  "item_ids": [
+    139,
+    674,
+    675
+  ],
+  "item_counts": {
+    "139": 2,
+    "674": 1,
+    "675": 1
+  }
+}

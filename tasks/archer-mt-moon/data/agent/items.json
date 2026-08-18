@@ -1,0 +1,20 @@
+[
+  {
+    "id": 139,
+    "name": "Oran Berry",
+    "description": "When held by a Pokémon, it will be used in battle to restore 10 HP.",
+    "count": 2
+  },
+  {
+    "id": 674,
+    "name": "Muscle Band",
+    "description": "An item to be held by a Pokémon. It is a headband that slightly boosts the power of physical moves.",
+    "count": 1
+  },
+  {
+    "id": 675,
+    "name": "Wise Glasses",
+    "description": "An item to be held by a Pokémon. This thick pair of glasses slightly boosts the power of special moves.",
+    "count": 1
+  }
+]
