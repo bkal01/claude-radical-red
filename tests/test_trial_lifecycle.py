@@ -47,6 +47,12 @@ def test_winning_action_writes_score_and_closes_active_recorder(monkeypatch, tmp
     result = trial.handle({"verb": "action", "command": "FIGHT Tackle"}, service)
 
     assert result["won"] is True
+    assert result["episode_budget"] == {
+        "current_episode": 1,
+        "max_episodes": 1,
+        "resets_remaining": 0,
+        "next_episode_available": False,
+    }
     assert json.loads(score_path.read_text()) == {
         "task_id": "test",
         "status": "won",
@@ -57,6 +63,36 @@ def test_winning_action_writes_score_and_closes_active_recorder(monkeypatch, tmp
     assert active_recorder.closed is True
     assert service.emu.recorder is None
     assert trial.recorder.recorder is None
+
+
+def test_responses_include_authoritative_episode_budget(tmp_path) -> None:
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset(),
+        level_cap=100,
+    )
+    service = FakeService()
+    trial = Trial(
+        task=task,
+        max_episodes=3,
+        trajectory_path=tmp_path / "trajectory.jsonl",
+        score_path=tmp_path / "score.json",
+    )
+
+    assert trial.handle({"verb": "observe"}, service)["episode_budget"] == {
+        "current_episode": 1,
+        "max_episodes": 3,
+        "resets_remaining": 2,
+        "next_episode_available": True,
+    }
+    assert trial.handle({"verb": "reset"}, service)["episode_budget"] == {
+        "current_episode": 2,
+        "max_episodes": 3,
+        "resets_remaining": 1,
+        "next_episode_available": True,
+    }
 
 
 def test_losing_action_at_episode_limit_writes_no_win_score_and_closes_recorder(

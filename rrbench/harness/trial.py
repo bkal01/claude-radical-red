@@ -47,6 +47,20 @@ class Trial:
         if self.recorder is not None:
             self.recorder.start(service.emu)
 
+    def with_episode_budget(self, result: dict, trial_complete: bool = False) -> dict:
+        if not result.get("ok"):
+            return result
+        return {
+            **result,
+            "episode_budget": {
+                "current_episode": self.episodes,
+                "max_episodes": self.max_episodes,
+                "resets_remaining": self.max_episodes - self.episodes,
+                "next_episode_available": not (self.finished or trial_complete)
+                and self.episodes < self.max_episodes,
+            },
+        }
+
     def handle(self, request: object, service) -> dict:
         if self.finished:
             return {"ok": False, "error": "trial is complete"}
@@ -55,9 +69,9 @@ class Trial:
 
         verb = request.get("verb")
         if verb == "observe":
-            return service.observe()
+            return self.with_episode_budget(service.observe())
         if verb == "team":
-            return service.team()
+            return self.with_episode_budget(service.team())
         if verb == "lead":
             pokemon = request.get("pokemon")
             if not isinstance(pokemon, str):
@@ -109,6 +123,14 @@ class Trial:
         else:
             return {"ok": False, "error": "unknown request verb"}
 
+        terminal_result = (
+            result["ok"]
+            and verb == "action"
+            and result.get("ended")
+            and (result.get("won") or self.episodes == self.max_episodes)
+        )
+        result = self.with_episode_budget(result, trial_complete=terminal_result)
+
         if result["ok"] and verb in {"lead", "action", "apply-team", "reset"}:
             event = {
                 "type": "request",
@@ -121,10 +143,10 @@ class Trial:
             if verb in {"lead", "action"}:
                 self.episode_events.append(event)
 
-        if result["ok"] and verb == "action" and result.get("ended"):
+        if terminal_result:
             if result.get("won"):
                 self.finish("won", "environment_reported_win", service)
-            elif self.episodes == self.max_episodes:
+            else:
                 self.finish("no_win", "episode_budget_exhausted", service)
 
         return result
