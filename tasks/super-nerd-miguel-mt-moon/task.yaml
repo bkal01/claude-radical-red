@@ -1,0 +1,35 @@
+# Battle against Super Nerd Miguel in Mt. Moon
+id: super_nerd_miguel_mt_moon
+task_id: 7
+game_data_version: v4.1
+save_state: save_state.ss0
+level_cap: 22
+team_size: 4
+battle_format: doubles
+battle_trigger:
+  - key: A
+    frames: 60
+allowed_team_modifications:
+  - abilities
+  - natures
+  - moves
+  - items
+  - pokemon
+allowed_locations:
+  - pallet_town
+  - route_1
+  - viridian_city
+  - route_22
+  - route_2
+  - viridian_forest
+  - forest_expansion
+  - diglett_cave
+  - pewter_city
+  - route_3
+  - mt_moon_1f
+  - mt_moon_b1f
+  - mt_moon_b2f
+available_water_methods:
+  - old_rod
+excluded_species_categories:
+  - mega
