@@ -1974,9 +1974,81 @@
     },
     "minimum_level": 32
   },
-  null,
-  null,
-  null,
+  {
+    "name": "Goldeen",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 67,
+      "def": 60,
+      "spe": 63,
+      "spa": 35,
+      "spdef": 50
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        31,
+        41
+      ],
+      "hidden": 44
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Seaking",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 80,
+      "atk": 92,
+      "def": 65,
+      "spe": 68,
+      "spa": 65,
+      "spdef": 80
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        31,
+        41
+      ],
+      "hidden": 44
+    },
+    "minimum_level": 33
+  },
+  {
+    "name": "Staryu",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 30,
+      "atk": 45,
+      "def": 55,
+      "spe": 85,
+      "spa": 70,
+      "spdef": 55
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        30,
+        89
+      ],
+      "hidden": 125
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -3332,7 +3404,32 @@
     },
     "minimum_level": 23
   },
-  null,
+  {
+    "name": "Qwilfish",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Poison"
+    ],
+    "base_stats": {
+      "hp": 65,
+      "atk": 95,
+      "def": 75,
+      "spe": 85,
+      "spa": 55,
+      "spdef": 55
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        202,
+        33
+      ],
+      "hidden": 22
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -3488,11 +3585,109 @@
     },
     "minimum_level": 28
   },
+  {
+    "name": "Corsola",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Rock"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 55,
+      "def": 85,
+      "spe": 35,
+      "spa": 65,
+      "spdef": 85
+    },
+    "growth_rate": "fast",
+    "abilities": {
+      "normal": [
+        55,
+        86
+      ],
+      "hidden": 86
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Remoraid",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 35,
+      "atk": 65,
+      "def": 35,
+      "spe": 65,
+      "spa": 65,
+      "spdef": 35
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        55,
+        85
+      ],
+      "hidden": 79
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Octillery",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 105,
+      "def": 75,
+      "spe": 45,
+      "spa": 105,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        127,
+        85
+      ],
+      "hidden": 79
+    },
+    "minimum_level": 25
+  },
   null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "name": "Mantine",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "base_stats": {
+      "hp": 65,
+      "atk": 40,
+      "def": 70,
+      "spe": 70,
+      "spa": 80,
+      "spdef": 140
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        33,
+        11
+      ],
+      "hidden": 41
+    },
+    "minimum_level": 2
+  },
   null,
   {
     "name": "Houndour",
@@ -4464,7 +4659,31 @@
     },
     "minimum_level": 22
   },
-  null,
+  {
+    "name": "Wailmer",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 130,
+      "atk": 70,
+      "def": 35,
+      "spe": 60,
+      "spa": 70,
+      "spdef": 35
+    },
+    "growth_rate": "fluctuating",
+    "abilities": {
+      "normal": [
+        41,
+        12
+      ],
+      "hidden": 46
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -4522,8 +4741,58 @@
     "minimum_level": 1
   },
   null,
-  null,
-  null,
+  {
+    "name": "Barboach",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 48,
+      "def": 43,
+      "spe": 60,
+      "spa": 46,
+      "spdef": 41
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        107,
+        107
+      ],
+      "hidden": 12
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Whiscash",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "base_stats": {
+      "hp": 110,
+      "atk": 78,
+      "def": 73,
+      "spe": 60,
+      "spa": 76,
+      "spdef": 71
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        107,
+        107
+      ],
+      "hidden": 177
+    },
+    "minimum_level": 30
+  },
   null,
   {
     "name": "Corphish",
@@ -5303,7 +5572,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Relicanth",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Rock"
+    ],
+    "base_stats": {
+      "hp": 100,
+      "atk": 90,
+      "def": 130,
+      "spe": 55,
+      "spa": 45,
+      "spdef": 65
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        33,
+        69
+      ],
+      "hidden": 5
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -6922,7 +7216,32 @@
     },
     "minimum_level": 23
   },
-  null,
+  {
+    "name": "Mantyke",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 20,
+      "def": 50,
+      "spe": 50,
+      "spa": 60,
+      "spdef": 120
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        33,
+        11
+      ],
+      "hidden": 41
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Snover",
     "form": null,
@@ -8025,7 +8344,31 @@
     "minimum_level": 1
   },
   null,
-  null,
+  {
+    "name": "Basculin",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 92,
+      "def": 65,
+      "spe": 98,
+      "spa": 80,
+      "spdef": 55
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        91,
+        88
+      ],
+      "hidden": 152
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Sandile",
     "form": null,
@@ -8553,7 +8896,32 @@
   null,
   null,
   null,
-  null,
+  {
+    "name": "Frillish",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Ghost"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 40,
+      "def": 50,
+      "spe": 40,
+      "spa": 65,
+      "spdef": 85
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        11,
+        6
+      ],
+      "hidden": 177
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   {
@@ -9859,7 +10227,32 @@
     "minimum_level": 1
   },
   null,
-  null,
+  {
+    "name": "Skrelp",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Poison",
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 60,
+      "def": 60,
+      "spe": 30,
+      "spa": 60,
+      "spdef": 60
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        209,
+        209
+      ],
+      "hidden": 88
+    },
+    "minimum_level": 1
+  },
   null,
   {
     "name": "Clauncher",
@@ -11205,8 +11598,56 @@
     },
     "minimum_level": 25
   },
-  null,
-  null,
+  {
+    "name": "Wishiwashi",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 20,
+      "def": 20,
+      "spe": 40,
+      "spa": 25,
+      "spdef": 25
+    },
+    "growth_rate": "fast",
+    "abilities": {
+      "normal": [
+        168
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Mareanie",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Poison",
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 53,
+      "def": 62,
+      "spe": 45,
+      "spa": 43,
+      "spdef": 52
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        200,
+        7
+      ],
+      "hidden": 86
+    },
+    "minimum_level": 1
+  },
   null,
   {
     "name": "Mudbray",
@@ -11258,8 +11699,56 @@
     },
     "minimum_level": 30
   },
-  null,
-  null,
+  {
+    "name": "Dewpider",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Bug"
+    ],
+    "base_stats": {
+      "hp": 38,
+      "atk": 40,
+      "def": 52,
+      "spe": 27,
+      "spa": 40,
+      "spdef": 72
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        177
+      ],
+      "hidden": 11
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Araquanid",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Bug"
+    ],
+    "base_stats": {
+      "hp": 68,
+      "atk": 70,
+      "def": 92,
+      "spe": 42,
+      "spa": 50,
+      "spdef": 132
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        177
+      ],
+      "hidden": 11
+    },
+    "minimum_level": 22
+  },
   null,
   null,
   {
@@ -11551,7 +12040,32 @@
   null,
   null,
   null,
-  null,
+  {
+    "name": "Bruxish",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 68,
+      "atk": 105,
+      "def": 70,
+      "spe": 92,
+      "spa": 70,
+      "spdef": 70
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        221,
+        129
+      ],
+      "hidden": 149
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -12804,8 +13318,56 @@
     },
     "minimum_level": 28
   },
-  null,
-  null,
+  {
+    "name": "Clobbopus",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fighting",
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 68,
+      "def": 60,
+      "spe": 32,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        7
+      ],
+      "hidden": 82
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Grapploct",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fighting",
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 80,
+      "atk": 118,
+      "def": 90,
+      "spe": 42,
+      "spa": 70,
+      "spdef": 80
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        7
+      ],
+      "hidden": 82
+    },
+    "minimum_level": 2
+  },
   {
     "name": "Sinistea",
     "form": null,
@@ -13138,7 +13700,31 @@
     },
     "minimum_level": 28
   },
-  null,
+  {
+    "name": "Slowpoke",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 90,
+      "atk": 65,
+      "def": 65,
+      "spe": 15,
+      "spa": 40,
+      "spdef": 40
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        222,
+        20
+      ],
+      "hidden": 86
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -13567,7 +14153,31 @@
     "minimum_level": 34
   },
   null,
-  null,
+  {
+    "name": "Veluza",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 95,
+      "atk": 102,
+      "def": 83,
+      "spe": 70,
+      "spa": 78,
+      "spdef": 75
+    },
+    "growth_rate": "fluctuating",
+    "abilities": {
+      "normal": [
+        152
+      ],
+      "hidden": 243
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Smoliv",
     "form": null,
@@ -13674,7 +14284,31 @@
   },
   null,
   null,
-  null,
+  {
+    "name": "Tatsugiri",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon",
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 78,
+      "atk": 50,
+      "def": 70,
+      "spe": 82,
+      "spa": 120,
+      "spdef": 95
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        131
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Wattrel",
     "form": null,

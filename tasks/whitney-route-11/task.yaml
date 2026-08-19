@@ -40,5 +40,6 @@ allowed_locations:
   - diglett_cave_b1f
 available_water_methods:
   - old_rod
+  - good_rod
 excluded_species_categories:
   - mega

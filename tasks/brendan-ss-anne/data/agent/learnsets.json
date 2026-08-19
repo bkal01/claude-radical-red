@@ -64,9 +64,11 @@
       91,
       156,
       422,
+      15,
       148
     ],
     "tutor": [
+      414,
       676
     ],
     "egg": [],
@@ -146,9 +148,11 @@
       91,
       156,
       422,
+      15,
       148
     ],
     "tutor": [
+      414,
       676
     ],
     "egg": [],
@@ -220,14 +224,21 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       156,
+      826,
       9,
-      332
+      332,
+      15
     ],
     "tutor": [
+      414,
+      571,
+      406,
       676,
-      431
+      431,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -303,14 +314,21 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       156,
+      826,
       9,
-      332
+      332,
+      15
     ],
     "tutor": [
+      414,
+      571,
+      406,
       676,
-      431
+      431,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -387,10 +405,13 @@
       728,
       196,
       91,
+      280,
       317,
       156
     ],
     "tutor": [
+      414,
+      571,
       676
     ],
     "egg": [],
@@ -477,10 +498,13 @@
       728,
       196,
       91,
+      280,
       317,
       156
     ],
     "tutor": [
+      414,
+      571,
       676
     ],
     "egg": [],
@@ -774,6 +798,7 @@
     ],
     "tm_hm": [
       405,
+      280,
       516,
       156,
       168,
@@ -781,6 +806,7 @@
       422,
       332,
       442,
+      15,
       148
     ],
     "tutor": [
@@ -862,7 +888,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -941,7 +969,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       16
@@ -1011,9 +1041,13 @@
       156,
       168,
       451,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -1092,10 +1126,16 @@
       91,
       156,
       168,
+      826,
+      617,
       451,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       19
@@ -1168,7 +1208,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -1263,7 +1305,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       21
@@ -1469,6 +1513,7 @@
       156,
       168,
       422,
+      617,
       404
     ],
     "tutor": [
@@ -1569,6 +1614,7 @@
     "tm_hm": [
       405,
       91,
+      280,
       156,
       465,
       168,
@@ -1576,7 +1622,9 @@
       148
     ],
     "tutor": [
-      676
+      364,
+      676,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -1663,13 +1711,19 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       156,
       168,
+      617,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -1760,13 +1814,19 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       156,
       168,
+      617,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       27
@@ -1834,9 +1894,12 @@
       156,
       168,
       422,
-      332
+      332,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -1902,9 +1965,13 @@
       156,
       168,
       422,
-      332
+      617,
+      332,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       29
@@ -1968,9 +2035,12 @@
       91,
       156,
       168,
-      422
+      422,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -2031,9 +2101,13 @@
       91,
       156,
       168,
-      422
+      422,
+      617,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       32
@@ -2136,13 +2210,18 @@
     "tm_hm": [
       196,
       91,
+      280,
       100,
       156,
       465,
       9,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       173
@@ -2244,6 +2323,7 @@
       156
     ],
     "tutor": [
+      406,
       676
     ],
     "egg": [],
@@ -2338,13 +2418,19 @@
     "tm_hm": [
       196,
       91,
+      280,
       100,
       156,
       465,
       9,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      364,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       174
@@ -2606,6 +2692,7 @@
       331,
       156,
       422,
+      15,
       148
     ],
     "tutor": [],
@@ -2697,6 +2784,7 @@
       331,
       156,
       422,
+      15,
       148
     ],
     "tutor": [],
@@ -2766,14 +2854,17 @@
     "tm_hm": [
       331,
       91,
+      280,
       156,
       168,
       422,
       332,
+      15,
       148
     ],
     "tutor": [
-      450
+      450,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -2862,14 +2953,17 @@
     "tm_hm": [
       331,
       91,
+      280,
       156,
       168,
       422,
       332,
+      15,
       148
     ],
     "tutor": [
-      450
+      450,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -3111,10 +3205,15 @@
       317,
       156,
       168,
+      617,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -3200,10 +3299,15 @@
       317,
       156,
       168,
+      617,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       50
@@ -3290,9 +3394,14 @@
       168,
       332,
       442,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -3402,9 +3511,14 @@
       168,
       332,
       442,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       52
@@ -3483,13 +3597,18 @@
       728,
       196,
       91,
+      280,
       100,
       156,
       332,
       399,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      571,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -3586,6 +3705,7 @@
       728,
       196,
       91,
+      280,
       100,
       67,
       156,
@@ -3594,7 +3714,11 @@
       399,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      571,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       54
@@ -3683,10 +3807,12 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
       168,
+      617,
       9,
       417,
       332,
@@ -3694,7 +3820,11 @@
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -3805,10 +3935,12 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
       168,
+      617,
       9,
       417,
       332,
@@ -3816,7 +3948,11 @@
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       56
@@ -3904,10 +4040,12 @@
       91,
       156,
       168,
+      826,
       332,
       418
     ],
     "tutor": [
+      406,
       431
     ],
     "egg": [],
@@ -3937,7 +4075,9 @@
       9,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -4009,7 +4149,9 @@
       9,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       63
@@ -4091,6 +4233,7 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
@@ -4100,7 +4243,10 @@
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -4187,16 +4333,21 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
       168,
+      617,
       9,
       417,
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       66
@@ -4269,6 +4420,7 @@
       156,
       168,
       422,
+      15,
       148
     ],
     "tutor": [],
@@ -4349,6 +4501,7 @@
       156,
       168,
       422,
+      15,
       148
     ],
     "tutor": [
@@ -4438,7 +4591,8 @@
       196,
       156,
       168,
-      422
+      422,
+      15
     ],
     "tutor": [],
     "egg": [],
@@ -4534,7 +4688,8 @@
       196,
       156,
       168,
-      422
+      422,
+      15
     ],
     "tutor": [],
     "egg": [],
@@ -4617,12 +4772,14 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       156,
       9,
       404
     ],
     "tutor": [
+      571,
       393
     ],
     "egg": [],
@@ -4719,12 +4876,15 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       156,
+      617,
       9,
       404
     ],
     "tutor": [
+      571,
       393
     ],
     "egg": [],
@@ -4800,9 +4960,12 @@
     ],
     "tm_hm": [
       67,
-      156
+      156,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -4897,9 +5060,12 @@
     ],
     "tm_hm": [
       67,
-      156
+      156,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [
       77
@@ -4991,6 +5157,7 @@
       }
     ],
     "tm_hm": [
+      280,
       516,
       156,
       168,
@@ -4998,9 +5165,12 @@
       395,
       332,
       451,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -5078,7 +5248,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -5172,11 +5344,14 @@
       168,
       211,
       395,
+      617,
       332,
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       84
@@ -5261,7 +5436,9 @@
       422,
       9
     ],
-    "tutor": [],
+    "tutor": [
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -5622,6 +5799,7 @@
       91,
       317,
       156,
+      617,
       404
     ],
     "tutor": [
@@ -5634,8 +5812,187 @@
   },
   null,
   null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 300,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 11,
+        "level": 5
+      },
+      {
+        "move_id": 43,
+        "level": 9
+      },
+      {
+        "move_id": 106,
+        "level": 11
+      },
+      {
+        "move_id": 61,
+        "level": 15
+      },
+      {
+        "move_id": 341,
+        "level": 19
+      },
+      {
+        "move_id": 232,
+        "level": 21
+      },
+      {
+        "move_id": 23,
+        "level": 25
+      },
+      {
+        "move_id": 182,
+        "level": 29
+      },
+      {
+        "move_id": 163,
+        "level": 31
+      },
+      {
+        "move_id": 21,
+        "level": 35
+      },
+      {
+        "move_id": 460,
+        "level": 39
+      },
+      {
+        "move_id": 152,
+        "level": 41
+      },
+      {
+        "move_id": 175,
+        "level": 45
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      91,
+      280,
+      317,
+      156,
+      168,
+      15
+    ],
+    "tutor": [
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 638,
+        "level": 1
+      },
+      {
+        "move_id": 300,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 357,
+        "level": 1
+      },
+      {
+        "move_id": 43,
+        "level": 1
+      },
+      {
+        "move_id": 11,
+        "level": 5
+      },
+      {
+        "move_id": 43,
+        "level": 9
+      },
+      {
+        "move_id": 106,
+        "level": 11
+      },
+      {
+        "move_id": 61,
+        "level": 15
+      },
+      {
+        "move_id": 341,
+        "level": 19
+      },
+      {
+        "move_id": 232,
+        "level": 21
+      },
+      {
+        "move_id": 23,
+        "level": 25
+      },
+      {
+        "move_id": 163,
+        "level": 37
+      },
+      {
+        "move_id": 21,
+        "level": 44
+      },
+      {
+        "move_id": 460,
+        "level": 51
+      },
+      {
+        "move_id": 152,
+        "level": 56
+      },
+      {
+        "move_id": 175,
+        "level": 63
+      },
+      {
+        "move_id": 309,
+        "level": 69
+      },
+      {
+        "move_id": 593,
+        "level": 75
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      91,
+      280,
+      317,
+      156,
+      168,
+      617,
+      15
+    ],
+    "tutor": [
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      98
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   {
@@ -5823,15 +6180,20 @@
       }
     ],
     "tm_hm": [
+      280,
       317,
       67,
       156,
       168,
+      617,
       417,
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       236
@@ -5943,6 +6305,7 @@
       }
     ],
     "tm_hm": [
+      280,
       317,
       67,
       156,
@@ -5952,7 +6315,11 @@
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       236
@@ -6026,13 +6393,19 @@
     "tm_hm": [
       196,
       91,
+      280,
       317,
       156,
       168,
+      617,
       9,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -6047,9 +6420,234 @@
   null,
   null,
   null,
-  null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 64,
+        "level": 1
+      },
+      {
+        "move_id": 39,
+        "level": 1
+      },
+      {
+        "move_id": 346,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 5
+      },
+      {
+        "move_id": 30,
+        "level": 8
+      },
+      {
+        "move_id": 175,
+        "level": 13
+      },
+      {
+        "move_id": 357,
+        "level": 15
+      },
+      {
+        "move_id": 639,
+        "level": 21
+      },
+      {
+        "move_id": 97,
+        "level": 29
+      },
+      {
+        "move_id": 127,
+        "level": 32
+      },
+      {
+        "move_id": 656,
+        "level": 40
+      },
+      {
+        "move_id": 224,
+        "level": 45
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      15
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 224,
+        "level": 1
+      },
+      {
+        "move_id": 424,
+        "level": 1
+      },
+      {
+        "move_id": 64,
+        "level": 1
+      },
+      {
+        "move_id": 357,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 5
+      },
+      {
+        "move_id": 30,
+        "level": 8
+      },
+      {
+        "move_id": 175,
+        "level": 13
+      },
+      {
+        "move_id": 357,
+        "level": 15
+      },
+      {
+        "move_id": 639,
+        "level": 21
+      },
+      {
+        "move_id": 97,
+        "level": 29
+      },
+      {
+        "move_id": 127,
+        "level": 32
+      },
+      {
+        "move_id": 656,
+        "level": 46
+      },
+      {
+        "move_id": 224,
+        "level": 54
+      },
+      {
+        "move_id": 689,
+        "level": 60
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      15
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [
+      118
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 1
+      },
+      {
+        "move_id": 352,
+        "level": 4
+      },
+      {
+        "move_id": 229,
+        "level": 7
+      },
+      {
+        "move_id": 105,
+        "level": 10
+      },
+      {
+        "move_id": 149,
+        "level": 13
+      },
+      {
+        "move_id": 62,
+        "level": 16
+      },
+      {
+        "move_id": 61,
+        "level": 18
+      },
+      {
+        "move_id": 293,
+        "level": 22
+      },
+      {
+        "move_id": 510,
+        "level": 24
+      },
+      {
+        "move_id": 460,
+        "level": 28
+      },
+      {
+        "move_id": 654,
+        "level": 35
+      },
+      {
+        "move_id": 389,
+        "level": 37
+      },
+      {
+        "move_id": 109,
+        "level": 40
+      },
+      {
+        "move_id": 94,
+        "level": 42
+      },
+      {
+        "move_id": 113,
+        "level": 46
+      },
+      {
+        "move_id": 322,
+        "level": 49
+      },
+      {
+        "move_id": 56,
+        "level": 53
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      100,
+      156,
+      148
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -6158,12 +6756,15 @@
     ],
     "tm_hm": [
       196,
+      280,
       156,
       465,
       168,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       238
@@ -6240,6 +6841,7 @@
     ],
     "tm_hm": [
       405,
+      280,
       100,
       67,
       156,
@@ -6248,7 +6850,11 @@
       417,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      571,
+      364,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       239
@@ -6324,14 +6930,19 @@
       }
     ],
     "tm_hm": [
+      280,
       67,
       156,
       168,
+      826,
       9,
       417,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      571,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [
       240
@@ -6436,6 +7047,7 @@
       46,
       196,
       156,
+      826,
       404
     ],
     "tutor": [
@@ -6456,11 +7068,420 @@
   null,
   null,
   null,
-  null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 132,
+        "level": 1
+      },
+      {
+        "move_id": 110,
+        "level": 1
+      },
+      {
+        "move_id": 44,
+        "level": 7
+      },
+      {
+        "move_id": 55,
+        "level": 10
+      },
+      {
+        "move_id": 205,
+        "level": 16
+      },
+      {
+        "move_id": 43,
+        "level": 19
+      },
+      {
+        "move_id": 341,
+        "level": 25
+      },
+      {
+        "move_id": 460,
+        "level": 28
+      },
+      {
+        "move_id": 197,
+        "level": 34
+      },
+      {
+        "move_id": 246,
+        "level": 37
+      },
+      {
+        "move_id": 321,
+        "level": 43
+      },
+      {
+        "move_id": 350,
+        "level": 46
+      },
+      {
+        "move_id": 452,
+        "level": 58
+      },
+      {
+        "move_id": 56,
+        "level": 55
+      }
+    ],
+    "tm_hm": [
+      196,
+      317,
+      156,
+      168
+    ],
+    "tutor": [
+      393
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 459,
+        "level": 0
+      },
+      {
+        "move_id": 459,
+        "level": 1
+      },
+      {
+        "move_id": 131,
+        "level": 1
+      },
+      {
+        "move_id": 56,
+        "level": 1
+      },
+      {
+        "move_id": 132,
+        "level": 1
+      },
+      {
+        "move_id": 110,
+        "level": 1
+      },
+      {
+        "move_id": 44,
+        "level": 1
+      },
+      {
+        "move_id": 44,
+        "level": 7
+      },
+      {
+        "move_id": 55,
+        "level": 10
+      },
+      {
+        "move_id": 205,
+        "level": 16
+      },
+      {
+        "move_id": 43,
+        "level": 19
+      },
+      {
+        "move_id": 341,
+        "level": 25
+      },
+      {
+        "move_id": 460,
+        "level": 28
+      },
+      {
+        "move_id": 197,
+        "level": 34
+      },
+      {
+        "move_id": 246,
+        "level": 37
+      },
+      {
+        "move_id": 716,
+        "level": 44
+      },
+      {
+        "move_id": 321,
+        "level": 48
+      },
+      {
+        "move_id": 452,
+        "level": 67
+      },
+      {
+        "move_id": 56,
+        "level": 75
+      }
+    ],
+    "tm_hm": [
+      196,
+      317,
+      156,
+      168
+    ],
+    "tutor": [
+      393
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      138
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 10,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 1
+      },
+      {
+        "move_id": 71,
+        "level": 6
+      },
+      {
+        "move_id": 43,
+        "level": 11
+      },
+      {
+        "move_id": 341,
+        "level": 16
+      },
+      {
+        "move_id": 203,
+        "level": 26
+      },
+      {
+        "move_id": 357,
+        "level": 31
+      },
+      {
+        "move_id": 72,
+        "level": 36
+      },
+      {
+        "move_id": 319,
+        "level": 41
+      },
+      {
+        "move_id": 246,
+        "level": 46
+      },
+      {
+        "move_id": 526,
+        "level": 50
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      91,
+      317,
+      156,
+      168,
+      332
+    ],
+    "tutor": [
+      393,
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 771,
+        "level": 0
+      },
+      {
+        "move_id": 771,
+        "level": 1
+      },
+      {
+        "move_id": 163,
+        "level": 1
+      },
+      {
+        "move_id": 387,
+        "level": 1
+      },
+      {
+        "move_id": 488,
+        "level": 1
+      },
+      {
+        "move_id": 10,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 1
+      },
+      {
+        "move_id": 455,
+        "level": 1
+      },
+      {
+        "move_id": 43,
+        "level": 1
+      },
+      {
+        "move_id": 71,
+        "level": 6
+      },
+      {
+        "move_id": 43,
+        "level": 11
+      },
+      {
+        "move_id": 341,
+        "level": 16
+      },
+      {
+        "move_id": 203,
+        "level": 26
+      },
+      {
+        "move_id": 357,
+        "level": 31
+      },
+      {
+        "move_id": 72,
+        "level": 36
+      },
+      {
+        "move_id": 319,
+        "level": 45
+      },
+      {
+        "move_id": 750,
+        "level": 54
+      },
+      {
+        "move_id": 543,
+        "level": 63
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      91,
+      280,
+      317,
+      67,
+      156,
+      168,
+      332,
+      15
+    ],
+    "tutor": [
+      393,
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      140
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 48,
+        "level": 1
+      },
+      {
+        "move_id": 44,
+        "level": 1
+      },
+      {
+        "move_id": 184,
+        "level": 1
+      },
+      {
+        "move_id": 46,
+        "level": 9
+      },
+      {
+        "move_id": 97,
+        "level": 17
+      },
+      {
+        "move_id": 17,
+        "level": 20
+      },
+      {
+        "move_id": 246,
+        "level": 25
+      },
+      {
+        "move_id": 242,
+        "level": 33
+      },
+      {
+        "move_id": 36,
+        "level": 41
+      },
+      {
+        "move_id": 675,
+        "level": 49
+      },
+      {
+        "move_id": 382,
+        "level": 57
+      },
+      {
+        "move_id": 63,
+        "level": 65
+      },
+      {
+        "move_id": 157,
+        "level": 73
+      },
+      {
+        "move_id": 376,
+        "level": 81
+      }
+    ],
+    "tm_hm": [
+      46,
+      317,
+      516,
+      156,
+      168,
+      211,
+      395,
+      332,
+      442,
+      404
+    ],
+    "tutor": [
+      393,
+      433,
+      432,
+      431,
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -6536,9 +7557,12 @@
     "tm_hm": [
       331,
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -6622,9 +7646,12 @@
     "tm_hm": [
       331,
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       152
@@ -6719,10 +7746,14 @@
       331,
       156,
       465,
+      617,
       404,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       153
@@ -6804,9 +7835,14 @@
     "tm_hm": [
       91,
       156,
-      332
+      826,
+      332,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -6886,10 +7922,16 @@
     "tm_hm": [
       46,
       91,
+      280,
       156,
-      332
+      826,
+      332,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [
       155
@@ -6973,13 +8015,18 @@
       728,
       196,
       91,
+      280,
       317,
       67,
       156,
-      332
+      332,
+      15
     ],
     "tutor": [
-      432
+      414,
+      571,
+      432,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -7070,13 +8117,18 @@
       46,
       196,
       91,
+      280,
       317,
       67,
       156,
-      332
+      332,
+      15
     ],
     "tutor": [
-      432
+      414,
+      571,
+      432,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -7143,12 +8195,19 @@
     ],
     "tm_hm": [
       91,
+      280,
       156,
       168,
       9,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      364,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -7235,12 +8294,19 @@
     ],
     "tm_hm": [
       91,
+      280,
       156,
       168,
       9,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      364,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       161
@@ -7329,7 +8395,9 @@
       451,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -7436,7 +8504,9 @@
       451,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       163
@@ -7497,6 +8567,7 @@
     ],
     "tm_hm": [
       91,
+      280,
       156,
       168,
       395,
@@ -7506,6 +8577,7 @@
       148
     ],
     "tutor": [
+      571,
       450
     ],
     "egg": [],
@@ -7590,6 +8662,7 @@
     ],
     "tm_hm": [
       91,
+      280,
       516,
       156,
       168,
@@ -7600,6 +8673,7 @@
       148
     ],
     "tutor": [
+      571,
       450
     ],
     "egg": [],
@@ -7693,7 +8767,8 @@
       148
     ],
     "tutor": [
-      450
+      450,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -7809,10 +8884,12 @@
       156,
       168,
       422,
+      617,
       148
     ],
     "tutor": [
-      450
+      450,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -8000,7 +9077,9 @@
       156,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -8119,7 +9198,9 @@
       156,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       170
@@ -8194,7 +9275,9 @@
       465,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -8284,15 +9367,19 @@
       }
     ],
     "tm_hm": [
+      280,
       516,
       156,
       465,
       211,
       395,
       332,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       175
@@ -8567,7 +9654,10 @@
       156,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -8646,11 +9736,16 @@
     ],
     "tm_hm": [
       405,
+      280,
       156,
       9,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      571,
+      364,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       179
@@ -8764,13 +9859,18 @@
     "tm_hm": [
       46,
       405,
+      280,
       156,
       749,
       9,
       404,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      571,
+      364,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       180
@@ -8853,10 +9953,15 @@
     "tm_hm": [
       196,
       91,
+      280,
       156,
       465
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       350
@@ -8950,11 +10055,16 @@
     "tm_hm": [
       196,
       91,
+      280,
       156,
       465,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       183
@@ -9055,15 +10165,19 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
       168,
+      617,
       9,
       404
     ],
     "tutor": [
-      393
+      571,
+      393,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -9163,7 +10277,9 @@
       442,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -9267,7 +10383,9 @@
       442,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       187
@@ -9373,7 +10491,9 @@
       442,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       188
@@ -9446,15 +10566,21 @@
     ],
     "tm_hm": [
       91,
+      280,
       67,
       156,
       168,
       9,
       417,
       332,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -9530,9 +10656,12 @@
     "tm_hm": [
       331,
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -9776,7 +10905,9 @@
       332,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -10105,9 +11236,12 @@
       156,
       168,
       395,
+      617,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -10177,14 +11311,18 @@
     "tm_hm": [
       46,
       91,
+      280,
       67,
       156,
       168,
+      826,
       9,
       404,
       418
     ],
     "tutor": [
+      414,
+      571,
       433,
       432,
       431
@@ -10288,15 +11426,20 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       67,
       156,
       168,
+      826,
+      617,
       9,
       404,
       418
     ],
     "tutor": [
+      414,
+      571,
       433,
       432,
       431
@@ -10308,7 +11451,101 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 194,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 191,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 40,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 9
+      },
+      {
+        "move_id": 145,
+        "level": 13
+      },
+      {
+        "move_id": 205,
+        "level": 17
+      },
+      {
+        "move_id": 469,
+        "level": 21
+      },
+      {
+        "move_id": 254,
+        "level": 25
+      },
+      {
+        "move_id": 255,
+        "level": 25
+      },
+      {
+        "move_id": 279,
+        "level": 29
+      },
+      {
+        "move_id": 756,
+        "level": 33
+      },
+      {
+        "move_id": 42,
+        "level": 37
+      },
+      {
+        "move_id": 36,
+        "level": 41
+      },
+      {
+        "move_id": 358,
+        "level": 45
+      },
+      {
+        "move_id": 424,
+        "level": 49
+      },
+      {
+        "move_id": 194,
+        "level": 53
+      },
+      {
+        "move_id": 56,
+        "level": 57
+      },
+      {
+        "move_id": 557,
+        "level": 60
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      422
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -10383,14 +11620,21 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       156,
       168,
       9,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -10466,15 +11710,23 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       67,
       156,
       168,
+      617,
       9,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       216
@@ -10555,9 +11807,12 @@
     ],
     "tm_hm": [
       317,
-      156
+      156,
+      826
     ],
-    "tutor": [],
+    "tutor": [
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -10653,9 +11908,12 @@
     "tm_hm": [
       317,
       156,
+      826,
+      617,
       404
     ],
     "tutor": [
+      406,
       393
     ],
     "egg": [],
@@ -10839,6 +12097,7 @@
       91,
       317,
       156,
+      617,
       404
     ],
     "tutor": [
@@ -10851,11 +12110,378 @@
     "pre_evolution": [],
     "event": []
   },
+  {
+    "level_up": [
+      {
+        "move_id": 796,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 4
+      },
+      {
+        "move_id": 105,
+        "level": 8
+      },
+      {
+        "move_id": 61,
+        "level": 10
+      },
+      {
+        "move_id": 287,
+        "level": 13
+      },
+      {
+        "move_id": 246,
+        "level": 17
+      },
+      {
+        "move_id": 131,
+        "level": 20
+      },
+      {
+        "move_id": 649,
+        "level": 23
+      },
+      {
+        "move_id": 460,
+        "level": 27
+      },
+      {
+        "move_id": 334,
+        "level": 29
+      },
+      {
+        "move_id": 350,
+        "level": 31
+      },
+      {
+        "move_id": 203,
+        "level": 35
+      },
+      {
+        "move_id": 639,
+        "level": 38
+      },
+      {
+        "move_id": 389,
+        "level": 41
+      },
+      {
+        "move_id": 243,
+        "level": 45
+      },
+      {
+        "move_id": 372,
+        "level": 47
+      },
+      {
+        "move_id": 175,
+        "level": 50
+      }
+    ],
+    "tm_hm": [
+      196,
+      91,
+      317,
+      156,
+      617,
+      404
+    ],
+    "tutor": [
+      393
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 199,
+        "level": 6
+      },
+      {
+        "move_id": 60,
+        "level": 10
+      },
+      {
+        "move_id": 62,
+        "level": 14
+      },
+      {
+        "move_id": 61,
+        "level": 18
+      },
+      {
+        "move_id": 116,
+        "level": 22
+      },
+      {
+        "move_id": 352,
+        "level": 26
+      },
+      {
+        "move_id": 324,
+        "level": 30
+      },
+      {
+        "move_id": 58,
+        "level": 34
+      },
+      {
+        "move_id": 331,
+        "level": 38
+      },
+      {
+        "move_id": 56,
+        "level": 42
+      },
+      {
+        "move_id": 63,
+        "level": 46
+      },
+      {
+        "move_id": 656,
+        "level": 50
+      }
+    ],
+    "tm_hm": [
+      728,
+      331,
+      196,
+      156,
+      168
+    ],
+    "tutor": [
+      364
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 190,
+        "level": 0
+      },
+      {
+        "move_id": 190,
+        "level": 1
+      },
+      {
+        "move_id": 378,
+        "level": 1
+      },
+      {
+        "move_id": 350,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 132,
+        "level": 1
+      },
+      {
+        "move_id": 60,
+        "level": 1
+      },
+      {
+        "move_id": 62,
+        "level": 1
+      },
+      {
+        "move_id": 132,
+        "level": 6
+      },
+      {
+        "move_id": 60,
+        "level": 10
+      },
+      {
+        "move_id": 62,
+        "level": 14
+      },
+      {
+        "move_id": 61,
+        "level": 18
+      },
+      {
+        "move_id": 116,
+        "level": 22
+      },
+      {
+        "move_id": 526,
+        "level": 28
+      },
+      {
+        "move_id": 324,
+        "level": 34
+      },
+      {
+        "move_id": 58,
+        "level": 40
+      },
+      {
+        "move_id": 331,
+        "level": 46
+      },
+      {
+        "move_id": 56,
+        "level": 52
+      },
+      {
+        "move_id": 679,
+        "level": 58
+      },
+      {
+        "move_id": 656,
+        "level": 64
+      }
+    ],
+    "tm_hm": [
+      728,
+      331,
+      196,
+      156,
+      168
+    ],
+    "tutor": [
+      364
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      223
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 60,
+        "level": 1
+      },
+      {
+        "move_id": 331,
+        "level": 1
+      },
+      {
+        "move_id": 324,
+        "level": 1
+      },
+      {
+        "move_id": 395,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 1
+      },
+      {
+        "move_id": 61,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 3
+      },
+      {
+        "move_id": 61,
+        "level": 7
+      },
+      {
+        "move_id": 109,
+        "level": 11
+      },
+      {
+        "move_id": 17,
+        "level": 14
+      },
+      {
+        "move_id": 29,
+        "level": 16
+      },
+      {
+        "move_id": 352,
+        "level": 19
+      },
+      {
+        "move_id": 638,
+        "level": 23
+      },
+      {
+        "move_id": 36,
+        "level": 27
+      },
+      {
+        "move_id": 97,
+        "level": 32
+      },
+      {
+        "move_id": 356,
+        "level": 36
+      },
+      {
+        "move_id": 639,
+        "level": 39
+      },
+      {
+        "move_id": 340,
+        "level": 46
+      },
+      {
+        "move_id": 56,
+        "level": 49
+      }
+    ],
+    "tm_hm": [
+      728,
+      331,
+      196,
+      317,
+      516,
+      156,
+      395,
+      332,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [
+      511
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   {
     "level_up": [
@@ -10932,11 +12558,14 @@
       46,
       156,
       168,
+      826,
       418
     ],
     "tutor": [
+      406,
       433,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -11046,11 +12675,14 @@
       46,
       156,
       168,
+      826,
       418
     ],
     "tutor": [
+      406,
       433,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -11125,7 +12757,9 @@
       156,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -11218,12 +12852,14 @@
       46,
       317,
       156,
+      617,
       404
     ],
     "tutor": [
       393,
       433,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -11255,6 +12891,7 @@
       }
     ],
     "tm_hm": [
+      280,
       67,
       156,
       168,
@@ -11262,7 +12899,9 @@
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -11357,6 +12996,7 @@
     ],
     "tm_hm": [
       91,
+      280,
       67,
       156,
       168,
@@ -11365,7 +13005,9 @@
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       236
@@ -11510,13 +13152,17 @@
     ],
     "tm_hm": [
       405,
+      280,
       67,
       156,
       168,
       9,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      571,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -11578,11 +13224,16 @@
       }
     ],
     "tm_hm": [
+      280,
       156,
       168,
+      826,
       9
     ],
-    "tutor": [],
+    "tutor": [
+      571,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -11690,14 +13341,19 @@
     "tm_hm": [
       331,
       91,
+      280,
       317,
       67,
       156,
       9,
       332,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -11793,6 +13449,7 @@
     "tm_hm": [
       331,
       91,
+      280,
       317,
       67,
       156,
@@ -11800,9 +13457,13 @@
       417,
       332,
       399,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       277
@@ -11872,9 +13533,15 @@
       67,
       516,
       156,
-      332
+      826,
+      332,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      406,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -11957,16 +13624,24 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       516,
       156,
+      826,
       9,
       417,
       332,
-      399
+      399,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      406,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       280
@@ -12046,7 +13721,9 @@
       67,
       156
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -12139,12 +13816,16 @@
       728,
       196,
       91,
+      280,
       317,
       67,
       156,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       283
@@ -12414,9 +14095,14 @@
       196,
       91,
       156,
-      168
+      168,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      364,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -12502,9 +14188,15 @@
       196,
       91,
       156,
-      168
+      168,
+      617,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      364,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       288
@@ -12887,12 +14579,16 @@
     "tm_hm": [
       331,
       196,
+      280,
       156,
       168,
       9,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      571,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       295
@@ -13011,6 +14707,7 @@
     "tm_hm": [
       331,
       91,
+      280,
       317,
       67,
       516,
@@ -13018,9 +14715,12 @@
       168,
       417,
       418,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       298
@@ -13076,10 +14776,12 @@
       91,
       156,
       332,
+      15,
       148
     ],
     "tutor": [
-      450
+      450,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -13177,10 +14879,12 @@
       395,
       332,
       442,
+      15,
       148
     ],
     "tutor": [
-      450
+      450,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -13253,10 +14957,12 @@
       156,
       168,
       332,
+      15,
       148
     ],
     "tutor": [
-      450
+      450,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -13326,7 +15032,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -13421,7 +15129,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       304
@@ -13573,6 +15283,7 @@
     ],
     "tm_hm": [
       331,
+      280,
       317,
       156,
       422,
@@ -13580,9 +15291,13 @@
       417,
       404,
       399,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       306
@@ -13749,7 +15464,86 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 150,
+        "level": 1
+      },
+      {
+        "move_id": 45,
+        "level": 4
+      },
+      {
+        "move_id": 55,
+        "level": 7
+      },
+      {
+        "move_id": 205,
+        "level": 10
+      },
+      {
+        "move_id": 250,
+        "level": 13
+      },
+      {
+        "move_id": 310,
+        "level": 16
+      },
+      {
+        "move_id": 352,
+        "level": 19
+      },
+      {
+        "move_id": 54,
+        "level": 22
+      },
+      {
+        "move_id": 460,
+        "level": 25
+      },
+      {
+        "move_id": 156,
+        "level": 29
+      },
+      {
+        "move_id": 323,
+        "level": 33
+      },
+      {
+        "move_id": 133,
+        "level": 37
+      },
+      {
+        "move_id": 291,
+        "level": 41
+      },
+      {
+        "move_id": 340,
+        "level": 45
+      },
+      {
+        "move_id": 56,
+        "level": 49
+      },
+      {
+        "move_id": 532,
+        "level": 53
+      }
+    ],
+    "tm_hm": [
+      46,
+      196,
+      317,
+      156,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -13837,6 +15631,7 @@
       148
     ],
     "tutor": [
+      364,
       393
     ],
     "egg": [],
@@ -13920,6 +15715,82 @@
     "tm_hm": [
       317,
       156,
+      826,
+      617,
+      404
+    ],
+    "tutor": [
+      406
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  null,
+  {
+    "level_up": [
+      {
+        "move_id": 189,
+        "level": 1
+      },
+      {
+        "move_id": 300,
+        "level": 6
+      },
+      {
+        "move_id": 346,
+        "level": 6
+      },
+      {
+        "move_id": 55,
+        "level": 9
+      },
+      {
+        "move_id": 385,
+        "level": 13
+      },
+      {
+        "move_id": 133,
+        "level": 15
+      },
+      {
+        "move_id": 352,
+        "level": 17
+      },
+      {
+        "move_id": 222,
+        "level": 20
+      },
+      {
+        "move_id": 156,
+        "level": 25
+      },
+      {
+        "move_id": 173,
+        "level": 25
+      },
+      {
+        "move_id": 352,
+        "level": 28
+      },
+      {
+        "move_id": 89,
+        "level": 32
+      },
+      {
+        "move_id": 330,
+        "level": 35
+      },
+      {
+        "move_id": 248,
+        "level": 39
+      }
+    ],
+    "tm_hm": [
+      196,
+      317,
+      156,
       404
     ],
     "tutor": [],
@@ -13928,9 +15799,121 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 37,
+        "level": 0
+      },
+      {
+        "move_id": 37,
+        "level": 1
+      },
+      {
+        "move_id": 641,
+        "level": 1
+      },
+      {
+        "move_id": 401,
+        "level": 1
+      },
+      {
+        "move_id": 321,
+        "level": 1
+      },
+      {
+        "move_id": 189,
+        "level": 1
+      },
+      {
+        "move_id": 300,
+        "level": 1
+      },
+      {
+        "move_id": 346,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 300,
+        "level": 6
+      },
+      {
+        "move_id": 346,
+        "level": 6
+      },
+      {
+        "move_id": 55,
+        "level": 9
+      },
+      {
+        "move_id": 385,
+        "level": 13
+      },
+      {
+        "move_id": 133,
+        "level": 15
+      },
+      {
+        "move_id": 352,
+        "level": 17
+      },
+      {
+        "move_id": 222,
+        "level": 20
+      },
+      {
+        "move_id": 156,
+        "level": 25
+      },
+      {
+        "move_id": 173,
+        "level": 25
+      },
+      {
+        "move_id": 352,
+        "level": 28
+      },
+      {
+        "move_id": 89,
+        "level": 34
+      },
+      {
+        "move_id": 330,
+        "level": 39
+      },
+      {
+        "move_id": 248,
+        "level": 45
+      },
+      {
+        "move_id": 349,
+        "level": 52
+      },
+      {
+        "move_id": 764,
+        "level": 72
+      }
+    ],
+    "tm_hm": [
+      196,
+      317,
+      156,
+      617,
+      332,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [
+      323
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   {
     "level_up": [
@@ -14002,11 +15985,15 @@
     "tm_hm": [
       196,
       91,
+      280,
       317,
       156,
-      332
+      332,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -14106,12 +16093,16 @@
     "tm_hm": [
       196,
       91,
+      280,
       317,
       156,
       332,
-      418
+      418,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       326
@@ -14549,6 +16540,7 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
@@ -14557,7 +16549,10 @@
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -14640,15 +16635,20 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
+      617,
       9,
       417,
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       335
@@ -14725,9 +16725,13 @@
       91,
       317,
       156,
+      826,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      406,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -14833,10 +16837,14 @@
       91,
       317,
       156,
+      826,
+      617,
       404
     ],
     "tutor": [
-      393
+      406,
+      393,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -14940,10 +16948,12 @@
       100,
       317,
       156,
+      617,
       404,
       148
     ],
     "tutor": [
+      364,
       393
     ],
     "egg": [],
@@ -15026,10 +17036,12 @@
       100,
       317,
       156,
+      617,
       404,
       148
     ],
     "tutor": [
+      364,
       393
     ],
     "egg": [],
@@ -15107,7 +17119,10 @@
       168,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -15206,13 +17221,18 @@
     ],
     "tm_hm": [
       196,
+      280,
       156,
       168,
       9,
       404,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      571,
+      364,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       351
@@ -15299,12 +17319,15 @@
     ],
     "tm_hm": [
       196,
+      280,
       317,
       156,
       465,
       9
     ],
     "tutor": [
+      571,
+      364,
       433,
       432,
       431
@@ -15386,6 +17409,7 @@
       }
     ],
     "tm_hm": [
+      280,
       100,
       317,
       67,
@@ -15395,7 +17419,11 @@
       399,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -15486,7 +17514,9 @@
       749,
       332
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -15575,6 +17605,7 @@
       331,
       156,
       422,
+      15,
       148
     ],
     "tutor": [],
@@ -15634,12 +17665,18 @@
     ],
     "tm_hm": [
       196,
+      280,
       317,
       156,
       9,
-      332
+      332,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -15711,15 +17748,22 @@
     "tm_hm": [
       46,
       196,
+      280,
       317,
       67,
       156,
       9,
       417,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       364
@@ -15801,7 +17845,9 @@
       422,
       9
     ],
-    "tutor": [],
+    "tutor": [
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -15913,7 +17959,9 @@
       9,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       367
@@ -15983,7 +18031,9 @@
       156,
       9
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -16063,13 +18113,18 @@
     "tm_hm": [
       46,
       196,
+      280,
       317,
       67,
       156,
+      617,
       9,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       370
@@ -16195,7 +18250,9 @@
       168,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -16307,7 +18364,8 @@
     "tutor": [
       433,
       432,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -16389,6 +18447,7 @@
       46,
       196,
       91,
+      280,
       317,
       67,
       156,
@@ -16396,7 +18455,11 @@
       9,
       332
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -16471,6 +18534,7 @@
       }
     ],
     "tm_hm": [
+      280,
       516,
       156,
       168,
@@ -16481,6 +18545,8 @@
       148
     ],
     "tutor": [
+      571,
+      364,
       450
     ],
     "egg": [],
@@ -16560,6 +18626,7 @@
       }
     ],
     "tm_hm": [
+      280,
       516,
       156,
       168,
@@ -16570,6 +18637,8 @@
       148
     ],
     "tutor": [
+      571,
+      364,
       450
     ],
     "egg": [],
@@ -16577,10 +18646,375 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
-  null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 310,
+        "level": 1
+      },
+      {
+        "move_id": 132,
+        "level": 1
+      },
+      {
+        "move_id": 51,
+        "level": 5
+      },
+      {
+        "move_id": 275,
+        "level": 9
+      },
+      {
+        "move_id": 109,
+        "level": 13
+      },
+      {
+        "move_id": 246,
+        "level": 17
+      },
+      {
+        "move_id": 460,
+        "level": 21
+      },
+      {
+        "move_id": 202,
+        "level": 26
+      },
+      {
+        "move_id": 476,
+        "level": 31
+      },
+      {
+        "move_id": 133,
+        "level": 36
+      },
+      {
+        "move_id": 373,
+        "level": 41
+      },
+      {
+        "move_id": 254,
+        "level": 46
+      },
+      {
+        "move_id": 255,
+        "level": 46
+      },
+      {
+        "move_id": 256,
+        "level": 46
+      },
+      {
+        "move_id": 526,
+        "level": 52
+      }
+    ],
+    "tm_hm": [
+      331,
+      317,
+      156,
+      148
+    ],
+    "tutor": [
+      393
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 526,
+        "level": 1
+      },
+      {
+        "move_id": 310,
+        "level": 1
+      },
+      {
+        "move_id": 132,
+        "level": 1
+      },
+      {
+        "move_id": 51,
+        "level": 1
+      },
+      {
+        "move_id": 275,
+        "level": 1
+      },
+      {
+        "move_id": 51,
+        "level": 5
+      },
+      {
+        "move_id": 275,
+        "level": 9
+      },
+      {
+        "move_id": 109,
+        "level": 13
+      },
+      {
+        "move_id": 246,
+        "level": 17
+      },
+      {
+        "move_id": 460,
+        "level": 21
+      },
+      {
+        "move_id": 202,
+        "level": 26
+      },
+      {
+        "move_id": 476,
+        "level": 31
+      },
+      {
+        "move_id": 133,
+        "level": 36
+      },
+      {
+        "move_id": 373,
+        "level": 44
+      },
+      {
+        "move_id": 254,
+        "level": 52
+      },
+      {
+        "move_id": 255,
+        "level": 52
+      },
+      {
+        "move_id": 256,
+        "level": 52
+      },
+      {
+        "move_id": 526,
+        "level": 61
+      },
+      {
+        "move_id": 744,
+        "level": 68
+      }
+    ],
+    "tm_hm": [
+      331,
+      91,
+      317,
+      156,
+      404,
+      148
+    ],
+    "tutor": [
+      393
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      388
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 229,
+        "level": 1
+      },
+      {
+        "move_id": 787,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 1
+      },
+      {
+        "move_id": 300,
+        "level": 4
+      },
+      {
+        "move_id": 357,
+        "level": 7
+      },
+      {
+        "move_id": 210,
+        "level": 10
+      },
+      {
+        "move_id": 317,
+        "level": 13
+      },
+      {
+        "move_id": 232,
+        "level": 17
+      },
+      {
+        "move_id": 246,
+        "level": 21
+      },
+      {
+        "move_id": 450,
+        "level": 25
+      },
+      {
+        "move_id": 460,
+        "level": 29
+      },
+      {
+        "move_id": 163,
+        "level": 33
+      },
+      {
+        "move_id": 306,
+        "level": 36
+      },
+      {
+        "move_id": 400,
+        "level": 40
+      },
+      {
+        "move_id": 197,
+        "level": 43
+      },
+      {
+        "move_id": 350,
+        "level": 45
+      }
+    ],
+    "tm_hm": [
+      91,
+      280,
+      317,
+      156,
+      332,
+      15
+    ],
+    "tutor": [
+      450,
+      393,
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 42,
+        "level": 0
+      },
+      {
+        "move_id": 42,
+        "level": 1
+      },
+      {
+        "move_id": 229,
+        "level": 1
+      },
+      {
+        "move_id": 787,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 1
+      },
+      {
+        "move_id": 357,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 300,
+        "level": 4
+      },
+      {
+        "move_id": 55,
+        "level": 7
+      },
+      {
+        "move_id": 210,
+        "level": 10
+      },
+      {
+        "move_id": 317,
+        "level": 13
+      },
+      {
+        "move_id": 232,
+        "level": 17
+      },
+      {
+        "move_id": 246,
+        "level": 21
+      },
+      {
+        "move_id": 450,
+        "level": 25
+      },
+      {
+        "move_id": 460,
+        "level": 29
+      },
+      {
+        "move_id": 163,
+        "level": 33
+      },
+      {
+        "move_id": 306,
+        "level": 37
+      },
+      {
+        "move_id": 400,
+        "level": 41
+      },
+      {
+        "move_id": 197,
+        "level": 44
+      },
+      {
+        "move_id": 350,
+        "level": 48
+      },
+      {
+        "move_id": 588,
+        "level": 52
+      }
+    ],
+    "tm_hm": [
+      91,
+      280,
+      317,
+      67,
+      156,
+      617,
+      332,
+      404,
+      15
+    ],
+    "tutor": [
+      450,
+      393,
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      390
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -16653,7 +19087,9 @@
       9,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -16739,7 +19175,9 @@
       9,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       392
@@ -16840,7 +19278,9 @@
       399,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       393
@@ -16958,7 +19398,9 @@
       156,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       486
@@ -17048,9 +19490,12 @@
     "tm_hm": [
       331,
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -17122,9 +19567,12 @@
     "tm_hm": [
       331,
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       440
@@ -17190,15 +19638,23 @@
     ],
     "tm_hm": [
       91,
+      280,
       67,
       156,
+      826,
       9,
       417,
       332,
       442,
-      399
+      399,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      406,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -17277,16 +19733,24 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
+      826,
       9,
       417,
       332,
       442,
-      399
+      399,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      406,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       443
@@ -17362,13 +19826,17 @@
       728,
       196,
       91,
+      280,
       317,
       516,
       156,
       332,
-      451
+      451,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -17457,13 +19925,18 @@
       728,
       196,
       91,
+      280,
       317,
       516,
       156,
       332,
-      451
+      451,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       446
@@ -17529,7 +20002,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -17596,7 +20071,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       449
@@ -17681,7 +20158,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       450
@@ -17753,9 +20232,13 @@
       91,
       156,
       168,
-      451
+      451,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -17841,10 +20324,15 @@
       91,
       156,
       168,
+      617,
       451,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       452
@@ -17975,14 +20463,19 @@
     ],
     "tm_hm": [
       331,
+      280,
       317,
       156,
       332,
       404,
+      15,
       148
     ],
     "tutor": [
-      450
+      571,
+      450,
+      409,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -18054,9 +20547,11 @@
       148
     ],
     "tutor": [
+      364,
       433,
       432,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -18126,9 +20621,11 @@
       148
     ],
     "tutor": [
+      364,
       433,
       432,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -18212,9 +20709,11 @@
       148
     ],
     "tutor": [
+      364,
       433,
       432,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -18258,6 +20757,7 @@
       331,
       156,
       422,
+      15,
       148
     ],
     "tutor": [],
@@ -18328,6 +20828,7 @@
       404
     ],
     "tutor": [
+      571,
       393
     ],
     "egg": [],
@@ -18413,13 +20914,17 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       156,
       168,
+      617,
       9,
-      404
+      404,
+      15
     ],
     "tutor": [
+      571,
       393
     ],
     "egg": [],
@@ -18579,6 +21084,7 @@
       91,
       317,
       156,
+      617,
       404
     ],
     "tutor": [
@@ -18944,10 +21450,12 @@
       422,
       332,
       442,
+      15,
       148
     ],
     "tutor": [
-      450
+      450,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -19029,9 +21537,13 @@
       156,
       9,
       442,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -19100,10 +21612,13 @@
       728,
       196,
       91,
+      280,
       317,
       156
     ],
-    "tutor": [],
+    "tutor": [
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -19197,11 +21712,13 @@
       46,
       196,
       91,
+      280,
       317,
       67,
       156
     ],
     "tutor": [
+      571,
       432
     ],
     "egg": [],
@@ -19458,15 +21975,22 @@
     ],
     "tm_hm": [
       91,
+      280,
       67,
       156,
       168,
       9,
       417,
       332,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       190
@@ -19538,9 +22062,13 @@
       516,
       156,
       168,
+      826,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -19626,9 +22154,13 @@
       516,
       156,
       168,
+      826,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       478
@@ -19712,9 +22244,14 @@
       67,
       156,
       9,
-      417
+      417,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -19821,13 +22358,19 @@
     ],
     "tm_hm": [
       91,
+      280,
       67,
       156,
       9,
       417,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       480
@@ -19906,9 +22449,13 @@
       168,
       332,
       442,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -19994,12 +22541,17 @@
       91,
       156,
       168,
+      617,
       332,
       442,
       404,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       484
@@ -20047,7 +22599,9 @@
       156,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -20126,10 +22680,15 @@
       516,
       156,
       168,
+      826,
       422,
-      418
+      418,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -20224,10 +22783,15 @@
       516,
       156,
       168,
+      826,
       422,
-      418
+      418,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       487
@@ -20314,6 +22878,7 @@
       148
     ],
     "tutor": [
+      364,
       393
     ],
     "egg": [],
@@ -20432,6 +22997,7 @@
       148
     ],
     "tutor": [
+      364,
       393
     ],
     "egg": [],
@@ -20502,13 +23068,16 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
-      168
+      168,
+      617
     ],
     "tutor": [
-      393
+      393,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -20573,6 +23142,7 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       67,
       156,
@@ -20581,7 +23151,11 @@
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -20681,6 +23255,7 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       67,
       156,
@@ -20689,7 +23264,12 @@
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       500
@@ -20704,9 +23284,257 @@
   null,
   null,
   null,
-  null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 1,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 3
+      },
+      {
+        "move_id": 62,
+        "level": 7
+      },
+      {
+        "move_id": 213,
+        "level": 10
+      },
+      {
+        "move_id": 240,
+        "level": 13
+      },
+      {
+        "move_id": 352,
+        "level": 16
+      },
+      {
+        "move_id": 314,
+        "level": 22
+      },
+      {
+        "move_id": 388,
+        "level": 26
+      },
+      {
+        "move_id": 318,
+        "level": 29
+      },
+      {
+        "move_id": 250,
+        "level": 38
+      },
+      {
+        "move_id": 442,
+        "level": 42
+      },
+      {
+        "move_id": 340,
+        "level": 45
+      },
+      {
+        "move_id": 294,
+        "level": 49
+      },
+      {
+        "move_id": 656,
+        "level": 54
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      516,
+      156,
+      395,
+      442,
+      148
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 459,
+        "level": 0
+      },
+      {
+        "move_id": 656,
+        "level": 1
+      },
+      {
+        "move_id": 314,
+        "level": 1
+      },
+      {
+        "move_id": 1,
+        "level": 1
+      },
+      {
+        "move_id": 459,
+        "level": 1
+      },
+      {
+        "move_id": 213,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 3
+      },
+      {
+        "move_id": 62,
+        "level": 7
+      },
+      {
+        "move_id": 240,
+        "level": 13
+      },
+      {
+        "move_id": 352,
+        "level": 17
+      },
+      {
+        "move_id": 314,
+        "level": 22
+      },
+      {
+        "move_id": 388,
+        "level": 26
+      },
+      {
+        "move_id": 318,
+        "level": 29
+      },
+      {
+        "move_id": 58,
+        "level": 34
+      },
+      {
+        "move_id": 250,
+        "level": 42
+      },
+      {
+        "move_id": 472,
+        "level": 45
+      },
+      {
+        "move_id": 442,
+        "level": 48
+      },
+      {
+        "move_id": 340,
+        "level": 53
+      },
+      {
+        "move_id": 294,
+        "level": 59
+      },
+      {
+        "move_id": 412,
+        "level": 64
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      516,
+      156,
+      395,
+      332,
+      442,
+      148
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [
+      509
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 3
+      },
+      {
+        "move_id": 61,
+        "level": 7
+      },
+      {
+        "move_id": 109,
+        "level": 11
+      },
+      {
+        "move_id": 17,
+        "level": 14
+      },
+      {
+        "move_id": 29,
+        "level": 16
+      },
+      {
+        "move_id": 352,
+        "level": 19
+      },
+      {
+        "move_id": 638,
+        "level": 23
+      },
+      {
+        "move_id": 36,
+        "level": 27
+      },
+      {
+        "move_id": 97,
+        "level": 32
+      },
+      {
+        "move_id": 356,
+        "level": 36
+      },
+      {
+        "move_id": 639,
+        "level": 39
+      },
+      {
+        "move_id": 340,
+        "level": 46
+      },
+      {
+        "move_id": 56,
+        "level": 49
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      332,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -20772,7 +23600,9 @@
       156,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -20859,13 +23689,19 @@
     "tm_hm": [
       196,
       91,
+      280,
       317,
       156,
       168,
+      617,
       9,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       108
@@ -21089,10 +23925,12 @@
       91,
       317,
       156,
+      617,
       404
     ],
     "tutor": [
-      432
+      432,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -21193,9 +24031,12 @@
       516,
       156,
       332,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -21288,9 +24129,12 @@
       516,
       156,
       332,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       548
@@ -21365,9 +24209,14 @@
     "tm_hm": [
       46,
       317,
-      156
+      156,
+      826,
+      617
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -21458,14 +24307,21 @@
     ],
     "tm_hm": [
       46,
+      280,
       317,
       67,
       156,
+      826,
+      617,
       9,
       417,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [
       551
@@ -21542,9 +24398,12 @@
       196,
       91,
       156,
-      332
+      332,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -21643,9 +24502,12 @@
       91,
       156,
       332,
-      399
+      399,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       554
@@ -21729,9 +24591,12 @@
       331,
       91,
       67,
-      156
+      156,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -21837,10 +24702,15 @@
       91,
       67,
       156,
+      617,
       9,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       557
@@ -21924,6 +24794,7 @@
       418
     ],
     "tutor": [
+      414,
       433,
       432,
       431
@@ -22017,6 +24888,7 @@
       418
     ],
     "tutor": [
+      414,
       433,
       432,
       431
@@ -22116,10 +24988,12 @@
       91,
       317,
       156,
+      617,
       332,
       418
     ],
     "tutor": [
+      414,
       433,
       432,
       431
@@ -22203,9 +25077,12 @@
       168,
       332,
       442,
-      418
+      418,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -22291,9 +25168,12 @@
       168,
       332,
       442,
-      418
+      418,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       562
@@ -22376,9 +25256,13 @@
       156,
       168,
       417,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -22458,9 +25342,14 @@
       67,
       156,
       168,
-      417
+      417,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      406,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -22542,9 +25431,13 @@
       67,
       156,
       168,
-      417
+      417,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -22624,7 +25517,9 @@
       156,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -22703,7 +25598,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -22793,7 +25690,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       572
@@ -22888,7 +25787,9 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       573
@@ -23032,6 +25933,7 @@
     "tm_hm": [
       317,
       156,
+      617,
       404
     ],
     "tutor": [
@@ -23124,7 +26026,9 @@
       442,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -23221,7 +26125,9 @@
       442,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       580
@@ -23286,12 +26192,16 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       156,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -23366,12 +26276,17 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       156,
+      617,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       582
@@ -23477,10 +26392,15 @@
       67,
       156,
       465,
+      617,
       9,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -23555,13 +26475,17 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
       9,
       417
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -23648,13 +26572,17 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
       9,
       417
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       585
@@ -23882,14 +26810,19 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
+      617,
       9,
       417,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -23964,6 +26897,7 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
@@ -23971,7 +26905,10 @@
       417,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -24019,6 +26956,7 @@
     "tm_hm": [
       405,
       156,
+      15,
       148
     ],
     "tutor": [
@@ -24063,6 +27001,7 @@
     "tm_hm": [
       405,
       156,
+      15,
       148
     ],
     "tutor": [
@@ -24165,10 +27104,12 @@
       156,
       211,
       332,
+      15,
       148
     ],
     "tutor": [
-      450
+      450,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -24340,16 +27281,111 @@
     ],
     "tm_hm": [
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
     "event": []
   },
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 39,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 253,
+        "level": 3
+      },
+      {
+        "move_id": 29,
+        "level": 5
+      },
+      {
+        "move_id": 44,
+        "level": 7
+      },
+      {
+        "move_id": 357,
+        "level": 9
+      },
+      {
+        "move_id": 507,
+        "level": 11
+      },
+      {
+        "move_id": 36,
+        "level": 14
+      },
+      {
+        "move_id": 242,
+        "level": 17
+      },
+      {
+        "move_id": 358,
+        "level": 20
+      },
+      {
+        "move_id": 38,
+        "level": 26
+      },
+      {
+        "move_id": 184,
+        "level": 30
+      },
+      {
+        "move_id": 175,
+        "level": 34
+      },
+      {
+        "move_id": 495,
+        "level": 38
+      },
+      {
+        "move_id": 542,
+        "level": 42
+      },
+      {
+        "move_id": 380,
+        "level": 46
+      },
+      {
+        "move_id": 127,
+        "level": 49
+      },
+      {
+        "move_id": 764,
+        "level": 55
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      15
+    ],
+    "tutor": [
+      432
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -24427,12 +27463,15 @@
       317,
       156,
       168,
+      617,
       404,
-      418
+      418,
+      15
     ],
     "tutor": [
       433,
-      431
+      431,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -24513,17 +27552,22 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       67,
       156,
       168,
+      617,
       417,
       404,
-      418
+      418,
+      15
     ],
     "tutor": [
+      571,
       433,
-      431
+      431,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -24608,6 +27652,7 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       67,
       156,
@@ -24616,7 +27661,10 @@
       417,
       418
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -24790,10 +27838,393 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
-  null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 117,
+        "level": 1
+      },
+      {
+        "move_id": 110,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 205,
+        "level": 5
+      },
+      {
+        "move_id": 44,
+        "level": 8
+      },
+      {
+        "move_id": 197,
+        "level": 11
+      },
+      {
+        "move_id": 357,
+        "level": 15
+      },
+      {
+        "move_id": 246,
+        "level": 18
+      },
+      {
+        "move_id": 242,
+        "level": 21
+      },
+      {
+        "move_id": 638,
+        "level": 25
+      },
+      {
+        "move_id": 460,
+        "level": 28
+      },
+      {
+        "move_id": 508,
+        "level": 31
+      },
+      {
+        "move_id": 174,
+        "level": 35
+      },
+      {
+        "move_id": 452,
+        "level": 38
+      },
+      {
+        "move_id": 358,
+        "level": 41
+      },
+      {
+        "move_id": 157,
+        "level": 45
+      },
+      {
+        "move_id": 240,
+        "level": 48
+      },
+      {
+        "move_id": 56,
+        "level": 50
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      91,
+      317,
+      156,
+      404
+    ],
+    "tutor": [
+      393
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 127,
+        "level": 0
+      },
+      {
+        "move_id": 127,
+        "level": 1
+      },
+      {
+        "move_id": 117,
+        "level": 1
+      },
+      {
+        "move_id": 110,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 205,
+        "level": 1
+      },
+      {
+        "move_id": 205,
+        "level": 5
+      },
+      {
+        "move_id": 44,
+        "level": 8
+      },
+      {
+        "move_id": 197,
+        "level": 11
+      },
+      {
+        "move_id": 357,
+        "level": 15
+      },
+      {
+        "move_id": 246,
+        "level": 18
+      },
+      {
+        "move_id": 242,
+        "level": 21
+      },
+      {
+        "move_id": 638,
+        "level": 25
+      },
+      {
+        "move_id": 460,
+        "level": 28
+      },
+      {
+        "move_id": 508,
+        "level": 31
+      },
+      {
+        "move_id": 174,
+        "level": 35
+      },
+      {
+        "move_id": 452,
+        "level": 40
+      },
+      {
+        "move_id": 796,
+        "level": 44
+      },
+      {
+        "move_id": 157,
+        "level": 47
+      },
+      {
+        "move_id": 764,
+        "level": 51
+      },
+      {
+        "move_id": 240,
+        "level": 56
+      },
+      {
+        "move_id": 56,
+        "level": 61
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      91,
+      317,
+      67,
+      156,
+      404
+    ],
+    "tutor": [
+      393
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      617
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 98,
+        "level": 1
+      },
+      {
+        "move_id": 43,
+        "level": 1
+      },
+      {
+        "move_id": 17,
+        "level": 1
+      },
+      {
+        "move_id": 88,
+        "level": 5
+      },
+      {
+        "move_id": 184,
+        "level": 11
+      },
+      {
+        "move_id": 451,
+        "level": 15
+      },
+      {
+        "move_id": 246,
+        "level": 18
+      },
+      {
+        "move_id": 97,
+        "level": 21
+      },
+      {
+        "move_id": 637,
+        "level": 25
+      },
+      {
+        "move_id": 440,
+        "level": 28
+      },
+      {
+        "move_id": 225,
+        "level": 31
+      },
+      {
+        "move_id": 242,
+        "level": 35
+      },
+      {
+        "move_id": 442,
+        "level": 41
+      },
+      {
+        "move_id": 157,
+        "level": 45
+      },
+      {
+        "move_id": 337,
+        "level": 48
+      },
+      {
+        "move_id": 37,
+        "level": 50
+      }
+    ],
+    "tm_hm": [
+      46,
+      91,
+      317,
+      516,
+      156,
+      211,
+      395,
+      332,
+      451,
+      442,
+      404,
+      15
+    ],
+    "tutor": [
+      393,
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 98,
+        "level": 1
+      },
+      {
+        "move_id": 43,
+        "level": 1
+      },
+      {
+        "move_id": 17,
+        "level": 1
+      },
+      {
+        "move_id": 88,
+        "level": 1
+      },
+      {
+        "move_id": 88,
+        "level": 5
+      },
+      {
+        "move_id": 184,
+        "level": 11
+      },
+      {
+        "move_id": 451,
+        "level": 15
+      },
+      {
+        "move_id": 246,
+        "level": 18
+      },
+      {
+        "move_id": 97,
+        "level": 21
+      },
+      {
+        "move_id": 637,
+        "level": 25
+      },
+      {
+        "move_id": 440,
+        "level": 28
+      },
+      {
+        "move_id": 225,
+        "level": 31
+      },
+      {
+        "move_id": 242,
+        "level": 35
+      },
+      {
+        "move_id": 442,
+        "level": 45
+      },
+      {
+        "move_id": 157,
+        "level": 51
+      },
+      {
+        "move_id": 337,
+        "level": 56
+      },
+      {
+        "move_id": 37,
+        "level": 61
+      }
+    ],
+    "tm_hm": [
+      46,
+      91,
+      317,
+      516,
+      156,
+      211,
+      395,
+      332,
+      451,
+      442,
+      404,
+      15
+    ],
+    "tutor": [
+      393,
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      619
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -24959,6 +28390,7 @@
       156,
       168,
       422,
+      617,
       9
     ],
     "tutor": [
@@ -25048,7 +28480,9 @@
       168,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -25143,7 +28577,9 @@
       168,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       627
@@ -25400,7 +28836,8 @@
     ],
     "tm_hm": [
       156,
-      332
+      332,
+      15
     ],
     "tutor": [
       450
@@ -25413,7 +28850,76 @@
   null,
   null,
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 346,
+        "level": 1
+      },
+      {
+        "move_id": 71,
+        "level": 5
+      },
+      {
+        "move_id": 101,
+        "level": 9
+      },
+      {
+        "move_id": 61,
+        "level": 13
+      },
+      {
+        "move_id": 105,
+        "level": 17
+      },
+      {
+        "move_id": 352,
+        "level": 22
+      },
+      {
+        "move_id": 388,
+        "level": 27
+      },
+      {
+        "move_id": 460,
+        "level": 32
+      },
+      {
+        "move_id": 240,
+        "level": 37
+      },
+      {
+        "move_id": 436,
+        "level": 43
+      },
+      {
+        "move_id": 56,
+        "level": 49
+      },
+      {
+        "move_id": 526,
+        "level": 55
+      },
+      {
+        "move_id": 323,
+        "level": 61
+      }
+    ],
+    "tm_hm": [
+      196,
+      156,
+      148
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   {
@@ -25483,9 +28989,11 @@
       405,
       156,
       168,
+      15,
       148
     ],
     "tutor": [
+      364,
       450
     ],
     "egg": [],
@@ -25580,9 +29088,11 @@
       405,
       156,
       168,
+      15,
       148
     ],
     "tutor": [
+      364,
       450
     ],
     "egg": [],
@@ -25683,7 +29193,9 @@
       211,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -25796,7 +29308,9 @@
       211,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       658
@@ -25876,9 +29390,13 @@
       317,
       156,
       749,
-      332
+      332,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -25967,10 +29485,14 @@
       317,
       67,
       156,
-      332
+      332,
+      15
     ],
     "tutor": [
-      432
+      571,
+      432,
+      409,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -26059,6 +29581,7 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
@@ -26066,7 +29589,10 @@
       332,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -26157,6 +29683,7 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
@@ -26165,7 +29692,11 @@
       442,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       672
@@ -26241,16 +29772,20 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
       168,
       417,
       332,
-      418
+      418,
+      15
     ],
     "tutor": [
-      393
+      571,
+      393,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -26346,13 +29881,19 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       156,
       168,
-      404
+      826,
+      617,
+      404,
+      15
     ],
     "tutor": [
-      393
+      393,
+      409,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -26722,7 +30263,10 @@
       156,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -26796,7 +30340,10 @@
       156,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -26881,9 +30428,14 @@
     "tm_hm": [
       331,
       156,
+      617,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       738
@@ -26969,9 +30521,14 @@
     "tm_hm": [
       331,
       156,
+      617,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       739
@@ -27057,16 +30614,23 @@
       46,
       331,
       91,
+      280,
       317,
       67,
       156,
+      617,
       9,
       417,
       332,
       404,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -27143,16 +30707,24 @@
       46,
       331,
       91,
+      280,
       317,
       67,
       156,
+      617,
       9,
       417,
       332,
       404,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       758
@@ -27234,9 +30806,14 @@
     ],
     "tm_hm": [
       156,
-      168
+      168,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -27325,9 +30902,14 @@
       67,
       156,
       168,
-      9
+      9,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [
       761
@@ -27403,9 +30985,14 @@
       156,
       168,
       332,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -27483,9 +31070,14 @@
       156,
       168,
       332,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       764
@@ -27565,7 +31157,10 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -27648,11 +31243,15 @@
       168,
       211,
       395,
+      826,
       332,
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [
       769
@@ -27885,7 +31484,10 @@
       418
     ],
     "tutor": [
-      431
+      414,
+      406,
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -27980,11 +31582,15 @@
       91,
       156,
       168,
+      826,
       404,
       418
     ],
     "tutor": [
-      431
+      414,
+      406,
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -28057,7 +31663,9 @@
       465,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -28135,7 +31743,9 @@
       465,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       777
@@ -28214,10 +31824,14 @@
     "tm_hm": [
       46,
       91,
+      280,
       156,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -28314,11 +31928,16 @@
       46,
       331,
       91,
+      280,
       156,
+      617,
       332,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       780
@@ -28392,15 +32011,20 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       67,
       156,
       9,
       417,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -28516,17 +32140,24 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       67,
       156,
       168,
+      617,
       9,
       417,
       332,
       404,
-      418
+      418,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       782
@@ -28589,11 +32220,14 @@
       46,
       91,
       156,
+      617,
       442,
       418,
       148
     ],
     "tutor": [
+      414,
+      364,
       433,
       432,
       431
@@ -28648,9 +32282,13 @@
     ],
     "tm_hm": [
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -28754,9 +32392,14 @@
     "tm_hm": [
       91,
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       785
@@ -28839,7 +32482,9 @@
       465,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -28990,14 +32635,18 @@
     "tm_hm": [
       196,
       91,
+      280,
       317,
       156,
       168,
       332,
-      404
+      404,
+      15
     ],
     "tutor": [
-      393
+      571,
+      393,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -29005,7 +32654,73 @@
     "event": []
   },
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 185,
+        "level": 5
+      },
+      {
+        "move_id": 39,
+        "level": 9
+      },
+      {
+        "move_id": 145,
+        "level": 12
+      },
+      {
+        "move_id": 51,
+        "level": 15
+      },
+      {
+        "move_id": 342,
+        "level": 23
+      },
+      {
+        "move_id": 352,
+        "level": 25
+      },
+      {
+        "move_id": 92,
+        "level": 32
+      },
+      {
+        "move_id": 358,
+        "level": 35
+      },
+      {
+        "move_id": 188,
+        "level": 38
+      },
+      {
+        "move_id": 56,
+        "level": 42
+      },
+      {
+        "move_id": 370,
+        "level": 49
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      422
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   {
     "level_up": [
@@ -29067,7 +32782,8 @@
       196,
       156,
       422,
-      442
+      442,
+      15
     ],
     "tutor": [],
     "egg": [],
@@ -29167,7 +32883,8 @@
       196,
       156,
       422,
-      442
+      442,
+      15
     ],
     "tutor": [],
     "egg": [],
@@ -29179,9 +32896,181 @@
   },
   null,
   null,
+  {
+    "level_up": [
+      {
+        "move_id": 39,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 46,
+        "level": 6
+      },
+      {
+        "move_id": 23,
+        "level": 10
+      },
+      {
+        "move_id": 117,
+        "level": 12
+      },
+      {
+        "move_id": 468,
+        "level": 15
+      },
+      {
+        "move_id": 44,
+        "level": 17
+      },
+      {
+        "move_id": 204,
+        "level": 20
+      },
+      {
+        "move_id": 246,
+        "level": 26
+      },
+      {
+        "move_id": 444,
+        "level": 30
+      },
+      {
+        "move_id": 242,
+        "level": 34
+      },
+      {
+        "move_id": 337,
+        "level": 37
+      },
+      {
+        "move_id": 37,
+        "level": 40
+      },
+      {
+        "move_id": 89,
+        "level": 44
+      }
+    ],
+    "tm_hm": [
+      46,
+      91,
+      280,
+      317,
+      156,
+      617,
+      749,
+      332,
+      404
+    ],
+    "tutor": [
+      393,
+      433,
+      432,
+      431,
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 45,
+        "level": 1
+      },
+      {
+        "move_id": 181,
+        "level": 1
+      },
+      {
+        "move_id": 86,
+        "level": 5
+      },
+      {
+        "move_id": 88,
+        "level": 10
+      },
+      {
+        "move_id": 196,
+        "level": 13
+      },
+      {
+        "move_id": 36,
+        "level": 15
+      },
+      {
+        "move_id": 54,
+        "level": 18
+      },
+      {
+        "move_id": 62,
+        "level": 20
+      },
+      {
+        "move_id": 246,
+        "level": 26
+      },
+      {
+        "move_id": 503,
+        "level": 30
+      },
+      {
+        "move_id": 360,
+        "level": 34
+      },
+      {
+        "move_id": 258,
+        "level": 38
+      },
+      {
+        "move_id": 267,
+        "level": 41
+      },
+      {
+        "move_id": 227,
+        "level": 44
+      },
+      {
+        "move_id": 113,
+        "level": 47
+      },
+      {
+        "move_id": 407,
+        "level": 50
+      },
+      {
+        "move_id": 63,
+        "level": 57
+      },
+      {
+        "move_id": 59,
+        "level": 65
+      }
+    ],
+    "tm_hm": [
+      46,
+      196,
+      317,
+      156,
+      404,
+      148
+    ],
+    "tutor": [
+      364,
+      393
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -29257,9 +33146,13 @@
       9,
       332,
       442,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -29337,9 +33230,12 @@
       91,
       156,
       168,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -29415,7 +33311,10 @@
       168,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      406,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -29492,6 +33391,7 @@
       }
     ],
     "tm_hm": [
+      280,
       516,
       156,
       168,
@@ -29499,7 +33399,8 @@
       395,
       749,
       332,
-      442
+      442,
+      15
     ],
     "tutor": [],
     "egg": [],
@@ -29610,9 +33511,14 @@
     "tm_hm": [
       91,
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       785
@@ -29780,11 +33686,14 @@
     "tm_hm": [
       156,
       168,
+      826,
       422,
       442,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [
       835
@@ -29946,6 +33855,7 @@
       }
     ],
     "tm_hm": [
+      280,
       317,
       156,
       465,
@@ -30026,6 +33936,7 @@
       168
     ],
     "tutor": [
+      364,
       433
     ],
     "egg": [],
@@ -30110,6 +34021,7 @@
       417
     ],
     "tutor": [
+      364,
       433
     ],
     "egg": [],
@@ -30193,14 +34105,18 @@
     "tm_hm": [
       405,
       91,
+      280,
       317,
       67,
       156,
       168,
+      617,
       9,
       417
     ],
     "tutor": [
+      571,
+      364,
       433
     ],
     "egg": [],
@@ -30286,7 +34202,10 @@
       168,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      406,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -30361,7 +34280,10 @@
       168,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      406,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -30436,7 +34358,10 @@
       168,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      406,
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -30517,6 +34442,7 @@
       91,
       156,
       168,
+      617,
       404,
       418
     ],
@@ -30614,8 +34540,10 @@
       91,
       156,
       168,
+      617,
       404,
-      418
+      418,
+      15
     ],
     "tutor": [
       433,
@@ -30693,7 +34621,9 @@
       100,
       156
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -30813,9 +34743,14 @@
       331,
       91,
       156,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -30884,9 +34819,15 @@
       9,
       417,
       332,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       921
@@ -30950,9 +34891,12 @@
       46,
       91,
       156,
+      826,
+      617,
       418
     ],
     "tutor": [
+      406,
       433,
       431
     ],
@@ -31020,10 +34964,13 @@
       46,
       91,
       156,
+      826,
+      617,
       404,
       418
     ],
     "tutor": [
+      406,
       433,
       431
     ],
@@ -31086,7 +35033,9 @@
       332,
       451
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -31148,7 +35097,9 @@
       332,
       451
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       927
@@ -31257,18 +35208,23 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       67,
       156,
       168,
       422,
+      617,
       9,
       417,
       442,
       404,
       399
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      571
+    ],
     "egg": [],
     "pre_evolution_ids": [
       57
@@ -31322,7 +35278,9 @@
     "tm_hm": [
       156
     ],
-    "tutor": [],
+    "tutor": [
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -31407,7 +35365,10 @@
       332,
       451
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -31500,7 +35461,10 @@
       332,
       451
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       939
@@ -31587,10 +35551,15 @@
     "tm_hm": [
       46,
       156,
-      442
+      826,
+      442,
+      15
     ],
     "tutor": [
-      431
+      414,
+      406,
+      431,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -31683,10 +35652,15 @@
     "tm_hm": [
       46,
       156,
-      442
+      826,
+      442,
+      15
     ],
     "tutor": [
-      431
+      414,
+      406,
+      431,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -31769,7 +35743,9 @@
       156,
       465
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -31856,7 +35832,9 @@
       156,
       465
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       945
@@ -31922,6 +35900,7 @@
     ],
     "tm_hm": [
       331,
+      280,
       516,
       156,
       168,
@@ -31931,7 +35910,10 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -32010,6 +35992,7 @@
     ],
     "tm_hm": [
       331,
+      280,
       516,
       156,
       168,
@@ -32019,7 +36002,10 @@
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [
       948
@@ -32108,16 +36094,21 @@
     ],
     "tm_hm": [
       331,
+      280,
       516,
       156,
       168,
       211,
       395,
+      826,
       332,
       451,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [
       949
@@ -32197,12 +36188,16 @@
       156,
       168,
       451,
-      442
+      442,
+      15
     ],
     "tutor": [
+      414,
       433,
       432,
-      431
+      431,
+      409,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -32297,15 +36292,20 @@
       317,
       156,
       168,
+      617,
       9,
       451,
       442,
-      404
+      404,
+      15
     ],
     "tutor": [
+      414,
       433,
       432,
-      431
+      431,
+      409,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -32363,6 +36363,7 @@
       156
     ],
     "tutor": [
+      364,
       450
     ],
     "egg": [],
@@ -32448,6 +36449,7 @@
       148
     ],
     "tutor": [
+      364,
       450
     ],
     "egg": [],
@@ -32604,7 +36606,8 @@
       148
     ],
     "tutor": [
-      450
+      450,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -32676,12 +36679,15 @@
       46,
       317,
       156,
-      418
+      617,
+      418,
+      15
     ],
     "tutor": [
       393,
       433,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -32774,14 +36780,18 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       156,
-      418
+      617,
+      418,
+      15
     ],
     "tutor": [
       393,
       433,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -32790,8 +36800,139 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 45,
+        "level": 1
+      },
+      {
+        "move_id": 270,
+        "level": 6
+      },
+      {
+        "move_id": 185,
+        "level": 9
+      },
+      {
+        "move_id": 460,
+        "level": 14
+      },
+      {
+        "move_id": 639,
+        "level": 17
+      },
+      {
+        "move_id": 620,
+        "level": 22
+      },
+      {
+        "move_id": 36,
+        "level": 25
+      },
+      {
+        "move_id": 291,
+        "level": 30
+      },
+      {
+        "move_id": 251,
+        "level": 33
+      },
+      {
+        "move_id": 358,
+        "level": 38
+      },
+      {
+        "move_id": 38,
+        "level": 41
+      },
+      {
+        "move_id": 283,
+        "level": 49
+      },
+      {
+        "move_id": 56,
+        "level": 54
+      }
+    ],
+    "tm_hm": [
+      728,
+      156,
+      442,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 40,
+        "level": 1
+      },
+      {
+        "move_id": 64,
+        "level": 5
+      },
+      {
+        "move_id": 44,
+        "level": 9
+      },
+      {
+        "move_id": 469,
+        "level": 13
+      },
+      {
+        "move_id": 638,
+        "level": 17
+      },
+      {
+        "move_id": 92,
+        "level": 21
+      },
+      {
+        "move_id": 422,
+        "level": 25
+      },
+      {
+        "move_id": 131,
+        "level": 29
+      },
+      {
+        "move_id": 424,
+        "level": 37
+      },
+      {
+        "move_id": 659,
+        "level": 41
+      },
+      {
+        "move_id": 42,
+        "level": 45
+      },
+      {
+        "move_id": 596,
+        "level": 49
+      }
+    ],
+    "tm_hm": [
+      196,
+      156,
+      422
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   {
     "level_up": [
@@ -32857,6 +36998,7 @@
       317,
       67,
       156,
+      617,
       417,
       404
     ],
@@ -32946,6 +37088,7 @@
       317,
       67,
       156,
+      617,
       417,
       404
     ],
@@ -32957,8 +37100,172 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 346,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 570,
+        "level": 5
+      },
+      {
+        "move_id": 169,
+        "level": 8
+      },
+      {
+        "move_id": 450,
+        "level": 13
+      },
+      {
+        "move_id": 61,
+        "level": 16
+      },
+      {
+        "move_id": 44,
+        "level": 21
+      },
+      {
+        "move_id": 639,
+        "level": 24
+      },
+      {
+        "move_id": 141,
+        "level": 29
+      },
+      {
+        "move_id": 242,
+        "level": 32
+      },
+      {
+        "move_id": 597,
+        "level": 37
+      },
+      {
+        "move_id": 243,
+        "level": 40
+      },
+      {
+        "move_id": 596,
+        "level": 45
+      },
+      {
+        "move_id": 536,
+        "level": 48
+      }
+    ],
+    "tm_hm": [
+      196,
+      156,
+      148
+    ],
+    "tutor": [
+      450
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 638,
+        "level": 1
+      },
+      {
+        "move_id": 656,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 570,
+        "level": 1
+      },
+      {
+        "move_id": 169,
+        "level": 1
+      },
+      {
+        "move_id": 450,
+        "level": 1
+      },
+      {
+        "move_id": 570,
+        "level": 5
+      },
+      {
+        "move_id": 169,
+        "level": 8
+      },
+      {
+        "move_id": 450,
+        "level": 13
+      },
+      {
+        "move_id": 61,
+        "level": 16
+      },
+      {
+        "move_id": 44,
+        "level": 21
+      },
+      {
+        "move_id": 639,
+        "level": 26
+      },
+      {
+        "move_id": 141,
+        "level": 30
+      },
+      {
+        "move_id": 242,
+        "level": 34
+      },
+      {
+        "move_id": 597,
+        "level": 38
+      },
+      {
+        "move_id": 243,
+        "level": 41
+      },
+      {
+        "move_id": 596,
+        "level": 44
+      },
+      {
+        "move_id": 764,
+        "level": 50
+      },
+      {
+        "move_id": 536,
+        "level": 54
+      }
+    ],
+    "tm_hm": [
+      196,
+      156,
+      148
+    ],
+    "tutor": [
+      450
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      968
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   {
@@ -33109,9 +37416,12 @@
     "tm_hm": [
       156,
       465,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       972
@@ -33170,7 +37480,9 @@
       156,
       465
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -33254,9 +37566,12 @@
     "tm_hm": [
       156,
       465,
-      417
+      417,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       978
@@ -33360,9 +37675,12 @@
       156,
       465,
       417,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       979
@@ -33373,8 +37691,114 @@
   null,
   null,
   null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 419,
+        "level": 1
+      }
+    ],
+    "tm_hm": [
+      156
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 588,
+        "level": 0
+      },
+      {
+        "move_id": 588,
+        "level": 1
+      },
+      {
+        "move_id": 419,
+        "level": 1
+      },
+      {
+        "move_id": 787,
+        "level": 1
+      },
+      {
+        "move_id": 210,
+        "level": 1
+      },
+      {
+        "move_id": 249,
+        "level": 1
+      },
+      {
+        "move_id": 210,
+        "level": 4
+      },
+      {
+        "move_id": 249,
+        "level": 7
+      },
+      {
+        "move_id": 450,
+        "level": 10
+      },
+      {
+        "move_id": 180,
+        "level": 13
+      },
+      {
+        "move_id": 14,
+        "level": 16
+      },
+      {
+        "move_id": 163,
+        "level": 21
+      },
+      {
+        "move_id": 455,
+        "level": 26
+      },
+      {
+        "move_id": 458,
+        "level": 31
+      },
+      {
+        "move_id": 334,
+        "level": 36
+      },
+      {
+        "move_id": 42,
+        "level": 41
+      },
+      {
+        "move_id": 596,
+        "level": 48
+      }
+    ],
+    "tm_hm": [
+      196,
+      280,
+      317,
+      156,
+      422,
+      332,
+      418,
+      15
+    ],
+    "tutor": [
+      450,
+      409
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      984
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -33516,12 +37940,19 @@
       }
     ],
     "tm_hm": [
+      280,
       317,
+      617,
       417,
       442,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -33612,7 +38043,8 @@
       168,
       451,
       442,
-      418
+      418,
+      15
     ],
     "tutor": [],
     "egg": [],
@@ -33697,10 +38129,13 @@
       91,
       156,
       168,
+      826,
       422,
+      617,
       451,
       442,
-      418
+      418,
+      15
     ],
     "tutor": [],
     "egg": [],
@@ -33776,13 +38211,18 @@
     ],
     "tm_hm": [
       91,
+      280,
       317,
       156,
       168,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -33940,10 +38380,15 @@
       317,
       156,
       168,
+      617,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -34029,10 +38474,15 @@
       317,
       156,
       168,
+      617,
       332,
-      404
+      404,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1027
@@ -34114,9 +38564,14 @@
       168,
       332,
       442,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -34226,9 +38681,14 @@
       332,
       442,
       418,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1029
@@ -34310,12 +38770,15 @@
     "tm_hm": [
       405,
       91,
+      280,
       317,
       156,
       9,
       404
     ],
     "tutor": [
+      571,
+      364,
       393
     ],
     "egg": [],
@@ -34405,12 +38868,16 @@
     "tm_hm": [
       405,
       91,
+      280,
       317,
       156,
+      617,
       9,
       404
     ],
     "tutor": [
+      571,
+      364,
       393
     ],
     "egg": [],
@@ -34498,6 +38965,7 @@
       418
     ],
     "tutor": [
+      571,
       393
     ],
     "egg": [],
@@ -34614,16 +39082,21 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       156,
+      617,
       9,
       417,
-      418
+      418,
+      15
     ],
     "tutor": [
+      571,
       393,
       433,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -34753,14 +39226,19 @@
     "tm_hm": [
       46,
       91,
+      280,
       317,
       156,
-      418
+      617,
+      418,
+      15
     ],
     "tutor": [
+      414,
       393,
       433,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -34899,9 +39377,12 @@
       156,
       168,
       395,
+      617,
       404
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       206
@@ -34966,7 +39447,10 @@
       156,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -35040,7 +39524,10 @@
       156,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1102
@@ -35103,13 +39590,17 @@
     "tm_hm": [
       67,
       156,
+      826,
       417,
       332,
       442,
       148
     ],
     "tutor": [
-      431
+      414,
+      406,
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -35178,13 +39669,17 @@
     "tm_hm": [
       67,
       156,
+      826,
       417,
       332,
       442,
       148
     ],
     "tutor": [
-      431
+      414,
+      406,
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -35250,7 +39745,9 @@
       332,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -35328,7 +39825,9 @@
       332,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1108
@@ -35406,7 +39905,9 @@
       156,
       168
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -35487,12 +39988,14 @@
       331,
       91,
       156,
-      168
+      168,
+      617
     ],
     "tutor": [
       433,
       432,
-      431
+      431,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -35556,7 +40059,10 @@
       332,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -35617,7 +40123,10 @@
       332,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1113
@@ -35833,7 +40342,9 @@
       332,
       418
     ],
-    "tutor": [],
+    "tutor": [
+      409
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -35917,7 +40428,8 @@
     "tutor": [
       433,
       432,
-      431
+      431,
+      409
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -36301,9 +40813,12 @@
     "tm_hm": [
       728,
       91,
+      280,
       317,
       156,
-      404
+      617,
+      404,
+      15
     ],
     "tutor": [
       393,
@@ -36370,6 +40885,8 @@
       418
     ],
     "tutor": [
+      406,
+      364,
       433,
       431
     ],
@@ -36449,6 +40966,8 @@
       418
     ],
     "tutor": [
+      406,
+      364,
       433,
       432,
       431
@@ -36510,7 +41029,8 @@
     "tm_hm": [
       91,
       317,
-      156
+      156,
+      826
     ],
     "tutor": [
       393
@@ -36582,9 +41102,11 @@
     "tm_hm": [
       91,
       317,
-      156
+      156,
+      826
     ],
     "tutor": [
+      406,
       393
     ],
     "egg": [],
@@ -36673,9 +41195,11 @@
       91,
       317,
       156,
+      826,
       404
     ],
     "tutor": [
+      406,
       393
     ],
     "egg": [],
@@ -36781,8 +41305,125 @@
   },
   null,
   null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 357,
+        "level": 1
+      },
+      {
+        "move_id": 64,
+        "level": 1
+      },
+      {
+        "move_id": 31,
+        "level": 6
+      },
+      {
+        "move_id": 44,
+        "level": 12
+      },
+      {
+        "move_id": 97,
+        "level": 18
+      },
+      {
+        "move_id": 291,
+        "level": 24
+      },
+      {
+        "move_id": 594,
+        "level": 30
+      },
+      {
+        "move_id": 242,
+        "level": 36
+      },
+      {
+        "move_id": 596,
+        "level": 42
+      },
+      {
+        "move_id": 38,
+        "level": 48
+      }
+    ],
+    "tm_hm": [
+      280,
+      156,
+      332
+    ],
+    "tutor": [
+      432
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 621,
+        "level": 1
+      },
+      {
+        "move_id": 357,
+        "level": 1
+      },
+      {
+        "move_id": 64,
+        "level": 1
+      },
+      {
+        "move_id": 31,
+        "level": 6
+      },
+      {
+        "move_id": 44,
+        "level": 12
+      },
+      {
+        "move_id": 97,
+        "level": 18
+      },
+      {
+        "move_id": 291,
+        "level": 24
+      },
+      {
+        "move_id": 594,
+        "level": 32
+      },
+      {
+        "move_id": 242,
+        "level": 40
+      },
+      {
+        "move_id": 596,
+        "level": 48
+      },
+      {
+        "move_id": 38,
+        "level": 56
+      }
+    ],
+    "tm_hm": [
+      728,
+      280,
+      156,
+      332
+    ],
+    "tutor": [
+      432
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      1138
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   {
@@ -36846,6 +41487,7 @@
       148
     ],
     "tutor": [
+      406,
       450
     ],
     "egg": [],
@@ -36926,6 +41568,7 @@
       148
     ],
     "tutor": [
+      406,
       450,
       433,
       431
@@ -36937,8 +41580,166 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 43,
+        "level": 1
+      },
+      {
+        "move_id": 249,
+        "level": 1
+      },
+      {
+        "move_id": 488,
+        "level": 5
+      },
+      {
+        "move_id": 20,
+        "level": 10
+      },
+      {
+        "move_id": 197,
+        "level": 15
+      },
+      {
+        "move_id": 417,
+        "level": 20
+      },
+      {
+        "move_id": 339,
+        "level": 25
+      },
+      {
+        "move_id": 66,
+        "level": 30
+      },
+      {
+        "move_id": 269,
+        "level": 35
+      },
+      {
+        "move_id": 179,
+        "level": 40
+      },
+      {
+        "move_id": 276,
+        "level": 45
+      },
+      {
+        "move_id": 582,
+        "level": 55
+      }
+    ],
+    "tm_hm": [
+      728,
+      280,
+      156,
+      417
+    ],
+    "tutor": [
+      414,
+      571
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 687,
+        "level": 0
+      },
+      {
+        "move_id": 687,
+        "level": 1
+      },
+      {
+        "move_id": 190,
+        "level": 1
+      },
+      {
+        "move_id": 43,
+        "level": 1
+      },
+      {
+        "move_id": 249,
+        "level": 1
+      },
+      {
+        "move_id": 488,
+        "level": 5
+      },
+      {
+        "move_id": 20,
+        "level": 10
+      },
+      {
+        "move_id": 197,
+        "level": 15
+      },
+      {
+        "move_id": 417,
+        "level": 20
+      },
+      {
+        "move_id": 339,
+        "level": 25
+      },
+      {
+        "move_id": 66,
+        "level": 30
+      },
+      {
+        "move_id": 269,
+        "level": 35
+      },
+      {
+        "move_id": 179,
+        "level": 40
+      },
+      {
+        "move_id": 276,
+        "level": 45
+      },
+      {
+        "move_id": 561,
+        "level": 50
+      },
+      {
+        "move_id": 582,
+        "level": 55
+      },
+      {
+        "move_id": 292,
+        "level": 65
+      },
+      {
+        "move_id": 776,
+        "level": 75
+      }
+    ],
+    "tm_hm": [
+      728,
+      91,
+      280,
+      156,
+      617,
+      417
+    ],
+    "tutor": [
+      414,
+      571
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      1144
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -37211,9 +42012,14 @@
       156,
       168,
       332,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1208
@@ -37456,7 +42262,9 @@
       156,
       422
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -37546,7 +42354,9 @@
       156,
       422
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1198
@@ -37626,9 +42436,14 @@
       156,
       168,
       332,
-      442
+      442,
+      15
     ],
-    "tutor": [],
+    "tutor": [
+      414,
+      409,
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -37693,9 +42508,12 @@
       100,
       67,
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -37780,9 +42598,12 @@
       100,
       67,
       156,
+      15,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      406
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1209
@@ -37790,7 +42611,92 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 174,
+        "level": 1
+      },
+      {
+        "move_id": 45,
+        "level": 3
+      },
+      {
+        "move_id": 51,
+        "level": 6
+      },
+      {
+        "move_id": 281,
+        "level": 9
+      },
+      {
+        "move_id": 93,
+        "level": 12
+      },
+      {
+        "move_id": 50,
+        "level": 15
+      },
+      {
+        "move_id": 352,
+        "level": 18
+      },
+      {
+        "move_id": 29,
+        "level": 21
+      },
+      {
+        "move_id": 401,
+        "level": 24
+      },
+      {
+        "move_id": 133,
+        "level": 27
+      },
+      {
+        "move_id": 57,
+        "level": 30
+      },
+      {
+        "move_id": 303,
+        "level": 33
+      },
+      {
+        "move_id": 94,
+        "level": 36
+      },
+      {
+        "move_id": 244,
+        "level": 39
+      },
+      {
+        "move_id": 240,
+        "level": 42
+      },
+      {
+        "move_id": 448,
+        "level": 45
+      }
+    ],
+    "tm_hm": [
+      196,
+      91,
+      100,
+      156,
+      422,
+      404,
+      148
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -37863,7 +42769,9 @@
       168,
       418
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -37957,9 +42865,12 @@
       91,
       156,
       168,
+      617,
       418
     ],
-    "tutor": [],
+    "tutor": [
+      414
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1222
@@ -38184,11 +43095,15 @@
       317,
       156,
       168,
+      826,
+      617,
       332,
       404,
       418
     ],
     "tutor": [
+      414,
+      406,
       393,
       433,
       431
@@ -38306,7 +43221,9 @@
       168
     ],
     "tutor": [
-      450
+      450,
+      409,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -38411,6 +43328,7 @@
     "tm_hm": [
       331,
       405,
+      280,
       317,
       67,
       156,
@@ -38419,7 +43337,9 @@
       442
     ],
     "tutor": [
-      450
+      450,
+      409,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -38489,7 +43409,8 @@
       442
     ],
     "tutor": [
-      450
+      450,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [],
@@ -38572,6 +43493,7 @@
       }
     ],
     "tm_hm": [
+      280,
       67,
       156,
       168,
@@ -38580,7 +43502,8 @@
       442
     ],
     "tutor": [
-      450
+      450,
+      786
     ],
     "egg": [],
     "pre_evolution_ids": [
@@ -38895,7 +43818,76 @@
     "event": []
   },
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 357,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 451,
+        "level": 7
+      },
+      {
+        "move_id": 352,
+        "level": 11
+      },
+      {
+        "move_id": 116,
+        "level": 15
+      },
+      {
+        "move_id": 163,
+        "level": 20
+      },
+      {
+        "move_id": 242,
+        "level": 25
+      },
+      {
+        "move_id": 596,
+        "level": 30
+      },
+      {
+        "move_id": 391,
+        "level": 35
+      },
+      {
+        "move_id": 771,
+        "level": 40
+      },
+      {
+        "move_id": 387,
+        "level": 45
+      },
+      {
+        "move_id": 495,
+        "level": 50
+      },
+      {
+        "move_id": 799,
+        "level": 55
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      451,
+      15
+    ],
+    "tutor": [
+      432
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -38955,7 +43947,9 @@
       331,
       156
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -39024,7 +44018,9 @@
       331,
       156
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1324
@@ -39188,7 +44184,9 @@
       332,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1330
@@ -39198,7 +44196,73 @@
   },
   null,
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 225,
+        "level": 1
+      },
+      {
+        "move_id": 150,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 6
+      },
+      {
+        "move_id": 270,
+        "level": 12
+      },
+      {
+        "move_id": 352,
+        "level": 17
+      },
+      {
+        "move_id": 656,
+        "level": 23
+      },
+      {
+        "move_id": 269,
+        "level": 28
+      },
+      {
+        "move_id": 262,
+        "level": 34
+      },
+      {
+        "move_id": 330,
+        "level": 36
+      },
+      {
+        "move_id": 386,
+        "level": 43
+      },
+      {
+        "move_id": 243,
+        "level": 47
+      },
+      {
+        "move_id": 370,
+        "level": 52
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      749
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -39261,7 +44325,9 @@
       442,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -39345,7 +44411,9 @@
       442,
       148
     ],
-    "tutor": [],
+    "tutor": [
+      364
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1335
@@ -39495,6 +44563,7 @@
     "tm_hm": [
       91,
       156,
+      617,
       404
     ],
     "tutor": [
@@ -39571,6 +44640,7 @@
     "tm_hm": [
       91,
       156,
+      617,
       404
     ],
     "tutor": [
@@ -39656,7 +44726,9 @@
       422,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -39750,7 +44822,9 @@
       417,
       442
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1345
@@ -39838,7 +44912,9 @@
       156,
       168
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [],
     "pre_evolution": [],
@@ -39928,7 +45004,9 @@
       156,
       168
     ],
-    "tutor": [],
+    "tutor": [
+      786
+    ],
     "egg": [],
     "pre_evolution_ids": [
       1351

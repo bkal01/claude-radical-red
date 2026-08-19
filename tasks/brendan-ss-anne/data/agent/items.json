@@ -1,9 +1,21 @@
 [
   {
+    "id": 133,
+    "name": "Cheri Berry",
+    "description": "When held by a Pokémon, it will be used in battle to heal paralysis.",
+    "count": 1
+  },
+  {
+    "id": 134,
+    "name": "Chesto Berry",
+    "description": "When held by a Pokémon, it will be used in battle to wake up.",
+    "count": 1
+  },
+  {
     "id": 135,
     "name": "Pecha Berry",
     "description": "When held by a Pokémon, it will be used in battle to cure poison.",
-    "count": 1
+    "count": 2
   },
   {
     "id": 139,
@@ -27,6 +39,12 @@
     "id": 181,
     "name": "Macho Brace",
     "description": "An item to be held by a Pokémon. It promotes strong growth but lowers Speed while it is held.",
+    "count": 1
+  },
+  {
+    "id": 197,
+    "name": "Lucky Egg",
+    "description": "An item to be held by a Pokémon. An egg filled with happiness that earns extra Exp. points in battle.",
     "count": 1
   },
   {

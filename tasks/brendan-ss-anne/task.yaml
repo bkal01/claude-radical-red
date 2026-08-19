@@ -34,7 +34,10 @@ allowed_locations:
   - route_25
   - route_5
   - route_6
+  - vermillion_city
+  - s_s_anne
 available_water_methods:
   - old_rod
+  - good_rod
 excluded_species_categories:
   - mega

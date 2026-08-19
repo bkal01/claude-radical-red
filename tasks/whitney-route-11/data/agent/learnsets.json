@@ -6777,9 +6777,234 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 64,
+        "level": 1
+      },
+      {
+        "move_id": 39,
+        "level": 1
+      },
+      {
+        "move_id": 346,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 5
+      },
+      {
+        "move_id": 30,
+        "level": 8
+      },
+      {
+        "move_id": 175,
+        "level": 13
+      },
+      {
+        "move_id": 357,
+        "level": 15
+      },
+      {
+        "move_id": 639,
+        "level": 21
+      },
+      {
+        "move_id": 97,
+        "level": 29
+      },
+      {
+        "move_id": 127,
+        "level": 32
+      },
+      {
+        "move_id": 656,
+        "level": 40
+      },
+      {
+        "move_id": 224,
+        "level": 45
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      15
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 224,
+        "level": 1
+      },
+      {
+        "move_id": 424,
+        "level": 1
+      },
+      {
+        "move_id": 64,
+        "level": 1
+      },
+      {
+        "move_id": 357,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 5
+      },
+      {
+        "move_id": 30,
+        "level": 8
+      },
+      {
+        "move_id": 175,
+        "level": 13
+      },
+      {
+        "move_id": 357,
+        "level": 15
+      },
+      {
+        "move_id": 639,
+        "level": 21
+      },
+      {
+        "move_id": 97,
+        "level": 29
+      },
+      {
+        "move_id": 127,
+        "level": 32
+      },
+      {
+        "move_id": 656,
+        "level": 46
+      },
+      {
+        "move_id": 224,
+        "level": 54
+      },
+      {
+        "move_id": 689,
+        "level": 60
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      15
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [
+      118
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 1
+      },
+      {
+        "move_id": 352,
+        "level": 4
+      },
+      {
+        "move_id": 229,
+        "level": 7
+      },
+      {
+        "move_id": 105,
+        "level": 10
+      },
+      {
+        "move_id": 149,
+        "level": 13
+      },
+      {
+        "move_id": 62,
+        "level": 16
+      },
+      {
+        "move_id": 61,
+        "level": 18
+      },
+      {
+        "move_id": 293,
+        "level": 22
+      },
+      {
+        "move_id": 510,
+        "level": 24
+      },
+      {
+        "move_id": 460,
+        "level": 28
+      },
+      {
+        "move_id": 654,
+        "level": 35
+      },
+      {
+        "move_id": 389,
+        "level": 37
+      },
+      {
+        "move_id": 109,
+        "level": 40
+      },
+      {
+        "move_id": 94,
+        "level": 42
+      },
+      {
+        "move_id": 113,
+        "level": 46
+      },
+      {
+        "move_id": 322,
+        "level": 49
+      },
+      {
+        "move_id": 56,
+        "level": 53
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      100,
+      156,
+      148
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -11672,7 +11897,101 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 194,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 191,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 40,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 9
+      },
+      {
+        "move_id": 145,
+        "level": 13
+      },
+      {
+        "move_id": 205,
+        "level": 17
+      },
+      {
+        "move_id": 469,
+        "level": 21
+      },
+      {
+        "move_id": 254,
+        "level": 25
+      },
+      {
+        "move_id": 255,
+        "level": 25
+      },
+      {
+        "move_id": 279,
+        "level": 29
+      },
+      {
+        "move_id": 756,
+        "level": 33
+      },
+      {
+        "move_id": 42,
+        "level": 37
+      },
+      {
+        "move_id": 36,
+        "level": 41
+      },
+      {
+        "move_id": 358,
+        "level": 45
+      },
+      {
+        "move_id": 424,
+        "level": 49
+      },
+      {
+        "move_id": 194,
+        "level": 53
+      },
+      {
+        "move_id": 56,
+        "level": 57
+      },
+      {
+        "move_id": 557,
+        "level": 60
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      422
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -12239,11 +12558,378 @@
     "pre_evolution": [],
     "event": []
   },
+  {
+    "level_up": [
+      {
+        "move_id": 796,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 4
+      },
+      {
+        "move_id": 105,
+        "level": 8
+      },
+      {
+        "move_id": 61,
+        "level": 10
+      },
+      {
+        "move_id": 287,
+        "level": 13
+      },
+      {
+        "move_id": 246,
+        "level": 17
+      },
+      {
+        "move_id": 131,
+        "level": 20
+      },
+      {
+        "move_id": 649,
+        "level": 23
+      },
+      {
+        "move_id": 460,
+        "level": 27
+      },
+      {
+        "move_id": 334,
+        "level": 29
+      },
+      {
+        "move_id": 350,
+        "level": 31
+      },
+      {
+        "move_id": 203,
+        "level": 35
+      },
+      {
+        "move_id": 639,
+        "level": 38
+      },
+      {
+        "move_id": 389,
+        "level": 41
+      },
+      {
+        "move_id": 243,
+        "level": 45
+      },
+      {
+        "move_id": 372,
+        "level": 47
+      },
+      {
+        "move_id": 175,
+        "level": 50
+      }
+    ],
+    "tm_hm": [
+      196,
+      91,
+      317,
+      156,
+      617,
+      404
+    ],
+    "tutor": [
+      393
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 199,
+        "level": 6
+      },
+      {
+        "move_id": 60,
+        "level": 10
+      },
+      {
+        "move_id": 62,
+        "level": 14
+      },
+      {
+        "move_id": 61,
+        "level": 18
+      },
+      {
+        "move_id": 116,
+        "level": 22
+      },
+      {
+        "move_id": 352,
+        "level": 26
+      },
+      {
+        "move_id": 324,
+        "level": 30
+      },
+      {
+        "move_id": 58,
+        "level": 34
+      },
+      {
+        "move_id": 331,
+        "level": 38
+      },
+      {
+        "move_id": 56,
+        "level": 42
+      },
+      {
+        "move_id": 63,
+        "level": 46
+      },
+      {
+        "move_id": 656,
+        "level": 50
+      }
+    ],
+    "tm_hm": [
+      728,
+      331,
+      196,
+      156,
+      168
+    ],
+    "tutor": [
+      364
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 190,
+        "level": 0
+      },
+      {
+        "move_id": 190,
+        "level": 1
+      },
+      {
+        "move_id": 378,
+        "level": 1
+      },
+      {
+        "move_id": 350,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 132,
+        "level": 1
+      },
+      {
+        "move_id": 60,
+        "level": 1
+      },
+      {
+        "move_id": 62,
+        "level": 1
+      },
+      {
+        "move_id": 132,
+        "level": 6
+      },
+      {
+        "move_id": 60,
+        "level": 10
+      },
+      {
+        "move_id": 62,
+        "level": 14
+      },
+      {
+        "move_id": 61,
+        "level": 18
+      },
+      {
+        "move_id": 116,
+        "level": 22
+      },
+      {
+        "move_id": 526,
+        "level": 28
+      },
+      {
+        "move_id": 324,
+        "level": 34
+      },
+      {
+        "move_id": 58,
+        "level": 40
+      },
+      {
+        "move_id": 331,
+        "level": 46
+      },
+      {
+        "move_id": 56,
+        "level": 52
+      },
+      {
+        "move_id": 679,
+        "level": 58
+      },
+      {
+        "move_id": 656,
+        "level": 64
+      }
+    ],
+    "tm_hm": [
+      728,
+      331,
+      196,
+      156,
+      168
+    ],
+    "tutor": [
+      364
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      223
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 60,
+        "level": 1
+      },
+      {
+        "move_id": 331,
+        "level": 1
+      },
+      {
+        "move_id": 324,
+        "level": 1
+      },
+      {
+        "move_id": 395,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 1
+      },
+      {
+        "move_id": 61,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 3
+      },
+      {
+        "move_id": 61,
+        "level": 7
+      },
+      {
+        "move_id": 109,
+        "level": 11
+      },
+      {
+        "move_id": 17,
+        "level": 14
+      },
+      {
+        "move_id": 29,
+        "level": 16
+      },
+      {
+        "move_id": 352,
+        "level": 19
+      },
+      {
+        "move_id": 638,
+        "level": 23
+      },
+      {
+        "move_id": 36,
+        "level": 27
+      },
+      {
+        "move_id": 97,
+        "level": 32
+      },
+      {
+        "move_id": 356,
+        "level": 36
+      },
+      {
+        "move_id": 639,
+        "level": 39
+      },
+      {
+        "move_id": 340,
+        "level": 46
+      },
+      {
+        "move_id": 56,
+        "level": 49
+      }
+    ],
+    "tm_hm": [
+      728,
+      331,
+      196,
+      317,
+      516,
+      156,
+      395,
+      332,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [
+      511
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   {
     "level_up": [
@@ -15230,7 +15916,86 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 150,
+        "level": 1
+      },
+      {
+        "move_id": 45,
+        "level": 4
+      },
+      {
+        "move_id": 55,
+        "level": 7
+      },
+      {
+        "move_id": 205,
+        "level": 10
+      },
+      {
+        "move_id": 250,
+        "level": 13
+      },
+      {
+        "move_id": 310,
+        "level": 16
+      },
+      {
+        "move_id": 352,
+        "level": 19
+      },
+      {
+        "move_id": 54,
+        "level": 22
+      },
+      {
+        "move_id": 460,
+        "level": 25
+      },
+      {
+        "move_id": 156,
+        "level": 29
+      },
+      {
+        "move_id": 323,
+        "level": 33
+      },
+      {
+        "move_id": 133,
+        "level": 37
+      },
+      {
+        "move_id": 291,
+        "level": 41
+      },
+      {
+        "move_id": 340,
+        "level": 45
+      },
+      {
+        "move_id": 56,
+        "level": 49
+      },
+      {
+        "move_id": 532,
+        "level": 53
+      }
+    ],
+    "tm_hm": [
+      46,
+      196,
+      317,
+      156,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -15415,8 +16180,192 @@
     "event": []
   },
   null,
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 189,
+        "level": 1
+      },
+      {
+        "move_id": 300,
+        "level": 6
+      },
+      {
+        "move_id": 346,
+        "level": 6
+      },
+      {
+        "move_id": 55,
+        "level": 9
+      },
+      {
+        "move_id": 385,
+        "level": 13
+      },
+      {
+        "move_id": 133,
+        "level": 15
+      },
+      {
+        "move_id": 352,
+        "level": 17
+      },
+      {
+        "move_id": 222,
+        "level": 20
+      },
+      {
+        "move_id": 156,
+        "level": 25
+      },
+      {
+        "move_id": 173,
+        "level": 25
+      },
+      {
+        "move_id": 352,
+        "level": 28
+      },
+      {
+        "move_id": 89,
+        "level": 32
+      },
+      {
+        "move_id": 330,
+        "level": 35
+      },
+      {
+        "move_id": 248,
+        "level": 39
+      }
+    ],
+    "tm_hm": [
+      196,
+      317,
+      156,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 37,
+        "level": 0
+      },
+      {
+        "move_id": 37,
+        "level": 1
+      },
+      {
+        "move_id": 641,
+        "level": 1
+      },
+      {
+        "move_id": 401,
+        "level": 1
+      },
+      {
+        "move_id": 321,
+        "level": 1
+      },
+      {
+        "move_id": 189,
+        "level": 1
+      },
+      {
+        "move_id": 300,
+        "level": 1
+      },
+      {
+        "move_id": 346,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 300,
+        "level": 6
+      },
+      {
+        "move_id": 346,
+        "level": 6
+      },
+      {
+        "move_id": 55,
+        "level": 9
+      },
+      {
+        "move_id": 385,
+        "level": 13
+      },
+      {
+        "move_id": 133,
+        "level": 15
+      },
+      {
+        "move_id": 352,
+        "level": 17
+      },
+      {
+        "move_id": 222,
+        "level": 20
+      },
+      {
+        "move_id": 156,
+        "level": 25
+      },
+      {
+        "move_id": 173,
+        "level": 25
+      },
+      {
+        "move_id": 352,
+        "level": 28
+      },
+      {
+        "move_id": 89,
+        "level": 34
+      },
+      {
+        "move_id": 330,
+        "level": 39
+      },
+      {
+        "move_id": 248,
+        "level": 45
+      },
+      {
+        "move_id": 349,
+        "level": 52
+      },
+      {
+        "move_id": 764,
+        "level": 72
+      }
+    ],
+    "tm_hm": [
+      196,
+      317,
+      156,
+      617,
+      332,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [
+      323
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   {
     "level_up": [
@@ -18180,7 +19129,93 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 175,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 300,
+        "level": 6
+      },
+      {
+        "move_id": 55,
+        "level": 10
+      },
+      {
+        "move_id": 317,
+        "level": 15
+      },
+      {
+        "move_id": 246,
+        "level": 21
+      },
+      {
+        "move_id": 291,
+        "level": 24
+      },
+      {
+        "move_id": 36,
+        "level": 27
+      },
+      {
+        "move_id": 281,
+        "level": 31
+      },
+      {
+        "move_id": 596,
+        "level": 34
+      },
+      {
+        "move_id": 156,
+        "level": 41
+      },
+      {
+        "move_id": 56,
+        "level": 46
+      },
+      {
+        "move_id": 38,
+        "level": 50
+      },
+      {
+        "move_id": 764,
+        "level": 53
+      },
+      {
+        "move_id": 380,
+        "level": 56
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      317,
+      156,
+      617,
+      404
+    ],
+    "tutor": [
+      393
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -23437,7 +24472,82 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 48,
+        "level": 3
+      },
+      {
+        "move_id": 61,
+        "level": 7
+      },
+      {
+        "move_id": 109,
+        "level": 11
+      },
+      {
+        "move_id": 17,
+        "level": 14
+      },
+      {
+        "move_id": 29,
+        "level": 16
+      },
+      {
+        "move_id": 352,
+        "level": 19
+      },
+      {
+        "move_id": 638,
+        "level": 23
+      },
+      {
+        "move_id": 36,
+        "level": 27
+      },
+      {
+        "move_id": 97,
+        "level": 32
+      },
+      {
+        "move_id": 356,
+        "level": 36
+      },
+      {
+        "move_id": 639,
+        "level": 39
+      },
+      {
+        "move_id": 340,
+        "level": 46
+      },
+      {
+        "move_id": 56,
+        "level": 49
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      332,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -27205,7 +28315,99 @@
     "event": []
   },
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 39,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 253,
+        "level": 3
+      },
+      {
+        "move_id": 29,
+        "level": 5
+      },
+      {
+        "move_id": 44,
+        "level": 7
+      },
+      {
+        "move_id": 357,
+        "level": 9
+      },
+      {
+        "move_id": 507,
+        "level": 11
+      },
+      {
+        "move_id": 36,
+        "level": 14
+      },
+      {
+        "move_id": 242,
+        "level": 17
+      },
+      {
+        "move_id": 358,
+        "level": 20
+      },
+      {
+        "move_id": 38,
+        "level": 26
+      },
+      {
+        "move_id": 184,
+        "level": 30
+      },
+      {
+        "move_id": 175,
+        "level": 34
+      },
+      {
+        "move_id": 495,
+        "level": 38
+      },
+      {
+        "move_id": 542,
+        "level": 42
+      },
+      {
+        "move_id": 380,
+        "level": 46
+      },
+      {
+        "move_id": 127,
+        "level": 49
+      },
+      {
+        "move_id": 764,
+        "level": 55
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      15
+    ],
+    "tutor": [
+      432
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -29034,7 +30236,76 @@
   null,
   null,
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 346,
+        "level": 1
+      },
+      {
+        "move_id": 71,
+        "level": 5
+      },
+      {
+        "move_id": 101,
+        "level": 9
+      },
+      {
+        "move_id": 61,
+        "level": 13
+      },
+      {
+        "move_id": 105,
+        "level": 17
+      },
+      {
+        "move_id": 352,
+        "level": 22
+      },
+      {
+        "move_id": 388,
+        "level": 27
+      },
+      {
+        "move_id": 460,
+        "level": 32
+      },
+      {
+        "move_id": 240,
+        "level": 37
+      },
+      {
+        "move_id": 436,
+        "level": 43
+      },
+      {
+        "move_id": 56,
+        "level": 49
+      },
+      {
+        "move_id": 526,
+        "level": 55
+      },
+      {
+        "move_id": 323,
+        "level": 61
+      }
+    ],
+    "tm_hm": [
+      196,
+      156,
+      148
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   {
@@ -33273,7 +34544,73 @@
     "event": []
   },
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 185,
+        "level": 5
+      },
+      {
+        "move_id": 39,
+        "level": 9
+      },
+      {
+        "move_id": 145,
+        "level": 12
+      },
+      {
+        "move_id": 51,
+        "level": 15
+      },
+      {
+        "move_id": 342,
+        "level": 23
+      },
+      {
+        "move_id": 352,
+        "level": 25
+      },
+      {
+        "move_id": 92,
+        "level": 32
+      },
+      {
+        "move_id": 358,
+        "level": 35
+      },
+      {
+        "move_id": 188,
+        "level": 38
+      },
+      {
+        "move_id": 56,
+        "level": 42
+      },
+      {
+        "move_id": 370,
+        "level": 49
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      422
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   {
     "level_up": [
@@ -37525,8 +38862,139 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 45,
+        "level": 1
+      },
+      {
+        "move_id": 270,
+        "level": 6
+      },
+      {
+        "move_id": 185,
+        "level": 9
+      },
+      {
+        "move_id": 460,
+        "level": 14
+      },
+      {
+        "move_id": 639,
+        "level": 17
+      },
+      {
+        "move_id": 620,
+        "level": 22
+      },
+      {
+        "move_id": 36,
+        "level": 25
+      },
+      {
+        "move_id": 291,
+        "level": 30
+      },
+      {
+        "move_id": 251,
+        "level": 33
+      },
+      {
+        "move_id": 358,
+        "level": 38
+      },
+      {
+        "move_id": 38,
+        "level": 41
+      },
+      {
+        "move_id": 283,
+        "level": 49
+      },
+      {
+        "move_id": 56,
+        "level": 54
+      }
+    ],
+    "tm_hm": [
+      728,
+      156,
+      442,
+      404
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 40,
+        "level": 1
+      },
+      {
+        "move_id": 64,
+        "level": 5
+      },
+      {
+        "move_id": 44,
+        "level": 9
+      },
+      {
+        "move_id": 469,
+        "level": 13
+      },
+      {
+        "move_id": 638,
+        "level": 17
+      },
+      {
+        "move_id": 92,
+        "level": 21
+      },
+      {
+        "move_id": 422,
+        "level": 25
+      },
+      {
+        "move_id": 131,
+        "level": 29
+      },
+      {
+        "move_id": 424,
+        "level": 37
+      },
+      {
+        "move_id": 659,
+        "level": 41
+      },
+      {
+        "move_id": 42,
+        "level": 45
+      },
+      {
+        "move_id": 596,
+        "level": 49
+      }
+    ],
+    "tm_hm": [
+      196,
+      156,
+      422
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   {
     "level_up": [
@@ -37694,8 +39162,172 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 346,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 570,
+        "level": 5
+      },
+      {
+        "move_id": 169,
+        "level": 8
+      },
+      {
+        "move_id": 450,
+        "level": 13
+      },
+      {
+        "move_id": 61,
+        "level": 16
+      },
+      {
+        "move_id": 44,
+        "level": 21
+      },
+      {
+        "move_id": 639,
+        "level": 24
+      },
+      {
+        "move_id": 141,
+        "level": 29
+      },
+      {
+        "move_id": 242,
+        "level": 32
+      },
+      {
+        "move_id": 597,
+        "level": 37
+      },
+      {
+        "move_id": 243,
+        "level": 40
+      },
+      {
+        "move_id": 596,
+        "level": 45
+      },
+      {
+        "move_id": 536,
+        "level": 48
+      }
+    ],
+    "tm_hm": [
+      196,
+      156,
+      148
+    ],
+    "tutor": [
+      450
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 638,
+        "level": 1
+      },
+      {
+        "move_id": 656,
+        "level": 1
+      },
+      {
+        "move_id": 145,
+        "level": 1
+      },
+      {
+        "move_id": 570,
+        "level": 1
+      },
+      {
+        "move_id": 169,
+        "level": 1
+      },
+      {
+        "move_id": 450,
+        "level": 1
+      },
+      {
+        "move_id": 570,
+        "level": 5
+      },
+      {
+        "move_id": 169,
+        "level": 8
+      },
+      {
+        "move_id": 450,
+        "level": 13
+      },
+      {
+        "move_id": 61,
+        "level": 16
+      },
+      {
+        "move_id": 44,
+        "level": 21
+      },
+      {
+        "move_id": 639,
+        "level": 26
+      },
+      {
+        "move_id": 141,
+        "level": 30
+      },
+      {
+        "move_id": 242,
+        "level": 34
+      },
+      {
+        "move_id": 597,
+        "level": 38
+      },
+      {
+        "move_id": 243,
+        "level": 41
+      },
+      {
+        "move_id": 596,
+        "level": 44
+      },
+      {
+        "move_id": 764,
+        "level": 50
+      },
+      {
+        "move_id": 536,
+        "level": 54
+      }
+    ],
+    "tm_hm": [
+      196,
+      156,
+      148
+    ],
+    "tutor": [
+      450
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      968
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   {
@@ -38550,7 +40182,77 @@
   null,
   null,
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 310,
+        "level": 4
+      },
+      {
+        "move_id": 93,
+        "level": 9
+      },
+      {
+        "move_id": 44,
+        "level": 12
+      },
+      {
+        "move_id": 357,
+        "level": 17
+      },
+      {
+        "move_id": 50,
+        "level": 20
+      },
+      {
+        "move_id": 149,
+        "level": 25
+      },
+      {
+        "move_id": 242,
+        "level": 28
+      },
+      {
+        "move_id": 358,
+        "level": 33
+      },
+      {
+        "move_id": 103,
+        "level": 36
+      },
+      {
+        "move_id": 604,
+        "level": 41
+      },
+      {
+        "move_id": 764,
+        "level": 44
+      },
+      {
+        "move_id": 542,
+        "level": 48
+      }
+    ],
+    "tm_hm": [
+      728,
+      156,
+      422,
+      332,
+      451,
+      148
+    ],
+    "tutor": [
+      432
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -42174,8 +43876,166 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 43,
+        "level": 1
+      },
+      {
+        "move_id": 249,
+        "level": 1
+      },
+      {
+        "move_id": 488,
+        "level": 5
+      },
+      {
+        "move_id": 20,
+        "level": 10
+      },
+      {
+        "move_id": 197,
+        "level": 15
+      },
+      {
+        "move_id": 417,
+        "level": 20
+      },
+      {
+        "move_id": 339,
+        "level": 25
+      },
+      {
+        "move_id": 66,
+        "level": 30
+      },
+      {
+        "move_id": 269,
+        "level": 35
+      },
+      {
+        "move_id": 179,
+        "level": 40
+      },
+      {
+        "move_id": 276,
+        "level": 45
+      },
+      {
+        "move_id": 582,
+        "level": 55
+      }
+    ],
+    "tm_hm": [
+      728,
+      280,
+      156,
+      417
+    ],
+    "tutor": [
+      414,
+      571
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
+  {
+    "level_up": [
+      {
+        "move_id": 687,
+        "level": 0
+      },
+      {
+        "move_id": 687,
+        "level": 1
+      },
+      {
+        "move_id": 190,
+        "level": 1
+      },
+      {
+        "move_id": 43,
+        "level": 1
+      },
+      {
+        "move_id": 249,
+        "level": 1
+      },
+      {
+        "move_id": 488,
+        "level": 5
+      },
+      {
+        "move_id": 20,
+        "level": 10
+      },
+      {
+        "move_id": 197,
+        "level": 15
+      },
+      {
+        "move_id": 417,
+        "level": 20
+      },
+      {
+        "move_id": 339,
+        "level": 25
+      },
+      {
+        "move_id": 66,
+        "level": 30
+      },
+      {
+        "move_id": 269,
+        "level": 35
+      },
+      {
+        "move_id": 179,
+        "level": 40
+      },
+      {
+        "move_id": 276,
+        "level": 45
+      },
+      {
+        "move_id": 561,
+        "level": 50
+      },
+      {
+        "move_id": 582,
+        "level": 55
+      },
+      {
+        "move_id": 292,
+        "level": 65
+      },
+      {
+        "move_id": 776,
+        "level": 75
+      }
+    ],
+    "tm_hm": [
+      728,
+      91,
+      280,
+      156,
+      617,
+      417
+    ],
+    "tutor": [
+      414,
+      571
+    ],
+    "egg": [],
+    "pre_evolution_ids": [
+      1144
+    ],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -43047,7 +44907,92 @@
     "pre_evolution": [],
     "event": []
   },
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 174,
+        "level": 1
+      },
+      {
+        "move_id": 45,
+        "level": 3
+      },
+      {
+        "move_id": 51,
+        "level": 6
+      },
+      {
+        "move_id": 281,
+        "level": 9
+      },
+      {
+        "move_id": 93,
+        "level": 12
+      },
+      {
+        "move_id": 50,
+        "level": 15
+      },
+      {
+        "move_id": 352,
+        "level": 18
+      },
+      {
+        "move_id": 29,
+        "level": 21
+      },
+      {
+        "move_id": 401,
+        "level": 24
+      },
+      {
+        "move_id": 133,
+        "level": 27
+      },
+      {
+        "move_id": 57,
+        "level": 30
+      },
+      {
+        "move_id": 303,
+        "level": 33
+      },
+      {
+        "move_id": 94,
+        "level": 36
+      },
+      {
+        "move_id": 244,
+        "level": 39
+      },
+      {
+        "move_id": 240,
+        "level": 42
+      },
+      {
+        "move_id": 448,
+        "level": 45
+      }
+    ],
+    "tm_hm": [
+      196,
+      91,
+      100,
+      156,
+      422,
+      404,
+      148
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   null,
   null,
   null,
@@ -44242,7 +46187,76 @@
     "event": []
   },
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 357,
+        "level": 1
+      },
+      {
+        "move_id": 33,
+        "level": 1
+      },
+      {
+        "move_id": 451,
+        "level": 7
+      },
+      {
+        "move_id": 352,
+        "level": 11
+      },
+      {
+        "move_id": 116,
+        "level": 15
+      },
+      {
+        "move_id": 163,
+        "level": 20
+      },
+      {
+        "move_id": 242,
+        "level": 25
+      },
+      {
+        "move_id": 596,
+        "level": 30
+      },
+      {
+        "move_id": 391,
+        "level": 35
+      },
+      {
+        "move_id": 771,
+        "level": 40
+      },
+      {
+        "move_id": 387,
+        "level": 45
+      },
+      {
+        "move_id": 495,
+        "level": 50
+      },
+      {
+        "move_id": 799,
+        "level": 55
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      451,
+      15
+    ],
+    "tutor": [
+      432
+    ],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
@@ -44551,7 +46565,73 @@
   },
   null,
   null,
-  null,
+  {
+    "level_up": [
+      {
+        "move_id": 55,
+        "level": 1
+      },
+      {
+        "move_id": 225,
+        "level": 1
+      },
+      {
+        "move_id": 150,
+        "level": 1
+      },
+      {
+        "move_id": 106,
+        "level": 6
+      },
+      {
+        "move_id": 270,
+        "level": 12
+      },
+      {
+        "move_id": 352,
+        "level": 17
+      },
+      {
+        "move_id": 656,
+        "level": 23
+      },
+      {
+        "move_id": 269,
+        "level": 28
+      },
+      {
+        "move_id": 262,
+        "level": 34
+      },
+      {
+        "move_id": 330,
+        "level": 36
+      },
+      {
+        "move_id": 386,
+        "level": 43
+      },
+      {
+        "move_id": 243,
+        "level": 47
+      },
+      {
+        "move_id": 370,
+        "level": 52
+      }
+    ],
+    "tm_hm": [
+      728,
+      196,
+      156,
+      749
+    ],
+    "tutor": [],
+    "egg": [],
+    "pre_evolution_ids": [],
+    "pre_evolution": [],
+    "event": []
+  },
   {
     "level_up": [
       {
