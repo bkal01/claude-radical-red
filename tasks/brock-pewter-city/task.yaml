@@ -1,5 +1,6 @@
 # Battle against Brock in Pewter City
 id: brock_pewter_city
+task_id: 6
 game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 15

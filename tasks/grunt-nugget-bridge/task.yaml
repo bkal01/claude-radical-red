@@ -1,5 +1,6 @@
 # Battle against Grunt at Nugget Bridge
 id: grunt_nugget_bridge
+task_id: 15
 game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 27

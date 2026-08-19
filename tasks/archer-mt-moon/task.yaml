@@ -1,5 +1,6 @@
 # Battle against Archer in Mt. Moon
 id: archer_mt_moon
+task_id: 8
 game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 22

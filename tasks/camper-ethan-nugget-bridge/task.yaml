@@ -1,5 +1,6 @@
 # Battle against Camper Ethan at Nugget Bridge
 id: camper_ethan_nugget_bridge
+task_id: 14
 game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 27

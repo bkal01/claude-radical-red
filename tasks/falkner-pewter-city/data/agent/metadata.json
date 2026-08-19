@@ -1,7 +1,7 @@
 {
   "game_data_version": "v4.1",
   "allowed_species_count": 173,
-  "available_tm_hm_move_count": 12,
+  "available_tm_hm_move_count": 5,
   "available_tutor_move_count": 3,
   "available_hms": [
     "Flash"

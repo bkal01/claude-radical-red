@@ -1,0 +1,487 @@
+{
+  "game_data_version": "v4.1",
+  "source": "Default Mode Bosses v4.1 (with EVs) - Radical Red.xlsx / Trainer Order",
+  "note": "Human reference only. Task IDs are immutable canonical progression positions; entries may exist before their benchmark tasks are implemented.",
+  "tasks": [
+    {
+      "task_id": 1,
+      "trainer": "Rival",
+      "location": "Route 22"
+    },
+    {
+      "task_id": 2,
+      "trainer": "Brendan",
+      "location": "Viridian Forest"
+    },
+    {
+      "task_id": 3,
+      "trainer": "Lass Anne",
+      "location": "Viridian Forest"
+    },
+    {
+      "task_id": 4,
+      "trainer": "Ace Nelle",
+      "location": "Viridian Forest"
+    },
+    {
+      "task_id": 5,
+      "trainer": "Falkner",
+      "location": "Pewter City"
+    },
+    {
+      "task_id": 6,
+      "trainer": "Brock",
+      "location": "Pewter City"
+    },
+    {
+      "task_id": 7,
+      "trainer": "Super Nerd Miguel",
+      "location": "Mt. Moon"
+    },
+    {
+      "task_id": 8,
+      "trainer": "Archer",
+      "location": "Mt. Moon"
+    },
+    {
+      "task_id": 9,
+      "trainer": "Rival",
+      "location": "Cerulean City"
+    },
+    {
+      "task_id": 10,
+      "trainer": "Catcher Cale",
+      "location": "Nugget Bridge"
+    },
+    {
+      "task_id": 11,
+      "trainer": "Lass Ali",
+      "location": "Nugget Bridge"
+    },
+    {
+      "task_id": 12,
+      "trainer": "Youngster Timmy",
+      "location": "Nugget Bridge"
+    },
+    {
+      "task_id": 13,
+      "trainer": "Lass Reli",
+      "location": "Nugget Bridge"
+    },
+    {
+      "task_id": 14,
+      "trainer": "Camper Ethan",
+      "location": "Nugget Bridge"
+    },
+    {
+      "task_id": 15,
+      "trainer": "Grunt",
+      "location": "Nugget Bridge"
+    },
+    {
+      "task_id": 16,
+      "trainer": "Bugsy",
+      "location": "Route 25"
+    },
+    {
+      "task_id": 17,
+      "trainer": "Misty",
+      "location": "Cerulean City"
+    },
+    {
+      "task_id": 18,
+      "trainer": "Grunt",
+      "location": "Dig House"
+    },
+    {
+      "task_id": 19,
+      "trainer": "Ann & Brooks",
+      "location": "S.S. Anne"
+    },
+    {
+      "task_id": 20,
+      "trainer": "Edmond & Trevor",
+      "location": "S.S. Anne"
+    },
+    {
+      "task_id": 21,
+      "trainer": "Brendan",
+      "location": "S.S. Anne"
+    },
+    {
+      "task_id": 22,
+      "trainer": "Whitney",
+      "location": "Route 11"
+    },
+    {
+      "task_id": 23,
+      "trainer": "Lt. Surge",
+      "location": "Vermillion City"
+    },
+    {
+      "task_id": 24,
+      "trainer": "Picnicker Caitlin",
+      "location": "Route 9"
+    },
+    {
+      "task_id": 25,
+      "trainer": "Morty",
+      "location": "Lavender Town"
+    },
+    {
+      "task_id": 26,
+      "trainer": "Erika",
+      "location": "Celadon City"
+    },
+    {
+      "task_id": 27,
+      "trainer": "Guard",
+      "location": "Game Corner"
+    },
+    {
+      "task_id": 28,
+      "trainer": "Left Guard",
+      "location": "Rocket Hideout"
+    },
+    {
+      "task_id": 29,
+      "trainer": "Right Guard",
+      "location": "Rocket Hideout"
+    },
+    {
+      "task_id": 30,
+      "trainer": "Giovanni",
+      "location": "Rocket Hideout"
+    },
+    {
+      "task_id": 31,
+      "trainer": "Ace Cole",
+      "location": "Route 8"
+    },
+    {
+      "task_id": 32,
+      "trainer": "Beauty Sam",
+      "location": "Celadon City Hotel"
+    },
+    {
+      "task_id": 33,
+      "trainer": "Beauty Shelly",
+      "location": "Celadon City Hotel"
+    },
+    {
+      "task_id": 34,
+      "trainer": "Ghost",
+      "location": "Pokemon Tower"
+    },
+    {
+      "task_id": 35,
+      "trainer": "Rival",
+      "location": "Silph Co."
+    },
+    {
+      "task_id": 36,
+      "trainer": "Ariana & Archer",
+      "location": "Silph Co."
+    },
+    {
+      "task_id": 37,
+      "trainer": "Giovanni",
+      "location": "Silph Co."
+    },
+    {
+      "task_id": 38,
+      "trainer": "Chuck",
+      "location": "Saffron City"
+    },
+    {
+      "task_id": 39,
+      "trainer": "Sabrina",
+      "location": "Saffron City"
+    },
+    {
+      "task_id": 40,
+      "trainer": "Dumass Kid",
+      "location": "Saffron City"
+    },
+    {
+      "task_id": 41,
+      "trainer": "Rocker Luca",
+      "location": "Route 12"
+    },
+    {
+      "task_id": 42,
+      "trainer": "Camper Justin",
+      "location": "Route 12"
+    },
+    {
+      "task_id": 43,
+      "trainer": "Fisherman Andrew",
+      "location": "Route 12"
+    },
+    {
+      "task_id": 44,
+      "trainer": "Bird Ke. Sebastian",
+      "location": "Route 13"
+    },
+    {
+      "task_id": 45,
+      "trainer": "Picnicker Susie",
+      "location": "Route 13"
+    },
+    {
+      "task_id": 46,
+      "trainer": "Picnicker Alma",
+      "location": "Route 13"
+    },
+    {
+      "task_id": 47,
+      "trainer": "Lola & Sheila",
+      "location": "Route 13"
+    },
+    {
+      "task_id": 48,
+      "trainer": "Bird Keeper Perry",
+      "location": "Route 13"
+    },
+    {
+      "task_id": 49,
+      "trainer": "Biker Jared",
+      "location": "Route 13"
+    },
+    {
+      "task_id": 50,
+      "trainer": "Bird Keeper Robert",
+      "location": "Route 13"
+    },
+    {
+      "task_id": 51,
+      "trainer": "Ace Haley",
+      "location": "Route 15"
+    },
+    {
+      "task_id": 52,
+      "trainer": "Biker Lao",
+      "location": "Route 16"
+    },
+    {
+      "task_id": 53,
+      "trainer": "Cue Ball Koji",
+      "location": "Route 16"
+    },
+    {
+      "task_id": 54,
+      "trainer": "Cue Ball Luke",
+      "location": "Route 16"
+    },
+    {
+      "task_id": 55,
+      "trainer": "Biker Ruben",
+      "location": "Route 16"
+    },
+    {
+      "task_id": 56,
+      "trainer": "Cue Ball Camron",
+      "location": "Route 16"
+    },
+    {
+      "task_id": 57,
+      "trainer": "Biker Hideo",
+      "location": "Route 16"
+    },
+    {
+      "task_id": 58,
+      "trainer": "Biker William",
+      "location": "Route 18"
+    },
+    {
+      "task_id": 59,
+      "trainer": "Bird Keeper Jacob",
+      "location": "Route 18"
+    },
+    {
+      "task_id": 60,
+      "trainer": "Tamer Ramiro",
+      "location": "Route 18"
+    },
+    {
+      "task_id": 61,
+      "trainer": "Ace Wilton",
+      "location": "Route 18"
+    },
+    {
+      "task_id": 62,
+      "trainer": "Brendan",
+      "location": "Safari Zone"
+    },
+    {
+      "task_id": 63,
+      "trainer": "Brock (Rematch)",
+      "location": "Pewter City"
+    },
+    {
+      "task_id": 64,
+      "trainer": "Misty (Rematch)",
+      "location": "Cerulean City"
+    },
+    {
+      "task_id": 65,
+      "trainer": "Lt. Surge (Rematch)",
+      "location": "Vermillion City"
+    },
+    {
+      "task_id": 66,
+      "trainer": "Erika (Rematch)",
+      "location": "Celadon City"
+    },
+    {
+      "task_id": 67,
+      "trainer": "Koga",
+      "location": "Fuchsia City"
+    },
+    {
+      "task_id": 68,
+      "trainer": "Dumass Jojo Fan",
+      "location": "Power Plant"
+    },
+    {
+      "task_id": 69,
+      "trainer": "Pryce",
+      "location": "Seafoam Islands"
+    },
+    {
+      "task_id": 70,
+      "trainer": "May",
+      "location": "Cinnabar Island"
+    },
+    {
+      "task_id": 71,
+      "trainer": "Jasmine",
+      "location": "Cinnabar Island Lab"
+    },
+    {
+      "task_id": 72,
+      "trainer": "Ace Derek",
+      "location": "Cinnabar Island Gym"
+    },
+    {
+      "task_id": 73,
+      "trainer": "Ace Lucy",
+      "location": "Cinnabar Island Gym"
+    },
+    {
+      "task_id": 74,
+      "trainer": "Ace Zac",
+      "location": "Cinnabar Island Gym"
+    },
+    {
+      "task_id": 75,
+      "trainer": "Blaine",
+      "location": "Cinnabar Island"
+    },
+    {
+      "task_id": 76,
+      "trainer": "Archer",
+      "location": "Cerulean Cave"
+    },
+    {
+      "task_id": 77,
+      "trainer": "Ariana",
+      "location": "Cerulean Cave"
+    },
+    {
+      "task_id": 78,
+      "trainer": "Giovanni",
+      "location": "Cerulean Cave"
+    },
+    {
+      "task_id": 79,
+      "trainer": "Black Belt Ketchup",
+      "location": "Cerulean Cave"
+    },
+    {
+      "task_id": 80,
+      "trainer": "Clair",
+      "location": "Viridian City"
+    },
+    {
+      "task_id": 81,
+      "trainer": "Burglar Max",
+      "location": "Pokemon Mansion 4F"
+    },
+    {
+      "task_id": 82,
+      "trainer": "Burglar Anson",
+      "location": "Pokemon Mansion 4F"
+    },
+    {
+      "task_id": 83,
+      "trainer": "Rival",
+      "location": "Route 22"
+    },
+    {
+      "task_id": 84,
+      "trainer": "Brendan",
+      "location": "Route 23"
+    },
+    {
+      "task_id": 85,
+      "trainer": "Ace Naomi",
+      "location": "Victory Road"
+    },
+    {
+      "task_id": 86,
+      "trainer": "Ace Rolando",
+      "location": "Victory Road"
+    },
+    {
+      "task_id": 87,
+      "trainer": "Ace George",
+      "location": "Victory Road"
+    },
+    {
+      "task_id": 88,
+      "trainer": "Ace Caroline",
+      "location": "Victory Road"
+    },
+    {
+      "task_id": 89,
+      "trainer": "Ace Colby",
+      "location": "Victory Road"
+    },
+    {
+      "task_id": 90,
+      "trainer": "Ace Alexa",
+      "location": "Victory Road"
+    },
+    {
+      "task_id": 91,
+      "trainer": "Dumass Creator",
+      "location": "Indigo Plateau"
+    },
+    {
+      "task_id": 92,
+      "trainer": "Lorelei",
+      "location": "Elite Four"
+    },
+    {
+      "task_id": 93,
+      "trainer": "Bruno",
+      "location": "Elite Four"
+    },
+    {
+      "task_id": 94,
+      "trainer": "Agatha",
+      "location": "Elite Four"
+    },
+    {
+      "task_id": 95,
+      "trainer": "Lance",
+      "location": "Elite Four"
+    },
+    {
+      "task_id": 96,
+      "trainer": "Rival",
+      "location": "Champion"
+    }
+  ]
+}

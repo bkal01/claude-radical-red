@@ -1,63 +1,180 @@
 {
   "berry_forest": {
     "tms": [
-      "Cosmic Power"
+      {
+        "name": "Cosmic Power",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "celadon_city": {
     "tms": [
-      "Toxic",
-      "Taunt",
-      "Ice Beam",
-      "Giga Drain",
-      "Light Screen",
-      "Protect",
-      "Hyper Voice",
-      "Thunderbolt",
-      "Reflect",
-      "Flamethrower",
-      "Leech Life",
-      "Energy Ball",
-      "Air Slash",
-      "Explosion",
-      "Shadow Claw",
-      "Gyro Ball",
-      "Knock Off",
-      "Dark Pulse",
-      "Sleep Talk",
-      "Scald",
-      "Poison Jab",
-      "Grass Knot",
-      "Flash Cannon",
-      "Dragon Tail",
-      "Dazzling Gleam",
-      "Psychic Noise",
-      "Scorching Sands",
-      "Play Rough",
-      "Brave Bird"
+      {
+        "name": "Toxic",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Taunt",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Ice Beam",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Giga Drain",
+        "unlocked_after": 26
+      },
+      {
+        "name": "Light Screen",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Protect",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Hyper Voice",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Thunderbolt",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Reflect",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Flamethrower",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Leech Life",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Energy Ball",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Air Slash",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Explosion",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Shadow Claw",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Gyro Ball",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Knock Off",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Dark Pulse",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Sleep Talk",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Scald",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Poison Jab",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Grass Knot",
+        "unlocked_after": 66
+      },
+      {
+        "name": "Flash Cannon",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Dragon Tail",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Dazzling Gleam",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Psychic Noise",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Scorching Sands",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Play Rough",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Brave Bird",
+        "unlocked_after": 33
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "cerulean_cave_2f": {
     "tms": [
-      "Close Combat"
+      {
+        "name": "Close Combat",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "cerulean_city": {
     "tms": [
-      "Flip Turn",
-      "Dig",
-      "Icy Wind",
-      "Steel Wing",
-      "Aerial Ace",
-      "Pluck",
-      "Snarl",
-      "Vacuum Wave"
+      {
+        "name": "Flip Turn",
+        "unlocked_after": 17
+      },
+      {
+        "name": "Dig",
+        "unlocked_after": 18
+      },
+      {
+        "name": "Icy Wind",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Steel Wing",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Aerial Ace",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Pluck",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Snarl",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Vacuum Wave",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": [
@@ -68,7 +185,10 @@
   },
   "cinnabar_island": {
     "tms": [
-      "Fire Blast"
+      {
+        "name": "Fire Blast",
+        "unlocked_after": 75
+      }
     ],
     "hms": [],
     "tutors": [
@@ -99,19 +219,34 @@
   },
   "diglett_cave": {
     "tms": [
-      "Rest",
-      "Thief"
+      {
+        "name": "Rest",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Thief",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "fuchsia_city": {
     "tms": [
-      "Sludge Bomb"
+      {
+        "name": "Sludge Bomb",
+        "unlocked_after": 67
+      }
     ],
     "hms": [
-      "Strength",
-      "Rock Smash"
+      {
+        "name": "Strength",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Rock Smash",
+        "unlocked_after": 62
+      }
     ],
     "tutors": [
       "Swords Dance",
@@ -125,58 +260,88 @@
   },
   "indigo_plateau": {
     "tms": [
-      "Supercell Slam"
+      {
+        "name": "Supercell Slam",
+        "unlocked_after": 91
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "lavender_town": {
     "tms": [
-      "Shadow Ball"
+      {
+        "name": "Shadow Ball",
+        "unlocked_after": 25
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "mansion_1f": {
     "tms": [
-      "Gunk Shot"
+      {
+        "name": "Gunk Shot",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "mansion_3f": {
     "tms": [
-      "Heat Wave"
+      {
+        "name": "Heat Wave",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "mansion_b1f": {
     "tms": [
-      "Blizzard",
-      "Weather Ball"
+      {
+        "name": "Blizzard",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Weather Ball",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "mt_ember_exterior": {
     "tms": [
-      "Scale Shot",
-      "Misty Explosion"
+      {
+        "name": "Scale Shot",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Misty Explosion",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "mt_moon_1f": {
     "tms": [
-      "Bullet Seed"
+      {
+        "name": "Bullet Seed",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "mt_moon_b2f": {
     "tms": [
-      "Low Sweep"
+      {
+        "name": "Low Sweep",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
@@ -184,7 +349,10 @@
   "one_island": {
     "tms": [],
     "hms": [
-      "Waterfall"
+      {
+        "name": "Waterfall",
+        "unlocked_after": 0
+      }
     ],
     "tutors": []
   },
@@ -197,9 +365,18 @@
   },
   "pewter_city": {
     "tms": [
-      "Rock Tomb",
-      "Roost",
-      "Stone Edge"
+      {
+        "name": "Rock Tomb",
+        "unlocked_after": 6
+      },
+      {
+        "name": "Roost",
+        "unlocked_after": 5
+      },
+      {
+        "name": "Stone Edge",
+        "unlocked_after": 63
+      }
     ],
     "hms": [],
     "tutors": [
@@ -208,212 +385,368 @@
   },
   "pkmn_tower_6f": {
     "tms": [
-      "Will-O-Wisp"
+      {
+        "name": "Will-O-Wisp",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "power_plant": {
     "tms": [
-      "Thunder",
-      "Superpower"
+      {
+        "name": "Thunder",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Superpower",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "rock_tunnel_1f": {
     "tms": [
-      "Iron Head"
+      {
+        "name": "Iron Head",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "rock_tunnel_b1f": {
     "tms": [
-      "Rock Slide"
+      {
+        "name": "Rock Slide",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "rock_tunnel_secret": {
     "tms": [
-      "Sludge Wave"
+      {
+        "name": "Sludge Wave",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_2": {
-    "tms": [
-      "Temper Flare"
-    ],
+    "tms": [],
     "hms": [
-      "Flash"
+      {
+        "name": "Flash",
+        "unlocked_after": 0
+      }
     ],
-    "tutors": []
+    "tutors": [],
+    "field_move_gates": {
+      "Cut": {
+        "tms": [
+          {
+            "name": "Temper Flare",
+            "unlocked_after": 0
+          }
+        ],
+        "hms": [],
+        "tutors": []
+      }
+    }
   },
   "route_3": {
     "tms": [
-      "Teleport"
+      {
+        "name": "Teleport",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_4": {
     "tms": [
-      "Roar",
-      "Low Kick"
+      {
+        "name": "Roar",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Low Kick",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_5": {
     "tms": [
-      "Bulldoze"
+      {
+        "name": "Bulldoze",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_6": {
     "tms": [
-      "Venoshock"
+      {
+        "name": "Venoshock",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_7": {
     "tms": [
-      "Iron Tail"
+      {
+        "name": "Iron Tail",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_7_8_underground_path": {
     "tms": [
-      "Psyshock"
+      {
+        "name": "Psyshock",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_8": {
     "tms": [
-      "Acrobatics"
+      {
+        "name": "Acrobatics",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_9": {
     "tms": [
-      "Ice Punch"
+      {
+        "name": "Ice Punch",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_10": {
     "tms": [
-      "Facade",
-      "Wild Charge"
+      {
+        "name": "Facade",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Wild Charge",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_11": {
     "tms": [
-      "Fire Punch"
+      {
+        "name": "Fire Punch",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_12": {
     "tms": [
-      "Seed Bomb",
-      "Return",
-      "Hurricane"
+      {
+        "name": "Seed Bomb",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Return",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
-    "tutors": []
+    "tutors": [],
+    "field_move_gates": {
+      "Surf": {
+        "tms": [
+          {
+            "name": "Hurricane",
+            "unlocked_after": 0
+          }
+        ],
+        "hms": [],
+        "tutors": []
+      }
+    }
   },
   "route_13": {
     "tms": [
-      "Future Sight"
+      {
+        "name": "Future Sight",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_14": {
     "tms": [
-      "Dragon Claw"
+      {
+        "name": "Dragon Claw",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_15": {
     "tms": [
-      "Hydro Pump"
+      {
+        "name": "Hydro Pump",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_16": {
     "tms": [
-      "Dual Wingbeat"
+      {
+        "name": "Dual Wingbeat",
+        "unlocked_after": 0
+      }
     ],
     "hms": [
-      "Fly"
+      {
+        "name": "Fly",
+        "unlocked_after": 0
+      }
     ],
     "tutors": []
   },
   "route_17": {
     "tms": [
-      "Heat Crash"
+      {
+        "name": "Heat Crash",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_20": {
     "tms": [
-      "Focus Blast"
+      {
+        "name": "Focus Blast",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_24": {
     "tms": [
-      "Draining Kiss",
-      "Thunder Punch"
+      {
+        "name": "Draining Kiss",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Thunder Punch",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "route_25": {
     "tms": [
-      "Defog",
-      "U-Turn"
+      {
+        "name": "Defog",
+        "unlocked_after": 0
+      },
+      {
+        "name": "U-Turn",
+        "unlocked_after": 16
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "s_s_anne": {
     "tms": [
-      "Brick Break",
-      "Stomping Tantrum"
+      {
+        "name": "Brick Break",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Stomping Tantrum",
+        "unlocked_after": 0
+      }
     ],
     "hms": [
-      "Cut"
+      {
+        "name": "Cut",
+        "unlocked_after": 0
+      }
     ],
     "tutors": []
   },
   "saffron_city": {
     "tms": [
-      "Zen Headbutt",
-      "Hidden Power",
-      "Earthquake",
-      "Psychic",
-      "Liquidation",
-      "Drain Punch",
-      "Dual Chop",
-      "Thunder Wave",
-      "Body Press",
-      "Trick Room"
+      {
+        "name": "Zen Headbutt",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Hidden Power",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Earthquake",
+        "unlocked_after": 40
+      },
+      {
+        "name": "Psychic",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Liquidation",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Drain Punch",
+        "unlocked_after": 38
+      },
+      {
+        "name": "Dual Chop",
+        "unlocked_after": 36
+      },
+      {
+        "name": "Thunder Wave",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Body Press",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Trick Room",
+        "unlocked_after": 39
+      }
     ],
     "hms": [],
     "tutors": [
@@ -437,35 +770,65 @@
   },
   "safari_zone": {
     "tms": [
-      "Aura Sphere",
-      "Grassy Glide",
-      "Expanding Force",
-      "Rising Voltage",
-      "Dragon Pulse",
-      "Earth Power"
+      {
+        "name": "Aura Sphere",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Grassy Glide",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Expanding Force",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Rising Voltage",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Dragon Pulse",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Earth Power",
+        "unlocked_after": 0
+      }
     ],
     "hms": [
-      "Surf"
+      {
+        "name": "Surf",
+        "unlocked_after": 0
+      }
     ],
     "tutors": []
   },
   "seafoam_b1f": {
     "tms": [
-      "Triple Axel"
+      {
+        "name": "Triple Axel",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "seafoam_b3f_b4f": {
     "tms": [
-      "Frost Breath"
+      {
+        "name": "Frost Breath",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "two_island": {
     "tms": [
-      "Steel Beam"
+      {
+        "name": "Steel Beam",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": [
@@ -476,7 +839,10 @@
   },
   "vermillion_city": {
     "tms": [
-      "Volt Switch"
+      {
+        "name": "Volt Switch",
+        "unlocked_after": 23
+      }
     ],
     "hms": [],
     "tutors": [
@@ -490,21 +856,30 @@
   },
   "victory_road_1f": {
     "tms": [
-      "Poltergeist"
+      {
+        "name": "Poltergeist",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "victory_road_2f": {
     "tms": [
-      "High Horsepower"
+      {
+        "name": "High Horsepower",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": []
   },
   "victory_road_3f": {
     "tms": [
-      "Overheat"
+      {
+        "name": "Overheat",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": [
@@ -513,21 +888,52 @@
   },
   "viridian_city": {
     "tms": [
-      "Draco Barrage",
-      "Ice Spinner",
-      "Draco Meteor"
+      {
+        "name": "Draco Barrage",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Draco Meteor",
+        "unlocked_after": 80
+      }
     ],
     "hms": [],
-    "tutors": []
+    "tutors": [],
+    "field_move_gates": {
+      "Surf": {
+        "tms": [
+          {
+            "name": "Ice Spinner",
+            "unlocked_after": 0
+          }
+        ],
+        "hms": [],
+        "tutors": []
+      }
+    }
   },
   "viridian_forest": {
     "tms": [
-      "Electroweb",
-      "X-Scissor"
+      {
+        "name": "Electroweb",
+        "unlocked_after": 0
+      }
     ],
     "hms": [],
     "tutors": [
       "Bug Bite"
-    ]
+    ],
+    "field_move_gates": {
+      "Rock Smash": {
+        "tms": [
+          {
+            "name": "X-Scissor",
+            "unlocked_after": 0
+          }
+        ],
+        "hms": [],
+        "tutors": []
+      }
+    }
   }
 }

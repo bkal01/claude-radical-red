@@ -1,5 +1,6 @@
 # Battle against the Rival on Route 22
 id: rival_route_22
+task_id: 1
 game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 15

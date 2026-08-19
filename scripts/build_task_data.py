@@ -36,6 +36,9 @@ def main() -> None:
         isinstance(category, str) for category in excluded_species_categories
     ):
         raise ValueError("excluded_species_categories must be a list of strings")
+    task_id = manifest.get("task_id")
+    if task_id is not None and (type(task_id) is not int or task_id < 1):
+        raise ValueError("task_id must be a positive integer")
 
     master_data_dir = root / "data" / "radical_red" / game_data_version
     route_map = json.loads((master_data_dir / "route_pokemon_map.json").read_text())
@@ -59,6 +62,40 @@ def main() -> None:
     species_categories = json.loads(
         (master_data_dir / "species_categories.json").read_text()
     )
+
+    def move_source_entry(entry: object, context: str) -> tuple[str, int]:
+        if isinstance(entry, str):
+            return entry, 0
+        if (
+            not isinstance(entry, dict)
+            or set(entry) != {"name", "unlocked_after"}
+            or not isinstance(entry["name"], str)
+            or type(entry["unlocked_after"]) is not int
+            or entry["unlocked_after"] < 0
+        ):
+            raise ValueError(f"invalid move source at {context}: {entry}")
+        return entry["name"], entry["unlocked_after"]
+
+    def item_source_entry(entry: object, context: str) -> tuple[str, int | None, int]:
+        if isinstance(entry, str):
+            return entry, None, 0
+        if not isinstance(entry, dict):
+            raise ValueError(f"invalid item source at {context}: {entry}")
+        keys = set(entry)
+        if keys not in ({"name", "unlocked_after"}, {"name", "id", "unlocked_after"}):
+            raise ValueError(f"invalid item source at {context}: {entry}")
+        if (
+            not isinstance(entry["name"], str)
+            or type(entry["unlocked_after"]) is not int
+            or entry["unlocked_after"] < 0
+            or ("id" in entry and type(entry["id"]) is not int)
+        ):
+            raise ValueError(f"invalid item source at {context}: {entry}")
+        return entry["name"], entry.get("id"), entry["unlocked_after"]
+
+    def unlocked(unlocked_after: int) -> bool:
+        return task_id is None or unlocked_after < task_id
+
     excluded_species_ids = set()
     for category in excluded_species_categories:
         if category not in species_categories:
@@ -75,11 +112,17 @@ def main() -> None:
         starter_species_ids = set(starter_species_id_list)
         starter_species_ids.difference_update(excluded_species_ids)
 
+    known_locations = (
+        set(route_map)
+        | set(route_move_map)
+        | set(route_item_map)
+        | set(route_evolution_item_map)
+    )
     direct_species_ids = set()
     for location in allowed_locations:
-        if location not in route_map:
+        if location not in known_locations:
             raise ValueError(f"unknown allowed location: {location}")
-        encounter_data = route_map[location]
+        encounter_data = route_map.get(location, {})
         for source in ("grass_caves", "egg", "game_corner", "static", "fossil"):
             for pokemon_name in encounter_data.get(source, []):
                 direct_species_ids.add(route_pokemon_species_ids[pokemon_name])
@@ -104,8 +147,11 @@ def main() -> None:
     available_hm_names = set()
     known_hm_names = {
         move_name
-        for location_data in route_move_map.values()
-        for move_name in location_data["hms"]
+        for location, location_data in route_move_map.items()
+        for move_name, _ in (
+            move_source_entry(entry, f"{location}.hms")
+            for entry in location_data["hms"]
+        )
     }
     for location in allowed_locations:
         for route_source, learnset_source in (
@@ -113,7 +159,12 @@ def main() -> None:
             ("hms", "tm_hm"),
             ("tutors", "tutor"),
         ):
-            for move_name in route_move_map.get(location, {}).get(route_source, []):
+            for entry in route_move_map.get(location, {}).get(route_source, []):
+                move_name, unlocked_after = move_source_entry(
+                    entry, f"{location}.{route_source}"
+                )
+                if not unlocked(unlocked_after):
+                    continue
                 resolved_move_name = move_name_aliases.get(move_name, move_name)
                 if resolved_move_name not in move_ids_by_name:
                     raise ValueError(
@@ -124,6 +175,43 @@ def main() -> None:
                 )
                 if route_source == "hms":
                     available_hm_names.add(resolved_move_name)
+
+    for location in allowed_locations:
+        field_move_gates = route_move_map.get(location, {}).get(
+            "field_move_gates", {}
+        )
+        if not isinstance(field_move_gates, dict):
+            raise ValueError(f"invalid field move gates at {location}")
+        for requirement, sources in field_move_gates.items():
+            if requirement not in known_hm_names:
+                raise ValueError(f"unknown field move requirement at {location}: {requirement}")
+            if requirement not in available_hm_names:
+                continue
+            if not isinstance(sources, dict) or set(sources) != {
+                "tms", "hms", "tutors"
+            }:
+                raise ValueError(f"invalid field move sources at {location}: {requirement}")
+            for route_source, learnset_source in (
+                ("tms", "tm_hm"),
+                ("hms", "tm_hm"),
+                ("tutors", "tutor"),
+            ):
+                for entry in sources[route_source]:
+                    move_name, unlocked_after = move_source_entry(
+                        entry, f"{location}.field_move_gates.{requirement}.{route_source}"
+                    )
+                    if not unlocked(unlocked_after):
+                        continue
+                    resolved_move_name = move_name_aliases.get(move_name, move_name)
+                    if resolved_move_name not in move_ids_by_name:
+                        raise ValueError(
+                            f"unknown {route_source[:-1]} move at {location}: {move_name}"
+                        )
+                    available_move_ids[learnset_source].add(
+                        move_ids_by_name[resolved_move_name]
+                    )
+                    if route_source == "hms":
+                        available_hm_names.add(resolved_move_name)
 
     items_by_id = {item["id"]: item for item in items}
     if len(items_by_id) != len(items):
@@ -169,25 +257,21 @@ def main() -> None:
             if not isinstance(item_entries, list):
                 raise ValueError(f"invalid item list at {location}: {requirement}")
             for item_entry in item_entries:
-                if isinstance(item_entry, str):
-                    matching_item_ids = item_ids_by_name.get(item_entry, [])
+                item_name, item_id, unlocked_after = item_source_entry(
+                    item_entry, f"{location}.{requirement}"
+                )
+                if not unlocked(unlocked_after):
+                    continue
+                if item_id is None:
+                    matching_item_ids = item_ids_by_name.get(item_name, [])
                     if len(matching_item_ids) != 1:
                         raise ValueError(
-                            f"ambiguous or unknown item at {location}: {item_entry}"
+                            f"ambiguous or unknown item at {location}: {item_name}"
                         )
                     item_counts[matching_item_ids[0]] += 1
                     continue
                 if (
-                    not isinstance(item_entry, dict)
-                    or set(item_entry) != {"name", "id"}
-                ):
-                    raise ValueError(f"invalid item entry at {location}: {item_entry}")
-                item_id = item_entry["id"]
-                item_name = item_entry["name"]
-                if (
-                    type(item_id) is not int
-                    or not isinstance(item_name, str)
-                    or item_id not in items_by_id
+                    item_id not in items_by_id
                     or items_by_id[item_id]["name"] != item_name
                 ):
                     raise ValueError(f"invalid item entry at {location}: {item_entry}")

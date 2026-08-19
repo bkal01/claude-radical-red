@@ -1,12 +1,82 @@
 [
   null,
+  {
+    "name": "Bulbasaur",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 49,
+      "def": 49,
+      "spe": 45,
+      "spa": 65,
+      "spdef": 65
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        65
+      ],
+      "hidden": 34
+    },
+    "minimum_level": 1
+  },
   null,
   null,
+  {
+    "name": "Charmander",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 39,
+      "atk": 52,
+      "def": 43,
+      "spe": 65,
+      "spa": 60,
+      "spdef": 50
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        66
+      ],
+      "hidden": 96
+    },
+    "minimum_level": 1
+  },
   null,
   null,
-  null,
-  null,
-  null,
+  {
+    "name": "Squirtle",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 44,
+      "atk": 48,
+      "def": 65,
+      "spe": 43,
+      "spa": 50,
+      "spdef": 64
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        67
+      ],
+      "hidden": 44
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   {
@@ -607,13 +677,82 @@
   null,
   null,
   null,
+  {
+    "name": "Chikorita",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 49,
+      "def": 65,
+      "spe": 45,
+      "spa": 49,
+      "spdef": 65
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        65
+      ],
+      "hidden": 203
+    },
+    "minimum_level": 1
+  },
   null,
   null,
+  {
+    "name": "Cyndaquil",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 39,
+      "atk": 52,
+      "def": 43,
+      "spe": 65,
+      "spa": 60,
+      "spdef": 50
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        66
+      ],
+      "hidden": 18
+    },
+    "minimum_level": 1
+  },
   null,
   null,
-  null,
-  null,
-  null,
+  {
+    "name": "Totodile",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 65,
+      "def": 64,
+      "spe": 43,
+      "spa": 44,
+      "spdef": 48
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        92
+      ],
+      "hidden": 129
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   {
@@ -1024,13 +1163,82 @@
   null,
   null,
   null,
+  {
+    "name": "Treecko",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 40,
+      "atk": 45,
+      "def": 35,
+      "spe": 70,
+      "spa": 65,
+      "spdef": 55
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        65
+      ],
+      "hidden": 139
+    },
+    "minimum_level": 1
+  },
   null,
   null,
+  {
+    "name": "Torchic",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 60,
+      "def": 40,
+      "spe": 45,
+      "spa": 70,
+      "spdef": 50
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        48
+      ],
+      "hidden": 3
+    },
+    "minimum_level": 1
+  },
   null,
   null,
-  null,
-  null,
-  null,
+  {
+    "name": "Mudkip",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 70,
+      "def": 50,
+      "spe": 40,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        67
+      ],
+      "hidden": 6
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   {
@@ -1593,13 +1801,83 @@
   null,
   null,
   null,
+  {
+    "name": "Turtwig",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 68,
+      "def": 64,
+      "spe": 31,
+      "spa": 45,
+      "spdef": 55
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        65,
+        235
+      ],
+      "hidden": 69
+    },
+    "minimum_level": 1
+  },
   null,
   null,
+  {
+    "name": "Chimchar",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 44,
+      "atk": 58,
+      "def": 44,
+      "spe": 61,
+      "spa": 58,
+      "spdef": 44
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        66
+      ],
+      "hidden": 93
+    },
+    "minimum_level": 1
+  },
   null,
   null,
-  null,
-  null,
-  null,
+  {
+    "name": "Piplup",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 53,
+      "atk": 51,
+      "def": 53,
+      "spe": 40,
+      "spa": 61,
+      "spdef": 56
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        67
+      ],
+      "hidden": 143
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   {
@@ -1941,13 +2219,83 @@
   null,
   null,
   null,
+  {
+    "name": "Snivy",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 45,
+      "def": 55,
+      "spe": 63,
+      "spa": 45,
+      "spdef": 55
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        65
+      ],
+      "hidden": 191
+    },
+    "minimum_level": 1
+  },
   null,
   null,
+  {
+    "name": "Tepig",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 65,
+      "atk": 63,
+      "def": 45,
+      "spe": 45,
+      "spa": 45,
+      "spdef": 45
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        66
+      ],
+      "hidden": 47
+    },
+    "minimum_level": 1
+  },
   null,
   null,
-  null,
-  null,
-  null,
+  {
+    "name": "Oshawott",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 55,
+      "def": 45,
+      "spe": 45,
+      "spa": 63,
+      "spdef": 45
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        67,
+        4
+      ],
+      "hidden": 4
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   {
@@ -2487,13 +2835,83 @@
   null,
   null,
   null,
+  {
+    "name": "Chespin",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 56,
+      "atk": 61,
+      "def": 65,
+      "spe": 38,
+      "spa": 48,
+      "spdef": 45
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        116
+      ],
+      "hidden": 123
+    },
+    "minimum_level": 1
+  },
   null,
   null,
+  {
+    "name": "Fennekin",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 40,
+      "atk": 45,
+      "def": 40,
+      "spe": 60,
+      "spa": 62,
+      "spdef": 60
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        66
+      ],
+      "hidden": 115
+    },
+    "minimum_level": 1
+  },
   null,
   null,
-  null,
-  null,
-  null,
+  {
+    "name": "Froakie",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 41,
+      "atk": 56,
+      "def": 40,
+      "spe": 71,
+      "spa": 62,
+      "spdef": 44
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        67,
+        67
+      ],
+      "hidden": 150
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -2843,6 +3261,82 @@
   null,
   null,
   null,
+  {
+    "name": "Sprigatito",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 40,
+      "atk": 61,
+      "def": 54,
+      "spe": 65,
+      "spa": 45,
+      "spdef": 45
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        65
+      ],
+      "hidden": 150
+    },
+    "minimum_level": 1
+  },
+  null,
+  null,
+  {
+    "name": "Fuecoco",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 67,
+      "atk": 45,
+      "def": 59,
+      "spe": 36,
+      "spa": 63,
+      "spdef": 40
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        66
+      ],
+      "hidden": 141
+    },
+    "minimum_level": 1
+  },
+  null,
+  null,
+  {
+    "name": "Quaxly",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 65,
+      "def": 45,
+      "spe": 50,
+      "spa": 50,
+      "spdef": 45
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        67
+      ],
+      "hidden": 118
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -2854,20 +3348,84 @@
   null,
   null,
   null,
+  {
+    "name": "Rowlet",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Flying"
+    ],
+    "base_stats": {
+      "hp": 68,
+      "atk": 55,
+      "def": 55,
+      "spe": 42,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        65,
+        65
+      ],
+      "hidden": 99
+    },
+    "minimum_level": 1
+  },
   null,
   null,
+  {
+    "name": "Litten",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 65,
+      "def": 40,
+      "spe": 70,
+      "spa": 60,
+      "spdef": 40
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        66
+      ],
+      "hidden": 22
+    },
+    "minimum_level": 1
+  },
   null,
   null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "name": "Popplio",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 54,
+      "def": 54,
+      "spe": 40,
+      "spa": 66,
+      "spdef": 56
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        67
+      ],
+      "hidden": 218
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   {
@@ -3220,13 +3778,82 @@
   null,
   null,
   null,
+  {
+    "name": "Grookey",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 65,
+      "def": 50,
+      "spe": 65,
+      "spa": 40,
+      "spdef": 40
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        65
+      ],
+      "hidden": 182
+    },
+    "minimum_level": 1
+  },
   null,
   null,
+  {
+    "name": "Scorbunny",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 71,
+      "def": 40,
+      "spe": 69,
+      "spa": 40,
+      "spdef": 40
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        66
+      ],
+      "hidden": 150
+    },
+    "minimum_level": 1
+  },
   null,
   null,
-  null,
-  null,
-  null,
+  {
+    "name": "Sobble",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 40,
+      "def": 40,
+      "spe": 70,
+      "spa": 70,
+      "spdef": 40
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        67
+      ],
+      "hidden": 85
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   {
