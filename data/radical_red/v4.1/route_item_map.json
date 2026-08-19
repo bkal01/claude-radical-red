@@ -1,216 +1,404 @@
 {
   "berry_forest": {
     "items": [
-      "Ground Gem"
+      {
+        "name": "Ground Gem",
+        "unlocked_after": 0
+      }
     ]
   },
   "celadon_city": {
     "items": [
-      "Amulet Coin",
-      "BlackGlasses",
-      "Loaded Dice",
-      "Wide Lens",
-      "Red Card"
+      {
+        "name": "Amulet Coin",
+        "unlocked_after": 0
+      },
+      {
+        "name": "BlackGlasses",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Loaded Dice",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Wide Lens",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Red Card",
+        "unlocked_after": 0
+      }
     ],
     "Surf": [
-      "Light Clay"
+      {
+        "name": "Light Clay",
+        "unlocked_after": 0
+      }
     ]
   },
   "cerulean_cave_b1f": {
     "items": [
-      "Boost Energy"
+      {
+        "name": "Boost Energy",
+        "unlocked_after": 0
+      }
     ]
   },
   "cerulean_city": {
     "items": [
-      "Punch Glove"
+      {
+        "name": "Punch Glove",
+        "unlocked_after": 0
+      }
     ]
   },
   "cinnabar_island": {
     "items": [
-      "Choice Band",
-      "Soul Dew",
-      "Choice Specs",
-      "Assault Vest"
+      {
+        "name": "Choice Band",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Soul Dew",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Choice Specs",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Assault Vest",
+        "unlocked_after": 0
+      }
     ]
   },
   "fuchsia_city": {
     "items": [
-      "Life Orb"
+      {
+        "name": "Life Orb",
+        "unlocked_after": 0
+      }
     ]
   },
   "kindle_road": {
     "items": [
-      "Bug Gem"
+      {
+        "name": "Bug Gem",
+        "unlocked_after": 0
+      }
     ]
   },
   "lavender_town": {
     "items": [
-      "Soothe Bell",
-      "Shed Shell"
+      {
+        "name": "Soothe Bell",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Shed Shell",
+        "unlocked_after": 0
+      }
     ]
   },
   "mansion_4f": {
     "items": [
-      "Hearth. Mask"
+      {
+        "name": "Hearth. Mask",
+        "unlocked_after": 0
+      }
     ]
   },
   "mt_moon_1f": {
     "items": [
-      "Muscle Band"
+      {
+        "name": "Muscle Band",
+        "unlocked_after": 0
+      }
     ]
   },
   "mt_moon_b2f": {
     "items": [],
     "Rock Smash": [
-      "Scope Lens"
+      {
+        "name": "Scope Lens",
+        "unlocked_after": 0
+      }
     ]
   },
   "pkmn_tower_3_5f": {
     "items": [
-      "Cleanse Tag"
+      {
+        "name": "Cleanse Tag",
+        "unlocked_after": 0
+      }
     ]
   },
   "pkmn_tower_6f": {
     "items": [
-      "Thick Club"
+      {
+        "name": "Thick Club",
+        "unlocked_after": 0
+      }
     ]
   },
   "pkmn_tower_9f": {
     "items": [
-      "Ghost Gem"
+      {
+        "name": "Ghost Gem",
+        "unlocked_after": 0
+      }
     ]
   },
   "power_plant": {
     "items": [
       {
         "name": "Electirizer",
-        "id": 620
+        "id": 620,
+        "unlocked_after": 0
       },
-      "Corner. Mask",
-      "Eject Button"
+      {
+        "name": "Corner. Mask",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Eject Button",
+        "unlocked_after": 0
+      }
     ]
   },
   "rock_tunnel_1f": {
     "items": [
-      "Safe Goggles"
+      {
+        "name": "Safe Goggles",
+        "unlocked_after": 0
+      }
     ]
   },
   "rock_tunnel_secret": {
     "items": [],
     "Strength": [
-      "Steel Gem"
+      {
+        "name": "Steel Gem",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_10": {
     "items": [
-      "Cheri Berry",
-      "Persim Berry",
-      "Everstone"
+      {
+        "name": "Cheri Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Persim Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Everstone",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_11": {
     "items": [
-      "Soft Sand",
-      "Normal Gem"
+      {
+        "name": "Soft Sand",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Normal Gem",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_12": {
     "items": [
-      "Leftovers"
+      {
+        "name": "Leftovers",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_13": {
     "items": [
-      "Burnt Seed"
+      {
+        "name": "Burnt Seed",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_15": {
     "items": [
-      "Power Herb",
-      "Toxic Orb",
-      "Flame Orb"
+      {
+        "name": "Power Herb",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Toxic Orb",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Flame Orb",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_16": {
     "items": [
-      "Leftovers"
+      {
+        "name": "Leftovers",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_2": {
     "items": [
-      "Oran Berry"
+      {
+        "name": "Oran Berry",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_20": {
     "items": [
-      "Choice Scarf"
+      {
+        "name": "Choice Scarf",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_23": {
     "items": [
-      "Aspear Berry",
-      "Leppa Berry",
-      "Lum Berry",
-      "Sitrus Berry"
+      {
+        "name": "Aspear Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Leppa Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Lum Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Sitrus Berry",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_24": {
     "items": [
-      "Pecha Berry"
+      {
+        "name": "Pecha Berry",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_25": {
     "items": [
-      "Oran Berry"
+      {
+        "name": "Oran Berry",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_3": {
     "items": [
-      "Oran Berry"
+      {
+        "name": "Oran Berry",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_4": {
     "items": [
-      "Persim Berry",
-      "Macho Brace"
+      {
+        "name": "Persim Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Macho Brace",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_6": {
     "items": [
-      "Sitrus Berry"
+      {
+        "name": "Sitrus Berry",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_8": {
     "items": [
-      "Rawst Berry",
-      "Leppa Berry",
-      "Lum Berry"
+      {
+        "name": "Rawst Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Leppa Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Lum Berry",
+        "unlocked_after": 0
+      }
     ]
   },
   "route_9": {
     "items": [
-      "Chesto Berry"
+      {
+        "name": "Chesto Berry",
+        "unlocked_after": 0
+      }
     ]
   },
   "s_s_anne": {
     "items": [
-      "Cheri Berry",
-      "Chesto Berry",
-      "Pecha Berry",
-      "Lucky Egg"
+      {
+        "name": "Cheri Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Chesto Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Pecha Berry",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Lucky Egg",
+        "unlocked_after": 0
+      }
     ]
   },
   "saffron_city": {
     "items": [
       {
         "name": "Upgrade",
-        "id": 619
+        "id": 619,
+        "unlocked_after": 0
       },
-      "Expert Belt",
-      "Focus Sash",
-      "Metronome",
-      "Protect Pads"
+      {
+        "name": "Expert Belt",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Focus Sash",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Metronome",
+        "unlocked_after": 0
+      },
+      {
+        "name": "Protect Pads",
+        "unlocked_after": 0
+      }
     ]
   },
   "safari_zone": {
@@ -218,39 +406,58 @@
     "Surf": [
       {
         "name": "Magmarizer",
-        "id": 626
+        "id": 626,
+        "unlocked_after": 0
       }
     ]
   },
   "seafoam_1f": {
     "items": [
-      "Well. Mask"
+      {
+        "name": "Well. Mask",
+        "unlocked_after": 0
+      }
     ]
   },
   "seafoam_b3f": {
     "items": [
-      "Blue Orb"
+      {
+        "name": "Blue Orb",
+        "unlocked_after": 0
+      }
     ]
   },
   "three_island": {
     "items": [],
     "Cut": [
-      "Grass Gem"
+      {
+        "name": "Grass Gem",
+        "unlocked_after": 0
+      }
     ]
   },
   "treasure_beach": {
     "items": [
-      "Rock Gem"
+      {
+        "name": "Rock Gem",
+        "unlocked_after": 0
+      }
     ]
   },
   "victory_road_2f": {
     "items": [
-      "HeavyDBoots"
+      {
+        "name": "HeavyDBoots",
+        "unlocked_after": 0
+      }
     ]
   },
   "viridian_city": {
     "items": [
-      "Wise Glasses"
+      {
+        "name": "Wise Glasses",
+        "unlocked_after": 0
+      }
     ]
   }
 }
