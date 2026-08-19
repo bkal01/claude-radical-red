@@ -1,0 +1,15 @@
+{
+  "game_data_version": "v4.1",
+  "allowed_species_count": 552,
+  "available_tm_hm_move_count": 31,
+  "available_tutor_move_count": 12,
+  "available_hms": [
+    "Cut",
+    "Flash"
+  ],
+  "allowed_item_count": 14,
+  "egg_move_tutor_available": false,
+  "excluded_species_categories": [
+    "mega"
+  ]
+}
