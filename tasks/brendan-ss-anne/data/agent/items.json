@@ -1,0 +1,56 @@
+[
+  {
+    "id": 135,
+    "name": "Pecha Berry",
+    "description": "When held by a Pokémon, it will be used in battle to cure poison.",
+    "count": 1
+  },
+  {
+    "id": 139,
+    "name": "Oran Berry",
+    "description": "When held by a Pokémon, it will be used in battle to restore 10 HP.",
+    "count": 3
+  },
+  {
+    "id": 140,
+    "name": "Persim Berry",
+    "description": "When held by a Pokémon, it will be used in battle to lift confusion.",
+    "count": 1
+  },
+  {
+    "id": 142,
+    "name": "Sitrus Berry",
+    "description": "When held by a Pokémon, it will be used in battle to restore 25% HP.",
+    "count": 1
+  },
+  {
+    "id": 181,
+    "name": "Macho Brace",
+    "description": "An item to be held by a Pokémon. It promotes strong growth but lowers Speed while it is held.",
+    "count": 1
+  },
+  {
+    "id": 674,
+    "name": "Muscle Band",
+    "description": "An item to be held by a Pokémon. It is a headband that slightly boosts the power of physical moves.",
+    "count": 1
+  },
+  {
+    "id": 675,
+    "name": "Wise Glasses",
+    "description": "An item to be held by a Pokémon. This thick pair of glasses slightly boosts the power of special moves.",
+    "count": 1
+  },
+  {
+    "id": 703,
+    "name": "Air Balloon",
+    "description": "An item to be held by a Pokémon. The holder floats in the air until hit. Once hit, this item will burst.",
+    "count": 1
+  },
+  {
+    "id": 747,
+    "name": "Punch Glove",
+    "description": "A held item that boosts the power of punching moves and prevents direct contact with targets.",
+    "count": 1
+  }
+]
