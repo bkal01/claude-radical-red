@@ -155,38 +155,38 @@
     },
     {
       "task_id": 31,
-      "trainer": "Ace Cole",
-      "location": "Route 8"
-    },
-    {
-      "task_id": 32,
-      "trainer": "Beauty Sam",
-      "location": "Celadon City Hotel"
-    },
-    {
-      "task_id": 33,
-      "trainer": "Beauty Shelly",
-      "location": "Celadon City Hotel"
-    },
-    {
-      "task_id": 34,
       "trainer": "Ghost",
       "location": "Pokemon Tower"
     },
     {
-      "task_id": 35,
+      "task_id": 32,
       "trainer": "Rival",
       "location": "Silph Co."
     },
     {
-      "task_id": 36,
+      "task_id": 33,
       "trainer": "Ariana & Archer",
       "location": "Silph Co."
     },
     {
-      "task_id": 37,
+      "task_id": 34,
       "trainer": "Giovanni",
       "location": "Silph Co."
+    },
+    {
+      "task_id": 35,
+      "trainer": "Ace Cole",
+      "location": "Route 8"
+    },
+    {
+      "task_id": 36,
+      "trainer": "Beauty Sam",
+      "location": "Celadon City Hotel"
+    },
+    {
+      "task_id": 37,
+      "trainer": "Beauty Shelly",
+      "location": "Celadon City Hotel"
     },
     {
       "task_id": 38,
