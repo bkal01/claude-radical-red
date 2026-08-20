@@ -60,6 +60,18 @@
     "count": 1
   },
   {
+    "id": 184,
+    "name": "Soothe Bell",
+    "description": "An item to be held by a Pokémon. A bell with a comforting chime that makes the holder calm and friendly.",
+    "count": 1
+  },
+  {
+    "id": 189,
+    "name": "Amulet Coin",
+    "description": "A held item that doubles battle money if the holding Pokémon is in the party.",
+    "count": 1
+  },
+  {
     "id": 195,
     "name": "Everstone",
     "description": "An item to be held by a Pokémon. The holding Pokémon is prevented from evolving.",
@@ -78,9 +90,27 @@
     "count": 1
   },
   {
+    "id": 206,
+    "name": "BlackGlasses",
+    "description": "An item to be held by a Pokémon. A shady-looking pair of glasses that boosts Dark-type moves.",
+    "count": 1
+  },
+  {
+    "id": 615,
+    "name": "Loaded Dice",
+    "description": "A item to be held by a Pokémon. It ensures the holder's multistrike moves hit more times.",
+    "count": 1
+  },
+  {
     "id": 655,
     "name": "Normal Gem",
     "description": "A gem with an ordinary essence. When held, it strengthens the power of a Normal-type move once.",
+    "count": 1
+  },
+  {
+    "id": 673,
+    "name": "Wide Lens",
+    "description": "An item to be held by a Pokémon. It is a magnifying lens that boosts the accuracy of moves.",
     "count": 1
   },
   {
@@ -96,9 +126,21 @@
     "count": 1
   },
   {
+    "id": 698,
+    "name": "Shed Shell",
+    "description": "An item to be held by a Pokémon. This carapace enables the holder to switch out of battle without fail.",
+    "count": 1
+  },
+  {
     "id": 703,
     "name": "Air Balloon",
     "description": "An item to be held by a Pokémon. The holder floats in the air until hit. Once hit, this item will burst.",
+    "count": 1
+  },
+  {
+    "id": 704,
+    "name": "Red Card",
+    "description": "An item to be held by a Pokémon. If the holder is hit by an attack, the attacker is removed from battle.",
     "count": 1
   },
   {

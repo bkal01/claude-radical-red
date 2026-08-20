@@ -42,6 +42,12 @@
     "count": 1
   },
   {
+    "id": 184,
+    "name": "Soothe Bell",
+    "description": "An item to be held by a Pokémon. A bell with a comforting chime that makes the holder calm and friendly.",
+    "count": 1
+  },
+  {
     "id": 195,
     "name": "Everstone",
     "description": "An item to be held by a Pokémon. The holding Pokémon is prevented from evolving.",
@@ -75,6 +81,12 @@
     "id": 675,
     "name": "Wise Glasses",
     "description": "An item to be held by a Pokémon. This thick pair of glasses slightly boosts the power of special moves.",
+    "count": 1
+  },
+  {
+    "id": 698,
+    "name": "Shed Shell",
+    "description": "An item to be held by a Pokémon. This carapace enables the holder to switch out of battle without fail.",
     "count": 1
   },
   {
