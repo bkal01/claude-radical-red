@@ -620,7 +620,31 @@
     },
     "minimum_level": 2
   },
-  null,
+  {
+    "name": "Raichu",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric",
+      "Normal"
+    ],
+    "base_stats": {
+      "hp": 60,
+      "atk": 90,
+      "def": 55,
+      "spe": 100,
+      "spa": 90,
+      "spdef": 80
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        9
+      ],
+      "hidden": 31
+    },
+    "minimum_level": 2
+  },
   {
     "name": "Sandshrew",
     "form": null,
@@ -719,7 +743,32 @@
     },
     "minimum_level": 16
   },
-  null,
+  {
+    "name": "Nidoqueen",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Poison",
+      "Ground"
+    ],
+    "base_stats": {
+      "hp": 90,
+      "atk": 82,
+      "def": 87,
+      "spe": 76,
+      "spa": 75,
+      "spdef": 85
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        209,
+        94
+      ],
+      "hidden": 92
+    },
+    "minimum_level": 16
+  },
   {
     "name": "Nidoran♂",
     "form": null,
@@ -770,7 +819,32 @@
     },
     "minimum_level": 16
   },
-  null,
+  {
+    "name": "Nidoking",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Poison",
+      "Ground"
+    ],
+    "base_stats": {
+      "hp": 81,
+      "atk": 92,
+      "def": 77,
+      "spe": 85,
+      "spa": 85,
+      "spdef": 75
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        209,
+        94
+      ],
+      "hidden": 92
+    },
+    "minimum_level": 16
+  },
   {
     "name": "Clefairy",
     "form": null,
@@ -796,7 +870,31 @@
     },
     "minimum_level": 2
   },
-  null,
+  {
+    "name": "Clefable",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 95,
+      "atk": 70,
+      "def": 73,
+      "spe": 60,
+      "spa": 85,
+      "spdef": 90
+    },
+    "growth_rate": "fast",
+    "abilities": {
+      "normal": [
+        56,
+        115
+      ],
+      "hidden": 141
+    },
+    "minimum_level": 2
+  },
   {
     "name": "Vulpix",
     "form": null,
@@ -821,7 +919,30 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Ninetales",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 73,
+      "atk": 76,
+      "def": 75,
+      "spe": 100,
+      "spa": 81,
+      "spdef": 100
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        18
+      ],
+      "hidden": 70
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Jigglypuff",
     "form": null,
@@ -848,7 +969,32 @@
     },
     "minimum_level": 2
   },
-  null,
+  {
+    "name": "Wigglytuff",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Normal",
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 140,
+      "atk": 70,
+      "def": 45,
+      "spe": 45,
+      "spa": 75,
+      "spdef": 50
+    },
+    "growth_rate": "fast",
+    "abilities": {
+      "normal": [
+        92,
+        143
+      ],
+      "hidden": 190
+    },
+    "minimum_level": 2
+  },
   {
     "name": "Zubat",
     "form": null,
@@ -951,7 +1097,31 @@
     },
     "minimum_level": 16
   },
-  null,
+  {
+    "name": "Vileplume",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 80,
+      "def": 85,
+      "spe": 50,
+      "spa": 100,
+      "spdef": 90
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        34
+      ],
+      "hidden": 27
+    },
+    "minimum_level": 16
+  },
   {
     "name": "Paras",
     "form": null,
@@ -1282,10 +1452,107 @@
     },
     "minimum_level": 1
   },
-  null,
-  null,
-  null,
-  null,
+  {
+    "name": "Arcanine",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 90,
+      "atk": 110,
+      "def": 80,
+      "spe": 95,
+      "spa": 100,
+      "spdef": 80
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        22,
+        18
+      ],
+      "hidden": 198
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Poliwag",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 40,
+      "atk": 50,
+      "def": 40,
+      "spe": 90,
+      "spa": 40,
+      "spdef": 40
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        11,
+        6
+      ],
+      "hidden": 33
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Poliwhirl",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 65,
+      "atk": 65,
+      "def": 65,
+      "spe": 90,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        11,
+        6
+      ],
+      "hidden": 33
+    },
+    "minimum_level": 25
+  },
+  {
+    "name": "Poliwrath",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Fighting"
+    ],
+    "base_stats": {
+      "hp": 90,
+      "atk": 85,
+      "def": 95,
+      "spe": 70,
+      "spa": 70,
+      "spdef": 90
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        11,
+        6
+      ],
+      "hidden": 33
+    },
+    "minimum_level": 25
+  },
   {
     "name": "Abra",
     "form": null,
@@ -1336,7 +1603,31 @@
     },
     "minimum_level": 16
   },
-  null,
+  {
+    "name": "Alakazam",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 50,
+      "def": 45,
+      "spe": 120,
+      "spa": 135,
+      "spdef": 85
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        28,
+        39
+      ],
+      "hidden": 115
+    },
+    "minimum_level": 16
+  },
   {
     "name": "Machop",
     "form": null,
@@ -1387,7 +1678,31 @@
     },
     "minimum_level": 28
   },
-  null,
+  {
+    "name": "Machamp",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fighting"
+    ],
+    "base_stats": {
+      "hp": 90,
+      "atk": 130,
+      "def": 80,
+      "spe": 55,
+      "spa": 65,
+      "spdef": 85
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        62,
+        126
+      ],
+      "hidden": 196
+    },
+    "minimum_level": 28
+  },
   {
     "name": "Bellsprout",
     "form": null,
@@ -1438,7 +1753,31 @@
     },
     "minimum_level": 21
   },
-  null,
+  {
+    "name": "Victreebel",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "base_stats": {
+      "hp": 80,
+      "atk": 105,
+      "def": 65,
+      "spe": 70,
+      "spa": 100,
+      "spdef": 60
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        34
+      ],
+      "hidden": 222
+    },
+    "minimum_level": 21
+  },
   {
     "name": "Tentacool",
     "form": null,
@@ -1543,7 +1882,32 @@
     },
     "minimum_level": 23
   },
-  null,
+  {
+    "name": "Golem",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "base_stats": {
+      "hp": 80,
+      "atk": 110,
+      "def": 130,
+      "spe": 45,
+      "spa": 55,
+      "spdef": 65
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        69,
+        5
+      ],
+      "hidden": 8
+    },
+    "minimum_level": 23
+  },
   {
     "name": "Ponyta",
     "form": null,
@@ -1594,8 +1958,58 @@
     },
     "minimum_level": 28
   },
-  null,
-  null,
+  {
+    "name": "Slowpoke",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 90,
+      "atk": 65,
+      "def": 65,
+      "spe": 15,
+      "spa": 40,
+      "spdef": 40
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        12,
+        20
+      ],
+      "hidden": 86
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Slowbro",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 95,
+      "atk": 75,
+      "def": 110,
+      "spe": 30,
+      "spa": 100,
+      "spdef": 80
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        12,
+        20
+      ],
+      "hidden": 86
+    },
+    "minimum_level": 37
+  },
   {
     "name": "Magnemite",
     "form": null,
@@ -1803,7 +2217,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Cloyster",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Ice"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 95,
+      "def": 180,
+      "spe": 70,
+      "spa": 85,
+      "spdef": 45
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        4,
+        79
+      ],
+      "hidden": 114
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Gastly",
     "form": null,
@@ -1854,7 +2293,31 @@
     },
     "minimum_level": 23
   },
-  null,
+  {
+    "name": "Gengar",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ghost",
+      "Poison"
+    ],
+    "base_stats": {
+      "hp": 60,
+      "atk": 65,
+      "def": 60,
+      "spe": 110,
+      "spa": 130,
+      "spdef": 75
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        26
+      ],
+      "hidden": null
+    },
+    "minimum_level": 23
+  },
   {
     "name": "Onix",
     "form": null,
@@ -2056,7 +2519,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Exeggutor",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 95,
+      "atk": 95,
+      "def": 85,
+      "spe": 55,
+      "spa": 125,
+      "spdef": 65
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        34
+      ],
+      "hidden": 225
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Cubone",
     "form": null,
@@ -2364,7 +2851,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Starmie",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 60,
+      "atk": 75,
+      "def": 85,
+      "spe": 115,
+      "spa": 100,
+      "spdef": 85
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        30,
+        89
+      ],
+      "hidden": 125
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Mr. Mime",
     "form": null,
@@ -2683,8 +3195,54 @@
   null,
   null,
   null,
-  null,
-  null,
+  {
+    "name": "Dratini",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 41,
+      "atk": 64,
+      "def": 45,
+      "spe": 50,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        61
+      ],
+      "hidden": 63
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Dragonair",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 61,
+      "atk": 84,
+      "def": 65,
+      "spe": 70,
+      "spa": 70,
+      "spdef": 70
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        61
+      ],
+      "hidden": 63
+    },
+    "minimum_level": 30
+  },
   null,
   null,
   null,
@@ -3370,7 +3928,31 @@
     },
     "minimum_level": 30
   },
-  null,
+  {
+    "name": "Bellossom",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 80,
+      "def": 85,
+      "spe": 50,
+      "spa": 90,
+      "spdef": 100
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        34
+      ],
+      "hidden": null
+    },
+    "minimum_level": 16
+  },
   {
     "name": "Marill",
     "form": null,
@@ -3448,7 +4030,31 @@
     },
     "minimum_level": 2
   },
-  null,
+  {
+    "name": "Politoed",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 90,
+      "atk": 75,
+      "def": 75,
+      "spe": 70,
+      "spa": 90,
+      "spdef": 100
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        11,
+        6
+      ],
+      "hidden": 2
+    },
+    "minimum_level": 25
+  },
   {
     "name": "Hoppip",
     "form": null,
@@ -3577,7 +4183,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Sunflora",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 75,
+      "def": 55,
+      "spe": 30,
+      "spa": 105,
+      "spdef": 85
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        34,
+        96
+      ],
+      "hidden": 48
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Yanma",
     "form": null,
@@ -3684,7 +4314,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Slowking",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 95,
+      "atk": 75,
+      "def": 80,
+      "spe": 30,
+      "spa": 100,
+      "spdef": 110
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        12,
+        20
+      ],
+      "hidden": 86
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Misdreavus",
     "form": null,
@@ -3837,7 +4492,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Steelix",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Steel",
+      "Ground"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 85,
+      "def": 200,
+      "spe": 30,
+      "spa": 55,
+      "spdef": 65
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        69,
+        5
+      ],
+      "hidden": 92
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Snubbull",
     "form": null,
@@ -4276,7 +4956,32 @@
     },
     "minimum_level": 23
   },
-  null,
+  {
+    "name": "Kingdra",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 95,
+      "def": 95,
+      "spe": 85,
+      "spa": 95,
+      "spdef": 95
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        33,
+        85
+      ],
+      "hidden": 6
+    },
+    "minimum_level": 32
+  },
   {
     "name": "Phanpy",
     "form": null,
@@ -4325,7 +5030,31 @@
     },
     "minimum_level": 25
   },
-  null,
+  {
+    "name": "Porygon2",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Normal"
+    ],
+    "base_stats": {
+      "hp": 85,
+      "atk": 80,
+      "def": 90,
+      "spe": 60,
+      "spa": 105,
+      "spdef": 95
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        36,
+        103
+      ],
+      "hidden": 125
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Stantler",
     "form": null,
@@ -4506,8 +5235,56 @@
   null,
   null,
   null,
-  null,
-  null,
+  {
+    "name": "Larvitar",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 64,
+      "def": 50,
+      "spe": 41,
+      "spa": 45,
+      "spdef": 50
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        62
+      ],
+      "hidden": 8
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Pupitar",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 84,
+      "def": 70,
+      "spe": 51,
+      "spa": 65,
+      "spdef": 70
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        61
+      ],
+      "hidden": null
+    },
+    "minimum_level": 30
+  },
   null,
   null,
   null,
@@ -5032,7 +5809,32 @@
     },
     "minimum_level": 14
   },
-  null,
+  {
+    "name": "Ludicolo",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 80,
+      "atk": 70,
+      "def": 70,
+      "spe": 70,
+      "spa": 90,
+      "spdef": 100
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        33,
+        44
+      ],
+      "hidden": 20
+    },
+    "minimum_level": 14
+  },
   {
     "name": "Seedot",
     "form": null,
@@ -5084,7 +5886,32 @@
     },
     "minimum_level": 14
   },
-  null,
+  {
+    "name": "Shiftry",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Dark"
+    ],
+    "base_stats": {
+      "hp": 90,
+      "atk": 100,
+      "def": 60,
+      "spe": 80,
+      "spa": 90,
+      "spdef": 60
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        34,
+        16
+      ],
+      "hidden": 102
+    },
+    "minimum_level": 14
+  },
   {
     "name": "Nincada",
     "form": null,
@@ -5389,7 +6216,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Delcatty",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Normal"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 65,
+      "def": 65,
+      "spe": 70,
+      "spa": 55,
+      "spdef": 55
+    },
+    "growth_rate": "fast",
+    "abilities": {
+      "normal": [
+        56,
+        149
+      ],
+      "hidden": 138
+    },
+    "minimum_level": 1
+  },
   null,
   {
     "name": "Baltoy",
@@ -6534,8 +7385,56 @@
     },
     "minimum_level": 1
   },
-  null,
-  null,
+  {
+    "name": "Huntail",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Dark"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 104,
+      "def": 105,
+      "spe": 52,
+      "spa": 94,
+      "spdef": 75
+    },
+    "growth_rate": "erratic",
+    "abilities": {
+      "normal": [
+        22
+      ],
+      "hidden": 142
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Gorebyss",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water",
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 84,
+      "def": 105,
+      "spe": 52,
+      "spa": 114,
+      "spdef": 75
+    },
+    "growth_rate": "erratic",
+    "abilities": {
+      "normal": [
+        221
+      ],
+      "hidden": 86
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Absol",
     "form": null,
@@ -6997,12 +7896,130 @@
     },
     "minimum_level": 30
   },
+  {
+    "name": "Bagon",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 75,
+      "def": 60,
+      "spe": 50,
+      "spa": 40,
+      "spdef": 30
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        69
+      ],
+      "hidden": 92
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Shelgon",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 65,
+      "atk": 95,
+      "def": 100,
+      "spe": 50,
+      "spa": 60,
+      "spdef": 50
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        69
+      ],
+      "hidden": 114
+    },
+    "minimum_level": 30
+  },
   null,
-  null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "name": "Beldum",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 40,
+      "atk": 55,
+      "def": 80,
+      "spe": 30,
+      "spa": 35,
+      "spdef": 60
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        29
+      ],
+      "hidden": 42
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Metang",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 60,
+      "atk": 75,
+      "def": 100,
+      "spe": 50,
+      "spa": 55,
+      "spdef": 80
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        29
+      ],
+      "hidden": 128
+    },
+    "minimum_level": 20
+  },
+  {
+    "name": "Metagross",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Steel",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 80,
+      "atk": 135,
+      "def": 130,
+      "spe": 70,
+      "spa": 95,
+      "spdef": 90
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        29
+      ],
+      "hidden": 128
+    },
+    "minimum_level": 45
+  },
   null,
   null,
   null,
@@ -7564,7 +8581,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Roserade",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "base_stats": {
+      "hp": 60,
+      "atk": 70,
+      "def": 65,
+      "spe": 90,
+      "spa": 125,
+      "spdef": 105
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        30,
+        209
+      ],
+      "hidden": 82
+    },
+    "minimum_level": 2
+  },
   {
     "name": "Cranidos",
     "form": null,
@@ -8085,8 +9127,57 @@
     },
     "minimum_level": 2
   },
-  null,
-  null,
+  {
+    "name": "Mismagius",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ghost",
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 60,
+      "def": 70,
+      "spe": 105,
+      "spa": 105,
+      "spdef": 105
+    },
+    "growth_rate": "fast",
+    "abilities": {
+      "normal": [
+        26
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Honchkrow",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dark",
+      "Flying"
+    ],
+    "base_stats": {
+      "hp": 100,
+      "atk": 125,
+      "def": 52,
+      "spe": 96,
+      "spa": 105,
+      "spdef": 52
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        15,
+        84
+      ],
+      "hidden": 118
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Glameow",
     "form": null,
@@ -8319,8 +9410,56 @@
   null,
   null,
   null,
-  null,
-  null,
+  {
+    "name": "Gible",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon",
+      "Ground"
+    ],
+    "base_stats": {
+      "hp": 58,
+      "atk": 70,
+      "def": 45,
+      "spe": 42,
+      "spa": 40,
+      "spdef": 45
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        8
+      ],
+      "hidden": 123
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Gabite",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon",
+      "Ground"
+    ],
+    "base_stats": {
+      "hp": 68,
+      "atk": 90,
+      "def": 65,
+      "spe": 82,
+      "spa": 50,
+      "spdef": 55
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        8
+      ],
+      "hidden": 123
+    },
+    "minimum_level": 24
+  },
   null,
   null,
   {
@@ -8653,8 +9792,58 @@
     },
     "minimum_level": 36
   },
-  null,
-  null,
+  {
+    "name": "Weavile",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dark",
+      "Ice"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 120,
+      "def": 65,
+      "spe": 125,
+      "spa": 45,
+      "spdef": 85
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        46,
+        46
+      ],
+      "hidden": 102
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Magnezone",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric",
+      "Steel"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 70,
+      "def": 115,
+      "spe": 60,
+      "spa": 130,
+      "spdef": 90
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        42,
+        5
+      ],
+      "hidden": 125
+    },
+    "minimum_level": 30
+  },
   {
     "name": "Lickilicky",
     "form": null,
@@ -8680,11 +9869,109 @@
     },
     "minimum_level": 2
   },
+  {
+    "name": "Rhyperior",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ground",
+      "Rock"
+    ],
+    "base_stats": {
+      "hp": 115,
+      "atk": 140,
+      "def": 130,
+      "spe": 40,
+      "spa": 55,
+      "spdef": 55
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        31,
+        100
+      ],
+      "hidden": 91
+    },
+    "minimum_level": 42
+  },
   null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "name": "Electivire",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 123,
+      "def": 67,
+      "spe": 95,
+      "spa": 95,
+      "spdef": 85
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        80,
+        15
+      ],
+      "hidden": 93
+    },
+    "minimum_level": 27
+  },
+  {
+    "name": "Magmortar",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 80,
+      "def": 67,
+      "spe": 98,
+      "spa": 125,
+      "spdef": 95
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        49,
+        24
+      ],
+      "hidden": 127
+    },
+    "minimum_level": 27
+  },
+  {
+    "name": "Togekiss",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fairy",
+      "Flying"
+    ],
+    "base_stats": {
+      "hp": 85,
+      "atk": 50,
+      "def": 95,
+      "spe": 80,
+      "spa": 120,
+      "spdef": 115
+    },
+    "growth_rate": "fast",
+    "abilities": {
+      "normal": [
+        55,
+        32
+      ],
+      "hidden": 84
+    },
+    "minimum_level": 2
+  },
   {
     "name": "Yanmega",
     "form": null,
@@ -8713,7 +10000,32 @@
   },
   null,
   null,
-  null,
+  {
+    "name": "Gliscor",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ground",
+      "Flying"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 95,
+      "def": 125,
+      "spe": 95,
+      "spa": 45,
+      "spdef": 75
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        52,
+        8
+      ],
+      "hidden": 104
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Mamoswine",
     "form": null,
@@ -8739,12 +10051,134 @@
     },
     "minimum_level": 29
   },
+  {
+    "name": "Porygon-Z",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Normal"
+    ],
+    "base_stats": {
+      "hp": 85,
+      "atk": 80,
+      "def": 70,
+      "spe": 90,
+      "spa": 135,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        88,
+        103
+      ],
+      "hidden": 125
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Gallade",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Psychic",
+      "Fighting"
+    ],
+    "base_stats": {
+      "hp": 68,
+      "atk": 125,
+      "def": 65,
+      "spe": 80,
+      "spa": 65,
+      "spdef": 115
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        196,
+        243
+      ],
+      "hidden": 198
+    },
+    "minimum_level": 20
+  },
+  {
+    "name": "Probopass",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Rock",
+      "Steel"
+    ],
+    "base_stats": {
+      "hp": 65,
+      "atk": 45,
+      "def": 145,
+      "spe": 40,
+      "spa": 80,
+      "spdef": 150
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        5,
+        42
+      ],
+      "hidden": 26
+    },
+    "minimum_level": 1
+  },
   null,
-  null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "name": "Froslass",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ice",
+      "Ghost"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 95,
+      "def": 70,
+      "spe": 110,
+      "spa": 95,
+      "spdef": 70
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        105
+      ],
+      "hidden": 230
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Rotom",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric",
+      "Ghost"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 50,
+      "def": 77,
+      "spe": 91,
+      "spa": 95,
+      "spdef": 77
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        26
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -9181,7 +10615,30 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Simisage",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 98,
+      "def": 63,
+      "spe": 101,
+      "spa": 98,
+      "spdef": 63
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        222
+      ],
+      "hidden": 255
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Pansear",
     "form": null,
@@ -9206,7 +10663,30 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Simisear",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 98,
+      "def": 63,
+      "spe": 101,
+      "spa": 98,
+      "spdef": 63
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        222
+      ],
+      "hidden": 255
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Panpour",
     "form": null,
@@ -9231,7 +10711,30 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Simipour",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 98,
+      "def": 63,
+      "spe": 101,
+      "spa": 98,
+      "spdef": 63
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        222
+      ],
+      "hidden": 255
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Munna",
     "form": null,
@@ -9256,7 +10759,30 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Musharna",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 116,
+      "atk": 55,
+      "def": 85,
+      "spe": 29,
+      "spa": 107,
+      "spdef": 95
+    },
+    "growth_rate": "fast",
+    "abilities": {
+      "normal": [
+        28
+      ],
+      "hidden": 141
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Pidove",
     "form": null,
@@ -9435,7 +10961,31 @@
     },
     "minimum_level": 23
   },
-  null,
+  {
+    "name": "Gigalith",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Rock"
+    ],
+    "base_stats": {
+      "hp": 85,
+      "atk": 135,
+      "def": 130,
+      "spe": 25,
+      "spa": 60,
+      "spdef": 80
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        5,
+        45
+      ],
+      "hidden": 95
+    },
+    "minimum_level": 23
+  },
   {
     "name": "Woobat",
     "form": null,
@@ -9612,7 +11162,31 @@
     },
     "minimum_level": 25
   },
-  null,
+  {
+    "name": "Conkeldurr",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fighting"
+    ],
+    "base_stats": {
+      "hp": 105,
+      "atk": 140,
+      "def": 95,
+      "spe": 45,
+      "spa": 55,
+      "spdef": 65
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        62,
+        92
+      ],
+      "hidden": 93
+    },
+    "minimum_level": 25
+  },
   {
     "name": "Tympole",
     "form": null,
@@ -9922,7 +11496,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Whimsicott",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 60,
+      "atk": 67,
+      "def": 85,
+      "spe": 116,
+      "spa": 77,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        87,
+        102
+      ],
+      "hidden": 34
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Petilil",
     "form": null,
@@ -9948,7 +11547,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Lilligant",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 60,
+      "def": 75,
+      "spe": 90,
+      "spa": 110,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        34,
+        20
+      ],
+      "hidden": 203
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Basculin",
     "form": null,
@@ -10482,7 +12105,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Cinccino",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Normal"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 95,
+      "def": 60,
+      "spe": 115,
+      "spa": 65,
+      "spdef": 60
+    },
+    "growth_rate": "fast",
+    "abilities": {
+      "normal": [
+        56,
+        82
+      ],
+      "hidden": 79
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Gothita",
     "form": null,
@@ -10862,7 +12509,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Escavalier",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Bug",
+      "Steel"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 135,
+      "def": 105,
+      "spe": 20,
+      "spa": 60,
+      "spdef": 105
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        68,
+        4
+      ],
+      "hidden": 114
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Foongus",
     "form": null,
@@ -11119,7 +12791,30 @@
     },
     "minimum_level": 36
   },
-  null,
+  {
+    "name": "Eelektross",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric"
+    ],
+    "base_stats": {
+      "hp": 85,
+      "atk": 105,
+      "def": 80,
+      "spe": 50,
+      "spa": 115,
+      "spdef": 80
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        26
+      ],
+      "hidden": 75
+    },
+    "minimum_level": 36
+  },
   {
     "name": "Elgyem",
     "form": null,
@@ -11348,7 +13043,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Accelgor",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Bug"
+    ],
+    "base_stats": {
+      "hp": 80,
+      "atk": 70,
+      "def": 40,
+      "spe": 145,
+      "spa": 100,
+      "spdef": 60
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        107,
+        139
+      ],
+      "hidden": 92
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Stunfisk",
     "form": null,
@@ -11708,10 +13427,82 @@
     },
     "minimum_level": 1
   },
+  {
+    "name": "Deino",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dark",
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 52,
+      "atk": 65,
+      "def": 50,
+      "spe": 38,
+      "spa": 45,
+      "spdef": 50
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        55
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Zweilous",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dark",
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 72,
+      "atk": 85,
+      "def": 70,
+      "spe": 58,
+      "spa": 65,
+      "spdef": 70
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        55
+      ],
+      "hidden": null
+    },
+    "minimum_level": 44
+  },
   null,
-  null,
-  null,
-  null,
+  {
+    "name": "Larvesta",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Bug",
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 85,
+      "def": 55,
+      "spe": 60,
+      "spa": 50,
+      "spdef": 55
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        49
+      ],
+      "hidden": 68
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -11902,11 +13693,131 @@
     },
     "minimum_level": 32
   },
-  null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "name": "Rotom",
+    "form": "heat",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Fire"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 65,
+      "def": 107,
+      "spe": 86,
+      "spa": 105,
+      "spdef": 107
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        26
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Rotom",
+    "form": "wash",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 65,
+      "def": 107,
+      "spe": 86,
+      "spa": 105,
+      "spdef": 107
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        26
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Rotom",
+    "form": "frost",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Ice"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 65,
+      "def": 107,
+      "spe": 86,
+      "spa": 105,
+      "spdef": 107
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        26
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Rotom",
+    "form": "fan",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Flying"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 65,
+      "def": 107,
+      "spe": 86,
+      "spa": 105,
+      "spdef": 107
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        80
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Rotom",
+    "form": "mow",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 65,
+      "def": 107,
+      "spe": 86,
+      "spa": 105,
+      "spdef": 107
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        26
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -12621,7 +14532,30 @@
     },
     "minimum_level": 16
   },
-  null,
+  {
+    "name": "Florges",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 78,
+      "atk": 65,
+      "def": 68,
+      "spe": 75,
+      "spa": 112,
+      "spdef": 154
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        30
+      ],
+      "hidden": null
+    },
+    "minimum_level": 16
+  },
   {
     "name": "Skiddo",
     "form": null,
@@ -12795,9 +14729,81 @@
     },
     "minimum_level": 23
   },
-  null,
-  null,
-  null,
+  {
+    "name": "Honedge",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Steel",
+      "Ghost"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 80,
+      "def": 100,
+      "spe": 28,
+      "spa": 35,
+      "spdef": 37
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        243
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Doublade",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Steel",
+      "Ghost"
+    ],
+    "base_stats": {
+      "hp": 59,
+      "atk": 110,
+      "def": 150,
+      "spe": 35,
+      "spa": 45,
+      "spdef": 49
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        243
+      ],
+      "hidden": null
+    },
+    "minimum_level": 35
+  },
+  {
+    "name": "Aegislash",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Steel",
+      "Ghost"
+    ],
+    "base_stats": {
+      "hp": 60,
+      "atk": 50,
+      "def": 140,
+      "spe": 60,
+      "spa": 50,
+      "spdef": 140
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        211
+      ],
+      "hidden": null
+    },
+    "minimum_level": 35
+  },
   {
     "name": "Spritzee",
     "form": null,
@@ -12822,7 +14828,30 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Aromatisse",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 101,
+      "atk": 62,
+      "def": 82,
+      "spe": 29,
+      "spa": 99,
+      "spdef": 89
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        133
+      ],
+      "hidden": 201
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Swirlix",
     "form": null,
@@ -12847,7 +14876,30 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Slurpuff",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 82,
+      "atk": 90,
+      "def": 86,
+      "spe": 72,
+      "spa": 75,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        78
+      ],
+      "hidden": 139
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Inkay",
     "form": null,
@@ -13078,7 +15130,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Heliolisk",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric",
+      "Normal"
+    ],
+    "base_stats": {
+      "hp": 62,
+      "atk": 55,
+      "def": 52,
+      "spe": 109,
+      "spa": 109,
+      "spdef": 94
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        98,
+        8
+      ],
+      "hidden": 96
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Tyrunt",
     "form": null,
@@ -13232,8 +15309,56 @@
     },
     "minimum_level": 1
   },
-  null,
-  null,
+  {
+    "name": "Goomy",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 50,
+      "def": 35,
+      "spe": 40,
+      "spa": 55,
+      "spdef": 75
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        113,
+        107
+      ],
+      "hidden": 121
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Sliggoo",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 68,
+      "atk": 75,
+      "def": 53,
+      "spe": 60,
+      "spa": 83,
+      "spdef": 113
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        113,
+        107
+      ],
+      "hidden": 121
+    },
+    "minimum_level": 40
+  },
   null,
   null,
   {
@@ -13262,7 +15387,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Trevenant",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ghost",
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 85,
+      "atk": 120,
+      "def": 82,
+      "spe": 56,
+      "spa": 65,
+      "spdef": 82
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        30,
+        190
+      ],
+      "hidden": 225
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Pumpkaboo",
     "form": null,
@@ -13289,7 +15439,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Gourgeist",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ghost",
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 58,
+      "def": 122,
+      "spe": 99,
+      "spa": 85,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        53,
+        190
+      ],
+      "hidden": 147
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Bergmite",
     "form": null,
@@ -13720,9 +15895,84 @@
     },
     "minimum_level": 1
   },
-  null,
-  null,
-  null,
+  {
+    "name": "Gourgeist",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ghost",
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 85,
+      "atk": 58,
+      "def": 122,
+      "spe": 54,
+      "spa": 100,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        53,
+        190
+      ],
+      "hidden": 147
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Gourgeist",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ghost",
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 58,
+      "def": 122,
+      "spe": 69,
+      "spa": 95,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        53,
+        190
+      ],
+      "hidden": 147
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Gourgeist",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ghost",
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 65,
+      "atk": 58,
+      "def": 122,
+      "spe": 84,
+      "spa": 90,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        53,
+        190
+      ],
+      "hidden": 147
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Greavard",
     "form": null,
@@ -13796,7 +16046,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Bellibolt",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric"
+    ],
+    "base_stats": {
+      "hp": 109,
+      "atk": 64,
+      "def": 91,
+      "spe": 45,
+      "spa": 103,
+      "spdef": 83
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        204,
+        9
+      ],
+      "hidden": 6
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -14103,8 +16377,58 @@
   null,
   null,
   null,
-  null,
-  null,
+  {
+    "name": "Ceruledge",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire",
+      "Ghost"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 125,
+      "def": 80,
+      "spe": 85,
+      "spa": 60,
+      "spdef": 100
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        18,
+        193
+      ],
+      "hidden": 243
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Armarouge",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 85,
+      "atk": 60,
+      "def": 100,
+      "spe": 75,
+      "spa": 125,
+      "spdef": 80
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        18,
+        193
+      ],
+      "hidden": 127
+    },
+    "minimum_level": 1
+  },
   null,
   {
     "name": "Annihilape",
@@ -14558,7 +16882,31 @@
     },
     "minimum_level": 20
   },
-  null,
+  {
+    "name": "Vikavolt",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Bug",
+      "Electric"
+    ],
+    "base_stats": {
+      "hp": 77,
+      "atk": 70,
+      "def": 90,
+      "spe": 43,
+      "spa": 145,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        26
+      ],
+      "hidden": null
+    },
+    "minimum_level": 20
+  },
   {
     "name": "Crabrawler",
     "form": null,
@@ -15447,9 +17795,83 @@
     "minimum_level": 1
   },
   null,
-  null,
-  null,
-  null,
+  {
+    "name": "Jangmo-o",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 45,
+      "atk": 55,
+      "def": 65,
+      "spe": 45,
+      "spa": 45,
+      "spdef": 45
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        116,
+        43
+      ],
+      "hidden": 114
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Hakamo-o",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon",
+      "Fighting"
+    ],
+    "base_stats": {
+      "hp": 55,
+      "atk": 75,
+      "def": 90,
+      "spe": 65,
+      "spa": 65,
+      "spdef": 70
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        116,
+        43
+      ],
+      "hidden": 114
+    },
+    "minimum_level": 35
+  },
+  {
+    "name": "Kommo-o",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon",
+      "Fighting"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 110,
+      "def": 125,
+      "spe": 85,
+      "spa": 100,
+      "spdef": 105
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        116,
+        43
+      ],
+      "hidden": 114
+    },
+    "minimum_level": 45
+  },
   null,
   null,
   null,
@@ -15520,7 +17942,31 @@
     },
     "minimum_level": 16
   },
-  null,
+  {
+    "name": "Raichu",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 60,
+      "atk": 85,
+      "def": 50,
+      "spe": 110,
+      "spa": 95,
+      "spdef": 85
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        185
+      ],
+      "hidden": null
+    },
+    "minimum_level": 2
+  },
   {
     "name": "Sandshrew",
     "form": null,
@@ -15546,7 +17992,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Sandslash",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ice",
+      "Steel"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 110,
+      "def": 120,
+      "spe": 65,
+      "spa": 25,
+      "spdef": 65
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        171
+      ],
+      "hidden": 248
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Vulpix",
     "form": null,
@@ -15571,7 +18041,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Ninetales",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ice",
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 73,
+      "atk": 67,
+      "def": 75,
+      "spe": 109,
+      "spa": 81,
+      "spdef": 100
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        32
+      ],
+      "hidden": 111
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Diglett",
     "form": null,
@@ -15726,7 +18220,32 @@
     },
     "minimum_level": 23
   },
-  null,
+  {
+    "name": "Golem",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Rock",
+      "Electric"
+    ],
+    "base_stats": {
+      "hp": 80,
+      "atk": 120,
+      "def": 130,
+      "spe": 45,
+      "spa": 55,
+      "spdef": 65
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        69,
+        42
+      ],
+      "hidden": 237
+    },
+    "minimum_level": 23
+  },
   {
     "name": "Grimer",
     "form": null,
@@ -15780,7 +18299,31 @@
     "minimum_level": 40
   },
   null,
-  null,
+  {
+    "name": "Exeggutor",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 95,
+      "atk": 105,
+      "def": 85,
+      "spe": 45,
+      "spa": 125,
+      "spdef": 75
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        34
+      ],
+      "hidden": 225
+    },
+    "minimum_level": 1
+  },
   null,
   {
     "name": "Marowak",
@@ -15900,14 +18443,182 @@
   },
   null,
   null,
+  {
+    "name": "Pikachu",
+    "form": "surfing",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Water"
+    ],
+    "base_stats": {
+      "hp": 35,
+      "atk": 55,
+      "def": 40,
+      "spe": 90,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        9
+      ],
+      "hidden": 31
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Pikachu",
+    "form": "flying",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Flying"
+    ],
+    "base_stats": {
+      "hp": 35,
+      "atk": 55,
+      "def": 40,
+      "spe": 90,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        9
+      ],
+      "hidden": 31
+    },
+    "minimum_level": 1
+  },
   null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "name": "Pikachu",
+    "form": "libre",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Fighting"
+    ],
+    "base_stats": {
+      "hp": 35,
+      "atk": 55,
+      "def": 40,
+      "spe": 90,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        31
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Pikachu",
+    "form": "popstar",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Fairy"
+    ],
+    "base_stats": {
+      "hp": 35,
+      "atk": 55,
+      "def": 40,
+      "spe": 90,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        31
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Pikachu",
+    "form": "rockstar",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Steel"
+    ],
+    "base_stats": {
+      "hp": 35,
+      "atk": 55,
+      "def": 40,
+      "spe": 90,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        31
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Pikachu",
+    "form": "belle",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Ice"
+    ],
+    "base_stats": {
+      "hp": 35,
+      "atk": 55,
+      "def": 40,
+      "spe": 90,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        31
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Pikachu",
+    "form": "phd",
+    "source": "official",
+    "types": [
+      "Electric",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 35,
+      "atk": 55,
+      "def": 40,
+      "spe": 90,
+      "spa": 50,
+      "spdef": 50
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        31
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -16710,8 +19421,58 @@
     },
     "minimum_level": 1
   },
-  null,
-  null,
+  {
+    "name": "Flapple",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 110,
+      "def": 80,
+      "spe": 70,
+      "spa": 95,
+      "spdef": 60
+    },
+    "growth_rate": "erratic",
+    "abilities": {
+      "normal": [
+        249,
+        222
+      ],
+      "hidden": 55
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Appletun",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Dragon"
+    ],
+    "base_stats": {
+      "hp": 110,
+      "atk": 85,
+      "def": 80,
+      "spe": 30,
+      "spa": 100,
+      "spdef": 80
+    },
+    "growth_rate": "erratic",
+    "abilities": {
+      "normal": [
+        249,
+        222
+      ],
+      "hidden": 47
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Silicobra",
     "form": null,
@@ -16811,8 +19572,58 @@
     },
     "minimum_level": 26
   },
-  null,
-  null,
+  {
+    "name": "Toxel",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric",
+      "Poison"
+    ],
+    "base_stats": {
+      "hp": 40,
+      "atk": 38,
+      "def": 35,
+      "spe": 40,
+      "spa": 54,
+      "spdef": 35
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        31,
+        9
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Toxtricity",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric",
+      "Poison"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 98,
+      "def": 70,
+      "spe": 75,
+      "spa": 114,
+      "spdef": 70
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        246,
+        57
+      ],
+      "hidden": 82
+    },
+    "minimum_level": 30
+  },
   {
     "name": "Sizzlipede",
     "form": null,
@@ -16939,7 +19750,30 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Polteageist",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ghost"
+    ],
+    "base_stats": {
+      "hp": 60,
+      "atk": 65,
+      "def": 65,
+      "spe": 70,
+      "spa": 134,
+      "spdef": 114
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        193
+      ],
+      "hidden": 97
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Hatenna",
     "form": null,
@@ -17146,7 +19980,31 @@
     "minimum_level": 38
   },
   null,
-  null,
+  {
+    "name": "Mr. Rime",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ice",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 80,
+      "atk": 65,
+      "def": 75,
+      "spe": 100,
+      "spa": 110,
+      "spdef": 90
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        253
+      ],
+      "hidden": 105
+    },
+    "minimum_level": 42
+  },
   {
     "name": "Runerigus",
     "form": null,
@@ -17309,6 +20167,32 @@
   null,
   null,
   null,
+  {
+    "name": "Dreepy",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon",
+      "Ghost"
+    ],
+    "base_stats": {
+      "hp": 28,
+      "atk": 60,
+      "def": 30,
+      "spe": 82,
+      "spa": 40,
+      "spdef": 30
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        29,
+        102
+      ],
+      "hidden": 50
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -17323,12 +20207,84 @@
   null,
   null,
   null,
+  {
+    "name": "Toxtricity",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric",
+      "Poison"
+    ],
+    "base_stats": {
+      "hp": 75,
+      "atk": 98,
+      "def": 70,
+      "spe": 75,
+      "spa": 114,
+      "spdef": 70
+    },
+    "growth_rate": "medium_slow",
+    "abilities": {
+      "normal": [
+        246,
+        58
+      ],
+      "hidden": 82
+    },
+    "minimum_level": 30
+  },
   null,
   null,
-  null,
-  null,
-  null,
-  null,
+  {
+    "name": "Frigibax",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon",
+      "Ice"
+    ],
+    "base_stats": {
+      "hp": 65,
+      "atk": 75,
+      "def": 45,
+      "spe": 55,
+      "spa": 35,
+      "spdef": 45
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        175
+      ],
+      "hidden": 105
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Arctibax",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon",
+      "Ice"
+    ],
+    "base_stats": {
+      "hp": 90,
+      "atk": 95,
+      "def": 66,
+      "spe": 62,
+      "spa": 45,
+      "spdef": 65
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        175
+      ],
+      "hidden": 105
+    },
+    "minimum_level": 35
+  },
   null,
   {
     "name": "Toedscool",
@@ -17546,11 +20502,61 @@
   null,
   null,
   null,
+  {
+    "name": "Mr. Mime",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ice",
+      "Psychic"
+    ],
+    "base_stats": {
+      "hp": 50,
+      "atk": 65,
+      "def": 65,
+      "spe": 100,
+      "spa": 90,
+      "spdef": 90
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        253,
+        15
+      ],
+      "hidden": 105
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
-  null,
-  null,
+  {
+    "name": "Slowking",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Psychic",
+      "Poison"
+    ],
+    "base_stats": {
+      "hp": 95,
+      "atk": 65,
+      "def": 80,
+      "spe": 30,
+      "spa": 110,
+      "spdef": 110
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        12,
+        20
+      ],
+      "hidden": 86
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Corsola",
     "form": null,
@@ -17824,7 +20830,32 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Arcanine",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Fire",
+      "Rock"
+    ],
+    "base_stats": {
+      "hp": 95,
+      "atk": 125,
+      "def": 80,
+      "spe": 90,
+      "spa": 85,
+      "spdef": 80
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        22,
+        18
+      ],
+      "hidden": 69
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -17873,8 +20904,58 @@
     },
     "minimum_level": 1
   },
-  null,
-  null,
+  {
+    "name": "Electrode",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Electric",
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 60,
+      "atk": 55,
+      "def": 70,
+      "spe": 150,
+      "spa": 95,
+      "spdef": 80
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        43,
+        9
+      ],
+      "hidden": 91
+    },
+    "minimum_level": 1
+  },
+  {
+    "name": "Sliggoo",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Dragon",
+      "Steel"
+    ],
+    "base_stats": {
+      "hp": 58,
+      "atk": 75,
+      "def": 83,
+      "spe": 40,
+      "spa": 83,
+      "spdef": 113
+    },
+    "growth_rate": "slow",
+    "abilities": {
+      "normal": [
+        113,
+        114
+      ],
+      "hidden": 121
+    },
+    "minimum_level": 1
+  },
   null,
   {
     "name": "Typhlosion",
@@ -17954,7 +21035,32 @@
     "minimum_level": 36
   },
   null,
-  null,
+  {
+    "name": "Lilligant",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Grass",
+      "Fighting"
+    ],
+    "base_stats": {
+      "hp": 70,
+      "atk": 105,
+      "def": 75,
+      "spe": 105,
+      "spa": 50,
+      "spdef": 75
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        34,
+        55
+      ],
+      "hidden": 203
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Sneasel",
     "form": null,
@@ -18035,7 +21141,32 @@
   },
   null,
   null,
-  null,
+  {
+    "name": "Avalugg",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ice",
+      "Rock"
+    ],
+    "base_stats": {
+      "hp": 100,
+      "atk": 132,
+      "def": 184,
+      "spe": 28,
+      "spa": 34,
+      "spdef": 36
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        129,
+        5
+      ],
+      "hidden": 82
+    },
+    "minimum_level": 1
+  },
   null,
   null,
   null,
@@ -18421,7 +21552,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Cetitan",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ice"
+    ],
+    "base_stats": {
+      "hp": 170,
+      "atk": 113,
+      "def": 65,
+      "spe": 73,
+      "spa": 45,
+      "spdef": 55
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        47,
+        171
+      ],
+      "hidden": 92
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Tatsugiri",
     "form": null,
@@ -18864,7 +22019,31 @@
     },
     "minimum_level": 1
   },
-  null,
+  {
+    "name": "Sinistcha",
+    "form": null,
+    "source": "official",
+    "types": [
+      "Ghost",
+      "Grass"
+    ],
+    "base_stats": {
+      "hp": 71,
+      "atk": 60,
+      "def": 106,
+      "spe": 70,
+      "spa": 121,
+      "spdef": 80
+    },
+    "growth_rate": "medium_fast",
+    "abilities": {
+      "normal": [
+        97
+      ],
+      "hidden": null
+    },
+    "minimum_level": 1
+  },
   {
     "name": "Dipplin",
     "form": null,

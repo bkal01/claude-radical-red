@@ -46,6 +46,7 @@ allowed_locations:
   - rock_tunnel_b1f
   - route_8
   - route_7
+  - celadon_city
 available_water_methods:
   - old_rod
   - good_rod
