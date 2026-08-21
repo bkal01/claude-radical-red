@@ -11,7 +11,7 @@ services:
   battle-server:
     build:
       context: ../../..
-      dockerfile: tasks/giovanni-silph-co-easy/environment/battle-server/Dockerfile
+      dockerfile: tasks/giovanni-silph-co/environment/battle-server/Dockerfile
     expose: ["8000"]
     environment:
       RRBENCH_DATA_DIR: /app/data

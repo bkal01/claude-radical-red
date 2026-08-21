@@ -6,7 +6,7 @@ artifacts = [
 ]
 
 [task]
-name = "rrbench/giovanni-silph-co-easy"
+name = "rrbench/giovanni-silph-co"
 description = "Beat Giovanni's Silph Co. team in Pokemon Radical Red."
 
 [[environment.mcp_servers]]
