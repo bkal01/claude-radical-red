@@ -5,6 +5,7 @@ game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 22
 team_size: 3
+battle_format: singles
 battle_trigger:
   - key: DOWN
     frames: 60
