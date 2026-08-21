@@ -4,35 +4,17 @@
 
 Pokemon Radical Red is a ROM hack of Pokemon FireRed, adding all Pokemon up to Gen 9 and incredibly difficult boss battles that require clever teambuilding and strategic play in order to win.
 
-This project is a benchmark to see how good agents are at clearing Radical Red's boss battles.
+This benchmark extracts battles from Radical Red (specifically ones of "mini-boss" difficulty and above) and evaluates whether or not coding agents can find a team and sequence of moves that wins.
 
 ## Benchmark Description
 
-At the moment, we only have one boss battle: the fight against Giovanni in Silph Co. Tower, with a level cap of 57. Giovanni has a strong Rock/Ground based team, with a wide variety of secondary typings and coverage moves along with actually useful items. This is his team:
+We have 22 live tasks at the moment, spanning from the very first rival battle all the way up to Giovanni at Silph Co. Tower. Each task has a level cap and a set of Pokemon/moves/items that the agent is able to build their team with, determined by what's available in-game at the point of the battle. For added difficulty, we restrict the maximum party size to the number of Pokemon used by the opponent.
 
-![](assets/giovanni-team.png)
+When running a task, the agent is dropped into a sandbox containing JSON data of Pokemon, items, moves, and abilities for the task. The agent must grep through this data, understand what's available to it, and build a strong team with no knowledge of the opponent's team.
 
-The agent has access to this team:
+Then, the agent battles against the opponent. As it does, it gleans information about the enemy team composition, speed tiers, held items, etc. The process of the agent proposing a team and battling the opponent is called an *episode*. After each episode, the agent is given the opportunity to analyze the battle history to update its team and try again, up to a maximum episode cap.
 
-![](assets/default_team.png)
-
-<details>
-<summary>Winning EV spreads</summary>
-
-| Pokemon | HP | ATK | DEF | SPE | SPA | SPDEF |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Incineroar | 252 | 236 | 0 | 20 | 0 | 0 |
-| Kingambit | 252 | 252 | 0 | 4 | 0 | 0 |
-| Mawile | 4 | 252 | 0 | 252 | 0 | 0 |
-| Tsareena | 252 | 252 | 0 | 4 | 0 | 0 |
-| Armarouge | 252 | 0 | 4 | 0 | 252 | 0 |
-| Gyarados | 252 | 252 | 0 | 4 | 0 | 0 |
-
-</details>
-
-All Pokemon are max level (57), and some have useful abilities/items. For example, Incineroar and Gyarados have Intimidate to cut the ATK stat of opposing Pokemon, Kingambit has Black Glasses to boost Dark type attacks, and Armarouge has the Weak Armor ability to potentially allow it to sweep with strategic switch-ins.
-
-It took me ~6-8 hours to beat this battle, but a lot of that time was trying different Pokemon, items, moves, and abilities to produce a winning strategy for Giovanni. I also had a suboptimal EV spread.
+Although this benchmark is for coding agents, it's not a "coding agent benchmark" per se. There are no difficult coding tasks required to participate/succeed in tasks here. All the agent needs to be able to do is analyze JSON data and make repeated calls to an MCP server, which are well within the capabilities of current frontier coding agents. Instead, this benchmark evaluates how efficiently agents gather information and adapt in an unknown environment and whether they can find creative solutions to difficult problems.
 
 ## Setup
 
@@ -48,14 +30,12 @@ uv sync
 ### 2. Add the ROM
 
 It's illegal to distribute the ROM itself, so obtain it separately and place it
-at `radicalred.gba` in the repository root. The committed task fixture starts
-at the Giovanni battle.
+at `radicalred.gba` in the repository root.
 
 ### Optional: local emulator development
 
 Coding-agent evaluations build mGBA inside the server image, so they do not need
-host-side mGBA bindings. To run emulator code directly on macOS, build the local
-bindings separately:
+host-side mGBA bindings. To run emulator code directly on your machine, run
 
 ```bash
 brew install ffmpeg cmake
@@ -68,7 +48,10 @@ To play manually, install the mGBA application and open the ROM:
 mgba radicalred.gba
 ```
 
+^ this is macOS specific at the moment.
+
 mGBA picks up `radicalred.sav` automatically since it shares the same name as the ROM.
+The committed save state starts the user just before the Giovanni at Silph Co. fight.
 
 ## Tests
 
@@ -86,57 +69,46 @@ uv run pytest -q -m "not integration"
 
 ## Evaluation
 
-Evaluations run through Harbor. Before starting a run, choose one of the
-following Codex authentication methods.
+We use [Harbor](https://www.harborframework.com/) for evaluations.
 
-To use an OpenAI API key:
+Before running any evaluations, authenticate with the agent provider you want to eval:
+- API keys: set `ANTHROPIC_API_KEY` for Claude Code, `OPENAI_API_KEY` for Codex
+- Claude Code subscription: see [docs](https://code.claude.com/docs/en/authentication). set `CLAUDE_CODE_OAUTH_TOKEN` and `CLAUDE_FORCE_OAUTH=1`
+- Codex subscription: see [docs](https://developers.openai.com/codex/auth). run `codex login` then ensure `CODEX_FORCE_AUTH_JSON=1` when calling `harbor run`
 
-```bash
-export OPENAI_API_KEY="your-api-key"
-```
-
-To use a ChatGPT/Codex subscription instead, authenticate the Codex CLI and
-enable Harbor's subscription-auth path:
+Then, run the following command to evaluate `<coding_agent_name>` with model `<model_name>`
+on `<task_name>` with a maximum episode cap of `<N>`:
 
 ```bash
-codex login
-codex login status
-export CODEX_FORCE_AUTH_JSON=1
-```
-
-`CODEX_FORCE_AUTH_JSON=1` tells Harbor to use the subscription credentials in
-`~/.codex/auth.json`. It is not needed when using `OPENAI_API_KEY`.
-
-Configure the episode budget and optional recording with these environment
-flags:
-
-- `RRBENCH_MAX_EPISODES`: maximum number of episodes the battle server will
-  allow. It defaults to `3`.
-- `RRBENCH_RECORD`: set to `true` to record each started episode, or `false` to
-  disable recording. It defaults to `false`.
-
-For example, this runs two episodes with recording enabled:
-
-```bash
-RRBENCH_MAX_EPISODES=2 \
-RRBENCH_RECORD=true \
+RRBENCH_MAX_EPISODES=<N> \
 harbor run \
-  --path tasks/giovanni \
-  --agent codex \
-  --model gpt-5.6-luna \
+  --path tasks/<task_name> \
+  --agent <coding_agent_name> \
+  --model <model_name> \
   --env docker \
   --n-concurrent 1
 ```
 
-Both values are passed through Harbor to the battle server, which enforces the
-episode limit and performs the recording.
+You can run `harbor view jobs` in a separate terminal to spin up a webserver where you can view
+job logs and the progress of the current job. Logs are stored in `jobs/`.
 
-When the run finishes, Harbor collects one MP4 per started episode under:
+### Replays
 
-```text
-jobs/<job-name>/<trial-name>/artifacts/var/log/battle/videos/episode-01.mp4
+For the sake of evaluation speed, we do not record video of the battle while an agent engages in a task.
+To get video, run:
+
+```bash
+uv run scripts/replay_job.py <job_id>
 ```
+
+`<job_id>` is found in the `result.json` of your Harbor job. This script deterministically replays the entire trial, including losses + resets, and repeatedly captures screenshots to produce a recording. The recording of each episode is
+stored in `jobs/<trial_name>/artifacts/var/log/battle/videos/`.
+
+### Play a Task Yourself
+
+Coming soon!
+
 
 ## Next Steps
 
-We currently support EV spread modifications by the agent. There are a whole host of other modifications we need to add (changing moves, items, abilities, natures, Pokemon, etc.). We also could use more tasks (specific boss battles in Radical Red). Contributions are welcome!
+There's a lot more to do to expand this benchmark! We've only mapped out ~1/2 of the game, and it's the easy half. There are more battles to be added, more mechanics (Mega Evolution, Doubles battles, etc.), and more coding agents that need to be evaluated. Contributions are welcome!
