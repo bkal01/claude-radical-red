@@ -204,6 +204,31 @@ def test_battle_observation_reads_field_state_and_replacement(party_memory) -> N
     }
 
 
+@pytest.mark.parametrize(
+    ("battle_species_id", "party_species_id"),
+    [
+        (737, 608),   # Darmanitan Zen Mode -> Darmanitan
+        (751, 474),   # Cherrim Sunshine Form -> Cherrim
+        (833, 789),   # Aegislash Blade Forme -> Shield Forme
+        (839, 766),   # Ash-Greninja -> Greninja
+        (1065, 991),  # Minior Core Form -> Minior Meteor Form
+    ],
+)
+def test_battle_observation_matches_a_unique_transformation_form_in_party(
+    party_memory, battle_species_id, party_species_id
+) -> None:
+    """A fainted transformed Pokemon reverts to its persistent party form."""
+    party_memory.load_u16(PARTY_BASE_ADDR + 0x20, party_species_id)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_SPECIES, battle_species_id)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_MAX_HP, 120)
+
+    state = read_battle_state(party_memory, Party(party_memory))
+
+    assert state.active_slot == 0
+    assert state.needs_replacement is True
+
+
 def test_message_decoding_handles_controls_whitespace_and_terminator() -> None:
     """
     the gba/gba emulators have a text encoding format that is non-standard

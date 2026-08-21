@@ -110,6 +110,23 @@ SPECIES_MINIMUM_LEVEL = {
     i: entry["minimum_level"] for i, entry in enumerate(species) if entry
 }
 
+# Battle-only transformation species IDs whose persistent party records use a
+# different species ID. Keep this intentionally narrow: matching merely by
+# species name can confuse a transformed Pokemon with another party member.
+BATTLE_TO_PARTY_SPECIES_ID = {
+    737: 608,  # Darmanitan Zen Mode -> Darmanitan
+    751: 474,  # Cherrim Sunshine Form -> Cherrim
+    833: 789,  # Aegislash Blade Forme -> Shield Forme
+    839: 766,  # Ash-Greninja -> Greninja
+    1065: 991,  # Minior Core forms -> Minior Meteor Form
+    1066: 991,
+    1067: 991,
+    1068: 991,
+    1069: 991,
+    1070: 991,
+    1071: 991,
+}
+
 
 @dataclass
 class PartyPokemon:
@@ -312,7 +329,32 @@ class Party:
         return [p.label for p in self.members]
 
     def get_slot_number(self, species_id: int) -> int:
-        return next(i for i, pokemon in enumerate(self.members) if pokemon.species_id == species_id)
+        """Return the EWRAM party slot for an active battle-mon species.
+
+        Most battle-mon species IDs exactly match the ID stored in the party.
+        A small set of battle-only transformations use a distinct ID while the
+        persistent party record retains its base form; those mappings are
+        explicitly listed in ``BATTLE_TO_PARTY_SPECIES_ID``.
+        """
+        exact_matches = [
+            i for i, pokemon in enumerate(self.members)
+            if pokemon.species_id == species_id
+        ]
+        if exact_matches:
+            return exact_matches[0]
+
+        party_species_id = BATTLE_TO_PARTY_SPECIES_ID.get(species_id)
+        transformed_matches = [
+            i for i, pokemon in enumerate(self.members)
+            if pokemon.species_id == party_species_id
+        ]
+        if len(transformed_matches) == 1:
+            return transformed_matches[0]
+
+        raise PokemonNotInPartyError(
+            SPECIES_NAME.get(species_id, f"species_{species_id}"),
+            self.labels,
+        )
 
     def get_display_slot(self, label: str) -> int:
         """Visual party screen position for this Pokemon (may differ from EWRAM slot)."""
