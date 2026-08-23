@@ -19,24 +19,16 @@ BATTLE_TYPE_FLAGS = 0x02022B4C
 # u16[4]: chosen/last-used move ID per battler slot (battler 1 = opponent).
 LAST_MOVES = 0x02023D90
 
-# Weather — confirmed constant across all snap0-snap3 in scan_hazards.py.
-# BATTLE_WEATHER uses weather flags. Permanent weather does not use WEATHER_TIMER.
-BATTLE_WEATHER = 0x02022B50  # u32 bitmask
-WEATHER_TIMER  = 0x02022883  # u8 countdown; decrements each turn (observed 32->31->30)
-WEATHER_RAIN_TEMPORARY = 0x01
-WEATHER_RAIN_PERMANENT = 0x02
-WEATHER_SANDSTORM_TEMPORARY = 0x04
-WEATHER_SANDSTORM_PERMANENT = 0x08
-WEATHER_SUN_TEMPORARY = 0x10
-WEATHER_SUN_PERMANENT = 0x20
-WEATHER_HAIL_TEMPORARY = 0x40
-WEATHER_HAIL_PERMANENT = 0x80
-WEATHER_FOG = 0x100
-WEATHER_SNOW = 0x200
-WEATHER_SNOW_PERMANENT = 0x400
-WEATHER_PRIMAL_RAIN = 0x800
-WEATHER_PRIMAL_SUN = 0x1000
-WEATHER_STRONG_WINDS = 0x2000
+# Weather
+BATTLE_WEATHER = 0x02023F1C  # u32 weather kind bitmask
+WEATHER_TIMER  = 0x02023F48  # u32; 0 means permanent weather
+WEATHER_RAIN = 0x01
+WEATHER_SANDSTORM = 0x08
+WEATHER_SUN = 0x20
+WEATHER_SNOW = 0x80
+
+MAP_HEADER = 0x02036DFC
+MAP_HEADER_WEATHER = MAP_HEADER + 0x16
 
 # Terrain — BATTLE_TERRAIN is 0 for none, then Electric, Grassy, Misty, Psychic.
 # TERRAIN_TIMER starts at 5 and decrements at each turn end.

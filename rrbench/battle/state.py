@@ -7,14 +7,7 @@ from rrbench.battle.addresses import (
     SIDE_HAZARDS_SPIKES_MASK, SIDE_HAZARDS_STEALTH_ROCK,
     SIDE_HAZARDS_STICKY_WEB, SIDE_HAZARDS_TOXIC_SPIKES_MASK,
     TERRAIN_TIMER, WEATHER_TIMER,
-    WEATHER_FOG,
-    WEATHER_HAIL_PERMANENT, WEATHER_HAIL_TEMPORARY,
-    WEATHER_PRIMAL_RAIN, WEATHER_PRIMAL_SUN,
-    WEATHER_RAIN_PERMANENT, WEATHER_RAIN_TEMPORARY,
-    WEATHER_SANDSTORM_PERMANENT, WEATHER_SANDSTORM_TEMPORARY,
-    WEATHER_SNOW, WEATHER_SNOW_PERMANENT,
-    WEATHER_STRONG_WINDS,
-    WEATHER_SUN_PERMANENT, WEATHER_SUN_TEMPORARY,
+    WEATHER_RAIN, WEATHER_SANDSTORM, WEATHER_SNOW, WEATHER_SUN,
 )
 from rrbench.battle.capture import MessageEvent
 from rrbench.emulator.emulator import Emulator
@@ -75,24 +68,22 @@ class BattleState:
 
 
 WEATHER_FLAGS = (
-    # Check special weather first in case the engine retains an ordinary weather bit.
-    ("heavy_rain", 0, WEATHER_PRIMAL_RAIN),
-    ("harsh_sunlight", 0, WEATHER_PRIMAL_SUN),
-    ("strong_winds", 0, WEATHER_STRONG_WINDS),
-    ("rain", WEATHER_RAIN_TEMPORARY, WEATHER_RAIN_PERMANENT),
-    ("sandstorm", WEATHER_SANDSTORM_TEMPORARY, WEATHER_SANDSTORM_PERMANENT),
-    ("sun", WEATHER_SUN_TEMPORARY, WEATHER_SUN_PERMANENT),
-    ("hail", WEATHER_HAIL_TEMPORARY, WEATHER_HAIL_PERMANENT),
-    ("fog", 0, WEATHER_FOG),
-    ("snow", WEATHER_SNOW, WEATHER_SNOW_PERMANENT),
+    ("rain", WEATHER_RAIN),
+    ("sandstorm", WEATHER_SANDSTORM),
+    ("sun", WEATHER_SUN),
+    ("snow", WEATHER_SNOW),
 )
 
 
 def decode_weather(weather: int, timer: int) -> tuple[str, int | None]:
-    """Decode the ROM weather flags into a protocol-friendly kind and duration."""
-    for kind, temporary_flag, permanent_flag in WEATHER_FLAGS:
-        if weather & (temporary_flag | permanent_flag):
-            return kind, None if weather & permanent_flag else timer
+    """Decode verified RR v4.1 battle weather state.
+
+    A nonzero timer is the remaining temporary-weather duration. Permanent map
+    weather has an active kind bit with a zero timer (Route 25 rain is 0x05/0).
+    """
+    for kind, flag in WEATHER_FLAGS:
+        if weather & flag:
+            return kind, None if timer == 0 else timer
     return "none", 0
 
 
@@ -106,7 +97,7 @@ def read_battle_state(mem, party: Party) -> BattleState:
     opp_base    = BATTLE_MONS_BASE + BATTLE_MON_SIZE
     weather_val = mem.u32[BATTLE_WEATHER]
     weather_kind, weather_turns_left = decode_weather(
-        weather_val, mem.u8[WEATHER_TIMER]
+        weather_val, mem.u32[WEATHER_TIMER]
     )
     terrain = mem.u8[BATTLE_TERRAIN]
     terrain_turns_left = mem.u8[TERRAIN_TIMER]

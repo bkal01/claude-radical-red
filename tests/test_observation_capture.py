@@ -7,20 +7,11 @@ from rrbench.battle.addresses import (
     BATTLE_TERRAIN,
     BATTLE_TYPE_FLAGS,
     BATTLE_WEATHER,
-    WEATHER_FOG,
-    WEATHER_HAIL_PERMANENT,
-    WEATHER_HAIL_TEMPORARY,
-    WEATHER_PRIMAL_RAIN,
-    WEATHER_PRIMAL_SUN,
-    WEATHER_RAIN_PERMANENT,
-    WEATHER_RAIN_TEMPORARY,
-    WEATHER_SANDSTORM_PERMANENT,
-    WEATHER_SANDSTORM_TEMPORARY,
+    WEATHER_RAIN,
+    WEATHER_SANDSTORM,
     WEATHER_SNOW,
-    WEATHER_SNOW_PERMANENT,
-    WEATHER_STRONG_WINDS,
-    WEATHER_SUN_PERMANENT,
-    WEATHER_SUN_TEMPORARY,
+    WEATHER_SUN,
+    WEATHER_TIMER,
     MON_ABILITY,
     MON_CUR_HP,
     MON_MAX_HP,
@@ -99,21 +90,12 @@ def test_pre_battle_observation_renders_each_rotom_form(party_memory) -> None:
 @pytest.mark.parametrize(
     ("weather", "timer", "expected"),
     [
-        (0, 5, ("none", 0)),
-        (WEATHER_RAIN_TEMPORARY, 5, ("rain", 5)),
-        (WEATHER_RAIN_PERMANENT, 5, ("rain", None)),
-        (WEATHER_SANDSTORM_TEMPORARY, 4, ("sandstorm", 4)),
-        (WEATHER_SANDSTORM_PERMANENT, 4, ("sandstorm", None)),
-        (WEATHER_SUN_TEMPORARY, 3, ("sun", 3)),
-        (WEATHER_SUN_PERMANENT, 3, ("sun", None)),
-        (WEATHER_HAIL_TEMPORARY, 2, ("hail", 2)),
-        (WEATHER_HAIL_PERMANENT, 2, ("hail", None)),
-        (WEATHER_FOG, 2, ("fog", None)),
-        (WEATHER_SNOW, 2, ("snow", 2)),
-        (WEATHER_SNOW_PERMANENT, 2, ("snow", None)),
-        (WEATHER_PRIMAL_RAIN, 2, ("heavy_rain", None)),
-        (WEATHER_PRIMAL_SUN, 2, ("harsh_sunlight", None)),
-        (WEATHER_STRONG_WINDS, 2, ("strong_winds", None)),
+        (0, 0, ("none", 0)),
+        (WEATHER_RAIN, 4, ("rain", 4)),
+        (WEATHER_RAIN | 0x04, 0, ("rain", None)),  # Route 25's permanent rain
+        (WEATHER_SANDSTORM, 4, ("sandstorm", 4)),
+        (WEATHER_SUN, 4, ("sun", 4)),
+        (WEATHER_SNOW, 4, ("snow", 4)),
     ],
 )
 def test_decode_weather(weather, timer, expected) -> None:
@@ -145,7 +127,8 @@ def test_battle_observation_reads_field_state_and_replacement(party_memory) -> N
         opponent + MON_STAT_STAGES,
         bytes((6, 5, 6, 8, 6, 7, 6)),
     )
-    party_memory.load_u32(BATTLE_WEATHER, 0x08)
+    party_memory.load_u32(BATTLE_WEATHER, WEATHER_SANDSTORM)
+    party_memory.load_u32(WEATHER_TIMER, 4)
     party_memory.load_u8(BATTLE_TERRAIN, 2)
     party_memory.load_u8(TERRAIN_TIMER, 3)
     party_memory.load_u8(SIDE_HAZARDS_PLAYER, 0x3B)
@@ -166,7 +149,7 @@ def test_battle_observation_reads_field_state_and_replacement(party_memory) -> N
         "current_hp": 71,
         "max_hp": 100,
     }
-    assert observation["weather"] == {"kind": "sandstorm", "turns_left": "inf"}
+    assert observation["weather"] == {"kind": "sandstorm", "turns_left": 4}
     assert observation["terrain"] == {"kind": "grassy", "turns_left": 3}
     assert observation["hazards"] == {
         "player": {
