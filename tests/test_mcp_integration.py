@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 from pathlib import Path
 import socket
@@ -18,7 +19,12 @@ def extract_result(result):
     structured_content = getattr(result, "structured_content", None)
     if isinstance(structured_content, dict):
         return structured_content
-    raise AssertionError(f"MCP tool returned no structured result: {result!r}")
+    for content in getattr(result, "content", []):
+        if getattr(content, "type", None) == "text":
+            data = json.loads(content.text)
+            if isinstance(data, dict):
+                return data
+    raise AssertionError(f"MCP tool returned no JSON result: {result!r}")
 
 
 @pytest.mark.integration
@@ -90,7 +96,10 @@ def test_mcp_server_exposes_public_battle_contract(tmp_path) -> None:
                     "reset",
                 } <= tool_names
 
-                observe_result = extract_result(await client.call_tool("observe"))
+                raw_observe_result = await client.call_tool("observe")
+                assert raw_observe_result.structured_content is None
+                assert len(raw_observe_result.content) == 1
+                observe_result = extract_result(raw_observe_result)
                 assert observe_result["ok"] is True
                 observation = observe_result["observation"]
                 assert observation["phase"] == "awaiting_team"
