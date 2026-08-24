@@ -65,6 +65,54 @@ def live_battle_service(monkeypatch, party_memory):
     return service, emulator
 
 
+def test_observation_party_delta_contains_only_changed_full_slots(
+    monkeypatch,
+    live_battle_service,
+    party_memory,
+) -> None:
+    service, _ = live_battle_service
+    service.active_team_config = service.original_team_config
+
+    initial = service.observe()
+    assert initial["observation"]["party"]
+
+    def scripted_do_action(current_emulator, party, session, action_type, action_arg):
+        party.refresh()
+        state = read_battle_state(current_emulator.mem, party)
+        return session, state, StepLog(
+            step=1,
+            action=f"{action_type} {action_arg}",
+            opponent_move=0,
+            hp_snapshot=tuple((p.current_hp, p.max_hp) for p in party.members),
+            messages=[],
+        )
+
+    monkeypatch.setattr(service_module, "do_action", scripted_do_action)
+    party_memory.load_u16(PARTY_BASE_ADDR + 0x56, 99)
+    changed = service.action("FIGHT Pound")
+
+    assert "party" not in changed["observation"]
+    assert changed["observation"]["party_delta"] == [
+        {
+            "slot": 0,
+            "name": "Bulbasaur",
+            "form": None,
+            "current_hp": 99,
+            "max_hp": 120,
+            "status": "poison",
+            "active": True,
+            "fainted": False,
+            "moves": [
+                {"name": "Pound", "pp_remaining": 10},
+                {"name": "Growl", "pp_remaining": 12},
+            ],
+        }
+    ]
+
+    unchanged = service.action("FIGHT Pound")
+    assert unchanged["observation"]["party_delta"] == []
+
+
 def test_lead_starts_battle_with_valid_party_member(monkeypatch, party_memory) -> None:
     emulator = FakeEmulator(party_memory)
     task = TaskSpec(

@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 
 from rrbench.battle.engine import start_battle, do_action
 from rrbench.battle.state import BattleSession, in_battle, read_battle_state
@@ -65,6 +66,7 @@ class BattleService:
         self.emu = create_emulator(task)
         self.session: BattleSession | None = None
         self.terminal_observation: dict | None = None
+        self.last_party_snapshot: list[dict] | None = None
         self.original_team_config = TeamConfig.from_mem(self.emu.mem)
         self.active_team_config: TeamConfig | None = None
 
@@ -92,6 +94,7 @@ class BattleService:
             observation = render_pre_battle(party)
         else:
             observation = render_observation(read_battle_state(self.emu.mem, party))
+        self.last_party_snapshot = deepcopy(observation["party"])
         return {"ok": True, "observation": observation}
 
     def team(self) -> dict:
@@ -120,10 +123,28 @@ class BattleService:
             )
         except PokemonNotInPartyError as e:
             return {"ok": False, "error": str(e)}
+        observation = render_observation(state)
+        current_party = observation["party"]
+        if self.last_party_snapshot is None or len(self.last_party_snapshot) != len(current_party):
+            self.last_party_snapshot = deepcopy(current_party)
+        else:
+            party_delta = [
+                {"slot": slot, **pokemon}
+                for slot, (previous, pokemon) in enumerate(
+                    zip(self.last_party_snapshot, current_party)
+                )
+                if previous != pokemon
+            ]
+            observation = {
+                **observation,
+                "party_delta": party_delta,
+            }
+            observation.pop("party")
+            self.last_party_snapshot = deepcopy(current_party)
         return {
             "ok": True,
             "messages": render_messages(messages),
-            "observation": render_observation(state),
+            "observation": observation,
             "ended": self.session.ended,
             "won": self.session.won,
         }
@@ -176,6 +197,24 @@ class BattleService:
             observation["phase"] = "ended"
             observation["won"] = self.session.won
             self.terminal_observation = observation
+
+        current_party = observation["party"]
+        if self.last_party_snapshot is None or len(self.last_party_snapshot) != len(current_party):
+            self.last_party_snapshot = deepcopy(current_party)
+        else:
+            party_delta = [
+                {"slot": slot, **pokemon}
+                for slot, (previous, pokemon) in enumerate(
+                    zip(self.last_party_snapshot, current_party)
+                )
+                if previous != pokemon
+            ]
+            observation = {
+                **observation,
+                "party_delta": party_delta,
+            }
+            observation.pop("party")
+            self.last_party_snapshot = deepcopy(current_party)
         return {
             "ok": True,
             "messages": render_messages(step_log.messages),
