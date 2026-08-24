@@ -84,8 +84,8 @@ def test_fight_after_switch_to_corviknight_uses_selected_move() -> None:
     assert "Corviknigh used U-turn!" in result["messages"]
     corviknight = next(
         pokemon
-        for pokemon in result["observation"]["party"]
-        if pokemon["name"] == "Corviknight"
+        for pokemon in result["observation"]["party_delta"]
+        if pokemon["slot"] == 2
     )
     assert corviknight["moves"][3]["pp_remaining"] == 19
 
@@ -122,9 +122,13 @@ def test_ghost_pokemon_tower_confirmation_faint_can_send_replacement() -> None:
     faint_observation = faint_result["observation"]
     assert faint_observation["needs_replacement"] is True
     assert faint_observation["active"]["name"] == "Magikarp"
-    party = {pokemon["name"]: pokemon for pokemon in faint_observation["party"]}
-    assert party["Magikarp"]["fainted"] is True
-    assert party["Caterpie"]["fainted"] is False
+    magikarp = next(
+        pokemon
+        for pokemon in faint_observation["party_delta"]
+        if pokemon["slot"] == 0
+    )
+    assert magikarp["name"] == "Magikarp"
+    assert magikarp["fainted"] is True
 
     send_result = service.action("SEND Caterpie")
 

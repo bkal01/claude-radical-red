@@ -128,14 +128,19 @@ def test_mcp_server_exposes_public_battle_contract(tmp_path) -> None:
                     await client.call_tool("apply_team", {"team": {"members": members}})
                 )
                 assert apply_team_result["ok"] is True
+                initial_observation = apply_team_result["observation"]
+                assert initial_observation["party"]
 
                 observe_result = extract_result(await client.call_tool("observe"))
                 team_result = extract_result(await client.call_tool("team"))
                 assert observe_result["ok"] is True
                 observation = observe_result["observation"]
                 assert observation["phase"] == "no_battle"
-                assert observation["party"]
-                assert all(member["name"] and "moves" in member for member in observation["party"])
+                assert observation["party_delta"] == []
+                assert all(
+                    member["name"] and "moves" in member
+                    for member in initial_observation["party"]
+                )
                 assert team_result["ok"] is True
                 team_members = team_result["team"]["members"]
                 assert team_members
@@ -163,7 +168,9 @@ def test_mcp_server_exposes_public_battle_contract(tmp_path) -> None:
                     battle_observation = lead_result["observation"]
                     assert battle_observation["phase"] == "in_battle"
                     assert battle_observation["needs_replacement"] is False
-                    active = battle_observation["party"][battle_observation["active"]["slot"]]
+                    assert "party" not in battle_observation
+                    assert "party_delta" in battle_observation
+                    active = initial_observation["party"][battle_observation["active"]["slot"]]
                     move = next(
                         move
                         for move in active["moves"]

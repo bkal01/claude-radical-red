@@ -52,7 +52,10 @@ to `SWITCH` and `SEND`; for example, `SWITCH Rotom-wash`. For Pokemon whose
 `observe()` is read-only and may be called in any phase while the trial is
 still active. `team()` may also be called in any phase. The current observation
 includes the active Pokemon, party HP/status/moves, opponent species and HP,
-weather, hazards, and stat stages.
+weather, hazards, and stat stages. `observe()`, `reset()`, and successful
+`apply_team()` responses include the complete `party`. `lead()` and `action()`
+responses may instead include `party_delta`, which only contains entries for
+party slots that have changed since the last tool call.
 
 ## Episodes and reset
 
