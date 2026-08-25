@@ -145,8 +145,10 @@ def capture_turn(
         # battle-menu sentinel, since the ROM can clear the flag while the last
         # message is still displayed.
         if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
-            won = emu.mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] > 0
-            return rec.events, True, won
+            active_party.refresh()
+            opponent_fainted = emu.mem.u16[OPP_MON_BASE + MON_CUR_HP] == 0
+            player_survived = any(pokemon.current_hp > 0 for pokemon in active_party.members)
+            return rec.events, True, opponent_fainted and player_survived
 
         if is_menu:
             if emu.mem.u8[BATTLE_MENU_READY] == 1:
@@ -171,8 +173,10 @@ def capture_turn(
             # BATTLE_TYPE_FLAGS during this settle, and returning immediately
             # at the flush limit would otherwise miss that transition.
             if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
-                won = emu.mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] > 0
-                return rec.events, True, won
+                active_party.refresh()
+                opponent_fainted = emu.mem.u16[OPP_MON_BASE + MON_CUR_HP] == 0
+                player_survived = any(pokemon.current_hp > 0 for pokemon in active_party.members)
+                return rec.events, True, opponent_fainted and player_survived
 
             if faint_flushes >= 12:
                 active_party.refresh()

@@ -23,7 +23,12 @@ from rrbench.battle.addresses import (
     SIDE_HAZARDS_PLAYER,
     TERRAIN_TIMER,
 )
-from rrbench.battle.capture import TurnRecorder, capture_intro, capture_turn, decode_msg
+from rrbench.battle.capture import (
+    TurnRecorder,
+    capture_intro,
+    capture_turn,
+    decode_msg,
+)
 from rrbench.battle.state import decode_weather, read_battle_state
 from rrbench.emulator.emulator import KEY_B
 from rrbench.emulator.memory import PARTY_BASE_ADDR, Party, SLOT_SIZE
@@ -373,6 +378,7 @@ def test_capture_turn_detects_battle_end(
     """
     party_memory.load_u32(BATTLE_TYPE_FLAGS, 0)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, active_hp)
+    party_memory.load_u16(OPP_MON_BASE + MON_CUR_HP, 0 if expected_won else 40)
     emulator = FakeEmulator(party_memory)
 
     events, ended, won = capture_turn(emulator, Party(party_memory))
@@ -408,9 +414,7 @@ def test_capture_turn_checks_battle_end_after_final_faint_settle(party_memory) -
 
     assert events == []
     assert ended is True
-    # Outcome classification is covered separately; the active Pokemon is fainted
-    # in this simultaneous-KO case, so the existing heuristic reports False here.
-    assert won is False
+    assert won is True
     assert settle_count == 13
 
 
