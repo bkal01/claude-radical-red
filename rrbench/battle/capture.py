@@ -141,6 +141,13 @@ def capture_turn(
     for _ in range(max_polls):
         is_menu = rec.poll(emu, active_party)
 
+        # The battle flag is authoritative. Check it before honoring a stale
+        # battle-menu sentinel, since the ROM can clear the flag while the last
+        # message is still displayed.
+        if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
+            won = emu.mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] > 0
+            return rec.events, True, won
+
         if is_menu:
             if emu.mem.u8[BATTLE_MENU_READY] == 1:
                 menu_ready_frames += step_frames
@@ -152,10 +159,6 @@ def capture_turn(
             continue
         menu_ready_frames = 0
 
-        if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
-            won = emu.mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] > 0
-            return rec.events, True, won
-
         # A fainted active reads 0 HP well before the "choose next Pokemon" screen opens.
         # Advance with a long settle to flush faint text and let that screen appear, then
         # give up so the caller inherits the now-open party screen for the replacement.
@@ -163,11 +166,29 @@ def capture_turn(
             emu.press(KEY_B, hold_frames=1)
             emu.step(60)
             faint_flushes += 1
+
+            # Check again after advancing the faint text.  The ROM can clear
+            # BATTLE_TYPE_FLAGS during this settle, and returning immediately
+            # at the flush limit would otherwise miss that transition.
+            if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
+                won = emu.mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] > 0
+                return rec.events, True, won
+
             if faint_flushes >= 12:
                 active_party.refresh()
                 all_fainted = bool(active_party.members) and all(
                     pokemon.current_hp == 0 for pokemon in active_party.members
                 )
+
+                # If the opponent is also down while the player still has a
+                # healthy bench, do not expose SEND selection yet.  The ROM
+                # may still be finishing a simultaneous-final-faint victory
+                # script; keep checking the authoritative battle flag.  The
+                # outer poll limit remains the timeout for a stuck battle.
+                opponent_fainted = emu.mem.u16[OPP_MON_BASE + MON_CUR_HP] == 0
+                if not all_fainted and opponent_fainted:
+                    continue
+
                 return rec.events, all_fainted, False
             continue
 
