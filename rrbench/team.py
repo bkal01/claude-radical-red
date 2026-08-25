@@ -7,6 +7,10 @@ from rrbench.emulator.memory import (
 )
 
 species_data = json.loads((data_dir / "species.json").read_text())
+# The ROM indexes its species table by numeric ID, including reserved/empty
+# entries.  Do not use SPECIES_NAME for checksum collision detection because
+# it omits those empty table slots.
+_SPECIES_TABLE_SIZE = len(species_data)
 base_stats = [entry["base_stats"] if entry else None for entry in species_data]
 
 # EWRAM offsets not already in party.py
@@ -220,11 +224,11 @@ class PokemonConfig:
         # and substitutes that Pokemon if valid. Avoid the collision by nudging the
         # unused contest-stat bytes (E2) until the checksum clears the valid range.
         cs = checksum(mem, base)
-        if cs in SPECIES_NAME:
+        if 0 < cs < _SPECIES_TABLE_SIZE:
             e2 = mem.u32[base + _E2]
             low = e2 & 0xFFFF
             v = 1
-            while ((cs + v) & 0xFFFF) in SPECIES_NAME:
+            while 0 < ((cs + v) & 0xFFFF) < _SPECIES_TABLE_SIZE:
                 v += 1
             mem.u32[base + _E2] = (e2 & 0xFFFF0000) | ((low + v) & 0xFFFF)
             cs = checksum(mem, base)
