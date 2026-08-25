@@ -10,6 +10,7 @@ from rrbench.battle.addresses import (
     WEATHER_RAIN, WEATHER_SANDSTORM, WEATHER_SNOW, WEATHER_SUN,
 )
 from rrbench.battle.capture import MessageEvent
+from rrbench.battle.control import BattleControlState, read_battle_control_state
 from rrbench.emulator.emulator import Emulator
 from rrbench.emulator.memory import (
     ABILITY_NAME, SPECIES_NAME,
@@ -19,10 +20,14 @@ from rrbench.emulator.memory import (
 
 @dataclass
 class BattleSession:
-    """Live handle to an in-progress battle. Created by start_battle() and threaded
-    through do_action(); the trajectory/log is owned by the harness, not stored here."""
+    """Live handle to an in-progress battle.
+
+    ``active_label`` is the canonical identity; ``active_slot`` is only its
+    current EWRAM-position projection.
+    """
     emu: Emulator
     party: Party
+    active_label: str | None = None
     active_slot: int = 0
     num_steps: int = 0
     ended: bool = False
@@ -48,9 +53,10 @@ class SideHazards:
 
 @dataclass
 class BattleState:
-    party: Party                       # full Party, `members` is in party-slot order
-    active_slot: int                   # which party slot is currently on the field
-    needs_replacement: bool            # True when active Pokemon fainted; agent must name a replacement
+    party: Party                       # full Party, `members` is an EWRAM-order projection
+    active_label: str                  # canonical identity of the active Pokemon
+    active_slot: int                   # current EWRAM position of active_label
+    control_state: BattleControlState  # action selection, replacement selection, or transition
     weather: int                       # raw BATTLE_WEATHER bitmask
     weather_kind: str                  # protocol weather kind decoded from the raw flags
     weather_turns_left: int | None     # None for active permanent weather; 0 for no weather
@@ -65,6 +71,11 @@ class BattleState:
     opp_ability: str                   # Giovanni's active Pokemon ability name
     opp_current_hp: int | None         # Giovanni's active Pokemon current HP (None if offset unverified)
     opp_max_hp: int | None             # Giovanni's active Pokemon max HP (None if offset unverified)
+
+    @property
+    def needs_replacement(self) -> bool:
+        """Whether the game is currently waiting for a forced replacement."""
+        return self.control_state is BattleControlState.REPLACEMENT_SELECT
 
 
 WEATHER_FLAGS = (
@@ -111,11 +122,13 @@ def read_battle_state(mem, party: Party) -> BattleState:
 
     species_id = mem.u16[BATTLE_MONS_BASE + MON_SPECIES]
     active_slot = party.get_slot_number(species_id)
+    active_label = party.members[active_slot].label
 
     return BattleState(
         party=party,
+        active_label=active_label,
         active_slot=active_slot,
-        needs_replacement=mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] == 0,
+        control_state=read_battle_control_state(mem),
         weather=weather_val,
         weather_kind=weather_kind,
         weather_turns_left=weather_turns_left,

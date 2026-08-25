@@ -55,16 +55,20 @@ def start_battle(
     intro_messages = capture_intro(emu, party)
     party.refresh()
 
-    session = BattleSession(emu=emu, party=party, active_slot=0)
-
     battle_state = read_battle_state(
         mem=emu.mem,
         party=party,
     )
+    session = BattleSession(
+        emu=emu,
+        party=party,
+        active_label=battle_state.active_label,
+        active_slot=battle_state.active_slot,
+    )
     return session, battle_state, intro_messages
 
-def fight(emu: Emulator, move_name: str, active_party: Party, active_slot: int) -> None:
-    move_slot = active_party.members[active_slot].moves.index(move_name)
+def fight(emu: Emulator, move_name: str, active_party: Party, active_label: str) -> None:
+    move_slot = active_party.get_member(active_label).moves.index(move_name)
     row, col  = divmod(move_slot, 2)   # 2-column move grid: slot 0→(0,0), 1→(0,1), 2→(1,0), 3→(1,1)
 
     emu.press(KEY_UP)
@@ -165,10 +169,10 @@ def execute(
     action_type: str,
     action_arg: str,
     active_party: Party,
-    active_slot: int
+    active_label: str
 ) -> None:
     if action_type == "FIGHT":
-        fight(emu, action_arg, active_party, active_slot)
+        fight(emu, action_arg, active_party, active_label)
     elif action_type == "SWITCH":
         switch(emu, action_arg, active_party)
     elif action_type == "SEND":
@@ -195,7 +199,7 @@ def do_action(
 
     if not action_arg:
         raise ValueError("Action must be FIGHT, SWITCH, or SEND followed by a name")
-    execute(emu, action_type, action_arg, party, battle_state.active_slot)
+    execute(emu, action_type, action_arg, party, battle_state.active_label)
     messages, ended, won = capture_turn(emu, party)
     session.ended, session.won = ended, won
     session.num_steps += 1
@@ -215,6 +219,7 @@ def do_action(
         mem=emu.mem,
         party=party,
     )
+    session.active_label = new_battle_state.active_label
     session.active_slot = new_battle_state.active_slot
-    
+
     return session, new_battle_state, step_log
