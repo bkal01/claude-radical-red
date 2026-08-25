@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from rrbench.emulator.emulator import Emulator, KEY_A, KEY_B
-from rrbench.emulator.memory import Party, SPECIES_NAME
+from rrbench.emulator.memory import Party, SPECIES_NAME, species_label
 from rrbench.battle.addresses import (
     EWRAM_BASE, MSG_BUFFER,
     BATTLE_TYPE_FLAGS, BATTLE_MONS_BASE, OPP_MON_BASE,
@@ -25,7 +25,7 @@ class MessageEvent:
     so it doesn't inflate damage numbers.
     """
     text: str
-    party_hp: dict                     # {name: (current_hp, max_hp)}
+    party_hp: dict                     # {canonical label: (current_hp, max_hp)}
     opp_hp: tuple | None               # (current_hp, max_hp) of the opponent active, or None
     opp_species: str                   # opponent active when this message showed (can change mid-turn)
 
@@ -40,13 +40,13 @@ def hp_snapshot(mem, active_party: Party) -> tuple[dict, tuple | None, str]:
     Read HP for all party Pokemon and the active opponent Pokemon.
     """
     active_party.refresh()
-    party_hp = {p.name: (p.current_hp, p.max_hp) for p in active_party.members}
+    party_hp = {p.label: (p.current_hp, p.max_hp) for p in active_party.members}
 
     active_species = mem.u16[BATTLE_MONS_BASE + MON_SPECIES]
-    active_name = SPECIES_NAME.get(active_species)
-    if active_name in party_hp:
-        party_hp[active_name] = (mem.u16[BATTLE_MONS_BASE + MON_CUR_HP],
-                                 mem.u16[BATTLE_MONS_BASE + MON_MAX_HP])
+    active_label = species_label(active_species)
+    if active_label in party_hp:
+        party_hp[active_label] = (mem.u16[BATTLE_MONS_BASE + MON_CUR_HP],
+                                  mem.u16[BATTLE_MONS_BASE + MON_MAX_HP])
 
     opp_cur = mem.u16[OPP_MON_BASE + MON_CUR_HP]
     opp_max = mem.u16[OPP_MON_BASE + MON_MAX_HP]

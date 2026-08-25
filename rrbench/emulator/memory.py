@@ -110,6 +110,17 @@ SPECIES_MINIMUM_LEVEL = {
     i: entry["minimum_level"] for i, entry in enumerate(species) if entry
 }
 
+def pokemon_label(name: str, form: str | None) -> str:
+    return f"{name}-{form}" if form is not None else name
+
+
+def species_label(species_id: int) -> str:
+    return pokemon_label(
+        SPECIES_NAME.get(species_id, f"species_{species_id}"),
+        SPECIES_FORM.get(species_id),
+    )
+
+
 # Battle-only transformation species IDs whose persistent party records use a
 # different species ID. Keep this intentionally narrow: matching merely by
 # species name can confuse a transformed Pokemon with another party member.
@@ -182,7 +193,7 @@ def read_slot(mem, slot: int) -> PartyPokemon:
     return PartyPokemon(
         name=name,
         form=form,
-        label=f"{name}-{form}" if form is not None else name,
+        label=pokemon_label(name, form),
         species_id=species_id,
         held_item=(g0 >> 16) & 0xFFFF,
         ability_id=ability_id,
@@ -300,9 +311,25 @@ class Party:
         self._sync_display_to_ewram()
 
     def refresh(self) -> None:
+        previous_display = getattr(self, "display_pos", {})
         self.members = read_party(self._mem)
-        self._slot_map = {p.label: i for i, p in enumerate(self.members)}
-        # Does NOT reset display_pos — it tracks the visual UI order independently.
+        self._ewram_slot = {p.label: i for i, p in enumerate(self.members)}
+        # Refreshing EWRAM must not redefine identity or visual order. Preserve
+        # known labels' display positions and assign new labels any free slots.
+        if previous_display:
+            used = set()
+            self.display_pos = {}
+            for pokemon in self.members:
+                if pokemon.label in previous_display:
+                    self.display_pos[pokemon.label] = previous_display[pokemon.label]
+                    used.add(previous_display[pokemon.label])
+            free_slots = (i for i in range(len(self.members)) if i not in used)
+            for pokemon in self.members:
+                if pokemon.label not in self.display_pos:
+                    self.display_pos[pokemon.label] = next(free_slots)
+
+    def _reindex_ewram(self) -> None:
+        self._ewram_slot = {p.label: i for i, p in enumerate(self.members)}
 
     def _sync_display_to_ewram(self) -> None:
         # Reset visual display order to match current EWRAM slot order.
@@ -327,6 +354,14 @@ class Party:
     @property
     def labels(self) -> list[str]:
         return [p.label for p in self.members]
+
+    def get_ewram_slot(self, label: str) -> int:
+        """Current mutable EWRAM position for a canonical Pokemon label."""
+        return self._ewram_slot[label]
+
+    def get_member(self, label: str) -> PartyPokemon:
+        """Return a member by canonical identity, independent of its position."""
+        return self.members[self._ewram_slot[label]]
 
     def get_slot_number(self, species_id: int) -> int:
         """Return the EWRAM party slot for an active battle-mon species.
@@ -364,9 +399,9 @@ class Party:
         """Display slot for a legal switch/send target. Raises PokemonNotInPartyError
         if `name` isn't in the party, or PokemonFaintedError if it has already fainted.
         Call before touching the emulator so an invalid target never desyncs menu state."""
-        if label not in self._slot_map:
+        if label not in self._ewram_slot:
             raise PokemonNotInPartyError(label, self.labels)
-        if self.members[self._slot_map[label]].current_hp == 0:
+        if self.get_member(label).current_hp == 0:
             alive = [p.label for p in self.members if p.current_hp > 0]
             raise PokemonFaintedError(label, alive)
         return self.get_display_slot(label)
@@ -376,7 +411,7 @@ class Party:
             return
 
         # swap the two pokemon in game memory
-        slot = next((i for i, p in enumerate(self.members) if p.label == label), None)
+        slot = self._ewram_slot.get(label)
         if slot is None:
             raise PokemonNotInPartyError(label, self.labels)
         base_a = PARTY_BASE_ADDR
@@ -386,4 +421,5 @@ class Party:
             self._mem.u32[base_a + i] = self._mem.u32[base_b + i]
             self._mem.u32[base_b + i] = a_val
         self.members[0], self.members[slot] = self.members[slot], self.members[0]
+        self._reindex_ewram()
         self._sync_display_to_ewram()

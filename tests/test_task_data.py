@@ -281,6 +281,35 @@ def test_giovanni_agent_tm_hm_moves_match_allowed_locations():
     }
 
 
+def test_battle_service_rejects_duplicate_pokemon_identity(monkeypatch, party_memory) -> None:
+    emulator = FakeEmulator(party_memory)
+    task = TaskSpec(
+        id="test",
+        rom_path=Path("test.gba"),
+        save_state_path=Path("test.ss0"),
+        allowed_team_modifications=frozenset(),
+        level_cap=15,
+        team_size=2,
+        allowed_species_ids=frozenset({1}),
+    )
+    monkeypatch.setattr(service_module, "create_emulator", lambda current_task: emulator)
+    service = BattleService(task)
+
+    result = service.apply_team(
+        {
+            "members": [
+                {"slot": 0, "species_id": 1, "level": 15},
+                {"slot": 1, "species_id": 1, "level": 15},
+            ]
+        }
+    )
+
+    assert result == {
+        "ok": False,
+        "error": "team members must have unique Pokemon identities",
+    }
+
+
 def test_battle_service_allows_at_most_one_starter(monkeypatch, party_memory) -> None:
     emulator = FakeEmulator(party_memory)
     task = TaskSpec(

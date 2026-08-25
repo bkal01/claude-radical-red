@@ -8,6 +8,7 @@ from rrbench.emulator.memory import (
     SPECIES_ABILITIES,
     SPECIES_MINIMUM_LEVEL,
     SPECIES_NAME,
+    species_label,
     Party,
     PokemonFaintedError,
     PokemonNotInPartyError,
@@ -166,19 +167,19 @@ class BattleService:
         state = read_battle_state(self.emu.mem, party)
 
         if state.needs_replacement and action_type != "SEND":
-            return {"ok": False, "error": "SEND is required when the active Pokemon has fainted"}
+            return {"ok": False, "error": "SEND is required while the battle requests a replacement"}
         if not state.needs_replacement and action_type == "SEND":
-            return {"ok": False, "error": "SEND is only valid when the active Pokemon has fainted"}
+            return {"ok": False, "error": "SEND is only valid while the battle requests a replacement"}
 
         if action_type == "FIGHT":
-            active = party.members[state.active_slot]
+            active = party.get_member(state.active_label)
             if action_arg not in active.moves:
                 return {"ok": False, "error": f"{active.label} does not know {action_arg!r}"}
             move_slot = active.moves.index(action_arg)
             if active.pp[move_slot] == 0:
                 return {"ok": False, "error": f"{active.label} has no PP remaining for {action_arg!r}"}
         else:
-            if action_type == "SWITCH" and action_arg == party.members[state.active_slot].label:
+            if action_type == "SWITCH" and action_arg == state.active_label:
                 return {"ok": False, "error": "cannot switch to the active Pokemon"}
             try:
                 party.resolve_switch_target(action_arg)
@@ -297,6 +298,7 @@ class BattleService:
         learnsets = json.loads((data_dir / "learnsets.json").read_text())
 
         updated_members = {}
+        seen_labels = set()
         for member in members:
             required_fields = {"slot", "species_id", "level"}
             allowed_fields = set(required_fields)
@@ -328,6 +330,10 @@ class BattleService:
             species_id = member["species_id"]
             if type(species_id) is not int or species_id not in SPECIES_NAME:
                 return {"ok": False, "error": "species_id must be a valid Pokemon ID"}
+            label = species_label(species_id)
+            if label in seen_labels:
+                return {"ok": False, "error": "team members must have unique Pokemon identities"}
+            seen_labels.add(label)
             if (
                 self.task.allowed_species_ids is not None
                 and species_id not in self.task.allowed_species_ids

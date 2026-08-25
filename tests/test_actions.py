@@ -301,6 +301,18 @@ def test_set_lead_targets_the_requested_pokemon_form(party_memory) -> None:
     ] == [715, 714]
 
 
+def test_party_identity_survives_position_refresh(party_memory) -> None:
+    party = Party(party_memory)
+    party.update_display_after_send("Incineroar")
+    party.refresh()
+
+    assert party.get_member("Bulbasaur").label == "Bulbasaur"
+    assert party.get_ewram_slot("Bulbasaur") == 0
+    assert party.get_ewram_slot("Incineroar") == 1
+    assert party.get_display_slot("Incineroar") == 0
+    assert party.get_display_slot("Bulbasaur") == 1
+
+
 def test_fight_accepts_move_known_by_active_pokemon(monkeypatch, live_battle_service) -> None:
     service, emulator = live_battle_service
     action_calls = []
@@ -557,6 +569,6 @@ def test_send_rejects_live_battle_without_fainted_active_pokemon(live_battle_ser
 
     assert result == {
         "ok": False,
-        "error": "SEND is only valid when the active Pokemon has fainted",
+        "error": "SEND is only valid while the battle requests a replacement",
     }
     assert emulator.calls == []

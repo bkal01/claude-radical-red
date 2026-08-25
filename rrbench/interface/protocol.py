@@ -115,16 +115,19 @@ def render_observation(state: BattleState) -> dict:
     Render a BattleState into a form that's consumable by an agent via cli.
     """
     members = state.party.members
+    active = state.party.get_member(state.active_label)
+    active_slot = state.party.get_ewram_slot(state.active_label)
     return {
         "phase": "in_battle",
         "needs_replacement": state.needs_replacement,
         "active": {
-            "name": members[state.active_slot].name,
-            "form": members[state.active_slot].form,
-            "slot": state.active_slot,
+            "name": active.name,
+            "form": active.form,
+            "slot": active_slot,
         },
         "party": [
-            render_pokemon(p, active=(i == state.active_slot)) for i, p in enumerate(members)
+            render_pokemon(p, active=(p.label == state.active_label))
+            for p in members
         ],
         "opponent": {
             "species": state.opp_species,

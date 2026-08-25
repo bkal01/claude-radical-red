@@ -20,10 +20,14 @@ from rrbench.emulator.memory import (
 
 @dataclass
 class BattleSession:
-    """Live handle to an in-progress battle. Created by start_battle() and threaded
-    through do_action(); the trajectory/log is owned by the harness, not stored here."""
+    """Live handle to an in-progress battle.
+
+    ``active_label`` is the canonical identity; ``active_slot`` is only its
+    current EWRAM-position projection.
+    """
     emu: Emulator
     party: Party
+    active_label: str | None = None
     active_slot: int = 0
     num_steps: int = 0
     ended: bool = False
@@ -49,8 +53,9 @@ class SideHazards:
 
 @dataclass
 class BattleState:
-    party: Party                       # full Party, `members` is in party-slot order
-    active_slot: int                   # which party slot is currently on the field
+    party: Party                       # full Party, `members` is an EWRAM-order projection
+    active_label: str                  # canonical identity of the active Pokemon
+    active_slot: int                   # current EWRAM position of active_label
     control_state: BattleControlState  # action selection, replacement selection, or transition
     weather: int                       # raw BATTLE_WEATHER bitmask
     weather_kind: str                  # protocol weather kind decoded from the raw flags
@@ -117,9 +122,11 @@ def read_battle_state(mem, party: Party) -> BattleState:
 
     species_id = mem.u16[BATTLE_MONS_BASE + MON_SPECIES]
     active_slot = party.get_slot_number(species_id)
+    active_label = party.members[active_slot].label
 
     return BattleState(
         party=party,
+        active_label=active_label,
         active_slot=active_slot,
         control_state=read_battle_control_state(mem),
         weather=weather_val,
