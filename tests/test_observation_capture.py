@@ -7,6 +7,7 @@ from rrbench.battle.addresses import (
     BATTLE_TERRAIN,
     BATTLE_TYPE_FLAGS,
     BATTLE_WEATHER,
+    OPP_MON_BASE,
     WEATHER_RAIN,
     WEATHER_SANDSTORM,
     WEATHER_SNOW,
@@ -22,7 +23,12 @@ from rrbench.battle.addresses import (
     SIDE_HAZARDS_PLAYER,
     TERRAIN_TIMER,
 )
-from rrbench.battle.capture import TurnRecorder, capture_intro, capture_turn, decode_msg
+from rrbench.battle.capture import (
+    TurnRecorder,
+    capture_intro,
+    capture_turn,
+    decode_msg,
+)
 from rrbench.battle.state import decode_weather, read_battle_state
 from rrbench.emulator.emulator import KEY_B
 from rrbench.emulator.memory import PARTY_BASE_ADDR, Party, SLOT_SIZE
@@ -372,6 +378,7 @@ def test_capture_turn_detects_battle_end(
     """
     party_memory.load_u32(BATTLE_TYPE_FLAGS, 0)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, active_hp)
+    party_memory.load_u16(OPP_MON_BASE + MON_CUR_HP, 0 if expected_won else 40)
     emulator = FakeEmulator(party_memory)
 
     events, ended, won = capture_turn(emulator, Party(party_memory))
@@ -380,6 +387,35 @@ def test_capture_turn_detects_battle_end(
     assert ended is True
     assert won is expected_won
     assert emulator.calls == []
+
+
+def test_capture_turn_checks_battle_end_after_final_faint_settle(party_memory) -> None:
+    """A simultaneous final faint may clear the battle flag after the normal
+    replacement-screen flush limit; termination must win that race.
+    """
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 0xC)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
+    party_memory.load_u16(OPP_MON_BASE + MON_CUR_HP, 0)
+    party_memory.load_u16(PARTY_BASE_ADDR + 0x56, 0)
+    party_memory.load_u16(PARTY_BASE_ADDR + SLOT_SIZE + 0x56, 88)
+    emulator = FakeEmulator(party_memory)
+    settle_count = 0
+
+    def clear_battle_flag_after_terminal_settle(emu, frames) -> None:
+        nonlocal settle_count
+        if frames == 60:
+            settle_count += 1
+            if settle_count == 13:
+                emu.mem.load_u32(BATTLE_TYPE_FLAGS, 0)
+
+    emulator.step_callback = clear_battle_flag_after_terminal_settle
+
+    events, ended, won = capture_turn(emulator, Party(party_memory), max_polls=32)
+
+    assert events == []
+    assert ended is True
+    assert won is True
+    assert settle_count == 13
 
 
 @pytest.mark.parametrize(
