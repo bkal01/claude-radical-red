@@ -52,6 +52,6 @@ allowed_locations:
   - pkmn_tower_7f
 available_water_methods:
   - old_rod
-  - super_rod
+  - good_rod
 excluded_species_categories:
   - mega
