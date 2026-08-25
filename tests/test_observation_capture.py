@@ -418,6 +418,91 @@ def test_capture_turn_detects_battle_end(
     assert emulator.calls == []
 
 
+def test_capture_turn_discards_terminal_zero_to_one_party_hp_rewrite(party_memory) -> None:
+    """Terminal battle cleanup must not resurrect a fainted party member in output."""
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 0xC)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
+    party_memory.load_u16(OPP_MON_BASE + MON_CUR_HP, 40)
+    party_memory.load_u16(OPP_MON_BASE + MON_MAX_HP, 40)
+    party_memory.load_u16(PARTY_BASE_ADDR + 0x56, 0)
+    emulator = FakeEmulator(party_memory)
+    transitioned = False
+
+    def terminal_cleanup(emu, frames) -> None:
+        nonlocal transitioned
+        if frames == 4 and not transitioned:
+            transitioned = True
+            # This mirrors the ROM's observed terminal cleanup behavior.
+            emu.mem.load_u16(PARTY_BASE_ADDR + 0x56, 1)
+            emu.mem.load_u32(BATTLE_TYPE_FLAGS, 0)
+
+    emulator.step_callback = terminal_cleanup
+    party = Party(party_memory)
+
+    events, ended, won = capture_turn(emulator, party)
+
+    assert events == []
+    assert (ended, won) == (True, False)
+    assert party.members[0].current_hp == 0
+    # The correction is observation-only; EWRAM remains untouched.
+    assert party_memory.u16[PARTY_BASE_ADDR + 0x56] == 1
+
+
+def test_capture_turn_corrects_terminal_active_party_hp_rewrite(party_memory) -> None:
+    """The final active party record can also be rewritten to 1 HP."""
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 0xC)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_SPECIES, 1)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 5)
+    party_memory.load_u16(OPP_MON_BASE + MON_CUR_HP, 40)
+    party_memory.load_u16(OPP_MON_BASE + MON_MAX_HP, 40)
+    party_memory.load_u16(PARTY_BASE_ADDR + 0x56, 5)
+    emulator = FakeEmulator(party_memory)
+
+    def terminal_cleanup(emu, frames) -> None:
+        if frames == 4:
+            emu.mem.load_u16(PARTY_BASE_ADDR + 0x56, 1)
+            emu.mem.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
+            emu.mem.load_u32(BATTLE_TYPE_FLAGS, 0)
+
+    emulator.step_callback = terminal_cleanup
+    party = Party(party_memory)
+
+    events, ended, won = capture_turn(emulator, party)
+
+    assert events == []
+    assert (ended, won) == (True, False)
+    assert party.members[0].current_hp == 0
+    assert party_memory.u16[PARTY_BASE_ADDR + 0x56] == 1
+
+
+def test_capture_turn_keeps_nonterminal_zero_to_one_party_hp_change(party_memory) -> None:
+    """A 0 -> 1 change while the battle is live is not terminal cleanup."""
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 0xC)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
+    party_memory.load_u16(OPP_MON_BASE + MON_CUR_HP, 40)
+    party_memory.load_u16(OPP_MON_BASE + MON_MAX_HP, 40)
+    party_memory.load_u16(PARTY_BASE_ADDR + 0x56, 0)
+    emulator = FakeEmulator(party_memory)
+    step_count = 0
+
+    def live_hp_change_then_end(emu, frames) -> None:
+        nonlocal step_count
+        step_count += 1
+        if step_count == 1:
+            emu.mem.load_u16(PARTY_BASE_ADDR + 0x56, 1)
+        elif step_count == 2:
+            emu.mem.load_u32(BATTLE_TYPE_FLAGS, 0)
+
+    emulator.step_callback = live_hp_change_then_end
+    party = Party(party_memory)
+
+    events, ended, won = capture_turn(emulator, party)
+
+    assert events == []
+    assert (ended, won) == (True, False)
+    assert party.members[0].current_hp == 1
+
+
 def test_capture_turn_checks_battle_end_after_final_faint_settle(party_memory) -> None:
     """A simultaneous final faint may clear the battle flag after the normal
     replacement-screen flush limit; termination must win that race.

@@ -66,6 +66,7 @@ class TurnRecorder:
     def __init__(self) -> None:
         self.events: list[MessageEvent] = []
         self.last_message: str | None = None
+        self.latest_party_hp: dict[str, tuple[int, int]] = {}
 
     @property
     def started(self) -> bool:
@@ -80,6 +81,7 @@ class TurnRecorder:
         msg = decode_msg(bytes(emu.mem.wram[off:off + ACTION_PROMPT_BYTES]))
         is_menu = MENU_SENTINEL in msg
         party_hp, opp_hp, opp_species = hp_snapshot(emu.mem, active_party)
+        self.latest_party_hp = party_hp
 
         if self.events:
             cur = self.events[-1]
@@ -96,11 +98,55 @@ class TurnRecorder:
         return is_menu
 
 
+def _correct_terminal_party_hp(
+    emu: Emulator,
+    active_party: Party,
+    last_live_party_hp: dict[str, tuple[int, int]] | None,
+    terminal_party_hp: dict[str, tuple[int, int]],
+) -> None:
+    """Correct party HP values rewritten during terminal battle cleanup.
+
+    The active battle-mon HP is authoritative for the final active Pokemon,
+    while an inactive party member is corrected only for the observed terminal
+    0 -> 1 rewrite. This changes only the in-memory observation object.
+    """
+    corrected_labels = set()
+    if last_live_party_hp is not None:
+        for pokemon in active_party.members:
+            previous = last_live_party_hp.get(pokemon.label)
+            current = terminal_party_hp.get(pokemon.label)
+            if (
+                previous is not None
+                and current is not None
+                and previous[0] == 0
+                and current[0] == 1
+            ):
+                corrected_labels.add(pokemon.label)
+
+    # The party record for the final active Pokemon can be rewritten to 1 HP
+    # even when its last live party snapshot was positive. The battle-mon
+    # structure remains authoritative and reports the faint as 0 HP.
+    if emu.mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] == 0:
+        try:
+            active_slot = active_party.get_slot_number(
+                emu.mem.u16[BATTLE_MONS_BASE + MON_SPECIES]
+            )
+        except ValueError:
+            active_slot = None
+        if active_slot is not None:
+            corrected_labels.add(active_party.members[active_slot].label)
+
+    for pokemon in active_party.members:
+        if pokemon.label in corrected_labels:
+            pokemon.current_hp = 0
+
+
 def capture_turn(
     emu: Emulator,
     active_party: Party,
     max_polls: int = 400,
-    step_frames: int = 4
+    step_frames: int = 4,
+    initial_party_hp: dict[str, tuple[int, int]] | None = None,
 ) -> tuple[list[MessageEvent], bool, bool]:
     """
     Advance a turn's text with B, capturing messages. Returns (events, ended, won).
@@ -110,18 +156,31 @@ def capture_turn(
     """
     rec = TurnRecorder()
     action_select_frames = 0
+    # Keep the last snapshot taken while the battle was live. Radical Red's
+    # loss cleanup can rewrite a fainted party member from 0 HP to 1 HP at the
+    # same time it clears BATTLE_TYPE_FLAGS; this lets us discard only that
+    # terminal artifact without depending on a particular message.
+    last_live_party_hp = initial_party_hp
     for _ in range(max_polls):
         rec.poll(emu, active_party)
+        current_party_hp = rec.latest_party_hp
 
         # The battle flag is authoritative for terminal state. Check it before
         # honoring any stale UI text because the ROM can clear the flag while
         # the final message is still displayed.
         if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
             active_party.refresh()
+            _correct_terminal_party_hp(
+                emu,
+                active_party,
+                last_live_party_hp,
+                current_party_hp,
+            )
             opponent_fainted = emu.mem.u16[OPP_MON_BASE + MON_CUR_HP] == 0
             player_survived = any(pokemon.current_hp > 0 for pokemon in active_party.members)
             return rec.events, True, opponent_fainted and player_survived
 
+        last_live_party_hp = current_party_hp
         control_state = read_battle_control_state(emu.mem)
         if control_state is BattleControlState.REPLACEMENT_SELECT:
             # The game, rather than HP heuristics, tells us that SEND is now

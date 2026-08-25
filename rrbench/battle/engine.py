@@ -192,6 +192,7 @@ def do_action(
     Returns the StepLog from the action, along with an updated BattleSession.
     """
     party.refresh()
+    initial_party_hp = {p.label: (p.current_hp, p.max_hp) for p in party.members}
     battle_state = read_battle_state(
         mem=emu.mem,
         party=party,
@@ -200,7 +201,11 @@ def do_action(
     if not action_arg:
         raise ValueError("Action must be FIGHT, SWITCH, or SEND followed by a name")
     execute(emu, action_type, action_arg, party, battle_state.active_label)
-    messages, ended, won = capture_turn(emu, party)
+    messages, ended, won = capture_turn(
+        emu,
+        party,
+        initial_party_hp=initial_party_hp,
+    )
     session.ended, session.won = ended, won
     session.num_steps += 1
 
