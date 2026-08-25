@@ -4,7 +4,7 @@ task_id: 31
 game_data_version: v4.1
 save_state: save_state.ss0
 level_cap: 56
-team_size: 2
+team_size: 1
 # for now this works with our battle service logic
 battle_format: singles-confirmation
 battle_trigger:
