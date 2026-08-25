@@ -12,12 +12,14 @@ from rrbench.battle.addresses import (
     MON_MAX_HP,
     MON_SPECIES,
     MON_STAT_STAGES,
+    REPLACEMENT_PROMPT_BUFFER,
     OPP_MON_BASE,
     SIDE_HAZARDS_OPP,
     SIDE_HAZARDS_PLAYER,
     TERRAIN_TIMER,
 )
 from rrbench.battle.capture import MessageEvent
+from rrbench.battle.control import REPLACEMENT_PROMPT_RAW
 from rrbench.battle.state import BattleSession, StepLog, read_battle_state
 from rrbench.emulator.memory import PARTY_BASE_ADDR, SLOT_SIZE, Party
 from rrbench.interface import service as service_module
@@ -408,6 +410,8 @@ def test_switch_and_send_target_the_requested_rotom_form(
     emulator.mem.load_u16(PARTY_BASE_ADDR + SLOT_SIZE + 0x20, 715)
     emulator.mem.load_u16(BATTLE_MONS_BASE + MON_SPECIES, 714)
     emulator.mem.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0 if needs_replacement else 100)
+    if needs_replacement:
+        emulator.mem.load_bytes(REPLACEMENT_PROMPT_BUFFER, REPLACEMENT_PROMPT_RAW)
     service.session = BattleSession(emu=emulator, party=Party(emulator.mem))
     action_calls = []
 
@@ -488,6 +492,7 @@ def test_send_accepts_healthy_party_member_when_replacement_is_required(
 ) -> None:
     service, emulator = live_battle_service
     emulator.mem.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
+    emulator.mem.load_bytes(REPLACEMENT_PROMPT_BUFFER, REPLACEMENT_PROMPT_RAW)
     action_calls = []
 
     def scripted_do_action(current_emulator, party, session, action_type, action_arg):
@@ -519,6 +524,7 @@ def test_send_accepts_healthy_party_member_when_replacement_is_required(
 def test_send_rejects_fainted_target(live_battle_service, party_memory) -> None:
     service, emulator = live_battle_service
     emulator.mem.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
+    emulator.mem.load_bytes(REPLACEMENT_PROMPT_BUFFER, REPLACEMENT_PROMPT_RAW)
     party_memory.load_u16(PARTY_BASE_ADDR + SLOT_SIZE + 0x56, 0)
 
     result = service.action("SEND Incineroar")
@@ -533,6 +539,7 @@ def test_send_rejects_fainted_target(live_battle_service, party_memory) -> None:
 def test_send_rejects_pokemon_not_in_party(live_battle_service) -> None:
     service, emulator = live_battle_service
     emulator.mem.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
+    emulator.mem.load_bytes(REPLACEMENT_PROMPT_BUFFER, REPLACEMENT_PROMPT_RAW)
 
     result = service.action("SEND Pikachu")
 

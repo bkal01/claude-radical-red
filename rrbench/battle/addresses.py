@@ -70,9 +70,8 @@ MON_MAX_HP      = 0x2C  # u16 — constant across turns (was 0x2A, which read ga
 # Address confirmed empirically by scripts/find_msg_buffer.py.
 MSG_BUFFER    = 0x0202298C
 MENU_SENTINEL = "What will"     # "What will <name> do?" — control returned to the player
-# u8: 1 only when the main FIGHT/BAG/POKéMON/RUN menu accepts input.
-BATTLE_MENU_READY = 0x02022DCF
-
+# gStringVar4: "Choose a Pokémon." while the forced replacement screen accepts input.
+REPLACEMENT_PROMPT_BUFFER = 0x02021D18
 # --- Frame budgets -----------------------------------------------------------
 INTRO_TEXT_ADVANCE_PRESSES = 30   # B presses after battle flag to advance trainer/send-out dialogue
 INTRO_SETTLE_FRAMES = 500  # additional wait for auto-advancing messages (Intimidate, weather)

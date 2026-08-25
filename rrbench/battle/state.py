@@ -10,6 +10,7 @@ from rrbench.battle.addresses import (
     WEATHER_RAIN, WEATHER_SANDSTORM, WEATHER_SNOW, WEATHER_SUN,
 )
 from rrbench.battle.capture import MessageEvent
+from rrbench.battle.control import BattleControlState, read_battle_control_state
 from rrbench.emulator.emulator import Emulator
 from rrbench.emulator.memory import (
     ABILITY_NAME, SPECIES_NAME,
@@ -50,7 +51,7 @@ class SideHazards:
 class BattleState:
     party: Party                       # full Party, `members` is in party-slot order
     active_slot: int                   # which party slot is currently on the field
-    needs_replacement: bool            # True when active Pokemon fainted; agent must name a replacement
+    control_state: BattleControlState  # action selection, replacement selection, or transition
     weather: int                       # raw BATTLE_WEATHER bitmask
     weather_kind: str                  # protocol weather kind decoded from the raw flags
     weather_turns_left: int | None     # None for active permanent weather; 0 for no weather
@@ -65,6 +66,11 @@ class BattleState:
     opp_ability: str                   # Giovanni's active Pokemon ability name
     opp_current_hp: int | None         # Giovanni's active Pokemon current HP (None if offset unverified)
     opp_max_hp: int | None             # Giovanni's active Pokemon max HP (None if offset unverified)
+
+    @property
+    def needs_replacement(self) -> bool:
+        """Whether the game is currently waiting for a forced replacement."""
+        return self.control_state is BattleControlState.REPLACEMENT_SELECT
 
 
 WEATHER_FLAGS = (
@@ -115,7 +121,7 @@ def read_battle_state(mem, party: Party) -> BattleState:
     return BattleState(
         party=party,
         active_slot=active_slot,
-        needs_replacement=mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] == 0,
+        control_state=read_battle_control_state(mem),
         weather=weather_val,
         weather_kind=weather_kind,
         weather_turns_left=weather_turns_left,

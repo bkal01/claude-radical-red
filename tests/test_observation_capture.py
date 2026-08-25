@@ -3,7 +3,7 @@ import pytest
 from rrbench.battle.addresses import (
     BATTLE_MONS_BASE,
     BATTLE_MON_SIZE,
-    BATTLE_MENU_READY,
+    REPLACEMENT_PROMPT_BUFFER,
     BATTLE_TERRAIN,
     BATTLE_TYPE_FLAGS,
     BATTLE_WEATHER,
@@ -29,11 +29,22 @@ from rrbench.battle.capture import (
     capture_turn,
     decode_msg,
 )
+from rrbench.battle.control import BattleControlState
 from rrbench.battle.state import decode_weather, read_battle_state
 from rrbench.emulator.emulator import KEY_B
 from rrbench.emulator.memory import PARTY_BASE_ADDR, Party, SLOT_SIZE
 from rrbench.interface.protocol import render_observation, render_pre_battle
 from tests.support.fakes import FakeEmulator
+
+
+REPLACEMENT_PROMPT_RAW = bytes(
+    (0xBD, 0xDC, 0xE3, 0xE3, 0xE7, 0xD9, 0x00, 0xD5, 0x00,
+     0xCA, 0xE3, 0xDF, 0x1B, 0xE1, 0xE3, 0xE2, 0xAD, 0xFF)
+)
+
+
+def load_replacement_prompt(memory) -> None:
+    memory.load_bytes(REPLACEMENT_PROMPT_BUFFER, REPLACEMENT_PROMPT_RAW)
 
 
 def test_pre_battle_observation_reads_party_memory(party_memory) -> None:
@@ -121,6 +132,7 @@ def test_battle_observation_reads_field_state_and_replacement(party_memory) -> N
     party_memory.load_u16(BATTLE_MONS_BASE + MON_SPECIES, 944)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_MAX_HP, 150)
+    load_replacement_prompt(party_memory)
     party_memory.load_bytes(
         BATTLE_MONS_BASE + MON_STAT_STAGES,
         bytes((8, 6, 5, 6, 7, 6, 6)),
@@ -193,6 +205,23 @@ def test_battle_observation_reads_field_state_and_replacement(party_memory) -> N
     }
 
 
+def test_replacement_state_comes_from_ui_not_hp(party_memory) -> None:
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 0xC)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_SPECIES, 1)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 1)
+    party_memory.load_u16(BATTLE_MONS_BASE + MON_MAX_HP, 120)
+    party = Party(party_memory)
+
+    state = read_battle_state(party_memory, party)
+    assert state.control_state is BattleControlState.TRANSITION
+    assert state.needs_replacement is False
+
+    load_replacement_prompt(party_memory)
+    state = read_battle_state(party_memory, party)
+    assert state.control_state is BattleControlState.REPLACEMENT_SELECT
+    assert state.needs_replacement is True
+
+
 @pytest.mark.parametrize(
     ("battle_species_id", "party_species_id"),
     [
@@ -211,6 +240,7 @@ def test_battle_observation_matches_a_unique_transformation_form_in_party(
     party_memory.load_u16(BATTLE_MONS_BASE + MON_SPECIES, battle_species_id)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_MAX_HP, 120)
+    load_replacement_prompt(party_memory)
 
     state = read_battle_state(party_memory, Party(party_memory))
 
@@ -291,7 +321,6 @@ def test_capture_turn_collects_messages_in_order_and_waits_for_menu(party_memory
     this tests whether we correctly capture all that text into MessageEvents
     """
     party_memory.load_u32(BATTLE_TYPE_FLAGS, 0xC)
-    party_memory.load_u8(BATTLE_MENU_READY, 1)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_SPECIES, 1)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 100)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_MAX_HP, 120)
@@ -403,7 +432,7 @@ def test_capture_turn_checks_battle_end_after_final_faint_settle(party_memory) -
 
     def clear_battle_flag_after_terminal_settle(emu, frames) -> None:
         nonlocal settle_count
-        if frames == 60:
+        if frames == 4:
             settle_count += 1
             if settle_count == 13:
                 emu.mem.load_u32(BATTLE_TYPE_FLAGS, 0)
@@ -416,6 +445,11 @@ def test_capture_turn_checks_battle_end_after_final_faint_settle(party_memory) -
     assert ended is True
     assert won is True
     assert settle_count == 13
+    assert emulator.calls == [
+        call
+        for pair in ((('press', KEY_B, 1), ('step', 4)) for _ in range(13))
+        for call in pair
+    ]
 
 
 @pytest.mark.parametrize(
@@ -429,8 +463,10 @@ def test_capture_turn_handles_fainted_active(
     if the active Pokemon faints but there is another Pokemon in the party,
     then we want to make sure the battle has not ended and `won` is False.
     """
-    party_memory.load_u32(BATTLE_TYPE_FLAGS, 0xC)
+    party_memory.load_u32(BATTLE_TYPE_FLAGS, 0 if bench_hp == 0 else 0xC)
     party_memory.load_u16(BATTLE_MONS_BASE + MON_CUR_HP, 0)
+    if bench_hp > 0:
+        load_replacement_prompt(party_memory)
     party_memory.load_u16(PARTY_BASE_ADDR + 0x56, 0)
     party_memory.load_u16(PARTY_BASE_ADDR + SLOT_SIZE + 0x56, bench_hp)
     emulator = FakeEmulator(party_memory)
@@ -440,8 +476,4 @@ def test_capture_turn_handles_fainted_active(
     assert events == []
     assert ended is expected_ended
     assert won is False
-    assert emulator.calls == [
-        call
-        for pair in ((("press", KEY_B, 1), ("step", 60)) for _ in range(12))
-        for call in pair
-    ]
+    assert emulator.calls == []

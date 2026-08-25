@@ -3,11 +3,17 @@ from dataclasses import dataclass
 from rrbench.emulator.emulator import Emulator, KEY_A, KEY_B
 from rrbench.emulator.memory import Party, SPECIES_NAME
 from rrbench.battle.addresses import (
-    EWRAM_BASE, MSG_BUFFER, MENU_SENTINEL,
+    EWRAM_BASE, MSG_BUFFER,
     BATTLE_TYPE_FLAGS, BATTLE_MONS_BASE, OPP_MON_BASE,
-    BATTLE_MENU_READY,
     MON_SPECIES, MON_CUR_HP, MON_MAX_HP,
     INTRO_TEXT_ADVANCE_PRESSES, INTRO_SETTLE_FRAMES,
+)
+from rrbench.battle.control import (
+    ACTION_PROMPT_BYTES,
+    BattleControlState,
+    MENU_SENTINEL,
+    decode_msg,
+    read_battle_control_state,
 )
 
 @dataclass
@@ -27,39 +33,6 @@ class MessageEvent:
 # Species names alone appear in the message buffer during send-out ("Hippowdon"); skip them
 # so a send-out doesn't register as a message event.
 _SPECIES_NAMES = {n for n in SPECIES_NAME.values() if n}
-
-
-def decode_msg(raw: bytes) -> str:
-    """
-    Decode a raw buffer message to a single clean line.
-    """
-    out = []
-    i = 0
-    while i < len(raw):
-        b = raw[i]
-        if b == 0xFF:
-            break
-        if 0xBB <= b <= 0xD4:   out.append(chr(ord('A') + b - 0xBB))
-        elif 0xD5 <= b <= 0xEE: out.append(chr(ord('a') + b - 0xD5))
-        elif b in (0x00, 0xA0): out.append(' ')
-        elif b == 0xAD:         out.append('.')
-        elif b == 0xAE:         out.append('-')
-        elif 0xA1 <= b <= 0xAA: out.append(str(b - 0xA1))
-        elif b == 0xFE:         out.append(' ')
-        elif b == 0xFB:         pass
-        elif b == 0xFC:         i += 1
-        elif b == 0xFD:         i += 1
-        elif b == 0x5B:         out.append('%')
-        elif b == 0xB4:         out.append("'")
-        elif b == 0xB5:         out.append("♂")
-        elif b == 0xB6:         out.append("♀")
-        elif b == 0xB8:         out.append(',')
-        elif b == 0xAB:         out.append('!')
-        elif b == 0xAC:         out.append('?')
-        elif b == 0xF0:         out.append(':')
-        elif b == 0x1B:         out.append('é')
-        i += 1
-    return ' '.join(''.join(out).split())
 
 
 def hp_snapshot(mem, active_party: Party) -> tuple[dict, tuple | None, str]:
@@ -104,7 +77,7 @@ class TurnRecorder:
         Returns whether we end up on the battle menu.
         """
         off = MSG_BUFFER - EWRAM_BASE
-        msg = decode_msg(bytes(emu.mem.wram[off:off + 160]))
+        msg = decode_msg(bytes(emu.mem.wram[off:off + ACTION_PROMPT_BYTES]))
         is_menu = MENU_SENTINEL in msg
         party_hp, opp_hp, opp_species = hp_snapshot(emu.mem, active_party)
 
@@ -136,66 +109,37 @@ def capture_turn(
     if it's a victory.
     """
     rec = TurnRecorder()
-    faint_flushes = 0
-    menu_ready_frames = 0
+    action_select_frames = 0
     for _ in range(max_polls):
-        is_menu = rec.poll(emu, active_party)
+        rec.poll(emu, active_party)
 
-        # The battle flag is authoritative. Check it before honoring a stale
-        # battle-menu sentinel, since the ROM can clear the flag while the last
-        # message is still displayed.
+        # The battle flag is authoritative for terminal state. Check it before
+        # honoring any stale UI text because the ROM can clear the flag while
+        # the final message is still displayed.
         if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
             active_party.refresh()
             opponent_fainted = emu.mem.u16[OPP_MON_BASE + MON_CUR_HP] == 0
             player_survived = any(pokemon.current_hp > 0 for pokemon in active_party.members)
             return rec.events, True, opponent_fainted and player_survived
 
-        if is_menu:
-            if emu.mem.u8[BATTLE_MENU_READY] == 1:
-                menu_ready_frames += step_frames
-                if menu_ready_frames >= 120:
-                    return rec.events, False, False
-            else:
-                menu_ready_frames = 0
+        control_state = read_battle_control_state(emu.mem)
+        if control_state is BattleControlState.REPLACEMENT_SELECT:
+            # The game, rather than HP heuristics, tells us that SEND is now
+            # the only legal command. This also handles living Pokemon whose
+            # ability forces a switch.
+            return rec.events, False, False
+
+        if control_state is BattleControlState.ACTION_SELECT:
+            # Require the prompt to remain present for a short settle period;
+            # this prevents returning during a transition that briefly leaves
+            # stale menu text in the buffer.
+            action_select_frames += step_frames
+            if action_select_frames >= 120:
+                return rec.events, False, False
             emu.step(step_frames)
             continue
-        menu_ready_frames = 0
 
-        # A fainted active reads 0 HP well before the "choose next Pokemon" screen opens.
-        # Advance with a long settle to flush faint text and let that screen appear, then
-        # give up so the caller inherits the now-open party screen for the replacement.
-        if emu.mem.u16[BATTLE_MONS_BASE + MON_CUR_HP] == 0:
-            emu.press(KEY_B, hold_frames=1)
-            emu.step(60)
-            faint_flushes += 1
-
-            # Check again after advancing the faint text.  The ROM can clear
-            # BATTLE_TYPE_FLAGS during this settle, and returning immediately
-            # at the flush limit would otherwise miss that transition.
-            if emu.mem.u32[BATTLE_TYPE_FLAGS] == 0:
-                active_party.refresh()
-                opponent_fainted = emu.mem.u16[OPP_MON_BASE + MON_CUR_HP] == 0
-                player_survived = any(pokemon.current_hp > 0 for pokemon in active_party.members)
-                return rec.events, True, opponent_fainted and player_survived
-
-            if faint_flushes >= 12:
-                active_party.refresh()
-                all_fainted = bool(active_party.members) and all(
-                    pokemon.current_hp == 0 for pokemon in active_party.members
-                )
-
-                # If the opponent is also down while the player still has a
-                # healthy bench, do not expose SEND selection yet.  The ROM
-                # may still be finishing a simultaneous-final-faint victory
-                # script; keep checking the authoritative battle flag.  The
-                # outer poll limit remains the timeout for a stuck battle.
-                opponent_fainted = emu.mem.u16[OPP_MON_BASE + MON_CUR_HP] == 0
-                if not all_fainted and opponent_fainted:
-                    continue
-
-                return rec.events, all_fainted, False
-            continue
-
+        action_select_frames = 0
         emu.press(KEY_B, hold_frames=1)
         emu.step(step_frames)
     return rec.events, False, False
