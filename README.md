@@ -8,7 +8,9 @@ This benchmark extracts battles from Radical Red (specifically ones of "mini-bos
 
 ## Benchmark Description
 
-We have 22 live tasks at the moment, spanning from the very first rival battle all the way up to Giovanni at Silph Co. Tower. Each task has a level cap and a set of Pokemon/moves/items that the agent is able to build their team with, determined by what's available in-game at the point of the battle. For added difficulty, we restrict the maximum party size to the number of Pokemon used by the opponent.
+We have 21 live tasks at the moment, spanning from the very first rival battle all the way up to Giovanni at Silph Co. Tower. Each task has a level cap and a set of Pokemon/moves/items that the agent is able to build their team with, determined by what's available in-game at the point of the battle. For added difficulty, we restrict the maximum party size to the number of Pokemon used by the opponent.
+
+We also have a special task (`ghost-pokemon-tower`) where the agent needs to win against a boosted Alolan-Marowak under unique battle conditions. Since this task is a slightly different format (and much harder) than normal Radical Red boss battles, we treat this task as separate, mostly as a qualitative way to see if agents do anything interesting.
 
 When running a task, the agent is dropped into a sandbox containing JSON data of Pokemon, items, moves, and abilities for the task. The agent must grep through this data, understand what's available to it, and build a strong team with no knowledge of the opponent's team.
 
